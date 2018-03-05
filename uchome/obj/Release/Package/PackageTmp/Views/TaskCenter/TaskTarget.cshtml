@@ -1,0 +1,53 @@
+﻿@model Guid
+<link rel="stylesheet" href="@Url.Content("~/plugs/datatables/css/jquery.dataTables.css")">
+<link rel="stylesheet" href="@Url.Content("~/plugs/datatables/css/dataTables.bootstrap.css")">
+<link rel="stylesheet" href="@Url.Content("~/plugs/scrollbar/css/sui.css")">
+<script src="@Url.Content("~/plugs/datatables/js/jquery.datatables.js")"></script>
+<script src="@Url.Content("~/plugs/datatables/js/dataTables.bootstrap.js")"></script>
+<script src="@Url.Content("~/plugs/datatables/js/Jquery.dataTableSetting.js")"></script>
+
+<style>
+    .red {
+        color: red;
+    }
+
+    .green {
+        color: green;
+    }
+
+    #ul_appicon {
+    }
+
+        #ul_appicon > li {
+            position: relative;
+        }
+
+            #ul_appicon > li input[type=checkbox] {
+                position: absolute;
+                right: 0;
+                bottom: 0;
+                border: solid 1px #ccc !important;
+            }
+</style>
+<div id="sysuserlist" class="form-position pagew">
+    <form class="form-inline">
+        @Html.Hidden("TaskID", Model)
+        <table class="table table-striped table-bordered table-hover datatable" id="table_target">
+            <thead>
+                <tr>
+                    <th>目标分类</th>
+                    <th>目标名称</th>
+                    <th>目标数量</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+        </table>
+    </form>
+</div>
+<script>
+    var url_gettasktarget = "@Url.Action("GetTaskTarget")";
+    var operurl_edit = "@Url.Action("ResetPwd")";
+    var operurl_delete = "@Url.Action("DeleteUser")";
+    var operurl_recovery = "@Url.Action("recoveryUser")";
+</script>
+<script src="@Url.Content("~/angular/uchome/taskcenter/tasktarget.js")"></script>

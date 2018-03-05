@@ -1,0 +1,97 @@
+﻿@model SchInfo.Model.Dictionary
+@{}
+@using (Ajax.BeginForm("EditDictionary", null,
+                                                    new AjaxOptions() {
+                                                        HttpMethod = "post",
+                                                        Url = @Url.Action("EditDictionary"),
+                                                        UpdateTargetId = "#dictionary",
+                                                        LoadingElementId = "loding",
+                                                        LoadingElementDuration = 2000
+                                                    }, new { id = "form-dictionary" })) {
+    <div class="form-horizontal form-position pagew" id="dictionary">
+        @Html.HiddenFor(model => model.DictID)
+        @Html.HiddenFor(model => model.IsSwitch)
+        @Html.HiddenFor(model => model.IsState)
+        <div class="form-group">
+            @Html.LabelFor(model => model.DictCode, "* 字典代码", htmlAttributes: new { @class = "control-label col-md-2 required" })
+            <div class="col-md-5">
+                @Html.EditorFor(model => model.DictCode, new { htmlAttributes = new { @class = "form-control", placeholder = "代码一般由字母或数字组成" } })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.DictName, "* 字典名称", htmlAttributes: new { @class = "control-label col-md-2 required" })
+            <div class="col-md-5">
+                @Html.EditorFor(model => model.DictName, new { htmlAttributes = new { @class = "form-control", placeholder = "输入长度不要超过20字" } })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.DictType, "* 字典类型", htmlAttributes: new { @class = "control-label col-md-2 required" })
+            <div class="col-md-5">
+                @Html.EditorFor(model => model.DictType, new { htmlAttributes = new { @class = "form-control", placeholder = "输入长度不要超过20字" } })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.DictOrder, "* 排序值", htmlAttributes: new { @class = "control-label col-md-2 required" })
+            <div class="col-md-5">
+                @Html.EditorFor(model => model.DictOrder, new { htmlAttributes = new { @class = "form-control", placeholder = "请填写数字" } })
+                @Html.ValidationMessageFor(model => model.DictOrder, "请填写数字", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-4 col-md-8">
+                <input type="submit" value="保存" id="btn-DictionaryAdd" class="btn btn-info col-md-2" />&nbsp;&nbsp;
+                <button type="button" class="btn btn-default" onclick="RedircetUrl('@Url.Action("DictionaryIndex","SchoolInfo")')">返回</button>
+            </div>
+        </div>
+    </div>
+}
+@*数据提交*@
+<script>
+    $(function () {
+        $("#form-dictionary").validate({
+            rules: {
+                DictCode: "required",
+                DictName: "required",
+                DictType: "required"
+            },
+            ignore: "hidden",
+            messages: {
+                DictCode: "字典代码不能为空",
+                DictName: "字典名称不能为空",
+                DictType: "字典类型不能为空"
+            },
+            errorClass: "validate-error", //设置错误样式
+            errorElement: "label", //设置显示错误提示的控件,默认为<label>
+            errorLabelContainer: "#validmsg", //指定错误信息放置容器
+            wrapper: "li",
+            //errorPlacement: function (error,element) { //指定错误信息放置位置
+            //    error.appendTo($("#validmsg"));
+            //},
+            //debug: true,//进行调试模式（表单不提交）
+            submitHandler: function () {
+                $("#btn-dictionaryAdd").val("正在保存，请稍候…");
+                $("#btn-dictionaryAdd").attr("disabled", "disabled");
+                $("#form-dictionary").ajaxSubmit({
+                    success: function (data) {
+                        if (data.Data.StatusCode == 200) {
+                            tipsuccessmsg("保存成功");
+                            RedircetUrl("@Url.Action("DictionaryIndex")");
+                            //validator.resetForm(); //重置表单
+                        } else {
+                            tipfailmsg("保存失败，原因可能为：" + data.Data.ErrorMessage);
+                            //$("#PKID").val(data.data.PKID);
+                            //validator.resetForm(); //重置表单
+                        }
+                        $("#btn-dictionaryAdd").val("保存");
+                        $("#btn-dictionaryAdd").removeAttr("disabled");
+                    }
+                });
+            }
+            //onsubmit: false,//是否提交时验证，默认为True,用于设置某一个不需要验证的控件
+            //onfocusin: false,//是否获取焦点时验证，默认为True
+            //onkeyup: false,//是否在敲击键盘时验证，默认为True
+            //onclick: false//是否在鼠标点击时验证，默认为True
+        });
+    });
+</script>
+

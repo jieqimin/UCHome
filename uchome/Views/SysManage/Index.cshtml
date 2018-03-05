@@ -1,0 +1,165 @@
+﻿@{
+    ViewBag.Title = "系统管理";
+    Layout = "~/Views/Shared/_LayoutSys.cshtml";
+}
+
+<div id="sysman-index" class="panel panel-default">
+    <div class="sysman-body panel-body">
+        <div class="row">
+            <div class="col-sm-6 col-md-4 col-lg-3 ">
+                <div class="thumbnail">
+                    <a href="#" title="Unslider" target="_blank" onclick="_hmt.push(['_trackEvent', 'tile', 'click', 'unslider'])">
+                        <div class="sys-funlist-item sys-fun-user">组织用户</div>
+                    </a>
+                    <div class="caption">
+                        <h3>
+                            <a href="#" title="Unslider" target="_blank" onclick="_hmt.push(['_trackEvent', 'tile', 'click', 'unslider'])">
+                                组织用户<br>
+
+                            </a>
+                        </h3>
+                        <p>
+                            管理用户组织机构、用户帐号、密码初始化等功能
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-4 col-lg-3 ">
+                <div class="thumbnail">
+                    <a href="#" title="Unslider" target="_blank" onclick="_hmt.push(['_trackEvent', 'tile', 'click', 'unslider'])">
+                        <div class="sys-funlist-item sys-fun-role">角色权限</div>
+                    </a>
+                    <div class="caption">
+                        <h3>
+                            <a href="#" title="Unslider" target="_blank" onclick="_hmt.push(['_trackEvent', 'tile', 'click', 'unslider'])">
+                                角色权限<br>
+
+                            </a>
+                        </h3>
+                        <p>
+                            管理系统用户角色，主要包括教师、学生、家长角色，设置用户应用访问权限。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-4 col-lg-3 ">
+                <div class="thumbnail">
+                    <a href="@Url.Action("RoleMan")" title="Unslider" target="_blank" onclick="_hmt.push(['_trackEvent', 'tile', 'click', 'unslider'])">
+                        <div class="sys-funlist-item sys-fun-app">应用管理</div>
+                    </a>
+                    <div class="caption">
+                        <h3>
+                            <a href="@Url.Action("RoleMan")" title="Unslider" target="_blank" onclick="_hmt.push(['_trackEvent', 'tile', 'click', 'unslider'])">
+                                应用管理<br>
+                            </a>
+                        </h3>
+                        <p>
+                            提供应用注册、应用菜单功能管理，同时支持第三方应用接入。
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+            <div class="col-sm-6 col-md-4 col-lg-3 ">
+                <div class="thumbnail">
+                    <a href="#" title="Unslider" target="_blank" onclick="_hmt.push(['_trackEvent', 'tile', 'click', 'unslider'])">
+                        <div class="sys-funlist-item sys-fun-theme">皮肤管理</div>
+                    </a>
+                    <div class="caption">
+                        <h3>
+                            <a href="#" title="Unslider" target="_blank" onclick="_hmt.push(['_trackEvent', 'tile', 'click', 'unslider'])">
+                                皮肤管理<br>
+
+                            </a>
+                        </h3>
+                        <p>
+                            提供多套背景皮肤模板、支持个人空间个性化皮肤切换。
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 col-md-4 col-lg-3 ">
+                <div class="thumbnail">
+                    <a href="#" title="Unslider" target="_blank" onclick="_hmt.push(['_trackEvent', 'tile', 'click', 'unslider'])">
+                        <div class="sys-funlist-item sys-fun-log">日志管理</div>
+                    </a>
+                    <div class="caption">
+                        <h3>
+                            <a href="#" title="Unslider" target="_blank" onclick="_hmt.push(['_trackEvent', 'tile', 'click', 'unslider'])">
+                                日志管理<br>
+
+                            </a>
+                        </h3>
+                        <p>
+                            管理系统运行日志，支持关键事件日志查询、例如用户信息的增删改变动信息。
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6 col-md-4 col-lg-3 ">
+                <div class="thumbnail">
+                    <a href="#" title="Unslider" target="_blank" onclick="_hmt.push(['_trackEvent', 'tile', 'click', 'unslider'])">
+                        <div class="sys-funlist-item sys-fun-api">API接口</div>
+                    </a>
+                    <div class="caption">
+                        <h3>
+                            <a href="#" title="Unslider" target="_blank" onclick="_hmt.push(['_trackEvent', 'tile', 'click', 'unslider'])">
+                                Api接口<br>
+
+                            </a>
+                        </h3>
+                        <p>
+                            系统开放平台，提供基本数据调用接口，包括用户权限接口、用户基本信息接口等
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6 col-md-4 col-lg-3 ">
+                <div class="thumbnail">
+                    <a href="#" title="Unslider" target="_blank" onclick="_hmt.push(['_trackEvent', 'tile', 'click', 'unslider'])">
+                        <div class="sys-funlist-item sys-fun-stats">访问统计</div>
+                    </a>
+                    <div class="caption">
+                        <h3>
+                            <a href="#" title="Unslider" target="_blank" onclick="_hmt.push(['_trackEvent', 'tile', 'click', 'unslider'])">
+                                访问统计<br>
+
+                            </a>
+                        </h3>
+                        <p>
+                            提供按年、月、日、分时统计系统运行访问人次、用户数、活跃度等。
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6 col-md-4 col-lg-3 ">
+                <div class="thumbnail">
+                    <a href="#" title="Unslider" target="_blank" onclick="_hmt.push(['_trackEvent', 'tile', 'click', 'unslider'])">
+                        <div class="sys-funlist-item sys-fun-event">事件监控</div>
+                    </a>
+                    <div class="caption">
+                        <h3>
+                            <a href="#" title="Unslider" target="_blank" onclick="_hmt.push(['_trackEvent', 'tile', 'click', 'unslider'])">
+                                事件监控<br>
+
+                            </a>
+                        </h3>
+                        <p>
+                            提供系统事件异常监控、访问统计，支持按年、月、日分时统计系统运行的峰值
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

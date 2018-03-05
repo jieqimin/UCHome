@@ -1,0 +1,19 @@
+﻿@using UCHome.Model
+<div class="row">
+    <div class="row grtx">
+        <img class="img-thumbnail" src="@ViewBag.HeadPic" width="120" height="105" />
+    </div>
+    <div class="row">
+        <ul class="list-group list-group-noborder jbxx">
+            <li class="list-group-item">
+                <span class="glyphicon glyphicon-user" aria-hidden="true"></span><a href="#" target="_self">@ViewBag.XM（@ViewBag.UserType）</a>
+            </li>
+            <li class="list-group-item">
+                <span class="glyphicon glyphicon-home"></span><a href="#" target="_self">@ViewBag.XXMC</a>
+            </li>
+            <li class="list-group-item">
+                <span class="glyphicon glyphicon-cog"></span><a href="#" target="_self">@(ViewBag.Subject ?? "未设置")</a>
+            </li>
+        </ul>
+    </div>
+</div>

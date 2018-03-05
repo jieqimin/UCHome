@@ -1,0 +1,51 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <script src="@Url.Content("~/Content/js/jquery.min.js")"></script>
+    <link rel="stylesheet" href="@Url.Content("~/Content/bootstrap/css/bootstrap.min.css")">
+    <link rel="stylesheet" href="@Url.Content("~/Content/bootstrap/css/bootstrap-theme.min.css")">
+    <script src="@Url.Content("~/Content/bootstrap/js/bootstrap.min.js")"></script>
+    <link href="@Url.Content("~/plugs/toastr/toastr.min.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/plugs/toastr/toastr.min.js")"></script>
+    <script src="@Url.Content("~/scripts/mycustomtip.js")"></script>
+    <link href="@Url.Content("~/Content/css/public.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/css/sysmanage.css")" rel="stylesheet/less" type="text/css" />
+    <script src="@Url.Content("~/scripts/less.min.js")"></script>
+
+    @RenderSection("Head", false)
+</head>
+<body>
+    <header class="Header">
+        <div class="row Content">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-2">
+                <span class="logo glyphicon glyphicon-th-large text-center" aria-hidden="true"></span>
+                <span class="logotxt">人人通空间</span>
+            </div>
+        </div>
+    </header>
+    <div class="container">
+        <div class="row clearfix" style="margin-top: 15px;"></div>
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        系统管理
+                    </div>
+                    <div id="shortcut" class="panel-body">
+                        @Html.Partial("../SysManage/sysmenu")
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-9">
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+</body>
+</html>

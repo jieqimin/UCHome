@@ -1,0 +1,16 @@
+﻿.forform {
+    padding: 20px 10px;
+    width: 700px;
+}
+
+.pad0 {
+    padding: 0;
+}
+.mt0 {
+    margin-top: 0
+}
+.disabled {
+    background-color: #eee;
+    opacity: 1;
+    cursor: not-allowed;
+}

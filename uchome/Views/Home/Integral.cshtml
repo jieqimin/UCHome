@@ -1,0 +1,113 @@
+﻿@using UCHome.Model
+@{
+    ViewBag.Title = "积分等级规则";
+}
+@section Head{
+    <script src="@Url.Content("~/plugs/highcharts/js/highcharts.js")"></script>
+    <script src="@Url.Content("~/plugs/justifiedGallery/jquery.justifiedGallery.min.js")"></script>
+    <link href="@Url.Content("~/plugs/justifiedGallery/justifiedGallery.min.css")" rel="stylesheet"/>
+    <link href="@Url.Content("~/Content/css/homepage.css")" rel="stylesheet" />
+}
+<div class="top">
+    <div class="top_content">
+        @Html.Action("Portal")
+    </div>
+</div>
+<div class="container" id="top">
+    <div class="row clearfix" style="margin-top: 50px;"></div>
+    <div class="row">
+        <div class="body-right col-lg-12 bg-white div-margin-10 min-height-500">
+            <h1 class="text-center">积分规则说明</h1>
+            <hr />
+            <div id="jftip1" class="tjtb row margin-left-15 margin-right-15">
+                <h3>关于积分</h3>
+                <hr />
+                <div class="task col-lg-12">
+                    <p style="text-indent: 2em; line-height: 30px;">系统采用积分主要是作为衡量用户活跃度的一个标准，利用积分刺激用户使用，增加黏度，逐渐培养用户习惯，从而更好的让系统服务于用户，服务于教育。</p>
+                </div>
+            </div>
+            <div id="jftip2" class="tjtb row margin-left-15 margin-right-15">
+                <h3>等级说明</h3>
+                <hr />
+                <div class="task col-lg-10 margin-left-15">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>等级</th>
+                                <th>所需积分</th>
+                                <th>头衔</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>LV1</td>
+                                <td>0-10</td>
+                                <td>幼儿园</td>
+                            </tr>
+                            <tr>
+                                <td>LV2</td>
+                                <td>11-30</td>
+                                <td>小学生</td>
+                            </tr>
+                            <tr>
+                                <td>LV3</td>
+                                <td>31-60</td>
+                                <td>初中生</td>
+                            </tr>
+                            <tr>
+                                <td>LV4</td>
+                                <td>61-100</td>
+                                <td>高中生</td>
+                            </tr>
+                            <tr>
+                                <td>LV5</td>
+                                <td>101-200</td>
+                                <td>中专生</td>
+                            </tr>
+                            <tr>
+                                <td>LV6</td>
+                                <td>201-500</td>
+                                <td>大专生</td>
+                            </tr>
+                            <tr>
+                                <td>LV7</td>
+                                <td>501-1000</td>
+                                <td>本科生</td>
+                            </tr>
+                            <tr>
+                                <td>LV8</td>
+                                <td>1000-3000</td>
+                                <td>硕士生</td>
+                            </tr>
+                            <tr>
+                                <td>LV9</td>
+                                <td>3000-5000</td>
+                                <td>博士生</td>
+                            </tr>
+                             <tr>
+                                <td>LV10</td>
+                                <td>5000-</td>
+                                <td>院士</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div id="jftip3" class="tjtb row margin-left-15 margin-right-15">
+                <h3>积分赚取</h3>
+                <hr />
+                <div class="task col-lg-12">
+                    <p style="text-indent: 2em; line-height: 30px;">积分可以通过完成任务获取，主要包括有每日任务、每周任务以及每月任务。</p>
+                                         <p style="text-indent: 2em; line-height: 30px; color: #f0ad4e">友情提示：完成系列任务可以获取额外积分奖励哦！</p>
+                </div>
+            </div>
+            <div id="jftip4" class="tjtb row margin-left-15 margin-right-15">
+                <h3>积分使用</h3>
+                <hr />
+                <div class="task col-lg-12">
+                     <p style="text-indent: 2em; line-height: 30px;">敬请期待</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

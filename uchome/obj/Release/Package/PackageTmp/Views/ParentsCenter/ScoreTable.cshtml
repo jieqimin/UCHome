@@ -1,0 +1,55 @@
+﻿@using Student.Model
+@using UCHome.Controllers
+@model List<ChildrenScores>
+@{
+    List<ChildrenScores> scorelists = Model;
+    
+}
+@foreach (ChildrenScores item in scorelists)
+{
+    List<StuScores> scorelist = item.stuscores;
+    List<StuScores> Exams = scorelist.DistinctBy(s => new { s.stuscore.ExamID, s.stuscore.ExamName }).OrderByDescending(s => s.stuscore.SchYear).ThenByDescending(s => s.stuscore.SchTerm).ThenByDescending(s => s.stuscore.ExamTypeCode).ToList();
+    <div style="border-bottom: solid 1px #eee; overflow: hidden;clear: both">
+        <h3>姓名：@item.XM</h3>
+        <ul>
+            @if (scorelist == null || !scorelist.Any())
+            {
+                <li class="text-center">暂时还没有发现有成绩记录！</li>
+            }
+            else
+            {
+                foreach (StuScores exam in Exams)
+                {
+                    if (!string.IsNullOrEmpty(exam.stuscore.ExamID.ToString()))
+                    {
+                        string subs = string.Empty;
+                        string subscores = string.Empty;
+                        
+                <li>
+                    <div>考试名称：@exam.stuscore.ExamName</div>
+                    @foreach (StuScores items in scorelist.Where(s => s.stuscore.ExamID == exam.stuscore.ExamID).OrderBy(s => s.KCIndex))
+                    {
+                        subs += string.Format("<td>{0}</td>", items.stuscore.KCMC);
+                        subscores += string.Format("<td>{0}</td>", items.stuscore.Score);
+                    }
+                    @if (!string.IsNullOrEmpty(subs))
+                    {
+                        <table class="table table-bordered">
+                            <tr>@Html.Raw(subs)
+                            </tr>
+                            <tr>@Html.Raw(subscores)
+                            </tr>
+                        </table>
+                    }
+                </li>
+                    }
+                    else
+                    {
+                <li class="text-center">暂时还没有发现有成绩记录！</li>
+                    }
+                }
+
+            }
+        </ul>
+    </div>
+}

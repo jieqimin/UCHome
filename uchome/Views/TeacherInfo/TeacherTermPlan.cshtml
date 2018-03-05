@@ -1,0 +1,131 @@
+﻿@{
+    Layout = null;
+}
+@using M = TeacherAwards.Model.Entity;
+@model M.TeacherTermPlan
+<link rel="stylesheet" href="@Url.Content("~/Content/css/msg.css")">
+<link rel="stylesheet" href="@Url.Content("~/plugs/webuploader/css/webuploader.css")">
+<link rel="stylesheet" href="@Url.Content("~/plugs/webuploader/css/demo.css")">
+<link rel="stylesheet" href="@Url.Content("~/content/css/selUserStyle.css")">
+
+<link href="@Url.Content("~/content/css/summernote.css")" rel="stylesheet">
+<script src="@Url.Content("~/content/js/summernote.js")"></script>
+
+@using (Ajax.BeginForm(
+    new AjaxOptions()
+    {
+        HttpMethod = "post",
+        Url = Url.Action("TeacherTermPlan"),
+        UpdateTargetId = "#index",
+        LoadingElementId = "loding",
+        LoadingElementDuration = 2000
+    }))
+{
+    <div id="noticeSend" class="form-horizontal form-position pagew ">
+        <div class="form-group">
+            <div class="col-sm-9">
+                <div class="radio-list" id="selectType">
+                    <label class="radio-inline">
+                        <div style="margin-bottom: 10px;">
+                            <span>学年学期</span>&nbsp;&nbsp;@Html.DropDownList("SchYearTerm")&nbsp;&nbsp;
+                            <input id="hidYearTerm" type="hidden"/>
+                            <button id="btnSelect" type="button" class="btn btn-info dropdown-toggle" data-toggle="button" aria-haspopup="true" aria-expanded="false">
+                                查询
+                            </button>
+                        </div>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="component" id="dataContent">
+            <span style="font-size: 16px;">学期计划</span>
+            @if (Model!=null && Model.TermPlan != null)
+            {
+                <div id="termplan">
+                    @Html.Raw(Model.TermPlan)
+                </div>
+            }
+            else
+            {
+                <div id="termplan">
+                    <p></p>
+                </div>
+            }
+            <span style="font-size: 16px;">学期总结</span>
+            @if (Model != null && Model.TermSummary != null)
+            {
+                <div id="termsummary">
+                    @Html.Raw(Model.TermSummary)
+                </div>
+            }
+            else
+            {
+                <div id="termsummary">
+                    <p></p>
+                </div>
+            }
+            @if (Model != null && Model.Evaluate != null && Model.Evaluate != "")
+            {
+                <div id="TermSummary">
+                    @Html.Raw(Model.TermSummary)
+                </div>
+            }
+                <button id="btnSave" type="button" style="margin-bottom: 10px;" class="btn btn-info dropdown-toggle" data-toggle="button" aria-haspopup="true" aria-expanded="false">
+                    保存
+                </button>
+        </div>
+    </div>
+}
+
+<script>
+    $(document).ready(function () {
+        $("#SchYearTerm").addClass("input-sm sel-notice");
+        $("#hidYearTerm").val($("#SchYearTerm").val());
+        $("#SchYearTerm").change(function () {
+            $("#hidYearTerm").val($("#SchYearTerm").val());
+        });
+
+        $('#termplan').summernote({
+            height: 200,
+            focus: true
+        });
+        $('#termsummary').summernote({
+            height: 200
+        });
+
+        $("#btnSave").click(function () {
+            var termPlan = $('#termplan').summernote('code');
+            termPlan = escape(termPlan);
+
+            var termSummary = $('#termsummary').summernote('code');
+            termSummary = escape(termSummary);
+
+            var data = {
+                XNXQ: $("#hidYearTerm").val(),
+                TermPlan: termPlan,
+                TermSummary: termSummary
+            };
+
+            $.ajax({
+                url: "@Url.Action("SaveTeacherTermPlanJson")",
+                type: 'POST',
+                dataType: 'json',
+                data: data,
+                success: function (response) {
+                    alert(response.Message);
+                }
+            })
+        });
+
+        $("#btnSelect").click(function () {
+            $('#termplan').summernote('code', '');
+            $('#termsummary').summernote('code', '');
+            $.getJSON('@Url.Action("GetTeacherTermPlanJson")', { "yearTerm": $("#hidYearTerm").val() }, function (data) {
+                if (data != null) {
+                    $('#termplan').summernote('code', data.TermPlan);
+                    $('#termsummary').summernote('code', data.TermSummary);
+                }
+            });
+        });
+    });
+</script>

@@ -1,0 +1,56 @@
+﻿@{
+    Layout = null;
+}
+@using M = TeacherAwards.Model;
+@model List<M.ViewModel.RegistrationModel>
+<link rel="stylesheet" href="@Url.Content("~/Content/css/msg.css")">
+<link rel="stylesheet" href="@Url.Content("~/plugs/datatables/css/jquery.dataTables.css")">
+<link rel="stylesheet" href="@Url.Content("~/plugs/datatables/css/dataTables.bootstrap.css")">
+<script src="@Url.Content("~/plugs/datatables/js/jquery.datatables.js")"></script>
+<script src="@Url.Content("~/plugs/datatables/js/dataTables.bootstrap.js")"></script>
+
+@using (Ajax.BeginForm("SignIndexData", null,
+    new AjaxOptions()
+    {
+        HttpMethod = "post",
+        Url = Url.Action("SignIndexData"),
+        UpdateTargetId = "#index",
+        LoadingElementId = "loding",
+        LoadingElementDuration = 2000
+    }, new { id = "form_editSend" }))
+{
+    <div id="index" class="form-position pagew">
+        <table class="table table-striped table-bordered table-hover datatable" id="msgTable">
+            <thead>
+                <tr>
+                    <th>活动标题</th>
+                    <th style="width: 110px;">参与时间</th>
+                    <th style="width: 110px;">参与情况</th>
+                    <th style="width: 70px;">活动得分</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (M.ViewModel.RegistrationModel item in Model)
+                {
+                    <tr>
+                        <td title="点击查看参与详情" style="cursor:pointer;" onclick="openform('@item.ActiveID')">(@item.AciveType)@item.ActiveName</td>
+                        <td>@item.RegistTime</td>
+                        <td>@item.RegistStatus</td>
+                        <td>@item.GetScore</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+<script>
+    $(function () {
+        $("#msgTable").DataTable({
+            //"ajax":'severurl',//通过ajax请求数据源，其数据格式为{"data":[],[]}
+            "oLanguage": {
+                "sUrl": "@Url.Content("~/plugs/datatables/language/zh_cn.json")"
+            }
+        });
+    });
+
+</script>

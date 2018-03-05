@@ -1,0 +1,50 @@
+﻿@using UCHome.Model;
+@{
+    Layout = "~/Views/Shared/_LayoutApp.cshtml";
+    int i = 0;
+}
+@model MyAppCollection
+<div class="info-content" style="background-color: #fff; min-height: 610px;">
+    <div id="id-app-info" class="dappinfo">
+        <img id="id-app-logo" src="@Url.Content("~/Content/icon/fr" + Model.myapp.AppIcon + "31.png")" class="app-logo" />
+        <div id="id-app-name" class="app-name">@Model.myapp.AppName</div>
+        <div id="id-app-descripe" class="app-descripe">@Model.myapp.memo &nbsp;</div>
+    </div>
+    <div id="id-app-menu" class="dappmenu">
+        <ul>
+
+            @foreach (UCHome_App_Menu item in Model.appmenu)
+            {
+                if ((ViewBag.SelMenuID != null && item.PKID == ViewBag.SelMenuID) || (ViewBag.SelMenuID == null && i == 0))
+                {
+                <li class="on" href="@item.Menuhref">@item.MenuName</li>
+                }
+                else
+                {
+                <li href="@item.Menuhref">@item.MenuName</li>
+                }
+                i++;
+            }
+            <li href="@Model.myapp.helpchmurl">帮助说明</li>
+        </ul>
+    </div>
+    <div id="id-app-content">
+        <div class="loading">正在加载应用，请稍候…</div>
+    </div>
+</div>
+<script>
+    loadselurl();
+    $("#id-app-menu ul li").click(function () {
+        $("#id-app-menu ul li").removeClass("on");
+        $(this).addClass("on");
+        loadselurl();
+    });
+    function loadselurl() {
+        $.each($("#id-app-menu ul li"), function (index, item) {
+            if ($(item).hasClass("on")) {
+                var ahref = $(item).attr("href");
+                redirecturl(ahref);
+            }
+        });
+    }
+</script>

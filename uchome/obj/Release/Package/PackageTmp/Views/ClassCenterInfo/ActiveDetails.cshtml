@@ -1,0 +1,125 @@
+﻿@{
+    Layout = null;
+}
+@using ClassCenterModel
+@model ClassCenterModel.ClassActive
+@{
+    var active = Model as ClassActive;
+
+    if (active != null)
+    {
+    <div class="content">
+        <div class="activity">
+            <div class="act-top">
+                @if (active.ActivePhotoName != null && active.ActivePhotoName.Length > 0)
+                {
+                    var url = active.ActivePhotoUrl.Split(';');
+                    <img src="@Url.Content("~/upload/awards/images/")@url[0]" />
+                }
+                else
+                {
+                    <img src="@Url.Content("~/Content/ClassCenter/images/activity/pic2.png")" />
+                }
+
+                <div class="act-del">
+                    <p>
+                        <span>活动名称：</span>@active.ActiveTitle
+                    </p>
+                    <p>
+                        <span>活动时间：</span>@active.ActiveTime
+                    </p>
+                    <p>
+                        <span>活动地点：</span>@active.ActivePlace
+                    </p>
+                    <p>
+                        <span>参与人员：</span>@active.ActivePeople
+                    </p>
+                </div>
+            </div>
+            <div class="act-mid">
+                <div class="mid-left">活动介绍：</div>
+                <div class="mid-right">@Html.Raw(active.ActiveContent)</div>
+            </div>
+
+            @if (active.ActivePhotoName != null && active.ActivePhotoName.Length > 0)
+            {
+
+                var urls = active.ActivePhotoUrl.Split(';');
+            
+                <div class="act-title">
+                    <span>精彩活动瞬间</span>
+                </div>
+                <div class="carousel2">
+                    <div class="carousel-ul">
+                        <ul class="imgbox">
+                            @for (int i = 0; i < urls.Length; i++)
+                            {
+                                if (urls[i].Length > 0)
+                                {
+                                <li><a href="#">
+                                    <img src="@Url.Content("~/upload/awards/images/")@urls[i]"/></a></li>
+                                }
+                            }
+
+                        </ul>
+                    </div>
+                    <a href="##" class="pre">
+                        <img src="@Url.Content("~/Content/ClassCenter/images/activity/left.png")" />
+                    </a>
+                    <a href="##" class="next">
+                        <img src="@Url.Content("~/Content/ClassCenter/images/activity/right.png")" />
+                    </a>
+                </div>
+        
+            
+            }
+        </div>
+    </div>
+    }
+}
+
+
+<script src="@Url.Content("~/Content/js/extendPagination.js")"></script>
+<script>
+    var slideX = {
+        thisUl: $('.imgbox'),
+        btnLeft: $('.pre'),
+        btnRight: $('.next'),
+        thisLi: $('.imgbox li'),
+        init: function () {
+            //slideX.thisUl.width(slideX.thisLi.length * 294);
+            slideX.slideAuto();
+            slideX.btnLeft.click(slideX.slideLeft).hover(slideX.slideStop, slideX.slideAuto);
+            slideX.btnRight.click(slideX.slideRight).hover(slideX.slideStop, slideX.slideAuto);
+            slideX.thisUl.hover(slideX.slideStop, slideX.slideAuto);
+        },
+        slideLeft: function () {
+            slideX.btnLeft.unbind('click', slideX.slideLeft);
+            slideX.thisUl.find('li:last').prependTo(slideX.thisUl);
+            slideX.thisUl.css('marginLeft', -294);
+            slideX.thisUl.animate({ 'marginLeft': 0 }, 350, function () {
+                slideX.btnLeft.bind('click', slideX.slideLeft);
+            });
+            return false;
+        },
+        slideRight: function () {
+            slideX.btnRight.unbind('click', slideX.slideRight);
+            slideX.thisUl.animate({ 'marginLeft': -294 }, 350, function () {
+                slideX.thisUl.css('marginLeft', '0');
+                slideX.thisUl.find('li:first').appendTo(slideX.thisUl);
+                slideX.btnRight.bind('click', slideX.slideRight);
+            });
+            return false;
+        },
+        slideAuto: function () {
+            slideX.intervalId = window.setInterval(slideX.slideRight, 3000);
+        },
+        slideStop: function () {
+            window.clearInterval(slideX.intervalId);
+        }
+    }
+    $(document).ready(function () {
+        slideX.init();
+    });
+</script>
+

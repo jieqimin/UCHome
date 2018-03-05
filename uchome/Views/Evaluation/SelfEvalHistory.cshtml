@@ -1,0 +1,82 @@
+﻿@{
+    Layout = null;
+}
+@using M = Evaluation.Model;
+@model List<M.Models.EvaluationGuageGuide>
+<style type="text/css">
+    .self-content {
+        padding-bottom: 10px;
+    }
+
+    .xq-title {
+        padding-bottom: 10px;
+        font-weight: bold;
+    }
+</style>
+<div id="evalscore" class="form-horizontal">
+    @if (Model.Count == 0)
+    {
+        @Html.Raw("目前还没有自评信息！");
+    }
+    else
+    {
+        foreach (M.Models.EvaluationGuageGuide history in Model)
+        {
+            var xq = history.YearTerm.Substring(4, 1) == "1" ? "一" : "二";
+            var title = "第" + xq + "学期学生自评";
+            
+        <div class="self-content">
+            <div class="xq-title">@title</div>
+
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>评价一级指标</th>
+                        <th>评价二级指标</th>
+                        <th>分值范围</th>
+                        <th class="cell2">评分</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+            var firstLevelList = history.listGuageGuide.Where(w => w.ParentId == 0).OrderBy(w => w.ItemOrder).ToList();
+            foreach (M.View_Tbl_GuageGuide item in firstLevelList)
+            {
+                var secondLevelList = history.listGuageGuide.Where(w => w.ParentId == item.Id).OrderBy(w => w.ItemOrder).ToList();
+                var rowcount = secondLevelList.Count;
+                var i = 0;
+
+                foreach (M.View_Tbl_GuageGuide t in secondLevelList)
+                {
+                    i++;
+                    var itemscore = "";
+                    if (history.listEvaluationItem != null)
+                    {
+                        var m = history.listEvaluationItem.FirstOrDefault(w => w.GuageGuideLineId == t.Id);
+                        if (m != null) { itemscore = m.EvalItem_Score.ToString(); }
+                    }
+                            
+                        <tr>
+                            @if (i == 1)
+                            { 
+                                <td rowspan="@rowcount">@item.NodeName</td>
+                            }
+
+                            <td>@t.NodeName</td>
+                            <td>@t.Description</td>
+                            <td>@itemscore</td>
+                        </tr>
+                }
+            }
+                    }
+                </tbody>
+            </table>
+            <div class="pull-left" style="height: 30px;">评语：</div>
+            <div class="pull-right" style="height: 30px;">总评分：<span id="sp_score">@history.EvalTotalScore</span></div>
+            <div class="clear-both">
+                @Html.DisplayFor(model => history.EvalContent)
+            </div>
+        </div>
+        }
+    }
+</div>

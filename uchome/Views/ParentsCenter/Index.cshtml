@@ -1,0 +1,126 @@
+﻿@{
+    ViewBag.Title = "家长个人中心";
+}
+@model Guid
+@{
+    if (Model == Guid.Empty)
+    {
+    @Html.Raw("<div class='modal-backdrop fade in center-block' style='opacity:1'><div class='modal-dialog modal-sm show'><div class='modal-content'><div class='modal-body text-center'>检测到帐号访问异常，请联系管理员！</div></div></div></div>")
+        return;
+    }  
+}
+@section Head{
+    <link href="@Url.Content("~/Content/css/parent.css")" rel="stylesheet" />
+    <script src="@Url.Content("~/Content/js/jquery-1.7.1.min.js")" ></script>
+    <script src="@Url.Content("~/Content/js/highcharts.js")" ></script>
+    <script src="@Url.Content("~/Content/plugs/layer/layer.min.js")"></script>
+    <script>
+        $(function () {
+
+            //    $('#container').highcharts({
+            //        title: {
+            //            text: '本学年成长图',
+            //            x: -20 //center
+            //        },
+
+            //        xAxis: {
+            //            categories: ['第一学期期中', '第一学期期末', '第二学期期中', '第二学期期末']
+            //        },
+            //        yAxis: {
+            //            title: {
+            //                text: '总评分数'
+            //            },
+            //            plotLines: [{
+            //                value: 0,
+            //                width: 1,
+            //                color: '#808080'
+            //            }]
+            //        },
+            //        tooltip: {
+            //            valueSuffix: '分'
+            //        },
+            //        legend: {
+            //            layout: 'vertical',
+            //            align: 'right',
+            //            verticalAlign: 'middle',
+            //            borderWidth: 0
+            //        },
+            //        series: [{
+            //            name: '个人总评',
+            //            data: [84, 88, 86, 90]
+            //        }, {
+            //            name: '年级总评',
+            //            data: [80, 83, 84, 91]
+            //        }]
+            //    });
+
+
+
+            //});
+    </script>
+}
+
+<div class="top">
+    <div class="top_content">
+        @* <span class="title">个人空间</span>*@
+        <ul class="portal">
+            <li class="logo">泰安市教育云空间</li>
+            <li class="selected "><i class="home"></i><span><a href="@Url.Action("Index", "ParentsCenter", new { id = Model })">个人中心</a></span></li>
+        </ul>
+        <ul class="login">
+            <li><a class="loginout" href="@Url.Action("Logout", "AppCenter", new { returnurl = Request.Url })">【退出】</a></li>
+        </ul>
+        <span></span>
+
+    </div>
+</div>
+<div class="content clearfix">
+    <div class="concent_body">
+        <div class="body_left">
+            <div class="br_content1" id="parentinfo">
+            </div>
+            @*<div class="br_content2">
+                @Html.Partial("TeacherList")
+
+            </div>
+            <div class="br_content3">
+                @Html.Partial("OtherParents")
+
+            </div>*@
+            <div class="shortcut">
+                <ul>
+                    <li class="shortcut-item homepage">● 个人主页</li>
+                    <li class="shortcut-item kscj">● 考试成绩</li>
+                    <li class="shortcut-item dybx">● 德育表现</li>
+                    <li class="shortcut-item tctj">● 体测体检</li>
+                    <li class="shortcut-item jlcc">● 奖励惩处</li>
+                    <li class="shortcut-item zhmx">● 账户明细</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="body_center">
+        </div>
+
+    </div>
+</div>
+<div class="bottom"></div>
+<script>
+    $("#parentinfo").load("@Url.Action("PersonInfo", new { id = Model })");
+    $(".body_center").load("@Url.Action("HomePage", new { id = Model })");
+    $(".homepage").click(function() {
+        $(".body_center").load("@Url.Action("HomePage", new { id = Model })");
+    });
+    $(".kscj").click(function() {
+        $(".body_center").load("@Url.Action("ScoreInfo", new { id = Model })");
+    });
+    $(".dybx").click(function() {
+        $(".body_center").load("@Url.Action("DYInfo", new { id = Model })");
+    });
+    $(".tctj").click(function() {
+        $(".body_center").load("@Url.Action("HealthInfo", new { id = Model })");
+    });
+    $(".jlcc").click(function() {
+        $(".body_center").load("@Url.Action("JCInfo", new { id = Model })");
+   });
+</script>

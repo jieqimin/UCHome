@@ -1,0 +1,45 @@
+D:\my files\个人空间\UCHome\StuInfo.BLL\bin\Debug\StuInfo.BLL.dll.config
+D:\my files\个人空间\UCHome\StuInfo.BLL\bin\Debug\StuInfo.BLL.dll
+D:\my files\个人空间\UCHome\StuInfo.BLL\bin\Debug\StuInfo.BLL.pdb
+D:\my files\个人空间\UCHome\StuInfo.BLL\bin\Debug\EntityFramework.dll
+D:\my files\个人空间\UCHome\StuInfo.BLL\bin\Debug\EntityFramework.Extended.dll
+D:\my files\个人空间\UCHome\StuInfo.BLL\bin\Debug\EntityFramework.SqlServer.dll
+D:\my files\个人空间\UCHome\StuInfo.BLL\bin\Debug\StuInfo.Model.dll
+D:\my files\个人空间\UCHome\StuInfo.BLL\bin\Debug\StuInfo.Model.pdb
+D:\my files\个人空间\UCHome\StuInfo.BLL\bin\Debug\StuInfo.Model.dll.config
+D:\my files\个人空间\UCHome\StuInfo.BLL\bin\Debug\EntityFramework.xml
+D:\my files\个人空间\UCHome\StuInfo.BLL\bin\Debug\EntityFramework.Extended.xml
+D:\my files\个人空间\UCHome\StuInfo.BLL\bin\Debug\EntityFramework.Extended.dll.config
+D:\my files\个人空间\UCHome\StuInfo.BLL\bin\Debug\EntityFramework.SqlServer.xml
+D:\my files\个人空间\UCHome\StuInfo.BLL\obj\Debug\StuInfo.BLL.csprojResolveAssemblyReference.cache
+D:\my files\个人空间\UCHome\StuInfo.BLL\obj\Debug\StuInfo.BLL.dll
+D:\my files\个人空间\UCHome\StuInfo.BLL\obj\Debug\StuInfo.BLL.pdb
+D:\my files\个人空间\UCHome\StuInfo.BLL\bin\Debug\JYTGBT.dll
+D:\my files\个人空间\UCHome\StuInfo.BLL\bin\Debug\Newtonsoft.Json.dll
+D:\my files\个人空间\UCHome\StuInfo.BLL\bin\Debug\JYTGBT.pdb
+D:\my files\个人空间\UCHome\StuInfo.BLL\bin\Debug\JYTGBT.dll.config
+D:\my files\个人空间\UCHome\StuInfo.BLL\bin\Debug\Newtonsoft.Json.pdb
+D:\my files\个人空间\UCHome\StuInfo.BLL\bin\Debug\Newtonsoft.Json.xml
+E:\个人空间\UCHome\StuInfo.BLL\bin\Debug\StuInfo.BLL.dll.config
+E:\个人空间\UCHome\StuInfo.BLL\bin\Debug\StuInfo.BLL.dll
+E:\个人空间\UCHome\StuInfo.BLL\bin\Debug\StuInfo.BLL.pdb
+E:\个人空间\UCHome\StuInfo.BLL\bin\Debug\EntityFramework.dll
+E:\个人空间\UCHome\StuInfo.BLL\bin\Debug\EntityFramework.Extended.dll
+E:\个人空间\UCHome\StuInfo.BLL\bin\Debug\EntityFramework.SqlServer.dll
+E:\个人空间\UCHome\StuInfo.BLL\bin\Debug\StuInfo.Model.dll
+E:\个人空间\UCHome\StuInfo.BLL\bin\Debug\JYTGBT.dll
+E:\个人空间\UCHome\StuInfo.BLL\bin\Debug\Newtonsoft.Json.dll
+E:\个人空间\UCHome\StuInfo.BLL\bin\Debug\StuInfo.Model.pdb
+E:\个人空间\UCHome\StuInfo.BLL\bin\Debug\StuInfo.Model.dll.config
+E:\个人空间\UCHome\StuInfo.BLL\bin\Debug\EntityFramework.xml
+E:\个人空间\UCHome\StuInfo.BLL\bin\Debug\EntityFramework.Extended.xml
+E:\个人空间\UCHome\StuInfo.BLL\bin\Debug\EntityFramework.Extended.dll.config
+E:\个人空间\UCHome\StuInfo.BLL\bin\Debug\EntityFramework.SqlServer.xml
+E:\个人空间\UCHome\StuInfo.BLL\bin\Debug\JYTGBT.pdb
+E:\个人空间\UCHome\StuInfo.BLL\bin\Debug\JYTGBT.dll.config
+E:\个人空间\UCHome\StuInfo.BLL\bin\Debug\Newtonsoft.Json.pdb
+E:\个人空间\UCHome\StuInfo.BLL\bin\Debug\Newtonsoft.Json.xml
+E:\个人空间\UCHome\StuInfo.BLL\obj\Debug\StuInfo.BLL.csprojResolveAssemblyReference.cache
+E:\个人空间\UCHome\StuInfo.BLL\obj\Debug\StuInfo.BLL.csproj.CoreCompileInputs.cache
+E:\个人空间\UCHome\StuInfo.BLL\obj\Debug\StuInfo.BLL.dll
+E:\个人空间\UCHome\StuInfo.BLL\obj\Debug\StuInfo.BLL.pdb

@@ -1,0 +1,114 @@
+﻿@model SchInfo.Model.siDept
+@{}
+<script src="@Url.Content("~/plugs/usercontrol/selectuser.js")"></script>
+@using (Ajax.BeginForm("EditSIDept", null,
+                                                                        new AjaxOptions() {
+                                                                            HttpMethod = "post",
+                                                                            Url = @Url.Action("EditSIDept"),
+                                                                            UpdateTargetId = "#sidept",
+                                                                            LoadingElementId = "loding",
+                                                                            LoadingElementDuration = 2000
+                                                                        }, new { id = "form-sidept" })) {
+    <div class="form-horizontal form-position pagew" id="sidept">
+        @Html.HiddenFor(model => model.DeptID)
+        @Html.HiddenFor(model => model.DeptID_SchID)
+        @Html.HiddenFor(model => model.IsState)
+        <div class="form-group">
+            @Html.LabelFor(model => model.DeptCode, "* 部门代码", htmlAttributes: new { @class = "control-label col-md-2 required" })
+            <div class="col-md-5">
+                @Html.EditorFor(model => model.DeptCode, new { htmlAttributes = new { @class = "form-control", placeholder = "输入长度不要超过20字" } })
+                @Html.ValidationMessageFor(model => model.DeptCode, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.DeptName, "* 部门名称", htmlAttributes: new { @class = "control-label col-md-2 required" })
+            <div class="col-md-5">
+                @Html.EditorFor(model => model.DeptName, new { htmlAttributes = new { @class = "form-control", placeholder = "输入长度不要超过20字" } })
+                @Html.ValidationMessageFor(model => model.DeptName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.DeptLeader_UserID, "负责人", htmlAttributes: new { @class = "control-label col-md-2 required" })
+            <div class="col-md-3">
+                @Html.TextBox("DeptLeader_UserName", "", new { @class = "form-control", @readonly = "readonly" })
+                @Html.HiddenFor(model => model.DeptLeader_UserID, new { htmlAttributes = new { @class = "form-control", placeholder = "输入长度不要超过20字" } })
+            </div>
+            <div class="col-md-2">
+                <button type="button" class="btn btn-info dropdown-toggle selUsers" data-toggle="button" aria-haspopup="true" aria-expanded="false">
+                    选择人员
+                </button>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-4 col-md-8">
+                <input type="submit" value="保存" id="btn-sideptedit" class="btn btn-info col-md-2" />&nbsp;&nbsp;
+                <button type="button" class="btn btn-default" onclick="RedircetUrl('@Url.Action("SIDeptIndex","SchoolInfo")')">返回</button>
+            </div>
+        </div>
+    </div>
+}
+@*选人控件*@
+<script>
+    $(".selUsers").click(function () {
+        $(this).SelUser({
+            selRole: "tea", //tea,stu,fam
+            selType: "single", //多选：muti,单选:single
+            selArea: "department", //friend:我的好友,student:我的学生,stuparent:学生家长,colleague:我的同事,myclassmate:我的同学,teacher:我的老师,classmateparent:同学家长,department:学校部门
+            selValue: $("#DeptLeader_UserID").val(),
+            selText: $("#DeptLeader_UserName").text(),
+            callBackfn: function (ids, names) {
+                //将先中的结果进行处理
+                $("#DeptLeader_UserID").val(ids);
+                $("#DeptLeader_UserName").val(names);
+            }
+        })
+    });
+</script>
+@*数据提交*@
+<script>
+    $(function () {
+        $("#form-sidept").validate({
+            rules: {
+                DeptCode: "required",
+                DeptName:"required",
+            },
+            ignore: "hidden",
+            messages: {
+                DeptCode: "部门代码不能为空",
+                DeptName:"部门名称不能为空"
+            },
+            errorClass: "validate-error", //设置错误样式
+            errorElement: "label", //设置显示错误提示的控件,默认为<label>
+            errorLabelContainer: "#validmsg", //指定错误信息放置容器
+            wrapper: "li",
+            //errorPlacement: function (error,element) { //指定错误信息放置位置
+            //    error.appendTo($("#validmsg"));
+            //},
+            //debug: true,//进行调试模式（表单不提交）
+            submitHandler: function () {
+                $("#btn-sideptedit").val("正在保存，请稍候…");
+                $("#btn-sideptedit").attr("disabled", "disabled");
+                $("#form-sidept").ajaxSubmit({
+                    success: function (data) {
+                        if (data.Data.StatusCode == 200) {
+                            tipsuccessmsg("保存成功");
+                            RedircetUrl("@Url.Action("SIDeptIndex")");
+                            //validator.resetForm(); //重置表单
+                        } else {
+                            tipfailmsg("保存失败，原因可能为：" + data.Data.ErrorMessage);
+                            //$("#PKID").val(data.data.PKID);
+                            //validator.resetForm(); //重置表单
+                        }
+                        $("#btn-sideptedit").val("保存");
+                        $("#btn-sideptedit").removeAttr("disabled");
+                    }
+                });
+            }
+            //onsubmit: false,//是否提交时验证，默认为True,用于设置某一个不需要验证的控件
+            //onfocusin: false,//是否获取焦点时验证，默认为True
+            //onkeyup: false,//是否在敲击键盘时验证，默认为True
+            //onclick: false//是否在鼠标点击时验证，默认为True
+        });
+    });
+</script>
+

@@ -1,0 +1,162 @@
+﻿@model Guid
+<style>
+    #modal-attention ul li {
+        float: left;
+        margin: 5px;
+    }
+    #Attentionlist .attmore {
+        background-image: url("@Url.Content("~/content/images/find.png")");
+        background-repeat: no-repeat;
+        background-position: left center;
+        width: 40px;
+        text-indent: 12px;
+        font-size: 12px;
+        color: teal;
+        right: 5px;
+        position: relative;
+        display: block;
+    }
+    .dtitle span.selected {
+        background: url("@Url.Content("~/Content/images/selected.png")") no-repeat center bottom;
+        height: 35px;
+        width: 56px;
+        color: #008080;
+    }
+   .dtitle .myattent {
+       font-size: 14px;
+       margin: 0 8px;
+       cursor: pointer;
+       color: #80AEC8;
+       float: left;
+    }
+    .dtitle .attentme {
+        font-size: 14px;
+        margin: 0 8px;
+        cursor: pointer;
+        color: #80AEC8;
+           float: left;
+    }
+    .dtitle .splitline {
+        font-size: 12px;
+        color: #ccc;
+           float: left;
+    }
+</style>
+<div class="dtitle"><span class="myattent selected">我的关注</span><span class="splitline">|</span><span class="attentme">谁关注我</span><span class="pull-right"><a class="attmore" href="@Url.Action("MoreTeacher", "Query", new { datatype = 2 })">查询</a></span></div>
+<div class="dpicture">
+    <ul id="Alist">
+    </ul>
+</div>
+<div class="more" data-toggle="modal" data-target="#myAttention">查看更多</div>
+<div class="modal fade" id="myAttention" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">我的关注</h4>
+            </div>
+            <div id="modal-attention" class="modal-body clearfix">
+                <ul id="Attentionlists">
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    getattentionlist();
+    $(".myattent").click(function () {
+        loaddata($("#Alist"));
+        getattentionlist();
+        $(".attentme").removeClass("selected");
+        $(".myattent").addClass("selected");
+    });
+    $(".attentme").click(function () {
+        loaddata($("#Alist"));
+        getattentionme();
+        $(".myattent").removeClass("selected");
+        $(".attentme").addClass("selected");
+    });
+
+    function getattentionlist() {
+        $("#Alist").html("");
+        $("#Attentionlists").html("");
+        $.ajax({
+            url: "@Url.Content("~/ashx/GetAttention.ashx")",
+            data: { id: "@Model" },
+            success: function (data) {
+                var kb = eval("(" + data + ")"); //
+                $.each(kb, function (idx, item) {
+                    var id = item.attenuser;
+                    var xm = item.attenname;
+                    var xb = item.attentime;
+                    var identity = item.identity;
+                    var headphoto = item.headphoto;
+                    var obj, obj2;
+                    var url = "@Url.Action("Query", "TeacherCenter")?id=" + id;
+                    if (identity == "S")
+                        url = "@Url.Action("Query", "StudentCenter")?id=" + id;
+                    else if (identity == "P")
+                        url = "@Url.Action("Index", "ParentsCenter")?id=" + id;
+                    obj2 = "<li><a href=\"" + url + "\" class=\"btn btn-info btn-sm active\" role=\"button\">" + xm + "</a></li>";
+
+                    if (headphoto.length == 0) {
+                        if (xb == "2") {
+                            obj = "<li><a href=\"" + url + "\"><dl><dd class=\"photo\"><img class=\"img-circle\" src=\"@Url.Content("~/Content/images/male.png")\" border=\"0\"  width=\"40\" height=\"40\"/></dd><dd class=\"info\">" + xm + "</dd></dl></a></li>";
+                        } else {
+                            obj = "<li><a href=\"" + url + "\"><dl><dd class=\"photo\"><img class=\"img-circle\" src=\"@Url.Content("~/Content/images/man.png")\" border=\"0\"  width=\"40\" height=\"40\"/></dd><dd class=\"info\">" + xm + "</dd></dl></a></li>";
+                        }
+                    } else {
+                        obj = "<li><a href=\"" + url + "\"><dl><dd class=\"photo\"><img class=\"img-circle\" src=\"" + headphoto + "\" border=\"0\"  width=\"40\" height=\"40\"/></dd><dd class=\"info\">" + xm + "</dd></dl></a></li>";
+
+                    }
+                    if (idx < 6)
+                        $("#Alist").append($(obj));
+                    $("#Attentionlists").append($(obj2));
+                });
+            }
+        });
+    }
+    //填充课表
+    function getattentionme() {
+        $("#Alist").html("");
+        $("#Attentionlists").html("");
+        $.ajax({
+            url: "@Url.Content("~/ashx/GetAttentionme.ashx")",
+            data: { id: "@Model" },
+            success: function (data) {
+                var kb = eval("(" + data + ")"); //
+                $.each(kb, function (idx, item) {
+                    var id = item.attenuser;
+                    var xm = item.attenname;
+                    var xb = item.attentime;
+                    var identity = item.identity.toUpperCase();
+                    var headphoto = item.headphoto;
+                    var obj, obj2;
+                    var url = "@Url.Action("Query", "TeacherCenter")?id=" + id;
+                    if (identity == "S")
+                        url = "@Url.Action("Query", "StudentCenter")?id=" + id;
+                    else if (identity == "P")
+                        url = "@Url.Action("Index", "ParentsCenter")?id=" + id;
+                    obj2 = "<li><a href=\"" + url + "\" class=\"btn btn-info btn-sm active\" role=\"button\">" + xm + "</a></li>";
+
+                    if (headphoto.length == 0) {
+                        if (xb == "2") {
+                            obj = "<li><a href=\"" + url + "\"><dl><dd class=\"photo\"><img class=\"img-circle\" src=\"@Url.Content("~/Content/images/male.png")\" border=\"0\"  width=\"40\" height=\"40\"/></dd><dd class=\"info\">" + xm + "</dd></dl></a></li>";
+                        } else {
+                            obj = "<li><a href=\"" + url + "\"><dl><dd class=\"photo\"><img class=\"img-circle\" src=\"@Url.Content("~/Content/images/man.png")\" border=\"0\"  width=\"40\" height=\"40\"/></dd><dd class=\"info\">" + xm + "</dd></dl></a></li>";
+                        }
+                    } else {
+                        obj = "<li><a href=\"" + url + "\"><dl><dd class=\"photo\"><img class=\"img-circle\" src=\"" + headphoto + "\" border=\"0\"  width=\"40\" height=\"40\"/></dd><dd class=\"info\">" + xm + "</dd></dl></a></li>";
+
+                    }
+                    if (idx < 6)
+                        $("#Alist").append($(obj));
+                    $("#Attentionlists").append($(obj2));
+                });
+            }
+        });
+    }
+</script>

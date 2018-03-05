@@ -1,0 +1,292 @@
+﻿<form name="modelForm">
+    <div class="form-horizontal form-position" ng-if="Model.levelName=='任务模型'">
+        <div class="form-group">
+            <label class="col-sm-4 control-label">类型：</label>
+            <div class="col-sm-6">
+                任务模型
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label"> 模型名称：</label>
+            <div class="col-sm-6">
+                <input class="form-control" ng-disabled="Model.view" required ng-model="Model.name" name="name"/>
+                <span ng-if="!Model.view" ng-class="{true:'glyphicon-ok',false:'glyphicon-remove'}[modelForm.name.$valid ]" class="glyphicon form-control-feedback"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label"> 次序：</label>
+            <div class="col-sm-6">
+                <input name="Porder" type="number" required min="0" class="form-control" ng-disabled="Model.view"  ng-model="Model.Porder"/>
+                <span ng-if="!Model.view" ng-class="{true:'glyphicon-ok',false:'glyphicon-remove'}[modelForm.Porder.$valid ]" class="glyphicon form-control-feedback"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label"></label>
+            <div class="col-sm-6">
+                <input type="button" class="btn btn-warning" ng-if="Model.view" value="编辑" ng-click="EditModel()"/>
+                <input type="button" class="btn btn-info" ng-if="!Model.view" value="保存" ng-click="SaveModel(modelForm.$valid,Model)" />
+            </div>
+        </div>
+    </div>
+
+    <div class="form-horizontal form-position" ng-if="Model.levelName=='任务分类'">
+        <div class="form-group">
+            <label class="col-sm-4 control-label">类型：</label>
+            <div class="col-sm-6">
+                任务分类
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label"> 分类名称：</label>
+            <div class="col-sm-6">
+                <input name="name" required class="form-control" ng-disabled="Model.view" ng-model="Model.name"/>
+                <span ng-if="!Model.view" ng-class="{true:'glyphicon-ok',false:'glyphicon-remove'}[modelForm.name.$valid ]" class="glyphicon form-control-feedback"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label"> 所属角色：</label>
+            <div class="col-sm-6">
+                <select class="form-control" ng-disabled="Model.view" ng-model="Model.TaskRole" ng-options="x.key as x.value for x in Roles"></select>
+                
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label"> 附加分：</label>
+            <div class="col-sm-6">
+                <input type="number" min="0" name="TaskTypeScore" required class="form-control" ng-disabled="Model.view" ng-model="Model.TaskTypeScore" />
+                <span ng-if="!Model.view" ng-class="{true:'glyphicon-ok',false:'glyphicon-remove'}[modelForm.TaskTypeScore.$valid ]" class="glyphicon form-control-feedback"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-4 control-label"> 次序：</label>
+            <div class="col-sm-6">
+                <input name="Porder" type="number" min="0" class="form-control" ng-disabled="Model.view" ng-model="Model.Porder"/>
+                <span ng-if="!Model.view" ng-class="{true:'glyphicon-ok',false:'glyphicon-remove'}[modelForm.Porder.$valid ]" class="glyphicon form-control-feedback"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label"> 启用：</label>
+            <div class="col-sm-6">
+                <span value="{{Model.TaskTypeStatus}}">{{Model.TaskTypeStatus=="1"?"启用":"禁用"}}</span>
+                <input type="button" ng-class="'btn btn-sm '+(Model.TaskTypeStatus=='1'?'btn-warning':'btn btn-success')"
+                       ng-value="Model.TaskTypeStatus=='1'?'禁用':'启用'" ng-if="!Model.view" ng-click="changeStatus()" style="margin-left: 5px" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label"> 父节点：</label>
+            <div class="col-sm-6">
+                <span>{{Model.getParentNode().name}}</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label"></label>
+            <div class="col-sm-6">
+                <input type="button" class="btn btn-warning" ng-if="Model.view" value="编辑" ng-click="EditModel()"/>
+                <input type="button" class="btn btn-info" ng-if="!Model.view" value="保存" ng-click="SaveModel(modelForm.$valid,Model)" />
+            </div>
+        </div>
+    </div>
+
+    <div class="form-horizontal form-position" ng-if="Model.levelName=='任务'">
+        <div class="form-group">
+            <label class="col-sm-4 control-label">类型：</label>
+            <div class="col-sm-6">
+                任务
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label"> 任务名称：</label>
+            <div class="col-sm-6">
+                <input name="name" class="form-control" ng-disabled="Model.view" ng-model="Model.name" required/>
+                <span ng-if="!Model.view" ng-class="{true:'glyphicon-ok',false:'glyphicon-remove'}[modelForm.name.$valid ]" class="glyphicon form-control-feedback"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label"> 任务积分：</label>
+            <div class="col-sm-6">
+                <input type="number" min="0" name="TaskScore" required class="form-control" ng-disabled="Model.view" ng-model="Model.TaskScore" />
+                <span ng-if="!Model.view" ng-class="{true:'glyphicon-ok',false:'glyphicon-remove'}[modelForm.TaskScore.$valid ]" class="glyphicon form-control-feedback"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label"> 任务周期：</label>
+            <div class="col-sm-6">
+                <select required name="TaskCycle" class="form-control" ng-disabled="Model.view" ng-model="Model.TaskCycle" ng-options="x.key as x.value for x in Cycles"></select>
+                <span ng-if="!Model.view" ng-class="{true:'glyphicon-ok',false:'glyphicon-remove'}[modelForm.TaskCycle.$valid ]" class="glyphicon form-control-feedback"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label"> 链接：</label>
+            <div class="col-sm-6">
+                <input type="url" name="TaskUrl" class="form-control" ng-disabled="Model.view" ng-model="Model.TaskUrl" />
+                <span ng-if="!Model.view" ng-class="{true:'glyphicon-ok',false:'glyphicon-remove'}[modelForm.TaskUrl.$valid ]" class="glyphicon form-control-feedback"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-4 control-label"> 次序：</label>
+            <div class="col-sm-6">
+                <input required type="number" name="Porder" class="form-control" ng-disabled="Model.view" ng-model="Model.Porder"/>
+                <span ng-if="!Model.view" ng-class="{true:'glyphicon-ok',false:'glyphicon-remove'}[modelForm.Porder.$valid ]" class="glyphicon form-control-feedback"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label"> 启用：</label>
+            <div class="col-sm-6">
+                <span>{{Model.TaskStatus=="1"?"启用":"禁用"}}</span>
+                <input type="button" ng-class="'btn btn-sm '+(Model.TaskStatus=='1'?'btn-warning':'btn btn-success')"
+                       ng-value="Model.TaskStatus=='1'?'禁用':'启用'" ng-if="!Model.view" ng-click="changeStatus()" style="margin-left: 5px"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label"> 父节点：</label>
+            <div class="col-sm-6">
+                <span>{{Model.getParentNode().name}}</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label"></label>
+            <div class="col-sm-6">
+                <input type="button" class="btn btn-warning" ng-if="Model.view" value="编辑" ng-click="EditModel()"/>
+                <input type="button" class="btn btn-info" ng-if="!Model.view" value="保存" ng-click="SaveModel(modelForm.$valid,Model)" />
+            </div>
+        </div>
+    </div>
+</form>
+
+<div class="modal fade" id="demoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+    <div class="modal-dialog" role="document">
+        <form name="modalForm" novalidate>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="exampleModalLabel">{{"添加"+Modal.levelName}}</h4>
+                </div>
+                <div class="modal-body">
+
+                    <div class="form-horizontal form-position" ng-if="Modal.levelName=='任务模型'">
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label"> 模型名称：</label>
+                            <div class="col-sm-6">
+                                <input id="name" name="name" class="form-control" ng-model="Modal.name" required placeholder="必填"/>
+                                <span ng-class="{true:'glyphicon-ok',false:'glyphicon-remove'}[modalForm.name.$valid]" class="glyphicon form-control-feedback"></span>
+                                <!--<span class="glyphicon glyphicon-ok form-control-feedback" style="right: -20px; color: green"
+                                      ng-show="modalForm.name.$dirty && modalForm.name.$valid"></span>
+                                <span class="glyphicon glyphicon-remove form-control-feedback" style="right:-20px;color: red"
+                                      ng-show="!(modalForm.name.$dirty && modalForm.name.$valid)"></span>-->
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label"> 次序：</label>
+                            <div class="col-sm-6">
+                                <input name="Porder" class="form-control" ng-model="Modal.Porder" type="number" min="0" required placeholder="必填" />
+                                <span ng-class="{true:'glyphicon-ok',false:'glyphicon-remove'}[modalForm.Porder.$valid]" class="glyphicon form-control-feedback"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-horizontal form-position" ng-if="Modal.levelName=='任务分类'">
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label"> 分类名称：</label>
+                            <div class="col-sm-6">
+                                <input name="name" class="form-control" ng-model="Modal.name" required placeholder="必填" />
+                                <span ng-class="{true:'glyphicon-ok',false:'glyphicon-remove'}[modalForm.name.$valid]" class="glyphicon form-control-feedback"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label"> 所属角色：</label>
+                            <div class="col-sm-6">
+                                <select class="form-control" ng-model="Modal.TaskRole" ng-options="x.key as x.value for x in Roles"></select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label"> 附加分：</label>
+                            <div class="col-sm-6">
+                                <input type="number" name="Score" min="0" class="form-control" ng-model="Modal.TaskTypeScore" required placeholder="必填"/>
+                                <span ng-class="{true:'glyphicon-ok',false:'glyphicon-remove'}[modalForm.Score.$valid]" class="glyphicon form-control-feedback"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label"> 次序：</label>
+                            <div class="col-sm-6">
+                                <input type="number" class="form-control" ng-model="Modal.Porder" required  />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label"> 启用：</label>
+                            <div class="col-sm-6">
+                                <span>{{Modal.TaskTypeStatus=="1"?"启用":"禁用"}}</span>
+                                <input type="button" ng-class="'btn btn-sm '+(Modal.TaskTypeStatus=='1'?'btn-warning':'btn btn-success')"
+                                       ng-value="Modal.TaskTypeStatus=='1'?'禁用':'启用'" ng-click="changeModalStatus()" style="margin-left: 5px" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label"> 父节点：</label>
+                            <div class="col-sm-6">
+                                <span>{{Modal.ParentName}}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-horizontal form-position" ng-if="Modal.levelName=='任务'">
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label"> 任务名称：</label>
+                            <div class="col-sm-6">
+                                <input name="name" required class="form-control" ng-model="Modal.name"/>
+                                <span ng-class="{true:'glyphicon-ok',false:'glyphicon-remove'}[modalForm.name.$valid]" class="glyphicon form-control-feedback"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label"> 任务积分：</label>
+                            <div class="col-sm-6">
+                                <input type="number" min="0" required name="TaskScore" class="form-control" ng-model="Modal.TaskScore" />
+                                <span ng-class="{true:'glyphicon-ok',false:'glyphicon-remove'}[modalForm.TaskScore.$valid]" class="glyphicon form-control-feedback"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label"> 任务周期：</label>
+                            <div class="col-sm-6">
+                                <select class="form-control" ng-disabled="Modal.view"  ng-model="Modal.TaskCycle" ng-options="x.key as x.value for x in Cycles"></select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label"> 链接：</label>
+                            <div class="col-sm-6">
+                                <input type="url" name="TaskUrl" class="form-control" ng-model="Modal.TaskUrl" />
+                                <span ng-class="{true:'glyphicon-ok',false:'glyphicon-remove'}[modalForm.TaskUrl.$valid]" class="glyphicon form-control-feedback"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label"> 次序：</label>
+                            <div class="col-sm-6">
+                                <input type="number" required min="0" name="Porder" class="form-control" ng-model="Modal.Porder"/>
+                                <span ng-class="{true:'glyphicon-ok',false:'glyphicon-remove'}[modalForm.Porder.$valid]" class="glyphicon form-control-feedback"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label"> 启用：</label>
+                            <div class="col-sm-6">
+                                <span>{{Modal.TaskStatus=="1"?"启用":"禁用"}}</span>
+                                <input type="button" ng-class="'btn btn-sm '+(Modal.TaskStatus=='1'?'btn-warning':'btn btn-success')"
+                                       ng-value="Modal.TaskStatus=='1'?'禁用':'启用'" style="margin-left: 5px" ng-click="changeModalStatus()" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label"> 父节点：</label>
+                            <div class="col-sm-6">
+                                <span>{{Modal.ParentName}}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-primary" ng-click="SaveModel(modalForm.$valid,Modal)">保存</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

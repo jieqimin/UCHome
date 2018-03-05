@@ -1,0 +1,37 @@
+﻿@{
+    Layout = null;
+    int index = 1;
+}
+
+<style>
+    .text-cut {
+        max-width: 180px;
+        display: inline-block;
+        overflow: hidden;
+        -moz-text-overflow: ellipsis;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+</style>
+
+@model List<UCHome.Model.NewSchoolMessage>  
+<ul>
+
+    @foreach (var item in Model)
+    {
+        <li style="margin-left: 15px; color: #8d8d8d; line-height: 30px; width: 290px; float: left; font-size: 12px;">
+            <a title="@item.MsgTitle" class="a-font text-cut" style="color: #8d8d8d;" target="_blank" href="@Url.Action("SchoolMessageEdit", "SchoolCenter", new { id = item.ID })">@item.MsgTitle</a>
+            <span class="news-date" style="float: right;">@item.MsgDate.ToString("yyyy/MM/dd")</span>
+            @*<span class="news-date"  >@item.MsgDate.ToString("yyyy/MM/dd")</span>*@
+        </li>
+@*<div class="dotted"></div>
+            index++;*@
+    }
+</ul>
+
+
+
+
+
+
+

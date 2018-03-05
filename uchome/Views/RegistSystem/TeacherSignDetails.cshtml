@@ -1,0 +1,199 @@
+﻿@{
+    Layout = null;
+}
+@model TeacherAwards.Model.Entity.View_RegistActive
+<style type="text/css">
+    .pd
+    {
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+
+    .h
+    {
+        line-height: 34px;
+    }
+
+    .lic
+    {
+        float: left;
+        margin-right: 10px;
+        height: 33px;
+        line-height: 33px;
+    }
+
+    .w
+    {
+        width: 450px;
+    }
+</style>
+<div id="noticeSend" class="form-horizontal form-position pagew " style="margin-bottom: 0px; margin-top: 0px;">
+    <div class="form-group">
+        <label for="Time" class="col-sm-2 control-label" style="font-size:16px;color: #1172B9;">活动详情</label>
+        <div class="col-sm-7 pd h">
+
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="Time" class="col-sm-2 control-label">活动标题：</label>
+        <div class="col-sm-7 pd h">
+            @Html.HiddenFor(model => model.WriteRegistTable)
+            @Model.ActiveName
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="Time" class="col-sm-2 control-label">起止时间：</label>
+        <div class="col-sm-7 pd h">
+            @Model.StartTime.Value.ToString("yyyy-MM-dd")&nbsp;--&nbsp;@Model.EndTime.Value.ToString("yyyy-MM-dd")
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="Time" class="col-sm-2 control-label">活动图片：</label>
+        <div class="col-sm-7 pd h">
+            <div class='pic' style='float: left;'>
+                <img src='@Model.ActiveFJ' width='270' height='150'/>
+            </div>
+            <br/>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="Time" class="col-sm-2 control-label">活动类别：</label>
+        <div class="col-sm-7 pd h">
+            @Model.Type
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="Time" class="col-sm-2 control-label">活动级别：</label>
+        <div class="col-sm-7 pd h">
+            @Model.ActiveType
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="Time" class="col-sm-2 control-label">活动组织方：</label>
+        <div class="col-sm-7 pd h">
+            @Model.Organization
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="Time" class="col-sm-2 control-label">活动地点：</label>
+        <div class="col-sm-7 pd h">
+            @Model.ActivePlace
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="Time" class="col-sm-2 control-label">活动要求：</label>
+        <div class="col-sm-7 pd h">
+            @Html.Raw(Model.Require)
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="Time" class="col-sm-2 control-label">活动说明：</label>
+        <div class="col-sm-7 pd h">
+            @Html.Raw(Model.ActiveSM)
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="Time" class="col-sm-2 control-label">参与对象：</label>
+        <div class="col-sm-7 pd h">
+            @Model.ActiveDX
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="Time" class="col-sm-2 control-label">参与人数：</label>
+        <div class="col-sm-7 pd h">
+            @Model.ActiveNum
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="Time" class="col-sm-2 control-label">考核分数：</label>
+        <div class="col-sm-7 pd h">
+            @Model.ActiveScore
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="Time" class="col-sm-2 control-label">审核：</label>
+        <div class="col-sm-7 pd h">
+            @Model.ActiveAudit
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="Time" class="col-sm-2 control-label" style="font-size: 16px;color: #1172B9;">报名表信息</label>
+        <div class="col-sm-7 pd h">
+
+        </div>
+    </div>
+    <div id="modelHtml">
+    </div>
+    <div class="form-group">
+        <label for="Time" class="col-sm-2 control-label" style="font-size: 16px;color: #1172B9;">审核评价</label>
+        <div class="col-sm-7 pd h">
+
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="Time" class="col-sm-2 control-label">审核评分：</label>
+        <div class="col-sm-7 pd h">
+            @Html.HiddenFor(model => model.ActiveID)
+            @Html.HiddenFor(model => model.ActiveName)
+            @Html.HiddenFor(model => model.WriteRegistTable)
+            @Html.HiddenFor(model => model.ActiveAudit)
+            @Html.HiddenFor(model => model.EndTime)
+            @Html.HiddenFor(model => model.RegistID)
+            @Html.HiddenFor(model => model.ResistStatus)
+            @Model.GetActiveScore
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="Time" class="col-sm-2 control-label">审核评价：</label>
+        <div class="col-sm-7 pd h">
+            @Html.Raw(ViewBag.AuditPJ)
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="Time" class="col-sm-2 control-label">心得体会：</label>
+        <div class="col-sm-7 pd h">
+            @Html.Raw(ViewBag.ResgistXDTH)
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        var registId = $("#RegistID").val();
+
+        $.getJSON('@Url.Action("AllModelValueListJson")', { "registId": registId }, function (data) {
+            if (data != null && data.length > 0) {
+                var modelHtml = "";
+                var len = data.length;
+                for (var i = 1; i <= len; i++) {
+                    modelHtml += "<div class=\"form-group\"><label for=\"Time\" class=\"col-sm-2 control-label\">";
+                    if (data[i - 1].RegistModelType == "性别") {
+                        if (data[i - 1].RegistValue == "男") {
+                            modelHtml += data[i - 1].RegistModelName + "：</label><div class=\"col-sm-7 pd h\">男";
+                        } else {
+                            modelHtml += data[i - 1].RegistModelName + "：</label><div class=\"col-sm-7 pd h\">女";
+                        }
+                    } else if (data[i - 1].RegistModelType == "时间") {
+                        modelHtml += data[i - 1].RegistModelName + "：</label><div class=\"col-sm-7 pd h\">" + data[i - 1].RegistValue;
+                    } else {
+                        modelHtml += data[i - 1].RegistModelName + "：</label><div class=\"col-sm-7 pd h\">" + data[i - 1].RegistValue;
+                    }
+                    modelHtml += "</div></div>";
+                }
+
+                var status = $("#ResistStatus").val();
+                if (status == "0") {
+                    status = "未审核";
+                } else if (status == "1") {
+                    status = "审核通过";
+                } else {
+                    status = "审核退回";
+                }
+                modelHtml += "<div class=\"form-group\"><label for=\"Time\" class=\"col-sm-2 control-label\">审核结果：</label><div class=\"col-sm-7 pd h\">" + status + "</div></div>";
+
+                $("#modelHtml").html(modelHtml);
+            }
+        });
+    });
+</script>
+

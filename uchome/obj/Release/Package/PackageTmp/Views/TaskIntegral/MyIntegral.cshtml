@@ -1,0 +1,176 @@
+﻿@using System.Diagnostics.Eventing.Reader
+
+    <link href="@Url.Content("~/Content/css/integral.css")" rel="stylesheet" />
+
+@if (ViewBag.visible)
+{
+    <div>
+        <div style="width: 650px; overflow: hidden">
+            <span class="rate-start" id="nowlevelName"></span>
+            <div class="progress">
+                <div class="progress-bar progress-bar-warning progress-bar-striped" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" id="level">
+                    <span class="sr-only"></span>
+                </div>
+            </div>
+            <span class="rete-end" id="nextLevelName"></span>
+            <span class="rate-role">等级规则</span>
+        </div>
+        <div class="points-tips">
+            恭喜你，你的积分领先全市<span class="lead-num" id="cityOrder"></span>的用户，本县区<span class="lead-num" id="areaOrder"></span>的用户，本校<span class="lead-num" id="schoolOrder"></span>
+            的用户，离下一级还需要<span class="lead-num" id="SurplusScore"></span>积分！
+        </div>
+        <div id="content">
+            <div class="integral">
+                <div id="resoursePoint">资源任务：<span class="point" id="resourcesSumScore"></span></div>
+                <div id="applicationPoint">文章任务：<span class="point" id="articleSumScore"></span></div><br/>
+                <div id="JournalArticle">应用任务：<span class="point" id="appSumScore"></span></div>
+                <div id="ClaTea">教学任务：<span class="point" id="teachSumScore"></span></div>
+            </div>
+            <div class="summary-graph" id="container">
+            </div>
+        </div>
+        <span class="Recent-Points">最近积分明细</span>
+        <table class="table" style="width: 650px; text-align: center">
+            @foreach (TaskIntegral.Model.View_TaskUserDetail item in Model)
+            {
+                <tr>
+                    <td class="newTask">@item.Memo</td>
+                    <td class="newTask"><span>[</span>@item.TaskTypeName<span>]</span></td>
+                    <td class="rescourseWork"><span>[</span>@item.ModuleName<span>]</span></td>
+                    <td>@item.TaskName</td>
+                    <td>获得了<span>@item.TaskScore</span>个积分</td>
+                </tr>
+            }
+        </table>
+    </div>
+}
+else
+{
+    <p class="tips"><span class="glyphicon glyphicon-heart">亲当前你还没有积分哦，快去积分吧！</span></p>
+}
+
+<script type="text/javascript">
+    var resourcesSumScore = 0;
+    var articleSumScore = 0;
+    var appSumScore = 0;
+    var teachSumScore = 0;
+    $(document).ready(function () {
+        //获取用户上传的资源数在全省全市全县的排名
+        //getResourceRank();
+        getTaskScores();
+        getIntegralLevel();
+        leadIntegral();
+    });
+    //获取各个资源的积分
+    function getTaskScores() {
+        $.ajax({
+            type: "GET",
+            url: "@Url.Action("GetTaskScores", "TaskIntegral")",
+            success: function (result) {
+                if (result != null && result != "") {
+                    var taskscoresItem = result.split(',');
+                    resourcesSumScore = parseInt(taskscoresItem[0]);
+                    articleSumScore = parseInt(taskscoresItem[1]);
+                    appSumScore = parseInt(taskscoresItem[2]);
+                    teachSumScore = parseInt(taskscoresItem[3]);
+                    $("#resourcesSumScore").text(resourcesSumScore);
+                    $("#articleSumScore").text(articleSumScore);
+                    $("#appSumScore").text(appSumScore);
+                    $("#teachSumScore").text(teachSumScore);
+                }
+                var chart;
+                chart = new Highcharts.Chart({
+                    chart: {
+                        renderTo: 'container',
+                        plotBackgroundColor: null,
+                        plotBorderWidth: null,
+                        plotShadow: false
+                    },
+                    title: {
+                        text: ''
+                    },
+                    tooltip: {
+                        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                    },
+                    plotOptions: {
+                        pie: {
+                            allowPointSelect: false,
+                            cursor: 'pointer',
+                            dataLabels: {
+                                enabled: false,
+                                format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                                style: {
+                                    color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                                }
+                            },
+                            showInLegend: true
+                        }
+                    },
+                    series: [{
+                        type: 'pie',
+                        name: '积分比例',
+                        data: [
+                            ['资源任务', resourcesSumScore],
+                            ['文章任务', articleSumScore],
+                            ['应用任务', appSumScore],
+                            ['教学任务', teachSumScore]
+                        ]
+                    }]
+                });
+            }
+        });
+
+    }
+
+    function getIntegralLevel() {
+        $.ajax({
+            type: "GET",
+            url: "@Url.Action("GetIntegralLevel", "TaskIntegral")",
+            success: function(result) {
+                if (result != null && result != "") {
+                    var leverItem = result.split(',');
+                    var nowlevelName = leverItem[0]; //当前等级名称
+                    var usersumScore = leverItem[1]; //用户获得的积分
+                    var nextLevelName = leverItem[2]; //下一级名称
+                    var nextlevelScore = leverItem[3]; //下一等级任务
+                    $("#nowlevelName").text(nowlevelName);
+                    $("#nextLevelName").text(nextLevelName);
+                    var wihth = (usersumScore * 100 / nextlevelScore) + "%";
+                    var surplusScore = nextlevelScore - usersumScore;
+                    $("#level").css("width", wihth);
+                    $("#SurplusScore").text(surplusScore);
+                }
+            }
+        });
+    }
+
+    //积分领先全县，全市，全校
+    function leadIntegral() {
+        $.ajax({
+            type: "GET",
+            url: "@Url.Action("GetleadIntegral", "TaskIntegral")",
+            success: function (results) {
+                if (results != null && results!="") {
+                    var orderInfo = results.split(',');
+                    var cityOrder = orderInfo[0];
+                    var areaOrder = orderInfo[1];
+                    var schoolOrder = orderInfo[2];
+                    $("#cityOrder").text(cityOrder);
+                    $("#areaOrder").text(areaOrder);
+                    $("#schoolOrder").text(schoolOrder);
+                }
+            }
+
+    });
+    }
+    @*function getResourceRank() {
+        $.ajax({
+            type: "GET",
+            url: "@Url.Action("GetRescourceRank", "TaskIntegral")",
+            success: function (results) {
+            }
+
+        });
+    }*@
+</script>
+

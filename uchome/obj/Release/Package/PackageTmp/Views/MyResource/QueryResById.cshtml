@@ -1,0 +1,242 @@
+﻿@model UCHome.Model.UCHome_BaseInfo
+@{
+    string sec = Model.Section != null ? Model.Section.Split(',')[0] : "全部";
+    string sub = Model.Subject != null ? Model.Subject.Split(',')[0] : "全部";
+}
+<style >
+    .searchwhere {
+        background-color: #f8f8f8;
+    }
+
+        .searchwhere .where_type {
+            width: 60px;
+            float: left;
+            display: inline-block;
+            line-height: 40px;
+            text-align: center;
+            color: #077DB0;
+            font-weight: bold;
+        }
+
+        .searchwhere .search_where_ul {
+            line-height: 30px;
+            float: left;
+            display: inline-block;
+            width: 660px;
+        }
+
+            .searchwhere .search_where_ul li {
+                float: left;
+                line-height: 40px;
+                margin: 0 10px;
+                cursor: pointer;
+            }
+
+                .searchwhere .search_where_ul li.selected {
+                    color: #077DB0;
+                }
+
+    .searchBar {
+        height: 40px;
+        line-height: 40px;
+        background-color: #F8F8F8;
+        border-top: solid 1px #CCCCCC;
+        border-bottom: solid 1px #CCCCCC;
+        text-indent: 15px;
+        position: relative;
+    }
+
+    #searchBar {
+        color: #077DB0;
+        font-size: 12px;
+        position: absolute;
+        left: 80px;
+        top: 0;
+    }
+
+    .searchBar .search_order {
+        display: inline-block;
+        height: 40px;
+        line-height: 40px;
+        position: absolute;
+        right: 80px;
+        top: 2px;
+    }
+
+    .searchBar .search_btn {
+        display: inline-block;
+        height: 40px;
+        line-height: 40px;
+        position: absolute;
+        right: 10px;
+        top: -3px;
+    }
+
+    #resourcecenter .log-pager {
+        text-align: center;
+        width: 100%;
+    }
+
+    .well {
+        margin: 0;
+        padding: 0 5px;
+        text-align: center;
+    }
+
+    .pagination_custom {
+        margin: 5px 0;
+    }
+
+    #resourcelist {
+        margin: 10px 20px;
+        min-height: 500px;
+    }
+
+        #resourcelist .res-content {
+            line-height: 30px;
+            width: 100%;
+            border-bottom: dotted 1px #ccc;
+        }
+
+    .res-content li.res-abstract {
+        float: left;
+        width: 420px;
+        overflow: hidden;
+    }
+
+    .res-content li.res-schoolstage {
+        float: right;
+        width: 60px;
+        line-height: 65px;
+        text-align: center;
+        color: #4D8C31;
+    }
+
+    .res-content li.res-sub {
+        float: right;
+        width: 120px;
+        line-height: 65px;
+        text-align: center;
+        color: #4D8C31;
+    }
+
+    .res-content li.res-grade {
+        float: right;
+        width: 70px;
+        line-height: 65px;
+        text-align: center;
+        color: #4D8C31;
+    }
+
+    .res-content .res-name {
+        color: #333;
+        font-size: 14px;
+        line-height: 30px;
+        height: 30px;
+        width: 420px;
+        overflow: hidden;
+    }
+
+    .res-content .res-property {
+        color: #999;
+        font-size: 12px;
+        line-height: 25px;
+    }
+
+        .res-content .res-property span {
+            float: left;
+            display: inline-block;
+            line-height: 25px;
+            margin: 5px;
+        }
+</style>
+<div class="searchBar">
+    <input type="hidden" name="search_section" id="search_section" value="全部" />
+    <input type="hidden" name="search_subject" id="search_subject" value="全部" />
+    <input type="hidden" name="search_grade" id="search_grade" value="全部" />
+    <input type="hidden" name="" id="search_restype" value="" />
+    <input type="hidden" name="" id="search_doctype" value="" />
+    <input type="hidden" name="" id="search_knowledge" value="" />
+    当前检索：<div id="searchBar"></div>
+    @* <span class="search_order">
+        <select id="search_order" class="form-control col-md-3">
+            <option value="createtime">按更新时间</option>
+            <option value="hits">按下载次数</option>
+        </select>
+    </span>*@
+    <span class="search_btn">
+        <input id="btn-search" type="button" class="btn btn-info" value="搜索" />
+    </span>
+
+</div>
+<div id="resourcelist">
+    <div class="loading">正在读取，请稍候……</div>
+</div>
+<div id="page_data">
+    <div class="log-pager" id="plugs-pager2">
+    </div>
+</div>
+<script>
+    var currpage = 1;
+    var totalcount = 1;
+    var rsc_bs_pag = { go_to_page_title: "转到", rows_per_page_title: "第几页", current_page_label: "页", current_page_abbr_label: "", total_pages_label: "/", total_pages_abbr_label: "/", total_rows_label: "/", rows_info_records: "记录", go_top_text: "&laquo;", go_prev_text: "&larr;", go_next_text: "&rarr;", go_last_text: "&raquo;" };
+    getresourcebywhere2(10, currpage, "@Model.UserID.ToString()");
+    $("#btn-search").click(function () {
+        currpage = 1;
+        getresourcebywhere2(10, currpage, "@Model.UserID.ToString()");
+    });
+    function getresourcebywhere2(pagesize, pageindex, userid) {
+        var w_res = $("#search_restype").val();
+        var w_doc = $("#search_doctype").attr("name");
+        $("#resourcelist").html("");
+        $.ajax({
+            url: "@Url.Action("GetMyResourceByWhere")",
+            data: { conditionType: "", condition: "", format: w_doc, type: w_res, page: pageindex, userid: userid },
+            success: function (data) {
+                var infos = eval("(" + data + ")");
+                var result = eval("(" + infos + ")");
+                if (result.ResourceList.length > 0) {
+                    totalcount = result.TotalPage;
+                    $.each(result.ResourceList, function (idx, item) {
+                        var name = item.ResourceName;
+                        var time = eval(item.CreateTime.replace(/\/Date\((\d+)\)\//gi, "new Date($1)")).toLocaleDateString();
+                        var auditstatus = item.ResourceStatusMore;
+                        var DownloadCount = item.DownloadCount;
+                        var linkurl = item.LinkUrl;
+                        var str = "<div class=\"res-content\"><ul class='clearfix'><li class='res-abstract'>";
+                        str += "<div class=\"res-name\"><a href=\"" + linkurl + "\" target=\"_blank\">" + name + "</a></div>";
+                        str += "<div class=\"res-property clearfix\"><span>上传时间：" + time + "</span><span>下载次数：" + DownloadCount + "</span><span>审核状态：" + auditstatus + "</span></div>";
+                        str += "</li>";
+                        str += " </ul></div>";
+                        var obj = str;
+                        $("#resourcelist").append($(obj));
+                    });
+                } else {
+                    var obj = "<li class=\"noinfo\"><p class=\"person\"><span class=\"newscontent\">没有发现任何资源！</span></p></li>";
+                    $("#resourcelist").append($(obj));
+                }
+                var tc = totalcount / 10;
+                var tci = parseInt(tc);
+                var tps;
+                if (tc > tci)
+                    tps = tci + 1;
+                else
+                    tps = tci;
+                $("#plugs-pager2").bs_pagination({
+                    currentPage: currpage,
+                    visiblePageLinks: 10,
+                    totalPages: tps,//根据实际数量/visiblePageLinks
+                    showGoToPage: false,
+                    showRowsPerPage: false,
+                    showRowsInfo: false,
+                    onChangePage: function (type, page) {
+                        currpage = page.currentPage;
+                        getresourcebywhere2(10, currpage, "@(Model.UserID.ToString())");
+                    }
+                });
+            }
+        });
+    }
+
+
+</script>

@@ -1,0 +1,18 @@
+﻿@using UCHome.Model
+@model IEnumerable<UCHome_Skin>    
+<div class="row" style="width: 840px;">
+    @foreach (UCHome_Skin item in Model)
+    {
+        <div class="col-sm-4 col-md-3" ng-repeat="item in $data">
+            <div class="thumbnail">
+                <img src="@item.SkinBackground" style="width: 171px; height: 150px;">
+                <div class="caption">
+                    <p style="text-align: center;">
+                        <span class="pull-left col-md-7" style="font-size: 14px; font-family: 微软雅黑">@item.SkinName</span>
+                        <input  type="radio" name="seloption" value="@item.Memo"/>选择                                            
+                    </p>
+                </div>
+            </div>
+        </div>
+    }
+</div>

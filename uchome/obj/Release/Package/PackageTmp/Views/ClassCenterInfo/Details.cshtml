@@ -1,0 +1,67 @@
+﻿@{
+    Layout = null;
+}
+@using M = UCHome.Model;
+<input type="hidden" id="PKID" value="@ViewBag.PKID" />
+<div class="content">
+    <div class="img-box">
+        <div class="banner-all">
+            <div class="big-banner">
+                <a href="#">
+                    @{
+                        int i = 0;
+                        var aa=ViewBag.PKID;
+                    }
+                    @foreach (M.View_Class_teaandstuPhotos item in Model)
+                    {
+                        var hidepkid = aa;
+                        var pkid = item.PKID.ToString();
+                        var urll = "http://www.taedu.gov.cn" + item.PhotoUrl;
+                        if (pkid == hidepkid)
+                        {
+                            var xx = "http://www.taedu.gov.cn" + item.PhotoUrl;                       
+                            <img src="@xx" />   
+                        }
+                        
+                       else
+                        {
+                        <img src="@urll" hidden/>  
+                        }
+                       
+
+                    }
+
+                </a>
+            </div>
+            <!--banner-->
+            <div class="small-banner">
+                <ul>
+                    @{
+                        int j = 0;
+                    }
+                    @foreach (M.View_Class_teaandstuPhotos item in Model)
+                    {
+                        j++;
+                        var urll = "http://www.taedu.gov.cn" + item.PhotoUrl;
+                        
+                        <li class="small-item" data-id="@(j - 1)">
+                            <img src="@urll"/>
+                        </li>
+
+                    }
+
+                </ul>
+            </div>
+            <!--small-banner-->
+            <a href="##" class="left">
+                <img src="@Url.Content("~/Content/ClassCenter/images/mien/left.png")"/>
+            </a>
+            <a href="##" class="right">
+                <img src="@Url.Content("~/Content/ClassCenter/images/mien/right.png")" /></a>
+        </div>
+        <!--banner-all-->
+    </div>
+</div>
+<link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/ClassCenter/css/mien-details.css")">
+<script type="text/javascript" src="@Url.Content("~/Content/ClassCenter/js/mien-details.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Content/ClassCenter/js/public.js")"></script>

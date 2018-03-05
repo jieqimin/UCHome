@@ -1,0 +1,369 @@
+﻿@model UCHome.Controllers.StudentAllInfo
+<style>
+    label.error {
+        color: red;
+        font-size: 14px;
+        display: none;
+    }
+
+    #section label, #subject label[section] {
+        margin-left: 5px;
+    }
+
+    .previewimg {
+        padding-left: 20px;
+        display: none;
+    }
+
+    #ImgPr {
+        float: left;
+    }
+</style>
+<script  src="@Url.Content("~/Scripts/jquery.form.js")"></script>
+<script  src="@Url.Content("~/scripts/jquery.validate.min.js")"></script>
+<ul>
+    <li class="teaphoto img-circle" title="点击编辑头像">
+        @{ 
+            string userimage = Model.UBI.headphoto;
+        }
+        @if (string.IsNullOrEmpty(userimage))
+        {
+            <img  height="60" width="60" data-target="#upheadimg" data-toggle="modal" src="@Url.Content("~/Content/images/man.png")" />
+        }
+        else
+        {
+            <img class="img-circle" height="60" width="60" data-target="#upheadimg" data-toggle="modal" src="@userimage" />
+        }
+    </li>
+    <li class="teaname">@Model.VSS.XM<span style="color: #6495ed; font-size: 12px;"><a style="cursor: pointer;" data-target="#modal-alive" data-toggle="modal"> [ 管理个人信息 ] </a></span></li>
+    <li class="teainfo" style="height: 35px;">学生 |  @(Model.VSS.XBM == "2" ? "女" : "男") | @Model.VSS.XXMC</li>
+     <li class="teaclass" style="margin-top: 10px;"><a target="_blank" href="@Url.Action("ClassIndex","ClassCenterInfo",new {bjid=Model.VSS.BJID,bjmc=Model.VSS.bjmc})">我的班级空间： @Model.VSS.bjmc</a></li>
+</ul>
+<div id="modal-alive" class="modal fade in">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">修改个人资料</h4>
+            </div>
+            <form id="form-alivespace" name="form-alivespace" method="POST" class="form-horizontal">
+                @Html.Hidden("Subject")
+                @Html.Hidden("Section")
+                <div class="modal-body">
+
+                    <div class="form-group ">
+                        <label for="album-name" class="col-sm-2 control-label">空间名称</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="required form-control" id="NickName" name="NickName" title="请输入空间名称" value="@Model.UBI.NickName">
+                        </div>
+                    </div>
+
+                </div>
+                <div id="personinfooperarea" class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button id="btnspacealive" type="submit" class="btn btn-primary">保存</button>
+                </div>
+            </form>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<div class="modal fade bs-example-modal-lg" id="upheadimg" tabindex="-1" role="dialog" aria-labelledby="uploadlabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="uploadlabel">上传头像</h4>
+            </div>
+            <form id="form-uploadphotos" name="form-uploadphotos" class="form-horizontal" enctype="multipart/form-data" method="POST">
+                <div class="modal-body">
+
+                    @Html.Hidden("photoids", Model)
+                    <div class="form-group">
+                        <div class="text-center custom-photoarea center-block" style="width: 400px;">
+                            <input type="file" id="exampleInputFile" name="exampleInputFile" style="width: 400px;">
+                        </div>
+                    </div>
+
+                    <div class="form-group previewimg">
+                        <div class="jc-demo-box">
+                            <div style="width: 500px; height: 400px; border: solid 1px #ddd; overflow: auto;">
+                                <img id="ImgPr" alt="" />
+                            </div>
+                        </div>
+                        <div id="preview-pane">
+                            <div class="preview-container img-circle">
+                                <img id="ImgPr_HeadImg" src="" class="jcrop-preview" alt="Preview" />
+                            </div>
+                            <div class="preview-container2 img-circle">
+                                <img id="ImgPr_HeadImg2" src="" class="jcrop-preview" alt="Preview" />
+                            </div>
+                            <div class="preview-container3 img-circle">
+                                <img id="ImgPr_HeadImg3" src="" class="jcrop-preview" alt="Preview" />
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+                <div id="modal-photoopera" class="modal-footer">
+                    @Html.Hidden("HdnNewImgPath")
+                    @Html.Hidden("x1")
+                    @Html.Hidden("y1")
+                    @Html.Hidden("Iwidth")
+                    @Html.Hidden("Iheight")
+                    <button type="button" class="btn btn-default" onclick="jcropdestroy()">重新上传 </button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关 闭 </button>
+                    <button id="btn-uploadphoto" type="button" class="btn btn-primary">保 存 </button>
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    var jcrop_api;
+</script>
+<script>
+    $("#form-alivespace").validate({
+        submitHandler: function (form) {
+            $(form).ajaxSubmit({
+                url: "@Url.Action("UpdateInfo", "Home")",
+                success: function (data) {
+                    if (data.Data.result == "success") {
+                        opersuccesstip($("#personinfooperarea"), "保存成功");
+                        hidesuccesstip(1000);
+                        setTimeout(function () {
+                            $("#modal-alive").modal('hide');
+                        }, 1000);
+                    }
+                    else if (data.Data.result == "noexist") {
+                        operfailtip($("#personinfooperarea"), "保存失败，空间未激活！");
+                        hidefailtip(2000);
+                    }
+                    else {
+                        operfailtip($("#personinfooperarea"), "保存失败，网络连接不正常！");
+                        hidefailtip(2000);
+                    }
+
+                }
+            });
+        }
+    });
+</script>
+<script>
+    jQuery.fn.extend({
+        uploadPreview: function (opts) {
+            var _self = this,
+                _this = $(this);
+            opts = jQuery.extend({
+                Img: "ImgPr",
+                Width: 500,
+                Height: 400,
+                ImgType: ["gif", "jpeg", "jpg", "bmp", "png"],
+                Callback: function () { }
+            }, opts || {});
+            _self.getObjectURL = function (file) {
+                var url = null;
+                if (window.createObjectURL != undefined) {
+                    url = window.createObjectURL(file);
+                } else if (window.URL != undefined) {
+                    url = window.URL.createObjectURL(file);
+                } else if (window.webkitURL != undefined) {
+                    url = window.webkitURL.createObjectURL(file);
+                }
+                return url;
+            };
+            _this.change(function () {
+                if (this.value) {
+                    if (!RegExp("\.(" + opts.ImgType.join("|") + ")$", "i").test(this.value.toLowerCase())) {
+                        alert("选择文件错误,图片类型必须是" + opts.ImgType.join("，") + "中的一种");
+                        this.value = "";
+                        return false;
+                    }
+                    if (true) {
+                        try {
+                            $("#" + opts.Img).attr('src', _self.getObjectURL(this.files[0]));
+                        } catch (e) {
+                            var src;
+                            var obj = $("#" + opts.Img);
+                            var div = obj.parent("div")[0];
+                            _self.select();
+                            if (top != self) {
+                                window.parent.document.body.focus();
+                            } else {
+                                _self.blur();
+                            }
+                            src = document.selection.createRange().text;
+                            document.selection.empty();
+                            obj.hide();
+                            obj.parent("div").css({
+                                'filter': 'progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)',
+                                'width': opts.Width + 'px',
+                                'height': opts.Height + 'px'
+                            });
+                            div.filters.item("DXImageTransform.Microsoft.AlphaImageLoader").src = src;
+                        }
+                    }
+                    //else {
+                    //    $("#" + opts.Img).attr('src', _self.getObjectURL(this.files[0]));
+                    //}
+                    opts.Callback();
+                }
+                return "";
+            });
+        }
+    });
+    $("#exampleInputFile").uploadPreview({
+        Img: "ImgPr", Callback: function () {
+            $(".previewimg").show();
+            $("#exampleInputFile").hide();
+            jcropImg();
+        }
+    });
+    $("#exampleInputFile").uploadPreview({
+        Img: "ImgPr_HeadImg"
+    });
+    $("#exampleInputFile").uploadPreview({
+        Img: "ImgPr_HeadImg2"
+    });
+    $("#exampleInputFile").uploadPreview({
+        Img: "ImgPr_HeadImg3"
+    });
+    function jcropdestroy() {
+        if (jcrop_api != null)
+            jcrop_api.destroy();
+        $("#exampleInputFile").show();
+        $("#ImgPr").width("").height("");
+        $(".previewimg").hide();
+    }
+</script>
+<script>
+    $("#btn-uploadphoto").click(function () {
+        $("#form-uploadphotos").ajaxForm({
+            url: "@Url.Action("AddHeadimg", "PublicShare")",
+            success: function (data) {
+                if (data.Data.statuscode == 200) {
+                    $(".teaphoto img").attr("src", data.Data.photourl);
+                    opersuccesstip($("#modal-photoopera"), "头像设置成功");
+                    hidesuccesstip(1000);
+                    jcrop_api.destroy();
+                    setTimeout(function () {
+                        $("#upheadimg").modal("hide");
+                    }, 2000);
+                } else {
+                    operfailtip($("#modal-photoopera"), "头像设置失败,网络异常");
+                    hidefailtip(1000);
+                }
+            }
+        }).submit();
+    });
+</script>
+<script  src="@Url.Content("~/plugs/jcrop/js/jquery.Jcrop.min.js")"></script>
+<link rel="stylesheet" href="@Url.Content("~/plugs/jcrop/css/jquery.Jcrop.min.css")"  />
+<script>
+    function jcropImg() {
+
+        // Create variables (in this scope) to hold the API and image size
+        var boundx,
+            boundy,
+
+            // Grab some information about the preview pane
+            //$preview = $('#preview-pane'),
+            $pcnt = $('#preview-pane .preview-container'),
+            $pimg = $('#preview-pane .preview-container #ImgPr_HeadImg'),
+            //$pcnt2 = $('#preview-pane .preview-container2'),
+            $pimg2 = $('#preview-pane .previewcontainer2 #ImgPr_HeadImg2'),
+            //$pcnt3 = $('#preview-pane .preview-container3'),
+            $pimg3 = $('#preview-pane .preview-container3 #ImgPr_HeadImg3'),
+            //$pimg = $('#preview-pane .preview-container img'),
+            xsize = $pcnt.width(),
+            ysize = $pcnt.height();
+
+        console.log('init', [xsize, ysize]);
+        $('#ImgPr').Jcrop({
+            onChange: updatePreview,
+            onSelect: updatePreview,
+            aspectRatio: xsize / ysize
+        }, function () {
+            // Use the API to get the real image size
+            var bounds = this.getBounds();
+            boundx = bounds[0];
+            boundy = bounds[1];
+            // Store the API in the jcrop_api variable
+            jcrop_api = this;
+
+            // Move the preview into the jcrop container for css positioning
+            //$preview.appendTo(jcrop_api.ui.holder);
+        });
+
+        function updatePreview(c) {
+            if (parseInt(c.w) > 0) {
+                var rx = xsize / c.w;
+                var ry = ysize / c.h;
+
+                $pimg.css({
+                    width: Math.round(rx * boundx) + 'px',
+                    height: Math.round(ry * boundy) + 'px',
+                    marginLeft: '-' + Math.round(rx * c.x) + 'px',
+                    marginTop: '-' + Math.round(ry * c.y) + 'px'
+                });
+                $pimg2.css({
+                    width: Math.round(80 / c.w * boundx) + 'px',
+                    height: Math.round(80 / c.h * boundy) + 'px',
+                    marginLeft: '-' + Math.round(80 / c.w * c.x) + 'px',
+                    marginTop: '-' + Math.round(80 / c.h * c.y) + 'px'
+                });
+                $pimg3.css({
+                    width: Math.round(40 / c.w * boundx) + 'px',
+                    height: Math.round(40 / c.h * boundy) + 'px',
+                    marginLeft: '-' + Math.round(40 / c.w * c.x) + 'px',
+                    marginTop: '-' + Math.round(40 / c.h * c.y) + 'px'
+                });
+            }
+            $('#x1').val(c.x);
+            $('#y1').val(c.y);
+
+            $('#Iwidth').val(c.w);
+            $('#Iheight').val(c.h);
+        };
+
+    };
+
+
+</script>
+<style>
+    .previewimg {
+        position: relative;
+    }
+
+    #preview-pane {
+        position: absolute;
+        left: 530px;
+        float: right;
+        top: 0;
+    }
+
+        #preview-pane .preview-container {
+            width: 160px;
+            height: 160px;
+            overflow: hidden;
+            border: solid 1px #ddd;
+        }
+
+        #preview-pane .preview-container2 {
+            width: 80px;
+            height: 80px;
+            overflow: hidden;
+            border: solid 1px #ddd;
+            margin: 10px 0;
+        }
+
+        #preview-pane .preview-container3 {
+            width: 40px;
+            height: 40px;
+            overflow: hidden;
+            border: solid 1px #ddd;
+        }
+</style>

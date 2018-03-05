@@ -1,0 +1,100 @@
+﻿<link href="@Url.Content("~/angular/uchome/studentaffairs/studentaffaris.css")" rel="stylesheet" />
+<link rel="stylesheet" href="@Url.Content("~/plugs/datatables/css/jquery.dataTables.css")">
+<link rel="stylesheet" href="@Url.Content("~/plugs/datatables/css/dataTables.bootstrap.css")">
+<script src="@Url.Content("~/plugs/datatables/js/jquery.datatables.js")"></script>
+<script src="@Url.Content("~/plugs/datatables/js/dataTables.bootstrap.js")"></script>
+<div class="form-horizontal div-body">
+    <table datatable="ng" id="evaluationProjectList-table" class="table table-bordered table-condensed table-hover datatable">
+        <thead>
+            <tr>
+                <th>
+                    #
+                </th>
+                <th>
+                    项目名称
+                </th>
+                <th>
+                    项目描述
+                </th>
+                <th>
+                    创建时间
+                </th>
+
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="item in List">
+                <td>{{$index+1}}</td>
+                <td class="text-overflow" style="max-width: 220px" title="{{item.Name}}">{{item.Name}}</td>
+                <td class="text-overflow" style="max-width: 150px" title="{{item.Describe}}">{{item.Describe}}</td>
+                <td >{{TransTime(item.CreateDate)}}</td>
+                <td>
+                    <a href="javascript:void(0)" ng-click="ProjectDetail(item.Id)">详情</a>
+                    <a href="javascript:void(0)" ng-click="ProjectDelete(item.Id)">删除</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div class="modal fade" id="myModal">
+    <div class="modal-dialog" style="width: 850px">
+        <div class="modal-content" style="width: 850px">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">活动详情</h4>
+            </div>
+            <div class="modal-body form-horizontal">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">名称：</label>
+                    <div class="col-sm-6">
+                        {{ProjectInfo.Name}}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">描述：</label>
+                    <div class="col-sm-6">
+                        {{ProjectInfo.Describe}}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">评价体系：</label>
+                    <div class="col-sm-6">
+                        {{ProjectInfo.System.Name}}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">评价对象：</label>
+                    <div class="col-sm-6">
+                        {{transInfo("type",ProjectInfo.Type)}}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">评价周期：</label>
+                    <div class="col-sm-6">
+                        {{transInfo("circle",ProjectInfo.Circle)}}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">评价项：</label>
+                    <div class="col-sm-8">
+                        <table class="table table-condensed table-bordered">
+                            <tbody ng-repeat="item in ProjectInfo.System.Property">
+                            <tr ng-repeat="item1 in item.Property">
+                                <td ng-if="$first" class="td-text-li" rowspan="{{item.Property.length}}">{{item.Name}}</td>
+                                <td style="vertical-align: middle">{{item1.Name}}</td>
+                                <td style="width: 147px; vertical-align: middle">{{item1.Describe}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+

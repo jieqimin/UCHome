@@ -1,0 +1,35 @@
+﻿@{
+    ViewBag.Title = "系统组织用户";
+    Layout = "~/Views/Shared/_LayoutSys.cshtml";
+}
+@section Head{}
+<script src="@Url.Content("~/plugs/usercontrol/jquery-ui-1.10.0.custom.min.js")"></script>
+<link rel="stylesheet" href="@Url.Content("~/plugs/usercontrol/jquery-ui-1.10.0.custom.css")">
+<script src="@Url.Content("~/scripts/jquery.unobtrusive-ajax.js")"></script>
+<script src="@Url.Content("~/scripts/guid.js")"></script>
+
+<div id="body_content" class="panel panel-default">
+    <div class="panel-heading">
+        <ul id="appman-nav" class="nav nav-pills">
+            <li role="presentation" class="active"><a id="skin-list">用户列表</a></li>
+            <li role="presentation"><a id="skin-add">添加用户</a></li>
+        </ul>
+    </div>
+    <div class="panel-body">
+        <div class="showapp">
+            
+        </div>
+    </div>
+    <script>
+        $(function () {
+             $(".showapp").load("@Url.Action("usermanage")")
+            $("#skin-list").click(function () {
+                $(".showapp").load("@Url.Action("usermanage")")
+            });
+            $("#skin-add").click(function () {
+                $(".showapp").load("@Url.Action("useradd")")
+            });
+        })
+    </script>
+</div>
+

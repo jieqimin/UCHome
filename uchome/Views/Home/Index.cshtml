@@ -1,0 +1,150 @@
+﻿@{
+    ViewBag.Title = "个人空间激活";
+}
+@model bool?
+@{
+    if (Model == false)
+    {
+    @Html.Raw("<div class='modal-backdrop fade in center-block' style='opacity:1'><div class='modal-dialog modal-sm show'><div class='modal-content'><div class='modal-body text-center'>检测到帐号访问异常，请联系管理员！</div></div></div></div>")
+        return;
+    }         
+}
+<style>
+    .modal-alive {
+        display: block;
+    }
+
+    #section label, #subject label[section] {
+        margin-left: 5px;
+    }
+
+    label.error {
+        color: red;
+        font-size: 14px;
+        display: none;
+    }
+</style>
+<script  src="@Url.Content("~/Scripts/jquery.form.js")"></script>
+<script  src="@Url.Content("~/scripts/jquery.validate.min.js")"></script>
+<div id="modal-alive" class="modal fade in modal-alive">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">个人空间激活</h4>
+            </div>
+            <form id="form-alivespace" name="form-alivespace" method="POST" class="form-horizontal">
+                <div class="modal-body">
+
+                    <div class="form-group ">
+                        <label for="album-name" class="col-sm-2 control-label">空间名称</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="required form-control" id="NickName" name="NickName" title="请输入空间名称">
+                        </div>
+                    </div>
+                    @if (ViewBag.usertype == "T" || ViewBag.usertype == "t")
+                    {
+                        <div class="form-group ">
+                            <label for="album-name" class="col-sm-2 control-label">主要学段</label>
+                            <div class="col-sm-10" id="section">
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" id="inlineCheckbox0" name="Section" value="幼教" required>
+                                    幼教
+                                </label>
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" id="inlineCheckbox1" name="Section" value="小学">
+                                    小学
+                                </label>
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" id="inlineCheckbox2" name="Section" value="初中">
+                                    初中
+                                </label>
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" id="inlineCheckbox3" name="Section" value="高中">
+                                    高中
+                                </label>
+                                <label for="Section" class="error checkbox-inline">请选择学段</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="album-name" class="col-sm-2 control-label">主要学科</label>
+                            <div class="col-sm-10" id="subject">
+                                <label class="validtip control-label" style="color: orange;">请先选择学段</label>
+                                <label id="validsubject" for="Subject" class="error checkbox-inline">请至少选择一门学科</label>
+                            </div>
+                        </div>
+                    }
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button id="btnspacealive" type="submit" class="btn btn-primary">激活</button>
+                </div>
+            </form>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+<div id="backdropdiv" class="modal-backdrop fade in"></div>
+<script>
+    $("#form-alivespace").validate({
+        submitHandler: function (form) {
+            $(form).ajaxSubmit({
+                url: "@Url.Action("AliveSpace")",
+                success: function (data) {
+                    $("#backdropdiv").hide();
+                    $("#modal-alive").hide();
+                    if (data.Data.result == "fail") {
+                        var htmltip = "<div class='fade in alert alert-warning' role='alert'>激活失败，网络连接不正常！</div>";
+                        $(body).append(htmltip);
+                    }
+                    else {
+                        var htmltip = "<div class='fade in alert alert-success' role='alert'>激活成功，<a href='@Url.Action("Index", "TeacherCenter")' class='alert-link'>3秒后自动跳转</a></div>";
+                        setTimeout(function () {
+                            document.location.href = "@Url.Action("HomePage", "Home")";
+                        }, 3000);
+
+                    }
+                    $("body").append(htmltip);
+
+                }
+            });
+        }
+    });
+</script>
+<script>
+    $("input[type=checkbox][name=Section]").each(function (index, item) {
+        $(this).change(function () {
+            var sectionvalue = $(this).attr("value");
+            if ($(this).prop("checked") || $(this).prop("checked") == "checked") {
+                $.ajax({
+                    url: "@Url.Content("~/ashx/GetSubjectBySection.ashx")",
+                    data: { section: escape(sectionvalue) },
+                    success: function (data) {
+                        var infos = eval("(" + data + ")"); //            
+                        if (infos.length > 0 && infos[0].statuscode == "200") {
+                            var subobj = "";
+                            for (var i = 0; i < infos[0].results.length; i++) {
+                                var subname = infos[0].results[i].subname;
+                                subobj += "<label class=\"checkbox-inline\" section=\"" + sectionvalue + "\">";
+                                if (i == 0)
+                                    subobj += "<input type=\"checkbox\" name=\"Subject\" sectioin=\"" + sectionvalue + "\" value=\"" + sectionvalue + subname + "\" required>";
+                                else
+                                    subobj += "<input type=\"checkbox\" name=\"Subject\" sectioin=\"" + sectionvalue + "\" value=\"" + sectionvalue + subname + "\">";
+                                subobj += sectionvalue + subname;
+                                subobj += "</label>";
+                            }
+                            $("#validsubject").before(subobj);
+                            $(".validtip").hide();
+                        }
+                    }
+                });
+            } else {
+                $("label[section=" + sectionvalue + "]").remove();
+                if ($("#subject label").length == 2)
+                    $(".validtip").show();
+            }
+        });
+    })
+</script>

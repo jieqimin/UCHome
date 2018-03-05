@@ -1,0 +1,294 @@
+﻿@model StuInfo.Model.StuInfo
+
+@{
+}
+<link rel="stylesheet" href="@Url.Content("~/plugs/webuploader/css/webuploader.css")">
+<link rel="stylesheet" href="@Url.Content("~/plugs/webuploader/css/demo.css")">
+<link rel="stylesheet" href="@Url.Content("~/plugs/datetimepicker/css/bootstrap-datetimepicker.css")">
+<script src="@Url.Content("~/plugs/AddressSelect/selectaddress.js")"></script>
+<form id="form-stuinfocreate" method="post" action="@Url.Action("EditStu")">
+    <div class="form-position pagew">
+        <div class="row">
+            <div class="col-md-9">
+                <div id="stuinfo" class="form-horizontal ">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.HiddenFor(model => model.StuID)
+                    @Html.HiddenFor(model => model.IsState)
+                    @Html.HiddenFor(model => model.StuMarital)
+                    @Html.HiddenFor(model => model.StuNationality)
+                    @Html.HiddenFor(model => model.StuStatus)
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.StuName, "* 学生姓名", htmlAttributes: new { @class = "text-danger control-label col-md-3" })
+                        <div class="col-md-9 form-control-static">
+                            @Html.DisplayFor(model => model.StuName)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.StuCode, "* 学籍号", htmlAttributes: new { @class = "text-danger control-label col-md-3" })
+                        <div class="col-md-9 form-control-static">
+                            @Html.DisplayFor(model => model.StuCode)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.StuNumber, "* 学号", htmlAttributes: new { @class = "text-danger control-label col-md-3" })
+                        <div class="col-md-9 form-control-static">
+                            @Html.DisplayFor(model => model.StuNumber)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.StuIdentity, "* 身份证号", htmlAttributes: new { @class = "text-danger control-label col-md-3" })
+                        <div class="col-md-9 form-control-static">
+                            @Html.DisplayFor(model => model.StuIdentity)
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 text-center">
+                <div id="imgstuphoto" style="position:relative;">
+                    @if (Model.StuPhoto == null) {
+                        <img id="img-stuphoto" style="border:solid 1px #eeeeee;" src="@Url.Content("~/Content/images/defaultimg.png")" width="125" height="120" />}
+                    else {
+                        <img id="img-stuphoto" style="border:solid 1px #eeeeee;" width="125" height="120" src="@Model.StuPhoto" />}
+                </div>
+                <p>个人照片</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-horizontal form-position">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.StuID_BJID, "所在班级", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10 form-inline">
+                        <select class="form-control col-md-4" id="StuID_GradeID" name="StuID_GradeID">
+                            <option value="0">请选择年级</option>
+                            @foreach (var item in ViewBag.Grades as SelectList) {
+                                if (item.Value == ViewBag.Grade) {
+                                    <option value="@item.Value" selected>@item.Text</option>
+}
+                                else {
+                                    <option value="@item.Value">@item.Text</option>
+}
+                            }
+                        </select>
+                        <select class="form-control col-md-4" id="StuID_BJID" name="StuID_BJID">
+                            <option value="0">请选择班级</option>
+                        </select>
+                    </div>
+                </div>
+
+
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.StuEntrance, "入学年份", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4 form-control-static">
+                        @Html.DisplayFor(model => model.StuEntrance)
+                    </div>
+                    @Html.LabelFor(model => model.ICardNo, "一卡通号", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4 form-control-static">
+                        @Html.DisplayFor(model => model.ICardNo)
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.StuGender, "性别", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        <div class="btn-group" group="StuGender" aria-label="...">
+                            @if (Model.StuGender == "1") {
+                                <button type="button" onclick="togglesel(this,'StuGender',1)" class="btn btn-info">男</button>}
+                            else if (Model.StuGender == "2") {
+                                <button type="button" onclick="togglesel(this,'StuGender',2)" class="btn btn-info">女</button>}
+                            else {
+                                <button type="button" onclick="togglesel(this,'StuGender',9)" class="btn btn-info">未说明</button>}
+                        </div>
+                        @Html.HiddenFor(model => model.StuGender, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                    @Html.LabelFor(model => model.StuBirthDay, "出生日期", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4 form-control-static">
+                        <div class="date form_datetime input-group" data-date-format="yyyy-mm-dd" data-link-field="dtp_input1">
+                            @Html.DisplayFor(model => model.StuBirthDay)
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.StuHomeAddress, "家庭地址", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div id="stuhome" class="col-md-10 form-inline addressSelect">
+                        @Html.HiddenFor(model => model.StuHomeDistrict, new { htmlAttributes = new { @class = "form-control col-md-10" } })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.StuHomeAddress, "  ", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10 form-control-static">
+                        @Html.DisplayFor(model => model.StuHomeAddress)
+                    </div>
+                </div>
+                <div class="form-group">
+
+                    @Html.LabelFor(model => model.StuSpelling, "姓名拼音", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4 form-control-static">
+                        @Html.DisplayFor(model => model.StuSpelling)
+                    </div>
+                    @Html.LabelFor(model => model.StuNameUsed, "曾用名", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4 form-control-static">
+                        @Html.DisplayFor(model => model.StuNameUsed)
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.StuTelPhone, "联系方式", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4 form-control-static">
+                        @Html.DisplayFor(model => model.StuTelPhone)
+                    </div>
+
+                    @Html.LabelFor(model => model.StuEmail, "电子信箱", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4 form-control-static">
+                        @Html.DisplayFor(model => model.StuEmail)
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.StuEnName, "英文名", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4 form-control-static">
+                        @Html.DisplayFor(model => model.StuEnName)
+                    </div>
+                    @Html.LabelFor(model => model.StuPostcode, "邮政编码", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4 form-control-static">
+                        @Html.DisplayFor(model => model.StuPostcode)
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.StuHomePage, "个人主页", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4 form-control-static">
+                        @Html.DisplayFor(model => model.StuHomePage)
+                    </div>
+                    @Html.LabelFor(model => model.StuQQ, "通讯号", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4 form-control-static">
+                        @Html.DisplayFor(model => model.StuQQ)
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.StuNation, "民族", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4 form-control-static">
+                        @Html.DisplayFor(model => model.StuNation_DMName)
+                    </div>
+                    @Html.LabelFor(model => model.StuBloodType, "血型", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4 form-control-static">
+                        @Html.DisplayFor(model => model.StuBloodType_DMName)
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.StuHealth, "健康状况", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4 form-control-static">
+                        @Html.DisplayFor(model => model.StuHealth_DMName)
+                    </div>
+                    @Html.LabelFor(model => model.StuPolitics, "政治面貌", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4 form-control-static">
+                        @Html.DisplayFor(model => model.StuPolitics_DMName)
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.StuGAT, "是否港澳台侨", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        <div class="btn-group" group="StuGAT">
+                            @if (Model.IsHobo == "1") {
+                                <button type="button" class="btn btn-info">是</button>}
+                            else {
+                                <button type="button" class="btn btn-info">否</button>}
+                        </div>
+                        @Html.HiddenFor(model => model.StuGAT, new { @class = "form-control" })
+                    </div>
+                    @Html.LabelFor(model => model.IsHobo, "是否流动人口", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        <div class="btn-group" group="IsHobo">
+                            @if (Model.IsHobo == "1") {
+                                <button type="button" class="btn btn-info">是</button>}
+                            else {
+                                <button type="button" class="btn btn-info">否</button>}
+                        </div>
+                        @Html.HiddenFor(model => model.IsHobo, new { @class = "form-control" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.StuStrengths, "特长", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10 form-control-static">
+                        @Html.DisplayFor(model => model.StuStrengths)
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-4 col-md-8">
+                        <button type="button" class="btn btn-default col-md-3" onclick="RedircetUrl('@Url.Action("Index","StuInfo")')">返回</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<script>
+    $(function () {
+        //绑定省市区校三级联动
+        var stuhomedistrict = $("#StuHomeDistrict").val();
+        var stuhomeprovince = stuhomedistrict.substring(0, 2) + "0000";
+        var stuhomecity = stuhomedistrict.substring(0, 4) + "00";
+        $("#stuhome").SelAddress({
+            defaultprovince: stuhomeprovince,
+            defaultcity: stuhomecity,
+            defaultdistrict: stuhomedistrict,
+            objid: "stuhome",
+            callBackfn: function (value, text) {
+                $("#StuHomeDistrict").val(value);
+            }
+        });
+    })
+</script>
+@*设置校徽校标*@
+<style>
+    .webuploader-pick {
+        background-color: transparent;
+    }
+</style>
+
+<script>
+    function getclasslistbygrade(gradecode, classid) {
+            $("#StuID_BJID option").remove();
+            $("#StuID_BJID").append("<option value='0'>请选择班级</option>");
+            if (gradecode != "0") {
+                $.ajax({
+                    "dataType": 'json',
+                    "type": "Get",
+                    "url": "@Url.Action("GetSIClassList")",
+                    "data": { grade: gradecode },
+                    "success": function (response) {
+                        var classobj = response.data;
+                        $.each(classobj, function (index, item) {
+                            if (item.ClassID == classid) {
+                                $("#StuID_BJID").append("<option value='" + item.ClassID + "' selected>" + item.ClassName + "</option>");
+                            }
+                            else {
+                                $("#StuID_BJID").append("<option value='" + item.ClassID + "'>" + item.ClassName + "</option>");
+                            }
+
+                        })
+
+                    }
+                });
+            }
+    }
+</script>
+
+@*数据提交*@
+<script>
+    $(function () {
+        $("#StuID_GradeID").change(function () {
+            var grade = $("#StuID_GradeID").val();
+            getclasslistbygrade(grade, "0");
+        });
+        getclasslistbygrade("@ViewBag.Grade","@Model.StuID_BJID");
+    });
+</script>
+
+<script type="text/javascript">
+    function togglesel(obj, groupname, value) {
+        $("div[group=" + groupname + "] button").removeClass("btn-info").addClass("btn-default");
+        $(obj).removeClass("btn-default").addClass("btn-info");
+        $("#" + groupname).val(value);
+    }
+</script>

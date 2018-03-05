@@ -1,0 +1,14 @@
+﻿@{
+    Layout = null;
+}
+@model List<UCHome.Model.MyResource>
+    <ul>
+        @foreach (var item in Model)
+        {
+            <li>
+                <a target="_blank" href="@item.LinkUrl">@item.Name</a>
+                <span class="news-date">@item.CreatorName | @item.Subject | @item.SchoolName | @item.Hits 人次</span>
+            </li>
+            <div class="dotted"></div>
+        }
+    </ul>

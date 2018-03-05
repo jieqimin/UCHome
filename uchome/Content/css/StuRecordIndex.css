@@ -1,0 +1,72 @@
+﻿.toolBar {
+    margin: 5px 10px 0 10px;
+}
+
+    .toolBar > div {
+        padding-right: 0px;
+        width: auto;
+    }
+
+    .toolBar .form-control {
+        width: auto;
+        display: inline-block;
+    }
+
+td, th {
+    text-align: center;
+}
+
+.glyphicon-search {
+    position: relative;
+    margin-left: -26px;
+    color: silver;
+    cursor: pointer;
+}
+
+#recordTable_wrapper {
+    width: 96%;
+    margin-left: 15px;
+}
+
+    #recordTable_wrapper > .row:first-child > .col-sm-6 {
+        height: 20px;
+    }
+
+.input {
+    display: inline-block;
+    padding: 4px;
+    font-size: 13px;
+    line-height: 18px;
+    color: #808080;
+    border: 1px solid #ccc;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+
+.nameItem {
+    display: inline-block;
+    padding: 15px 5px;
+    cursor: pointer;
+    margin: 5px;
+    min-width: 100px;
+    text-align: center;
+    padding: 10px;
+    color: #fff;
+    font-size: 14px;
+    font-weight: normal;
+}
+
+.attencestatus {
+    padding: 10px;
+    color: #fff;
+}
+
+.li-selected {
+    background-color: #C13;
+    border-radius: 14px;
+}
+
+    .li-selected > a {
+        color: white;
+    }

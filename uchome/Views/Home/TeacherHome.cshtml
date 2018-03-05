@@ -1,0 +1,245 @@
+﻿@using UCHome.Controllers
+@using UCHome.Model
+@{
+    ViewBag.Title = "个人主页";
+}
+@section Head{
+    <script src="@Url.Content("~/plugs/highcharts/js/highcharts.js")"></script>
+    <script src="@Url.Content("~/plugs/justifiedGallery/jquery.justifiedGallery.min.js")"></script>
+    <link href="@Url.Content("~/plugs/justifiedGallery/justifiedGallery.min.css")" rel="stylesheet"/>
+    <link href="@Url.Content("~/Content/css/homepage.css")" rel="stylesheet" />
+}
+
+<div class="rwjf row">
+    @*                <span class="pull-left">LV1</span>
+                <div class="col-lg-9">
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
+                            120分
+                        </div>
+                    </div>
+                </div>
+                <span>LV2</span>
+                <a>查看积分等级规则</a>*@
+</div>
+<div class="row">
+    <div class="col-lg-12" id="jftip"></div>
+</div>
+<div class="sjtj row margin-top-15">
+    <div class="col-lg-4">
+        <div class="jf stats-list row">
+            <div class="col-lg-5">
+                <img src="@Url.Content("~/Content/images/resource.png")" width="80" height="80" />
+            </div>
+            <div class="col-lg-7">
+                <p class="stats-type">资源数：<span id="resourcecount">0</span></p>
+                <p><a target="_blank" href="http://jx.taedu.gov.cn:83/Resource.Portal.Web/PersonCenter">查看详情</a></p>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="jf stats-list row">
+            <div class="col-lg-5">
+                <img src="@Url.Content("~/Content/images/ebook.png")" width="80" height="80" />
+            </div>
+            <div class="col-lg-7">
+                <p class="stats-type">教案数：<span id="ebookcount">0</span></p>
+                <p><a target="_blank" href="http://111.17.215.232:96/TaiXue/Teacher/Course">查看详情</a></p>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="jf stats-list row">
+            <div class="col-lg-5">
+                <img src="@Url.Content("~/Content/images/article.png")" width="80" height="80" />
+            </div>
+            <div class="col-lg-7">
+                <p class="stats-type">文章数：<span id="articlecount">0</span></p>
+                <p><a href="@Url.Action("Index", "TeacherCenter")">查看详情</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="tjtb row margin-top-30">
+    <div class="task col-lg-6">
+        <p class="task-title">今日任务<a class="more" href="@Url.Action("SystemAppRedirectPage", "AppCenter", new { id = "6b051716-3ec2-4a3d-9174-e19ecda3d9e4" })">查看更多</a></p>
+        <hr class="task-hr" />
+        <ul id="tasklist" class="list-group list-group-noborder">
+            @* <li class="list-group-item"><span class="task-type">【资源任务】</span><span class="task-score">【2分】</span><a href="@Url.Action("UrlRedirect", "PublicShare", new { returnurl = "http://jx.taedu.gov.cn:83/Resource.Portal.Web/", sysname = "zy", isRedirect = true })">每天上传一个资源</a></li>
+                        <li class="list-group-item"><span class="task-type">【文章任务】</span><span class="task-score">【2分】</span><a href="#">每天发表一篇文章日志</a></li>
+                        <li class="list-group-item"><span class="task-type">【教学任务】</span><span class="task-score">【2分】</span><a href="#">每天设计制作一个教案</a></li>
+                        <li class="list-group-item"><span class="task-type">【资源任务】</span><span class="task-score">【1分】</span><a href="#">每天收藏一个资源</a></li>
+                        <li class="list-group-item"><span class="task-type">【文章任务】</span><span class="task-score">【1分】</span><a href="#">每天收藏一篇文章日志</a></li>*@
+        </ul>
+    </div>
+    <div class="hchart col-lg-6" id="personhchart">
+        <img src="" height="220" width="100%" />
+    </div>
+</div>
+<div class="grx row margin-top-15">
+    <div id="mygallery" class="col-lg-12 margin-left-15" id="mygallery">
+        <img src="@Url.Content("~/Content/images/personshow-default.png")" height="400" width="98%" />
+    </div>
+</div>
+
+<script>
+    //积分
+    $.ajax({
+        url: "@Url.Action("IntegralInfo")",
+        success: function (data) {
+            console.log(data);
+            var Level = data.Data.Level;
+            var LLevel = data.Data.LLevel;
+            var TotalScore = data.Data.TotalScore;
+            var Score = data.Data.Score;
+            var diffscore = Score - TotalScore;
+            var curper = TotalScore * 100 / Score;
+            var percent = curper + "%";
+            var CityNum = data.Data.CityNum;
+            var AreaNum = data.Data.AreaNum;
+            var SchoolNum = data.Data.SchoolNum;
+
+            var obj = "<div class='col-lg-12'><span class='pull-left'>LV" + Level + " &nbsp;&nbsp;</span>";
+            obj += "";
+            obj += "<div class='progress pull-left jfs'>";
+            obj += "<div class='progress-bar progress-bar-warning' role='progressbar' aria-valuenow='" + curper + "' aria-valuemin='0' aria-valuemax='100' style='width: " + percent + ";'>";
+            obj += TotalScore + "分";
+            obj += "</div>";
+            obj += "</div>";
+            obj += "";
+            obj += "<span class='pull-left'>&nbsp;&nbsp;LV" + LLevel + "&nbsp;&nbsp;</span>";
+            obj += "<a  class='pull-left' target='_blank' href='@Url.Action("Integral")'> 查看积分等级规则</a></div>";
+            $(".rwjf").html(obj);
+            if (TotalScore > 0) {
+                $("#jftip").text("恭喜您，你的积分排名全市第" + CityNum + "位，本区县第" + AreaNum + "位，本校第" + SchoolNum + "位，离下一等级还需" + diffscore + "分！");
+            } else {
+                $("#jftip").text("你已经落后很多了，让我们一起撸起袖子加油干吧，现在就去赚取积分！");
+            }
+        }
+    });
+    $.ajax({
+        url: "@Url.Action("GetArticleCount")",
+            success: function (data) {
+                var result = eval("(" + data + ")");
+                $("#articlecount").html(result.Data.Count);
+            }
+        });
+        $.ajax({
+            url: "@Url.Action("GetResourceCount")",
+        success: function (data) {
+            var result = eval("(" + data + ")");
+            $("#resourcecount").html(result.TotalNum);
+        }
+    });
+    $.ajax({
+        url: "@Url.Action("GetEbookCount")",
+        success: function (data) {
+            console.log(data);
+            var result = eval("(" + data + ")");
+            $("#ebookcount").html(result.Result.TotalRecords);
+        }
+    });
+    $.ajax({
+        url: "@Url.Action("GetDayTask")",
+        success: function (data) {
+            var result = eval("(" + data + ")");
+            console.log(result);
+            $.each(result, function (index, item) {
+                if (index < 5) {
+                    var typename = item.TaskCycle == "week" ? "每周任务" : item.TaskCycle == "day" ? "每日任务" : item.TaskCycle == "month" ? "每月任务" : "新手任务";
+                    var taskname = item.TaskName.length > 12 ? item.TaskName.substring(0, 10) + "…" : item.TaskName;
+                    var li = "<li class='list-group-item' title='" + item.TaskName + "'><span class='task-type' >" + typename + "</span><a class='text-cut' target='_blank' href='@Url.Action("UrlRedirect", "PublicShare", new { sysname = "zy", isRedirect = true })&returnurl=" + item.TaskUrl + "'>" + taskname + "</a><span class='task-score'>【积分+" + item.TaskScore + "】</span></li>";
+                    $("#tasklist").append(li);
+                }
+            });
+        }
+    });
+    $.ajax({
+        url: "@Url.Action("StatData")",
+        success: function (result) {
+            console.log(result.Data);
+            var options = {
+                chart: {
+                    renderTo: 'personhchart',
+                    type: 'column'
+                },
+                title: {
+                    text: '个人数据排名',
+                    style: {
+                        fontFamily: "微软雅黑",
+                        fontSize: "16px"
+                    }
+                },
+                xAxis: {
+                    categories: ["资源", "教案", "文章"]
+                },
+                yAxis: {
+                    min: 0,
+                    title: {
+                        text: '排名(名)'
+                    }
+                },
+                tooltip: {
+                    headerFormat: '<span style="font-size:10px">{point.key}</span>',
+                    pointFormat: '<table><tbody><tr><td style="color:{series.color};padding:0">{series.name}: </td><td style="padding:0"><b>{point.y}名</b></td></tr></tbody>',
+                    footerFormat: '</table>',
+                    shared: true,
+                    useHTML: true
+                },
+                plotOptions: {
+                    column: {
+                        pointPadding: 0.2,
+                        borderWidth: 0
+                    }
+                },
+                series: [{
+                    name: "全市排名",
+                    data: [result.Data.CityResNum, 400, result.Data.CityNum]
+                }, {
+                    name: "区县排名",
+                    data: [result.Data.AreaResNum, 300, result.Data.AreaNum]
+                }, {
+                    name: "学校排名",
+                    data: [result.Data.SchoolResNum, 40, result.Data.SchoolNum]
+                }]
+            };
+            var chart1 = new Highcharts.Chart(options);
+        }
+    });
+
+</script>
+<script>
+    //图片秀
+    var jssor_slider1;
+    $.ajax({
+        url: "@Url.Content("~/ashx/getallphotos.ashx")",
+        data: { id: "@ViewBag.UserID" },
+        async: false,
+        success: function (data) {
+            var photos = eval("(" + data + ")"); // 
+            console.log(photos);
+            if (photos.length > 0) {
+                var i = 0;
+                $.each(photos, function (idx, item) {
+                    if (i > 11) {
+                        return;
+                    }
+                    var childphotos = item.photos;
+                    if (childphotos.length > 0) {
+                        $.each(childphotos, function (cidx, citem) {
+                            if (i > 11) {
+                                return;
+                            }
+                            var photourl = citem.photourl2;//.replace("_thumbnail","");
+                            var photourl2 = photourl.replace("_thumbnail", "");
+                            var obj = "<a target='_blank' href='" + photourl2 + "'><img class='img-thumbnail' src='" + photourl + "' /></a>";
+                            $("#mygallery").append(obj);
+                            i++;
+                        });
+                    }
+                });
+            }
+            $("#mygallery").justifiedGallery();
+        }
+    });
+</script>

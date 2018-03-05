@@ -1,0 +1,56 @@
+﻿@{
+    Layout = null;
+}
+<style>
+	body, ul, li {
+        margin: 0;
+        padding: 0;
+    }
+#ul2 li a:hover {
+        color: #1180C7;
+    }
+    #ul2 li {
+        background-attachment: scroll;
+        border-bottom-color: #eeeeee;
+        border-bottom-style: dashed;
+        border-bottom-width: 2px;
+        color: rgb(123, 123, 123);
+        display: list-item;
+        font-family: Arial, Helvetica, sans-serif, 微软雅黑;
+        font-size: 13px;
+        font-style: normal;
+        font-variant: normal;
+        font-weight: normal;
+        height: 32px;
+        line-height: 32px;
+        list-style-image: none;
+        list-style-position: outside;
+        list-style-type: none;
+        margin-bottom: 0px;
+        margin-left: 0px;
+        margin-right: 0px;
+        margin-top: 0px;
+        padding-bottom: 0px;
+        padding-left: 0px;
+        padding-right: 0px;
+        padding-top: 0px;
+        text-align: left;
+        width: 263px;
+list-style-type: disc;
+    }
+#ul2 li a {
+        width: auto;
+        text-decoration: none;
+        color: black;
+    }
+</style>
+@model List<UCHome.Model.NewArticle>
+               <ul id="ul2" style="padding-left: 0px; font: 13px/140% Arial, Helvetica, sans-serif, '微软雅黑'">
+                   @foreach (var item in Model)
+                   {
+                       <li>
+                           <span style='display:inline-block;float:right'>[@item.DeployTime.ToString("MM/dd")]</span>
+                           <a style="text-underline: none" target="_blank" title="@item.Title" href="@Url.Action("ArticleInfo","Query",new { id = item.PKID})">@item.Title</a>
+                       </li>
+                   }
+               </ul>

@@ -1,0 +1,66 @@
+﻿@using UCHome.Model
+@model List<View_Statics_DayArticleGroupByArea>
+@{
+    string jsondata = string.Empty;
+    string split = string.Empty;
+    foreach (var item in Model)
+    {
+        jsondata += string.Format("{0}{{name:'{1}',y:{2}}}", split, item.Areaname, item.ArticleCount);
+        split = ",";
+    }
+    jsondata = string.Format("[{0}]", jsondata);
+}
+<div id="DayArticlesPie">
+    <div class='c_title text-center'>今日各区县发章发表数占有比例图</div>
+</div>
+@if (Model == null || !Model.Any())
+{
+    <script >
+        $("#DayArticlesPie").append(nodatatip("暂未找到数据！"));
+    </script>
+    return;
+}
+<script >
+    loaddata($("#DayArticlesPie"));
+    var jdata = eval("(" + "@Html.Raw(jsondata)" + ")");
+    var piedata = new Array();
+    $.each(jdata, function (i, d) {
+        piedata.push(d.name, d.y);
+    });
+    $(function () {
+        $('#DayArticlesPie').highcharts({
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+                type: 'pie'
+            },
+            title: {
+                text: '今日各区县发章发表数占有比例图',
+                style: {
+                    fontFamily: "微软雅黑",
+                    fontSize: "16px"
+                }
+            },
+            tooltip: {
+                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>',
+                percentageDecimals: 1
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: true
+                    }
+                }
+            },
+            series: [{
+                name: "比例",
+                colorByPoint: true,
+                data: jdata
+            }]
+        });
+    });
+
+</script>

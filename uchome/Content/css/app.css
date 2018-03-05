@@ -1,0 +1,576 @@
+﻿a{
+    cursor:pointer;
+}
+.content, .content2 {
+    background: url(../images/bg.png) no-repeat;
+    background-color: #80AEC8;
+}
+
+.concent_body, .concent_body2 {
+    margin-top: 50px;
+    width: 990px;
+}
+
+.app-my-icon {
+}
+
+    .app-my-icon img {
+        width: 20px;
+        height: 20px;
+    }
+
+.body_left2 {
+    float: left;
+    width: 230px;
+    margin-left: 10px;
+    margin-bottom: 10px;
+}
+
+    .body_left2 .message {
+        height: 50px;
+        margin: 0 auto;
+        width: 230px;
+        text-align: center;
+        background-color: #fff;
+    }
+
+        .body_left2 .message ul {
+            height: 50px;
+            margin: 0 auto;
+            width: 160px;
+        }
+
+        .body_left2 .message li {
+            color: #000;
+            line-height: 35px;
+            font-size: 16px;
+            cursor: pointer;
+            float: left;
+            width: 80px;
+            text-align: center;
+            height: 35px;
+        }
+
+            .body_left2 .message li i.icon_msg {
+                background-image: url("../images/u57_original.png");
+                background-repeat: no-repeat;
+                background-position: center center;
+                height: 35px;
+                width: 18px;
+                display: inline-block;
+                float: left;
+            }
+
+            .body_left2 .message li i.icon_email {
+                background-image: url("../images/u55_original.png");
+                background-repeat: no-repeat;
+                background-position: center center;
+                height: 35px;
+                width: 18px;
+                display: inline-block;
+                float: left;
+            }
+
+            .body_left2 .message li span {
+                display: inline-block;
+                height: 35px;
+                float: left;
+                font-size: 14px;
+                color: #077db0;
+                letter-spacing: 2px;
+                margin-left: 5px;
+            }
+
+
+
+    .body_left2 .br_content1 {
+        background: url("../images/tea.png") no-repeat center top;
+        position: relative;
+        min-height: 100px;
+        background-color: #fff;
+    }
+
+        .body_left2 .br_content1 .teaphoto {
+            margin-top: 30px;
+            margin-left: 85px;
+            width: 60px;
+            height: 60px;
+        }
+
+        .body_left2 .br_content1 .teaname {
+            height: 40px;
+            line-height: 40px;
+            top: 90px;
+            text-align: center;
+            width: 230px;
+            font-size: 16px;
+            letter-spacing: 2px;
+            font-weight: bold;
+        }
+
+        .body_left2 .br_content1 .teainfo {
+            font-size: 14px;
+            top: 130px;
+            text-align: center;
+            width: 230px;
+            height: 25px;
+            letter-spacing: 2px;
+            color: #077DB0;
+        }
+
+        .body_left2 .br_content1 .teaclass {
+            font-size: 12px;
+            top: 160px;
+            text-align: center;
+            width: 230px;
+            border-top: solid #ccc 1px;
+            height: 25px;
+            line-height: 25px;
+            letter-spacing: 5px;
+        }
+
+    .body_left2 .br_content2 .more {
+        border-top: solid 1px #ccc;
+        font-size: 13px;
+        height: 40px;
+        line-height: 40px;
+        text-align: center;
+        background: url("../images/more.png") no-repeat 150px center;
+        cursor: pointer;
+    }
+
+    .body_left2 .br_content2, .body_left2 .br_content3 {
+        margin-top: 10px;
+        position: relative;
+        min-height: 160px;
+        background-color: #fff;
+        color: #008080;
+    }
+
+    .body_left2 .shortcut, .headtop {
+        background-color: #fff;
+    }
+
+        .body_left2 .shortcut li, .headtop li {
+            height: 38px;
+            line-height: 38px;
+            font-size: 14px;
+            letter-spacing: 2px;
+            text-indent: 30px;
+            cursor: pointer;
+        }
+
+            .body_left2 .shortcut li:hover, .headtop li:hover {
+                background-color: #cccccc;
+            }
+
+            .body_left2 .shortcut li a, .headtop li a {
+                color: #008080;
+                height: 38px;
+                line-height: 38px;
+                font-size: 14px;
+                letter-spacing: 2px;
+                cursor: pointer;
+                text-decoration: none;
+            }
+
+    .body_left2 .Attentionlist {
+        margin-top: 10px;
+        margin-bottom: 5px;
+    }
+
+.content2 .body_center2 {
+    float: left;
+    width: 730px;
+    margin: 0 10px;
+    padding-bottom: 10px;
+}
+
+
+
+
+
+.dmenu {
+    height: 40px;
+    border-bottom: solid 1px #ddd;
+}
+
+    .dmenu li {
+        line-height: 40px;
+        height: 40px;
+        font-size: 16px;
+        float: left;
+        cursor: pointer;
+    }
+
+        .dmenu li:hover, .dmenu li.selected {
+            background: url("../images/selected.png") no-repeat center bottom;
+        }
+
+
+
+.dtitle {
+    height: 40px;
+    line-height: 40px;
+    font-size: 16px;
+    border-bottom: solid 1px #ddd;
+}
+
+    .dtitle .down {
+        margin-left: 5px;
+        cursor: pointer;
+    }
+
+
+
+.bc_content1, .bc_content2 {
+    background-color: #fff;
+    overflow: hidden;
+    border-bottom: solid 1px #ddd;
+}
+
+.bc_content1 {
+    height: 184px;
+}
+
+.bc_content2 {
+    height: 500px;
+}
+
+    .br_content2 .dtitle, .br_content3 .dtitle, .bc_content2 .dtitle {
+        background: url("../images/icon.png") no-repeat 14px center;
+        text-indent: 35px;
+    }
+
+.bc_content1 .icon-latest {
+    background: url("../images/u52_original.png") no-repeat 15px center;
+    padding-left: 40px;
+}
+
+    .bc_content1 .icon-latest span {
+        display: block;
+        margin: 0 5px;
+        font-size: 14px;
+        float: left;
+        width: 60px;
+        cursor: pointer;
+    }
+
+        .bc_content1 .icon-latest span:hover {
+            color: orange;
+        }
+
+        .bc_content1 .icon-latest span.selected {
+            color: orangered;
+        }
+
+.br_content2 .more .add, .br_content2 .more .manger {
+    display: inline-block;
+    width: 80px;
+    height: 40px;
+}
+
+.br_content2 .more span {
+    display: inline-block;
+    height: 40px;
+    line-height: 40px;
+}
+
+.br_content2 .icon-add {
+    background: url("../images/u33_original.png") no-repeat 12px center;
+    height: 40px;
+    line-height: 40px;
+    width: 18px;
+    display: inline-block;
+    width: 30px;
+}
+
+.br_content2 .icon-manger {
+    background: url("../images/u36_original.png") no-repeat 12px center;
+    height: 40px;
+    line-height: 40px;
+    width: 18px;
+    display: inline-block;
+    width: 30px;
+}
+
+.bc_content2 .dmenu li, .bc_content4 .dmenu li {
+    width: 90px;
+    text-align: center;
+}
+
+
+
+.dinfo {
+    padding: 7px 0;
+}
+
+    .dinfo li {
+        height: 35px;
+        font-size: 14px;
+        font-family: 微软雅黑;
+        list-style-type: disc;
+    }
+
+        .dinfo li a {
+            display: block;
+            height: 35px;
+            line-height: 35px;
+            text-decoration: none;
+            color: #666;
+            text-indent: 35px;
+            list-style-type: disc;
+            font-size: 13px;
+            letter-spacing: 1px;
+        }
+
+            .dinfo li a:hover {
+                color: red;
+            }
+
+.app_alllists_ul {
+    margin-top: 10px;
+    width:720px;
+}
+
+    .app_alllists_ul li {
+        float: left;
+        height: 132px;
+        overflow: hidden;
+        padding: 10px 15px;
+        width: 90px;
+        cursor: pointer;
+    }
+
+
+        .app_alllists_ul li span.li_appname {
+            width: 60px;
+            display: block;
+            text-align: center;
+            height: 25px;
+            line-height: 25px;
+            font-size: 12px;
+        }
+
+img.img-border {
+    border: 1px #ccc solid;
+}
+
+#allapplist .app-info {
+    padding: 10px 0;
+    border-bottom: solid #eee 1px;
+    overflow: hidden;
+    clear: both;
+    height: 80px;
+}
+
+.app-info .app-info-icon {
+    float: left;
+    width: 80px;
+    height: 60px;
+    display: block;
+}
+
+.app-info .app-info-name {
+    font-family: 'Microsoft YaHei';
+    font-size: 14px;
+    color: #333;
+    display: block;
+    float: left;
+    width: 400px;
+    line-height: 25px;
+    color: steelblue;
+}
+
+.app-info .app-info-memo {
+    float: left;
+    font-family: 'Microsoft YaHei';
+    font-size: 12px;
+    color: #666;
+    display: block;
+    width: 400px;
+}
+
+.app-info .app-info-oper {
+    display: block;
+    width: 60px;
+    height: 60px;
+    position: absolute;
+    right: 20px;
+    text-align: center;
+    color: green;
+    font-size: 12px;
+    line-height: 25px;
+}
+
+.app-info-oper a {
+    margin: 0 auto;
+    color: #fff;
+    font-size: 11px;
+    text-align: center;
+    background-color: #80AEC8;
+    width: 40px;
+    line-height: 18px;
+    display: block;
+    text-decoration: none;
+}
+
+.app-info-oper i {
+    color: #999;
+    font-size: 12px;
+}
+
+.app-info-oper2 {
+    display: block;
+    width: 40px;
+    text-align: center;
+    color: #999;
+    font-size: 11px;
+    line-height: 18px;
+    margin: 0 auto;
+}
+
+.app-types {
+    height: 60px;
+    width: 720px;
+    background-color: #eee;
+    margin: 0 auto;
+    clear: both;
+}
+
+    .app-types li {
+        float: left;
+        width: 120px;
+        text-align: center;
+        line-height: 30px;
+        border-bottom: solid 1px #fff;
+        border-left: solid 1px #fff;
+    }
+
+        .app-types li.selected, .app-types li:hover {
+            float: left;
+            width: 120px;
+            text-align: center;
+            line-height: 28px;
+            background-color: #fff;
+            border-top: solid 2px orange;
+            cursor: pointer;
+            color: orange;
+            font-weight: bold;
+        }
+
+.log-pager {
+    text-align: center;
+    width: 100%;
+}
+
+#page_data {
+    height: 45px;
+}
+
+#allapplist .page_bg {
+    margin: 0;
+    padding: 0 5px;
+    text-align: center;
+}
+
+.pagination {
+    margin: 15px 0 0 0;
+}
+
+.dappinfo {
+    position: relative;
+    line-height: 18px;
+    padding-left: 75px;
+    padding-top: 16px;
+    font-size: 12px;
+}
+
+    .dappinfo img {
+        position: absolute;
+        width: 48px;
+        height: 48px;
+        left: 15px;
+    }
+
+    .dappinfo .app-name {
+        height: 25px;
+        line-height: 18px;
+        font-size: 14px;
+        zoom: 1;
+        color: rgb(7,125,176);
+    }
+
+    .dappinfo .app-descripe {
+        font-size: 12px;
+        color: rgb(102,102,102);
+        display: block;
+    }
+
+.dappmenu {
+    height: 27px;
+    line-height: 18px;
+    margin-top: -13px;
+    padding-right: 12px;
+    border-bottom: solid 1px rgb(204,204,204);
+}
+
+    .dappmenu ul {
+        float: right;
+        font-size: 12px;
+    }
+
+        .dappmenu ul > li {
+            float: left;
+            display: inline-block;
+            cursor: pointer;
+            height: 27px;
+            line-height: 27px;
+            padding: 0 15px 0 15px;
+        }
+
+            .dappmenu ul > li.on {
+                background-color: #fff;
+                border-top: solid 2px rgb(244,100,13);
+                border-left: solid 1px rgb(204,204,204);
+                border-right: solid 1px rgb(204,204,204);
+                border-bottom: solid 0 rgb(204,204,204);
+                color: rgb(255,102,51);
+                line-height: 25px;
+                padding: 0 14px 1px 14px;
+                margin: 0 0 -1px 0;
+                outline: invert 0px none;
+            }
+
+#operresultmsg {
+    background-size: auto;
+    min-width: 100px;
+    max-width: 50%;
+}
+.app-funcpath {
+    position: absolute;
+    top: 30%;
+    right: -120px;
+}
+    .app-funcpath li {
+        width: 90px;
+        height: 90px;
+        color: #fff;
+        font-family: 微软雅黑;
+        font-size: 13px;
+        background: #04A1BC;
+        padding: 5px 5px 10px 5px;
+        margin: 15px;
+        border: solid 1px #ccc;
+        border-radius: 4px;
+        text-align: center;
+        vertical-align: bottom;
+        line-height: 20px;
+    }
+.app-funcpath li a span{
+    display:block;
+
+}
+.color-red{
+    color:red;
+}

@@ -1,0 +1,131 @@
+﻿@model SchInfo.Model.siCalendar
+
+@{
+}
+<link rel="stylesheet" href="@Url.Content("~/plugs/datetimepicker/css/bootstrap-datetimepicker.css")">
+@using (Ajax.BeginForm("CreateSICalendar", null,
+                            new AjaxOptions() {
+                                HttpMethod = "post",
+                                Url = @Url.Action("CreateSICalendar"),
+                                UpdateTargetId = "#sicalendar",
+                                LoadingElementId = "loding",
+                                LoadingElementDuration = 2000
+                            }, new { id = "form-sicalendar" })) {
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal form-position pagew" id="sicalendar">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.CalCode, "* 学期代码", htmlAttributes: new { @class = "control-label col-md-2 required" })
+            <div class="col-md-5">
+                @Html.EditorFor(model => model.CalCode, new { htmlAttributes = new { @class = "form-control", placeholder = "请输入5位数字，例如20171" } })               
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.CalName, "* 学期名称", htmlAttributes: new { @class = "control-label col-md-2 required" })
+            <div class="col-md-5">
+                @Html.EditorFor(model => model.CalName, new { htmlAttributes = new { @class = "form-control", placeholder = "请输入学期名称，例如2017学年第一学期" } })
+                @Html.ValidationMessageFor(model => model.CalName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.CalStartDate, "学期开始日期", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                <div class="date form_datetime input-group" data-date-format="yyyy-mm-dd" data-link-field="dtp_input1">
+                    @Html.EditorFor(model => model.CalStartDate, new { htmlAttributes = new { @class = "form-control", placeholder = "请选择日期" } })
+                    <div class="input-group-addon">
+                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                    </div>
+                    <div class="input-group-addon">
+                        <span class="glyphicon glyphicon-th" aria-hidden="true"></span>
+                    </div>
+                </div>
+            </div>
+        </div><div class="form-group">
+            @Html.LabelFor(model => model.CalEndDate, "学期结束日期", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                <div class="date form_datetime input-group" data-date-format="yyyy-mm-dd" data-link-field="dtp_input1">
+                    @Html.EditorFor(model => model.CalEndDate, new { htmlAttributes = new { @class = "form-control", placeholder = "请选择日期" } })
+                    <div class="input-group-addon">
+                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                    </div>
+                    <div class="input-group-addon">
+                        <span class="glyphicon glyphicon-th" aria-hidden="true"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-4 col-md-8">
+                <input type="submit" value="保存" id="btn-siCalendarAdd" class="btn btn-info col-md-2" />&nbsp;&nbsp;
+                <button type="button" class="btn btn-default" onclick="RedircetUrl('@Url.Action("siCalendarIndex","SchoolInfo")')">返回</button>
+            </div>
+        </div>
+    </div>
+}
+<script src="@Url.Content("~/plugs/datetimepicker/js/bootstrap-datetimepicker.min.js")"></script>
+<script src="@Url.Content("~/plugs/datetimepicker/js/bootstrap-datetimepicker.zh-CN.js")"></script>
+<script>
+    $('.form_datetime').datetimepicker({
+        format: 'yyyy-mm-dd',
+        language: 'zh-CN',
+        weekStart: 1,
+        todayBtn: 1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 2,
+        minView: 2,
+        maxView: 2,
+        forceParse: 0
+
+    });
+</script>
+@*数据提交*@
+<script>
+    $(function () {
+        $("#form-sicalendar").validate({
+            rules: {
+                CalCode: "required",
+                CalName: "required",
+                CalStartDate: "required",
+                CalEndDate: "required"
+            },
+            ignore: "hidden",
+            messages: {
+                CalCode: "学期代码不能为空",
+                CalName: "学期名称不能为空",
+                CalStartDate: "开始日期不能为空",
+                CalEndDate: "结束日期不能为空"
+            },
+            errorClass: "validate-error", //设置错误样式
+            errorElement: "label", //设置显示错误提示的控件,默认为<label>
+            errorLabelContainer: "#validmsg", //指定错误信息放置容器
+            wrapper: "li",
+            //errorPlacement: function (error,element) { //指定错误信息放置位置
+            //    error.appendTo($("#validmsg"));
+            //},
+            //debug: true,//进行调试模式（表单不提交）
+            submitHandler: function () {
+                $("#btn-siCalendarAdd").val("正在保存，请稍候…");
+                $("#btn-siCalendarAdd").attr("disabled", "disabled");
+                $("#form-sicalendar").ajaxSubmit({
+                    success: function (data) {
+                        if (data.Data.StatusCode == 200) {
+                            tipsuccessmsg("保存成功");
+                            //validator.resetForm(); //重置表单
+                        } else {
+                            tipfailmsg("保存失败，原因可能为：" + data.Data.ErrorMessage);
+                            //$("#PKID").val(data.data.PKID);
+                            //validator.resetForm(); //重置表单
+                        }
+                        $("#btn-siCalendarAdd").val("保存");
+                        $("#btn-siCalendarAdd").removeAttr("disabled");
+                    }
+                });
+            }
+            //onsubmit: false,//是否提交时验证，默认为True,用于设置某一个不需要验证的控件
+            //onfocusin: false,//是否获取焦点时验证，默认为True
+            //onkeyup: false,//是否在敲击键盘时验证，默认为True
+            //onclick: false//是否在鼠标点击时验证，默认为True
+        });
+    });
+</script>

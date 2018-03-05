@@ -1,0 +1,103 @@
+﻿@px10 :10px;
+@fontbasiccolor:#333;
+@white:#fff;
+@fontbasicstyle:微软雅黑;
+body {
+    overflow-x: hidden;
+}
+header {
+    background: #212121;
+    height: 60px;
+}
+
+    header .logo {
+        color: #fff;
+        font-size: 32px;
+        margin-top: 12px;
+        float: left;
+    }
+
+    header .logotxt {
+        margin-top: 12px;
+        color: #fff;
+        font-size: 24px;
+        display: block;
+        float: left;
+        height: 36px;
+        line-height: 36px;
+        text-indent: 10px;
+        font-family: '方正姚体';
+    }
+.aligncenter {
+    text-align: center;
+}
+.ml10 {
+    margin-left: @px10;
+}
+.mb10 {
+    margin-bottom: @px10;
+}
+.text-of {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.text-cut {
+    max-width: 200px;
+    display: inline-block;
+    .text-of;
+}
+.fontbasiccss {
+    color: @fontbasiccolor;
+    font-family: @fontbasicstyle;
+}
+.list-group-item a {
+    color: #333;
+    .ml10;
+    .fontbasiccss;
+}
+.sysman-body {
+    min-height: 680px;
+}
+.sysman-body .caption {
+    min-height: 180px;
+}
+.list-group-item.active a
+{
+    color:@white;
+}
+.sys-funlist-item {
+    color: #eee;
+    width: 171px;
+    height: 86px;
+    line-height: 86px;
+    text-align:center;
+    font-size:28px;
+    font-family:宋体;
+    font-weight:bolder;
+    letter-spacing:1px;
+}
+.sys-fun-user {
+    background-color: #1A5E9B;
+}
+.sys-fun-role {
+    background-color: #00C098;
+}
+.sys-fun-app {
+    background-color: #DA4924;
+}
+.sys-fun-theme {
+    background-color: #76314D;
+}
+.sys-fun-log {
+    background-color: #0088ED;
+}
+.sys-fun-api {
+    background-color: #EA4A00;
+}
+.sys-fun-stats {
+    background-color: #0088C1;
+}
+.sys-fun-event {
+    background-color: #00C2BA;
+}

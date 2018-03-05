@@ -1,0 +1,167 @@
+﻿@using UCHome.Model
+@{
+    ViewBag.Title = "教育云空间数据统计";
+    Layout = "~/Views/Shared/_MoreLayout.cshtml";
+}
+@section Head
+{
+    <style>
+        .container {
+            font-family: 微软雅黑;
+            line-height: 28px;
+            font-size: 14px;
+            background-color: #fff;
+        }
+
+        .AllTotals, .DayTotals {
+            border: solid 1px #ccc;
+            height: 35px;
+            line-height: 35px;
+            text-indent: 2em;
+            background-color: #eee;
+            margin-top: 10px;
+        }
+
+        .AllHomes {
+            margin-top: 10px;
+            border: solid 1px #ccc;
+            height: 400px;
+        }
+
+        .AllHomes_list, .AllArticles_list, .DayArticles_list {
+            border: solid 1px #eeeeee;
+            padding: 0;
+            margin: 0 10px;
+            height: 310px;
+        }
+
+            .AllHomes_list ul li, .AllArticles_list ul li, .DayArticles_list ul li {
+                height: 30px;
+                line-height: 30px;
+                border-bottom: solid 1px #eee;
+                padding-left: 10px;
+            }
+
+        #AllHomesPie, #AllArticlesPie, #DayArticlesPie {
+            width: 100%;
+            height: 300px;
+        }
+
+        #AllHomesColumns, #AllArticlesColumns, #DayArticlesColumns {
+            width: 100%;
+            height: 300px;
+        }
+
+        .AllArticles, .DayArticles {
+            margin-top: 10px;
+            border: solid 1px #ccc;
+            height: 400px;
+        }
+
+        .s_title {
+            background-color: #eeeeee;
+            height: 40px;
+            line-height: 40px;
+        }
+
+        .c_title {
+            font-Family: "微软雅黑";
+            font-Size: 16px;
+        }
+
+        .areastaticlink {
+            float: right;
+            margin-right: 10px;
+        }
+
+            .areastaticlink li {
+                float: left;
+                color: #fff;
+            }
+
+            .areastaticlink a {
+                color: #000;
+            }
+    </style>
+    <script src="@Url.Content("~/plugs/highcharts/js/highcharts.js")"></script>
+    <script src="@Url.Content("~/Scripts/mycustomtip.js")"></script>
+    <link  rel="stylesheet"  href="@Url.Content("~/Content/CSS/public.css")"></link>
+}
+<div class="header clearfix">
+    @Html.Partial("HeadMenu", UCHomeBasePage.IsLogin)
+</div>
+<div class="container clearfix">
+    <div class="AllTotals">
+        <b>全市空间激活数、文章发表数统计</b><span id="dofresh" style="color:red;cursor: pointer;">(点击获取最新数据)</span>
+        <ul class="areastaticlink">
+            <li>@Html.ActionLink("市直学校", "AllStaticsByArea", new { areacode = "370901" }, new { title = "点击查看详情" })</li>
+            <li>@Html.ActionLink("泰山区", "AllStaticsByArea", new { areacode = "370902" }, new { title = "点击查看详情" })</li>
+            <li>@Html.ActionLink("岱岳区", "AllStaticsByArea", new { areacode = "370903" }, new { title = "点击查看详情" })</li>
+            <li>@Html.ActionLink("宁阳县", "AllStaticsByArea", new { areacode = "370921" }, new { title = "点击查看详情" })</li>
+            <li>@Html.ActionLink("东平县", "AllStaticsByArea", new { areacode = "370923" }, new { title = "点击查看详情" })</li>
+            <li>@Html.ActionLink("新泰市", "AllStaticsByArea", new { areacode = "370982" }, new { title = "点击查看详情" })</li>
+            <li>@Html.ActionLink("肥城市", "AllStaticsByArea", new { areacode = "370983" }, new { title = "点击查看详情" })</li>
+            <li>@Html.ActionLink("高新区", "AllStaticsByArea", new { areacode = "370991" }, new { title = "点击查看详情" })</li>
+            <li>@Html.ActionLink("泰山景区", "AllStaticsByArea", new { areacode = "370992" }, new { title = "点击查看详情" })</li>
+        </ul>
+    </div>
+    <div class="AllHomes">
+        <div class="text-center">
+            <h3>全市空间激活数据统计图表</h3>
+        </div>
+        <div class="AllHomes_list pull-left col-md-3">
+            <div class="loading"></div>
+        </div>
+        <div class="AllHomes_Pie pull-left col-md-4">
+            <div id="AllHomesPie"></div>
+        </div>
+        <div class="AllHomes_Columns pull-left col-md-4">
+        </div>
+    </div>
+    <div class="AllArticles">
+        <div class="text-center">
+            <h3>全市发表文章数据统计图表</h3>
+        </div>
+        <div class="AllArticles_list pull-left col-md-3">21：区县文章发表数</div>
+        <div class="AllArticles_Pie pull-left col-md-4">
+            <div id="AllArticlesPie">
+                <div class='c_title text-center'>各区县文章发表数占有比例图</div>
+            </div>
+        </div>
+        <div class="AllArticles_Columns pull-left col-md-4">23：各区县老师、学生文章发表数图</div>
+    </div>
+   @* <div class="DayTotals">
+        <b>今日文章发表数据统计</b>
+    </div>
+    <div class="DayArticles">
+        <div class="text-center">
+            <h3>今日发表文章数据统计图表</h3>
+        </div>
+        <div class="DayArticles_list pull-left col-md-3">21：区县文章发表数</div>
+        <div class="DayArticles_Pie pull-left col-md-4">22：各区县文章发表占有比例图</div>
+        <div class="DayArticles_Columns pull-left col-md-4">23：各区县老师、学生文章发表数图</div>
+    </div>*@
+</div>
+<script>
+    $(function () {
+        $(".AllHomes_list").load("@Url.Action("AllHomeslist")");
+        $(".AllHomes_Columns").load("@Url.Action("AllHomescolumns")");
+        $(".AllArticles_list").load("@Url.Action("AllArticleslist")");
+        $(".AllArticles_Columns").load("@Url.Action("AllArticlescolumns")");
+        @* $(".DayArticles_list").load("@Url.Action("DayArticleslist")");
+        $(".DayArticles_Pie").load("@Url.Action("DayArticlesPie")");
+        $(".DayArticles_Columns").load("@Url.Action("DayArticlescolumns")");*@
+        $("#dofresh").click(function() {
+            $.ajax({                
+                url: "@Url.Action("DoFresh")",
+                success: function (msg) {
+                    alert("更新数据成功");
+                    document.location.reload();
+                },
+                error:function(msg) {
+                    alert("更新数据失败，请重试");
+                }
+            });
+        });
+    });
+</script>

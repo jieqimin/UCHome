@@ -1,0 +1,19 @@
+﻿@model UCHome.Controllers.TeacherCenterController.TeacherAllInfo
+<ul>
+    <li class="teaphoto img-circle" title="点击编辑头像">
+        @{ 
+            string userimage = Model.UBI.headphoto;
+        }
+        @if (string.IsNullOrEmpty(userimage))
+        {
+            <img  height="60" width="60"  src="@Url.Content("~/Content/images/man.png")" border="0" />
+        }
+        else
+        {
+            <img class="img-circle" height="60" width="60" src="@userimage" border="0" />
+        }
+    </li>
+    <li class="teaname">@Model.VST.XXMC</li>
+    <li class="teainfo" style="height: 35px;">@Model.VST.XM</li>
+</ul>
+

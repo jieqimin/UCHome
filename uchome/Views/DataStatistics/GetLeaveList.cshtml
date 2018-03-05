@@ -1,0 +1,44 @@
+﻿@{
+    Layout = null;
+}
+@using UCHome.Controllers
+@using M = OA.Model;
+<table class="table table-striped table-bordered table-hover datatable" id="leaTable">
+    <thead>
+        <tr>
+            <th></th>
+            <th>姓名</th>
+            <th>请假天数</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            int i = 0;
+            decimal total = 0;
+        }
+        @foreach (M.AL_Apply item in Model)
+        {
+            total += item.Hour.Value;
+            i++;
+            <tr>
+                <td>@i</td>
+                <td value="@item.ApplicantID">@item.ApplicantName</td>
+                <td>@item.Hour</td>
+            </tr>
+        }
+        <tr>
+            <td></td>
+            <td>总计</td>
+            <td>@total</td>
+        </tr>
+    </tbody>
+</table>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#leaTable").DataTable({
+            "oLanguage": {
+                "sUrl": "@Url.Content("~/plugs/datatables/language/zh_cn.json")"
+            }
+        });
+    });
+</script>

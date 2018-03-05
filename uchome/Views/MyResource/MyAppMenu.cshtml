@@ -1,0 +1,37 @@
+﻿<ul class="ul-shortcut">
+    <li id="mymark"><i class="li-icon li-icon-mark"></i><span>个人信息</span></li>
+    <li id="myhome"><i class="li-icon li-icon-home"></i><span>请假管理</span></li>
+    <li id="mylog"><i class="li-icon li-icon-log"></i><span>私人邮件</span></li>
+    <li id="myphoto"><i class="li-icon li-icon-photo"></i><span>通知公告</span></li>
+    <li id="mydicussgroup"><i class="li-icon li-icon-mark"></i><span>专业发展</span></li>
+</ul>
+<script >
+    $(function () {
+        $("#myhome").click(function () {
+            if ("@ViewData["UserType"]" == "T")
+                $("#body_content").load("@Url.Action("PersonHome", "TeacherCenter", new { id = Model })");
+            if ("@ViewData["UserType"]" == "S")
+                $("#body_content").load("@Url.Action("PersonHome", "TeacherCenter", new { id = Model })");
+            if ("@ViewData["UserType"]" == "P")
+                $("#body_content").load("@Url.Action("Index", "ParentsCenter", new { id = Model })");
+        });
+        $("#mylog").click(function () {
+            $("#body_content").load("@Url.Action("PersonLog", "PublicShare", new { id = Model })");
+        });
+        $("#myphoto").click(function () {
+            $("#body_content").load("@Url.Action("PersonPhoto", "PublicShare", new { id = Model })");
+        });
+        $("#mymark").click(function () {
+            $("#body_content").load("@Url.Action("PersonMark", "PublicShare", new { id = Model })");
+        });
+        $("#mymessage").click(function () {
+            $("#body_content").load("@Url.Action("PersonMessage", "PublicShare", new { id = Model })");
+        });
+        $("#mysay").click(function () {
+            $("#body_content").load("@Url.Action("PersonSay", "PublicShare", new { id = Model })");
+        });
+        $("#mydicussgroup").click(function () {
+            $("#body_content").load("@Url.Action("PersonDicuss", "PublicShare", new { id = Model })");
+        });
+    })
+</script>

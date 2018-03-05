@@ -1,0 +1,37 @@
+﻿@using Student.Model
+@model Guid
+<style>
+    #kscj li {
+        padding-left: 20px;
+    }
+
+    #tab1content li span {
+        padding: 10px;
+        display: inline-block;
+        float: left;
+    }
+</style>
+<div class="info-content" style="background-color: #fff; min-height: 610px;">
+    <div class="dtitle">
+
+        <h3 class="selected">德育表现</h3>
+
+    </div>
+    <div class="divider"></div>
+    <div id="kscj" class="dinfo">
+        <ul id="dybx" class="list-group">
+            @foreach (StudentInformation.DYInformation items in ViewBag.DYInfo)
+            {
+                if (string.IsNullOrEmpty(items.FieldName))
+                {
+                <li class="text-center list-group-item list-group-noborder">暂时还没有发现有德育表现记录！</li>
+                    break;
+                }
+                <li class="list-group-item list-group-noborder"><span>项目名称：@(items.FieldName)</span><span>评比日期：@(items.YearMonth)</span><span>评比得分：@(items.Score)</span></li>
+            }
+        </ul>
+    </div>
+</div>
+
+
+

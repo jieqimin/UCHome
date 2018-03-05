@@ -1,0 +1,213 @@
+﻿/*我的评价页面start*/
+.panel-bg {
+    background-color: #F8F8F8;
+    line-height: 40px;
+}
+
+    .panel-bg .p_l {
+        float: left;
+    }
+
+        .panel-bg .p_l span {
+            color: #FE6600;
+            font-size: 30px;
+        }
+
+        .panel-bg .p_l a {
+            margin-left: 40px;
+        }
+
+    .panel-bg .p_r {
+        float: right;
+    }
+
+.middle {
+    font-weight: bold;
+    padding-bottom: 5px;
+}
+
+.panel-body .left-content {
+    margin-top: 10px;
+    float: left;
+}
+
+    .panel-body .left-content span {
+        display: block;
+        width: 100px;
+        float: left;
+        min-height: 50px;
+        margin-bottom: 20px;
+    }
+
+    .panel-body .left-content div {
+        width: 568px;
+        float: left;
+        min-height: 50px;
+        margin-bottom: 20px;
+    }
+
+
+/*我的评价页面end*/
+
+/*学生自评页面start*/
+fieldset > legend {
+    font-size: 14px;
+    font-family: 微软雅黑;
+    margin-bottom: 10px;
+}
+
+.bottom-title {
+    font-weight: bold;
+    padding-top: 20px;
+    padding-bottom: 5px;
+}
+
+.bottom-content {
+    height: 120px;
+    line-height: 120px;
+    padding: 15px 0px;
+}
+
+    .bottom-content .circle {
+        color: white;
+        line-height: 90px;
+        text-align: center;
+        border-radius: 50%;
+        width: 90px;
+        height: 90px;
+        /* 宽度和高度需要相等 */
+        float: left;
+        padding: 0px;
+    }
+
+.bg-c1 {
+    background-color: #FF9966;
+}
+
+.bg-c2 {
+    background-color: #33AEE6;
+}
+
+.bg-c3 {
+    background-color: #FF66FF;
+}
+
+.ml {
+    margin-left: 30px;
+}
+
+.btn-right {
+    margin-top: 10px;
+}
+
+.btn-exp {
+    padding-top: 4px;
+    padding-bottom: 4px;
+}
+
+.btn-mb {
+    margin-bottom: 20px;
+}
+
+.input-error {
+    border: 1px solid red !important;
+}
+/*学生自评页面end*/
+
+/*学生互评页面start*/
+.nav-tabs > li > a {
+    color: #FF9966;
+}
+
+.nav > li > a {
+    padding: 5px 10px;
+}
+
+.nav-tabs > li.active > a, .nav-tabs > li.active > a:focus, .nav-tabs > li.active > a:hover {
+    color: #FF6633;
+    font-weight: bold;
+    border-top: 2px solid #F4640D;
+}
+
+.tab-content {
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+}
+
+.tab-pane {
+    padding: 10px 15px;
+    width: 698px;
+}
+
+    .tab-pane > ul > li {
+        float: left;
+        padding: 10px;
+    }
+
+        .tab-pane > ul > li > a {
+            color: #6B6B6B;
+        }
+
+/*学生互评页面end*/
+
+/*批量评价页面start*/
+.table-bordered > thead > tr > td, .table-bordered > thead > tr > th {
+    border-bottom-width: 1px;
+    background-color: #E4E4E4;
+}
+
+
+
+.cell1 {
+    width: 50px;
+}
+
+.cell2 {
+    width: 90px;
+}
+
+.p-t {
+    padding-top: 11px !important;
+}
+
+.table-m-t {
+    margin-top: 2px;
+}
+
+.clear-both {
+    clear: both;
+}
+
+/*批量评价页面end*/
+
+/*模态框页面start*/
+.modal-dialog {
+    width: 800px;
+}
+
+.modal-header, .modal-footer {
+    max-height: 450px;
+    overflow: auto;
+    padding-top: 5px !important;
+    padding-bottom: 5px !important;
+}
+
+.modal-body {
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+}
+
+.alert {
+    clear: both;
+    padding: 5px 15px !important;
+    margin-bottom: 5px !important;
+    font-size: 18px !important;
+    text-align: center;
+    font-weight: bold;
+}
+
+.text-box {
+    margin-bottom: 15px;
+}
+/*模态框页面end*/

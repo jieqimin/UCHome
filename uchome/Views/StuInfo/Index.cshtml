@@ -1,0 +1,122 @@
+﻿@model IEnumerable<StuInfo.Model.StuInfo>
+
+@{
+}
+<link rel="stylesheet" href="@Url.Content("~/plugs/datatables/css/jquery.dataTables.css")">
+<link rel="stylesheet" href="@Url.Content("~/plugs/datatables/css/dataTables.bootstrap.css")">
+<link rel="stylesheet" href="@Url.Content("~/plugs/scrollbar/css/sui.css")">
+<script src="@Url.Content("~/plugs/datatables/js/jquery.datatables.js")"></script>
+<script src="@Url.Content("~/plugs/datatables/js/dataTables.bootstrap.js")"></script>
+<script src="@Url.Content("~/plugs/datatables/js/Jquery.dataTableSetting.js")"></script>
+@Html.Hidden("stusearchtype")
+    <div class="pagew form-position">
+        <div class="searchbar form-inline">           
+            <div class="form-group">
+                <label for="exampleInputName2">学生</label>
+                <input type="text" class="form-control" id="search_stu" placeholder="可输入学生姓名/学籍号/学号/身份证号">
+            </div>
+            <button type="button" id="btn-searchstu" class="btn btn-primary">搜索</button>
+            <button type="button" id="btn-open-advsearch" class="btn btn-default">高级搜索</button>
+            <button type="button" class="btn btn-info" onclick="RedircetUrl('@Url.Action("Create","StuInfo")')">添加新学生</button>
+        </div>
+        <hr class="divider" />
+
+        <table class="table  table-striped table-bordered table-hover datatable" id="table_stuinfo">
+            <thead>
+                <tr>
+                    <th>
+                        年级
+                    </th>
+                    <th>
+                        班级
+                    </th>
+                    <th>
+                        姓名
+                    </th>
+                    <th>
+                        学籍号
+                    </th>
+                    <th>
+                        状态
+                    </th>
+                    <th>
+                        操作
+                    </th>
+                </tr>
+            </thead>
+            <tfoot>
+                <tr><th colspan="6">共<label id="records"></label> 项，当前显示前100项记录，如未找到你想要的结果，可以将筛选条件调整更精确！</th></tr>
+            </tfoot>
+        </table>
+        <div id="advsearchstu" class="advsearcharea modal fade">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">高级搜索</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-horizontal">
+                            <div class="form-group">
+                                <label for="exampleInputName2" class="col-sm-2 control-label">年级</label>
+                                <div class="col-sm-7">
+                                    <select class="form-control" id="search_grade">
+                                        <option value="0">全部</option>
+                                        @foreach (var item in ViewBag.Grades as SelectList) {
+                                            <option value="@item.Value">@item.Text</option>}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputName2" class="col-sm-2 control-label">班级</label>
+                                <div class="col-sm-7">
+                                    <select class="form-control" id="search_class">
+                                        <option value="0">全部</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputName2" class="col-sm-2 control-label">学生姓名</label>
+                                <div class="col-sm-7">
+                                    <input type="text" class="form-control" id="advsearch_stuname" placeholder="请输入学生姓名">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputName2" class="col-sm-2 control-label">学籍号</label>
+                                <div class="col-sm-7">
+                                    <input type="text" class="form-control" id="advsearch_stucode" placeholder="请输入学生学籍号">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputName2" class="col-sm-2 control-label">学号</label>
+                                <div class="col-sm-7">
+                                    <input type="text" class="form-control" id="advsearch_stunumber" placeholder="请输入学生学号">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputName2" class="col-sm-2 control-label">身份证号</label>
+                                <div class="col-sm-7">
+                                    <input type="text" class="form-control" id="advsearch_stuidentity" placeholder="请输入学生身份证号">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                        <button type="button" id="btn-advsearchstu" class="btn btn-primary">确定</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        var initlisturl = "@Url.Action("GetStuList")";
+          var advsearchstuurl = "@Url.Action("GetStuList2")";
+    var operurl_delete = "@Url.Action("DeleteStu")";
+        var operurl_edit = "@Url.Action("Edit")";
+                var operurl_details = "@Url.Action("Details")";
+        var operurl_recovery = "@Url.Action("RescoverStu")";
+            var getclassbygradeurl = "@Url.Action("GetSIClassList")";
+    </script>
+    <script src="@Url.Content("~/Data/digitalcampus.js")"></script>
+    <script src="@Url.Content("~/Data/StuInfo/stuinfo.js")"></script>

@@ -1,0 +1,146 @@
+﻿@{
+    Layout = null;
+}
+@using System.Web.Mvc
+@using UCHome.Model
+@model UCHome_App_My
+<link rel="stylesheet" href="@Url.Content("~/plugs/webuploader/css/demo.css")">
+<link rel="stylesheet" href="@Url.Content("~/content/css/homework.css")">
+<style>
+    .red {
+        color: red;
+    }
+
+    #ul_appicon {
+    }
+
+        #ul_appicon > li {
+            position: relative;
+        }
+
+            #ul_appicon > li input[type=checkbox] {
+                position: absolute;
+                right: 0;
+                bottom: 0;
+                border: solid 1px #ccc !important;
+            }
+
+    #app_menu_add_modal {
+        overflow-x: hidden;
+    }
+</style>
+
+@Html.HiddenFor(model => model.PKID)
+<div id="app_add" class="form-horizontal form-position pagew ">
+    <div class="form-group">
+        <label for="AppName" class="col-sm-2 control-label">应用分类：</label>
+        <div class="col-sm-6">
+            <select class="form-control" name="TypeID" ng-model="relation.TypeID">
+                <option value="11111111-1111-1111-1111-111111111111">学校基础服务</option>
+                <option value="11111111-1111-1111-1111-111111111112">学生管理服务</option>
+                <option value="11111111-1111-1111-1111-111111111113">教师管理服务</option>
+                <option value="37e90a20-71f2-4b16-a130-33dd640cc07e">OA办公服务  </option>
+                <option value="772c1340-2314-4566-be53-7076fce99103">教学管理服务</option>
+                <option value="11111111-1111-1111-1111-111111111128">数据决策服务</option>
+                <option value="11111111-1111-1111-1111-111111111114">家长管理服务</option>
+                <option value="11111111-1111-1111-1111-111111111115">后勤管理服务</option>
+                <option value="11111111-1111-1111-1111-111111111116">教育资源服务</option>
+                <option value="905e7252-e449-4ba5-8694-bbef759b36f5">教学评价服务</option>
+                <option value="bde8e277-d283-4130-a242-c85f8b0c2933">网络教学服务</option>
+                <option value="17bc535f-55f8-4ce6-9169-cf255c31473b">社会公共服务</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="AppName" class="col-sm-2 control-label">所属角色：</label>
+        <div class="col-sm-6">
+            <select class="form-control" ng-model="sysapp.AppFuncRole">
+                <option value="TP" selected="selected">教师应用</option>
+                <option value="SP">学生应用</option>
+                <option value="PP">家长应用</option>
+                <option value="XP">管理员应用</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="AppName" class="col-sm-2 control-label">应用名称：</label>
+        <div class="col-sm-6">
+            <input type="text" class="form-control" ng-model="sysapp.AppName" id="sysapp.AppName" name="AppName" placeholder="请输入应用名称" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="AppUrl" class="col-sm-2 control-label">应用路径：</label>
+        <div class="col-sm-6">
+            <input type="text" class="form-control" ng-model="sysapp.AppUrl" id="AppUrl" name="AppUrl" placeholder="请输入应用路径" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="AppIcon" class="col-sm-2 control-label">应用图标：</label>
+        <div class="col-sm-9">
+            <button type="button" class="btn btn-warning pull-left" id="selbtn">请选择图标</button>
+            <div id="app_icons" style="clear: both; width: 400px; padding-top: 5px; height: 150px; overflow-y: auto; overflow-x: hidden; display: none;">
+                <ul class="list-group" id="ul_appicon">
+                    @for (int i = 1; i <= 174; i++) {
+                        <li class="pull-left list-group-item">
+                            <img style="width:40px; height:40px;" src="@Url.Content("~/Content/icon/fr" + i + "12.png")" />
+                            <input type="checkbox" name="sel" value="@i" ng-click="selecticon($event,@i)" />
+                        </li>}
+
+                </ul>
+            </div>
+            <input type="hidden" ng-model="sysapp.AppIcon" name="AppIcon" value="{{sysapp.AppIcon}}" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="AppTarget" class="col-sm-2 control-label">链接方式：</label>
+        <div class="col-sm-6">
+            <select class="form-control" ng-model="sysapp.AppTarget" id="AppTarget" name="AppTarget">
+                <option value="_blank">新页面</option>
+                <option value="_self" selected>本页面</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="memo" class="col-sm-2 control-label">排序值：</label>
+        <div class="col-sm-6">
+            <input type="number" class="form-control" ng-model="sysapp.memo" id="memo" name="memo" rows="2" placeholder="请输入数字" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="memo" class="col-sm-2 control-label">功能描述：</label>
+        <div class="col-sm-6">
+            <textarea class="form-control" ng-model="sysapp.memo" id="memo" name="memo" rows="2" placeholder="20字数以内" />
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="center-block" style="width: 300px;">
+            <input type="hidden" ng-model="sysapp.AppOrder" />
+            <button type="button" ng-click="addApp(sysapp,relation)" class="btn btn-success">
+                保存确认
+            </button>
+        </div>
+    </div>
+    <div class="form-group">
+        <ul class="col-sm-8" id="app_add_errormsg"></ul>
+    </div>
+</div>
+<div id="app_menu_add_modal" title="添加子功能">
+    <div id="app_menu_add_panel"></div>
+</div>
+<script type="text/javascript">
+    $(function () {
+        //$(":checkbox").click(function () {
+        //    if ($(this).prop("checked") != undefined) {
+        //        $(":checkbox").prop("checked", false);
+        //        $(this).prop("checked", true);
+        //        $("#AppIcon").val($(this).val());
+        //    }
+        //});
+        $("#selbtn").on("click", function () {
+            $("#app_icons").toggle();
+        });
+
+
+
+    });
+</script>

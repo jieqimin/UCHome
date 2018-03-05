@@ -1,0 +1,31 @@
+﻿@{
+    ViewBag.Title = "教师个人空间";
+}
+@model Guid
+<script>
+    $(function () {
+        //数据绑定 BindData
+        $("#staticnews").load("@Url.Action("staticnews", new { id = Model })");
+        var actdefaulturl = "@Url.Action("QueryResById2", "MyResource", new { id = Model })";
+        $("#resourcecontent").load(actdefaulturl);
+    });
+
+</script>
+<div class="bc_content1">
+    <div class="dtitle">
+        最新动态 <span class="down">
+            <img src="@Url.Content("~/Content/images/down.png")"/></span>
+    </div>
+    <div id="staticnews">
+        <div class="loading">正在加载中，请稍候……</div>
+    </div>
+</div>
+<div class="bc_content4">
+    <div class="dtitle">
+        最新资源 
+    </div>
+    <div id="resourcecontent">
+        <div class="loading">正在加载中，请稍候……</div>
+    </div>
+</div>
+

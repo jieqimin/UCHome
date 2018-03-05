@@ -1,0 +1,25 @@
+﻿@{
+    Layout = null;
+}
+
+<script src="@Url.Content("~/plugs/zTree/jquery.ztree.all.min.js")"></script>
+<link href="@Url.Content("~/plugs/zTree/zTreeStyle/zTreeStyle.css")" rel="stylesheet" />
+<link href="@Url.Content("~/plugs/zTree/zTreeStyle/taskMain.css")" rel="stylesheet" />
+
+<div ng-controller="TaskIntegral" class="clearfix">
+    <div class="taskMain">
+        <div class="divTreeLeft">
+            <div id="zTreeObj" class="ztree"></div>
+            <button ng-if="QueryChanged" class="btn btn-sm btn-success" ng-click="SaveChangedQuery()" style="float: right;">保存</button>
+        </div>
+        <div class="taskMiddleLine"></div>
+        <div class="divtaskRight">
+            <div ng-include="'@Url.Content("~/Content/template/ModuleTemplate.htm")'"></div>
+        </div>
+
+    </div>
+
+</div>
+<style type="text/css">
+
+</style>

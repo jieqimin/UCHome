@@ -1,0 +1,21 @@
+﻿@{
+    Layout = null;
+    ViewBag.Title = "Details";
+}
+<link rel="stylesheet" href="@Url.Content("~/plugs/datatables/css/jquery.dataTables.css")">
+<link rel="stylesheet" href="@Url.Content("~/plugs/datatables/css/dataTables.bootstrap.css")">
+<script src="@Url.Content("~/plugs/datatables/js/jquery.datatables.js")"></script>
+<script src="@Url.Content("~/plugs/datatables/js/dataTables.bootstrap.js")"></script>
+<input id="hidTeaId" type="hidden" value="@ViewBag.TeacherId" /> 
+<input id="hidHttp" type="hidden" value="@ViewBag.Http" />
+<div id="teacherEidtInfo" class="form-position pagew">
+    <img style=" margin-left:45%;" src="@Url.Content("~/Content/images/loading.gif")" /><br />
+    <span style="margin-left:40%;font-size: 12px;">正在加载应用，请稍候...</span>
+</div>   
+<script>
+    $(document).ready(function () {
+        var loadurl = $("#hidHttp").val() + "/BaseDataSystem.Web/Teacher/Details?id=" + $("#hidTeaId").val();
+        $("#teacherEidtInfo").load(loadurl);
+    });
+</script> 
+

@@ -1,0 +1,23 @@
+﻿@using UCHome.Model
+@model List<View_Statics_DayArticleGroupByArea>
+@*<script type="text/javascript">
+    loaddata($("#AllHomeslist"));
+</script>*@
+<div id="DayArticleslist">
+    <div class='s_title text-center'>今日各区县文章发表数</div>
+    @if (Model == null || !Model.Any())
+    {
+        <script type="text/javascript">
+            $("#DayArticleslist").append(nodatatip("暂未找到数据！"));
+        </script>
+    }
+    else
+    {
+        <ul>
+            @foreach (View_Statics_DayArticleGroupByArea item in Model)
+            {
+                <li><span class="pull-left col-md-5">@item.Areaname </span><span class="col-md-5">@item.ArticleCount </span></li>
+            }
+        </ul>
+    }
+</div>

@@ -1,0 +1,109 @@
+﻿<link rel="stylesheet" href="@Url.Content("~/plugs/datatables/css/jquery.dataTables.css")">
+<link rel="stylesheet" href="@Url.Content("~/plugs/datatables/css/dataTables.bootstrap.css")">
+<script src="@Url.Content("~/plugs/datatables/js/jquery.datatables.js")"></script>
+<script src="@Url.Content("~/plugs/datatables/js/dataTables.bootstrap.js")"></script>
+@model List<StudentAskLeave.Model.Uchome_StudentAskLeaveApply>
+<table class="table table-hover table-condensed table-bordered datatable" id="recordTable">
+    <thead>
+        <tr>
+            <td>类型</td>
+            <td>时长</td>
+            <td>开始时间</td>
+            <td>结束时间</td>
+            <td>状态</td>
+            <td>操作</td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.ApplyType</td>
+                <td>@item.LeaveHours</td>
+                <td>@item.StartDate.ToString("MM月dd日 HH:mm")</td>
+                <td>@item.EndDate.ToString("MM月dd日 HH:mm")</td>
+                <td>{{ TransStatus(@item.Status) }}</td>
+                <td>
+                    <a href="javascript:void(0)" ng-click="DetailApply('@item.Id')">详情</a>
+                    @if (item.Status == 0)
+                    {
+                        <a href="javascript:void(0)" ng-click="DeleteApply('@item.Id')">删除</a>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+
+</table>
+<div class="modal fade" id="modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">请假详情</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group  clearfix">
+                    <label class="col-sm-offset-2 col-sm-2 control-label">班级:</label>
+                    <div class="col-sm-4">
+                        {{showModal.ApplyerClass}}
+                    </div>
+                </div>
+                <div class="form-group  clearfix">
+                    <label class="col-sm-offset-2 col-sm-2 control-label">姓名:</label>
+                    <div class="col-sm-4">
+                        {{showModal.ApplyerName}}
+                    </div>
+                </div>
+                <div class="form-group clearfix">
+                    <label class="col-sm-offset-2 col-sm-2 control-label">类型:</label>
+                    <div class="col-sm-4">
+                        {{showModal.ApplyType}}
+                    </div>
+                </div>
+                <div class="form-group clearfix">
+                    <label class="col-sm-offset-2 col-sm-2 control-label">时长:</label>
+                    <div class="col-sm-4">
+                        {{showModal.LeaveHours}} 小时
+                    </div>
+                </div>
+                <div class="form-group clearfix">
+                    <label class="col-sm-offset-2 col-sm-2 control-label">开始:</label>
+                    <div class="col-sm-4">
+                        {{showModal.StartTime}}
+                    </div>
+                </div>
+                <div class="form-group clearfix">
+                    <label class="col-sm-offset-2 col-sm-2 control-label">结束:</label>
+                    <div class="col-sm-4">
+                        {{showModal.EndTime}}
+                    </div>
+                </div>
+                <div class="form-group clearfix">
+                    <label class="col-sm-offset-2 col-sm-2 control-label">原因:</label>
+                    <div class="col-sm-8">
+                        {{showModal.ApplyReason}}
+                    </div>
+                </div>
+                <div class="form-group clearfix">
+                    <label class="col-sm-offset-2 col-sm-2 control-label">状态:</label>
+                    <div class="col-sm-8">
+                        <p ng-repeat="item in showModal.AuditInfo">{{item}}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+            <div></div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<script type="text/javascript">
+    $(function () {
+        $("#recordTable").DataTable({
+            sort:[]
+        });
+    });
+
+</script>

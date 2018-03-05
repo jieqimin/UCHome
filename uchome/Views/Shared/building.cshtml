@@ -1,0 +1,79 @@
+﻿@{
+    Layout = null;
+    ViewBag.Title = "网站建设中";
+}
+<style>
+    a,a .li_appname {
+        text-decoration: none;
+        color: #333;
+    }
+</style>
+<div style="margin: 0 auto; width: 700px">
+    <img width="700" src="@Url.Content("~/content/images/building.jpg")" />
+</div>
+<div class="panel panel-default" style="width: 700px;margin:10px auto;">
+    <div class="panel-heading">您可以先移步到如下应用：</div>
+    <div class="panel-body">
+        <ul class="app_alllists_ul">
+            <li>
+                <a href="/UCHome/AppCenter/SystemAppRedirectPage/bfb3b7a9-3648-44c1-a3ce-2d9d28ec9d9c" target="_blank">
+                    <span class="li_appbg">
+                        <img class="img-rounded" src="/UCHome/Content/icon/fr332.png">
+                    </span>
+                    <span class="li_appname">教师备课</span>
+                </a>
+            </li>
+            <li>
+                <a href="/UCHome/AppCenter/SystemAppRedirectPage/6b051716-3ec2-4a3d-9174-e19ecda3d9e4" target="main">
+                    <span class="li_appbg">
+                        <img class="img-rounded" src="/UCHome/Content/icon/fr732.png">
+                    </span>
+                    <span class="li_appname">任务中心</span>
+                </a>
+            </li>
+            <li>
+                <a href="/UCHome/AppCenter/SystemAppRedirectPage/c8fbcfe0-a918-4eb0-83e0-8aede498f26a" target="main">
+                    <span class="li_appbg">
+                        <img class="img-rounded" src="/UCHome/Content/icon/fr332.png">
+                    </span>
+                    <span class="li_appname">家庭作业</span>
+                </a>
+            </li>
+            <li>
+                <a href="/UCHome/AppCenter/SystemAppRedirectPage/551f1de6-ef89-4100-baa3-a5962af34b5b" target="main">
+                    <span class="li_appbg">
+                        <img class="img-rounded" src="/UCHome/Content/icon/fr732.png">
+                    </span>
+                    <span class="li_appname">在线学习</span>
+                </a>
+            </li>
+            <li>
+                <a href="/UCHome/AppCenter/SystemAppRedirectPage/c20a5422-2ecb-410e-8148-11fe96ab3104" target="main">
+                    <span class="li_appbg">
+                        <img class="img-rounded" src="/UCHome/Content/icon/fr332.png">
+                    </span>
+                    <span class="li_appname">家校互动</span>
+                </a>
+            </li>
+            <li>
+                <a href="/UCHome/AppCenter/SystemAppRedirectPage/3730ca48-ea7a-499d-8ee0-178c1dfe476c" target="main">
+                    <span class="li_appbg">
+                        <img class="img-rounded" src="/UCHome/Content/icon/fr732.png">
+                    </span>
+                    <span class="li_appname">学生评价</span>
+                </a>
+            </li>
+            <li>
+                <a href="/UCHome/AppCenter/SystemAppRedirectPage/20349b92-3c6c-46f9-84b6-990834ae6017" target="main">
+                    <span class="li_appbg">
+                        <img class="img-rounded" src="/UCHome/Content/icon/fr332.png">
+                    </span>
+                    <span class="li_appname">在线研修</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="panel-footer">
+        <a href="@Url.Action("Index", "AppCenter")">更多应用</a>
+    </div>
+</div>

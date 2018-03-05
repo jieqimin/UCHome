@@ -1,0 +1,141 @@
+﻿@{
+    ViewBag.Title = "添加错题";
+}
+<link href="@Url.Content("~/angular/uchome/errorcollection/errorcollection.css")" rel="stylesheet/less" type="text/css" />
+<script src="@Url.Content("~/scripts/less.min.js")"></script>
+<div class="container w700">
+    <form role="form" name="myForm" ng-submit="AddErrorQuestion(newerror)" class="form-horizontal mt10" novalidate>
+        <div class="form-group  has-feedback">
+            <label class="col-sm-2 control-label">知识章节：</label>
+            <div class="col-md-10">
+                <sel-knowledge></sel-knowledge>
+            </div>
+        </div>
+        <div class="form-group  has-feedback">
+            <label for="name" class="col-sm-2 control-label">问题分类：</label>
+            <div class="col-sm-10">
+                <div class="checkbox">
+                    <label ng-repeat="item in typelist" class="mm5">
+                        <input type="checkbox" value="item.PKID" ng-click="toggleselecticon(item.PKID)" checkbox-group />{{item.TypeName}}
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group  has-feedback">
+            <label for="name" class="col-sm-2 control-label">问题名称：</label>
+            <div class="col-md-8">
+                <input class="form-control" id="name" name="name" type="text" required ng-model='newerror.QName' />
+                <span class="glyphicon glyphicon-ok form-control-feedback"
+                    ng-show="myForm.name.$dirty && myForm.name.$valid"></span>
+            </div>
+        </div>
+        <div class="form-group  has-feedback">
+            <label for="minlength" class="col-sm-2 control-label">问题附件：</label>
+            <div class="col-md-10">
+                <div id="uploader1" class="wu-example">
+                </div>
+                <input id="Attachment" class="col-md-10" name="Attachment" type="hidden" value="{{newerror.QFiles}}" />
+
+            </div>
+        </div>
+        <div class="form-group  has-feedback">
+            <label for="minlength" class="col-sm-2 control-label">问题说明：</label>
+            <div class="col-md-10">
+                <textarea rows="5" id="maxlength" name="maxlength" ng-model="newerror.QMemo" ng-maxlength="200" class="form-control" />
+                <span class="glyphicon glyphicon-ok form-control-feedback"
+                    ng-show="myForm.maxlength.$dirty && myForm.maxlength.$valid"></span>
+            </div>
+        </div>
+        <div class="form-group  has-feedback">
+            <label for="minlength" class="col-sm-2 control-label">问题解析：</label>
+            <div class="col-md-10">
+                <div id="uploader2" class="wu-example">
+                </div>
+                <input id="Attachment2" class="col-md-10" name="Attachment2" type="hidden" value="{{newerror.QAFiles}}" />
+            </div>
+        </div>
+        <div class="form-group  has-feedback">
+            <label for="minlength" class="col-sm-2 control-label">解析说明：</label>
+            <div class="col-md-10">
+                <textarea rows="5" id="maxlength" name="maxlength" ng-model="newerror.QAMemo" ng-maxlength="200" class="form-control" />
+                <span class="glyphicon glyphicon-ok form-control-feedback"
+                    ng-show="myForm.email.$dirty && myForm.email.$valid"></span>
+            </div>
+        </div>
+        <div class="form-group  has-feedback">
+            <label for="minlength" class="col-sm-2 control-label">出错原因：</label>
+            <div class="col-sm-10">
+                <div class="checkbox">
+                    <label ng-repeat="item in reasonlist" class="mm5">
+                        <input type="checkbox" value="item.PKID" ng-click="toggleselecticon2(item.PKID)" checkbox-group />{{item.ReasonName}}
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group  has-feedback">
+            <label for="minlength" class="col-sm-2 control-label">原因说明：</label>
+            <div class="col-md-10">
+                <input type="text" id="qememo" name="qememo" ng-maxlength="200" ng-model="newerror.QEMemo" class="form-control" />
+                <span class="glyphicon glyphicon-ok form-control-feedback"
+                    ng-show="myForm.qememo.$dirty && myForm.qememo.$valid"></span>
+            </div>
+        </div>
+
+        <div class="form-group  has-feedback">
+            <label for="minlength" class="col-sm-2 control-label">难易程度：</label>
+            <div class="col-md-10">
+                <div class="btn-group" role="group" aria-label="">
+                    <button type="button" class="btn btn-default btn-sm" ng-class="{'btn-success':diffculty=='1','btn-default':diffculty!='1'}" ng-click="Qdiffculty('1')">容易</button>
+                    <button type="button" class="btn btn-default btn-sm" ng-class="{'btn-primary':diffculty=='2','btn-default':diffculty!='2'}" ng-click="Qdiffculty('2')">一般</button>
+                    <button type="button" class="btn btn-default btn-sm" ng-class="{'btn-info':diffculty=='3','btn-default':diffculty!='3'}" ng-click="Qdiffculty('3')">中等</button>
+                    <button type="button" class="btn btn-default btn-sm" ng-class="{'btn-warning':diffculty=='4','btn-default':diffculty!='4'}" ng-click="Qdiffculty('4')">较难</button>
+                    <button type="button" class="btn btn-default btn-sm" ng-class="{'btn-danger':diffculty=='5','btn-default':diffculty!='5'}" ng-click="Qdiffculty('5')">很难</button>
+                </div>
+                <input type="hidden" ng-model="newerror.QDifficulty"/>
+            </div>
+        </div>
+        <div class="form-group  text-center">
+            <input class="btn btn-primary" ng-disabled="myForm.$invalid" type="submit" value="提交" />
+        </div>
+    </form>
+</div>
+<link rel="stylesheet" href="@Url.Content("~/plugs/webuploader/css/webuploader.css")">
+<script src="@Url.Content("~/plugs/webuploader/js/webuploader.js")"></script>
+<script src="@Url.Content("~/plugs/webuploader/js/upfile.js")"></script>
+<script>
+
+    var BASE_URL = '@Url.Content("~/plugs/webuploader/")';
+    //文件处理服务
+    var Server_URL = "@Url.Action("AddFile", "PublicShare")";
+    var upfile1 = new Upfiles({
+        id: "uploader1",
+        baseurl: BASE_URL,
+        serverurl: Server_URL,
+        callbackfn: function (ret) { //返回值格式为：[{fileid:"",filename:"",filepath:""},{fileid:"",filename:"",filepath:""}]
+
+            if (ret != null) {
+                var results = new Array();
+                var files = eval("(" + ret + ")");
+                $.each(files, function (index, item) {
+                    results.push(item.filepath);
+                });
+                $("#Attachment").val(results);
+            }
+        }
+    });
+    var upfile2 = new Upfiles({
+        id: "uploader2",
+        baseurl: BASE_URL,
+        serverurl: Server_URL,
+        callbackfn: function (ret) {
+            if (ret != null) {
+                var results = new Array();
+                var files = eval("(" + ret + ")");
+                $.each(files, function (index, item) {
+                    results.push(item.filepath);
+                });
+                $("#Attachment2").val(results);
+            }
+        }
+    });
+</script>

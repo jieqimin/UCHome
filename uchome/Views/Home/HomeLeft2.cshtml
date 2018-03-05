@@ -1,0 +1,158 @@
+﻿@using System.Web.Razor.Parser
+@using ServiceStack.Text
+@using UCHome.Model
+@model UserInfo
+<div class="row">
+    <div class="row grtx img-thumbnail">
+        @if (ViewBag.HeadPic == null || ViewBag.HeadPic == "")
+        {
+            <img id="userheadpic" class="img-thumbnail" data-target="#upheadimg" data-toggle="modal" src="@Url.Content("~/Content/images/noheadpic.png")" width="180" height="160" />
+        }
+        else
+        {
+            <img id="userheadpic" class="img-thumbnail" data-target="#upheadimg" data-toggle="modal" src="@(ViewBag.HeadPic.Replace("_headimg", "_Thumbnail"))" width="180" height="160" />
+        }
+
+    </div>
+    <div class="row">
+        <ul class="list-group list-group-noborder jbxx">
+            <li class="list-group-item">
+                <nobr><span class="glyphicon glyphicon-user" aria-hidden="true"></span><a style="margin-left: 20px;color:#333;" href="#" target="_self">@ViewBag.XM（@ViewBag.UserType）</a></nobr>
+            </li>
+
+            @if (ViewBag.UserType == "教师")
+            {
+                <li class="list-group-item">
+                    <nobr><span class="glyphicon glyphicon-home"></span><a style="margin-left: 20px; color:#333;" href="@Url.Action("Index", "SchoolCenter", new { id = ViewBag.XXID })" target="_self">@ViewBag.XXMC</a></nobr>
+                </li>
+                <li id="Attentionlist" class="Attentionlist list-group-item" title="点击可更改个人信息"></li>
+            }
+            else if (ViewBag.UserType == "家长")
+            {
+                <li class="list-group-item">
+                    <nobr><span class="glyphicon glyphicon-home"></span><a style="margin-left: 20px; color: #333;" href="@Url.Action("Index", "SchoolCenter", new { id = Model.childinfo.childxxid })" target="_self">@Model.childinfo.childxxmc</a></nobr>
+
+                </li>
+                <li class="list-group-item">
+                    <nobr><span class="glyphicon glyphicon-cog" aria-hidden="true"></span><a id="childsbtn" style="margin-left: 20px; color: #333;" href="#" data-toggle="dropdown">亲子：@Model.childinfo.childusername <span class="caret"></span></a>
+                    <ul class="dropdown-menu" id="Childs">
+                    </ul>
+                    </nobr>
+
+                </li>
+            }
+            else
+            {
+                <li class="list-group-item">
+                    <nobr><span class="glyphicon glyphicon-home"></span><a style="margin-left: 20px; color:#333;" href="@Url.Action("Index", "SchoolCenter", new { id = ViewBag.XXID })" target="_self">@ViewBag.XXMC</a></nobr>
+                </li>
+                 <li id="Attentionlist" class="Attentionlist list-group-item" title="关注/取消关注"></li>
+            }
+
+        </ul>
+    </div>
+</div>
+<style>
+    #ImgPr {
+        float: left;
+    }
+
+    label.error {
+        color: red;
+        font-size: 14px;
+        display: none;
+    }
+
+    #section label, #subject label[section] {
+        margin-left: 5px;
+    }
+
+    .previewimg {
+        position: relative;
+        padding-left: 20px;
+        display: none;
+    }
+
+    #preview-pane {
+        position: absolute;
+        left: 530px;
+        float: right;
+        top: 0;
+    }
+
+        #preview-pane .preview-container {
+            width: 160px;
+            height: 160px;
+            overflow: hidden;
+            border: solid 1px #ddd;
+        }
+
+        #preview-pane .preview-container2 {
+            width: 80px;
+            height: 80px;
+            overflow: hidden;
+            border: solid 1px #ddd;
+            margin: 10px 0;
+        }
+
+        #preview-pane .preview-container3 {
+            width: 40px;
+            height: 40px;
+            overflow: hidden;
+            border: solid 1px #ddd;
+        }
+</style>
+<script>
+    $.ajax({
+        url: "@Url.Action("ValidAttent", "PublicShare")",
+        data: { AttentUser: "@Model.userid" },
+        async: false,
+        success: function (data) {
+            if (!data) {
+                $(".Attentionlist").append(" <button id='btnAttent' type='button' opertype='cancelattent' class=' btn btn-success  col-xs-12'>取消关注</button>");
+            }
+            else {
+                $(".Attentionlist").append(" <button id='btnAttent' type='button' opertype='attentta' class=' btn btn-info  col-xs-12'>关注TA</button>");
+            }
+        }
+    });
+    $(function () {
+        $("#btnAttent").click(function () {
+            var opertype = $(this).attr("opertype");
+            if (opertype == "attentta")
+                $.ajax({
+                    url: "@Url.Action("AddAttent", "PublicShare")",
+                    data: { AttentUser: "@Model.userid" },
+                    success: function (data) {
+                        if (data) {
+                            tipsuccessmsg("关注成功！");
+                            $("#btnAttent").html("取消关注");
+                            $("#btnAttent").attr("opertype", "cancelattent");
+                            $("#btnAttent").removeClass("btn-info").addClass("btn-success");
+                        }
+                        else {
+                            tipfailmsg("请先登录！");
+                        }
+                    }
+                });
+            else
+                $.ajax({
+                    url: "@Url.Action("CancelAttent", "PublicShare")",
+                    data: { AttentUser: "@Model.userid" },
+                    success: function (data) {
+                        if (data) {
+                            tipsuccessmsg("取消关注成功！");
+                            $("#btnAttent").html("关注TA");
+                            $("#btnAttent").attr("opertype", "attentta");
+                            $("#btnAttent").removeClass("btn-success").addClass("btn-info");
+                        }
+                        else {
+                            tipfailmsg("请先登录！");
+                        }
+                    }
+                });
+        });
+    });
+
+</script>
+

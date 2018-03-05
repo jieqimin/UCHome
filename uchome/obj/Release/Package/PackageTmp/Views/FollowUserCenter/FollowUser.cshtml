@@ -1,0 +1,279 @@
+﻿@{
+    Layout = null;
+}
+<div class="banner"><img src="@Url.Content("~/Content/images/2.png")" /></div>
+
+<ul class="title">
+    <li class="title-check" onclick="GetBookList(1);">我关注谁</li>
+    <li onclick="GetBookList(2);">谁关注我</li>
+</ul>
+
+<div class="course" style="margin-top: 10px;">
+    <input type="text" style="margin-left: 569px;
+        margin-top: -51px;
+        position: absolute;
+        width: 120px;
+        text-align: center;" placeholder="请输入姓名查询" id="txtName" />
+</div>
+
+@*<input id="hidAPIHTTP" type="hidden" value="@ViewBag.APIHTTP2"/>*@
+@*<input id="hidImageHead" type="hidden" value="@ViewBag.ImageHead" />*@
+<input id="hidAPIHTTP" type="hidden" value="http://xy.taedu.gov.cn:81" />
+<input id="hidImageHead" type="hidden" value="/uchomenew" />
+<ul class="result" id="ulresult" style="overflow: hidden;"></ul>
+<div id="callBackPager" style="text-align: center;"></div>
+
+<script src="@Url.Content("~/Content/js/extendPagination.js")"></script>
+<script>
+    $(function () {
+        $(".title li").click(function () {
+            $(".title li").removeClass("title-check");
+            $(this).addClass("title-check");
+        });
+
+        GetBookList(1);
+    });
+
+
+
+    function GetBookList(type) {
+
+        var html = "<div><img style=\"margin-left: 45%;\" src=\"@Url.Content("~/Content/images/loading.gif")\"/><br/>" +
+    "<span style=\"margin-left: 40%; font-size: 12px;\">正在加载数据，请稍候...</span></div>";
+
+        $("#ulresult").html(html);
+
+        $("#callBackPager").hide();
+        var imageHead = $("#hidImageHead").val();
+        var https = $("#hidAPIHTTP").val();
+
+        if (type === 1) {
+
+            $.ajaxSettings.async = false;
+            $.post("@Url.Action("GetMyBookList")", { curPage: 1, name: $("#txtName").val() }, function (data) {
+                console.log(data);
+                if (data != null && data.rows != null && data.rows.length > 0) {
+                    $("#callBackPager").show();
+                    $('#callBackPager').extendPagination({
+                        totalCount: data.total,
+                        showCount: 10,
+                        limit: 15,
+                        callback: function(curr, limit, totalCount) {
+                            createTable(curr, limit, totalCount);
+                        }
+                    });
+
+                    var html = "";
+
+                    for (var i = 0; i < data.rows.length; i++) {
+
+                        var imageurl = "/upload/headimages/" + data.rows[i].UID + ".jpg";                       
+
+                        var id = data.rows[i].UID;
+
+                        $.get(https + "/RedisCache.Api/api/user/" + id, function(user) {
+                            if (user != null) {
+                                var xxmc = "无";
+
+                                if (user.XXMC != null && user.XXMC.length > 0) {
+                                    xxmc = user.XXMC;
+                                }
+
+                                var shortxxmc = xxmc;
+                                if (xxmc.length > 11) {
+                                    shortxxmc = xxmc.substring(0, 11);
+                                }
+
+                                var link = "";
+
+                                if (user.UserType != null && user.UserType.length > 0) {
+                                    if (user.UserType === "T") {
+                                        link = imageHead + "/TeacherCenter/Query?id=" + data.rows[i].UID;
+                                    } else if (user.UserType === "S") {
+                                        link = imageHead + "/StudentCenter/Query?id=" + data.rows[i].UID;
+                                    }
+                                }
+                                html += "<li id=\"" + data.rows[i].UID + "\"><div class=\"user-pic\"><a target=\"_blank\" href=\"" + link +
+                                    "\"><img class=\"img-circle\" src=\"" + imageurl + "\" onerror=\"javascript:this.src='@Url.Content("~/Content/images/man.png")'\"/></a>" +
+                                    "</div><div class=\"user-right\"><p>" + data.rows[i].UName +
+                                    "<a class=\"glyphicon glyphicon-remove\" onclick=\"RemoveMyBook('" + data.rows[i].UID + "','');\">取消</a></p><p title=\"" + xxmc + "\">" +
+                                    shortxxmc + "</p></div></li>";
+                      
+                            }
+                        });
+                    }
+
+                    $("#ulresult").html(html);
+                } else {
+                    $("#ulresult").html("");
+                }
+            });
+        } else {
+            $.ajaxSettings.async = false;
+            $.post("@Url.Action("GetBeMyBookList")", { curPage: 1 }, function (data) {
+                if (data != null && data.rows != null && data.rows.length > 0) {
+                    $("#callBackPager").show();
+                    $('#callBackPager').extendPagination({
+                        totalCount: data.total,
+                        showCount: 10,
+                        limit: 15,
+                        callback: function (curr, limit, totalCount) {
+                            createTable1(curr, limit, totalCount);
+                        }
+                    });
+
+                    var html = "";
+
+                    for (var i = 0; i < data.rows.length; i++) {
+                        var imageurl = "/upload/headimages/" + data.rows[i] + ".jpg";                       
+
+                        $.get(https + "/RedisCache.Api/api/user/" + data.rows[i], function (user) {
+                            if (user != null) {
+                                var xxmc = "无";   
+
+                                if (user.XXMC != null && user.XXMC.length > 0) {
+                                    xxmc = user.XXMC;
+                                }
+                                var shortxxmc = xxmc;
+                                if (xxmc.length > 11) {
+                                    shortxxmc = xxmc.substring(0, 11);
+                                }
+
+                                var link = "";
+
+                                if (user.UserType != null && user.UserType.length > 0) {
+                                    if (user.UserType === "T") {
+                                        link = imageHead + "/TeacherCenter/Query?id=" + data.rows[i];
+                                    } else if (user.UserType === "S") {
+                                        link = imageHead + "/StudentCenter/Query?id=" + data.rows[i];
+                                    }
+                                }
+
+                                html += "<li><div class=\"user-pic\"><a target=\"_blank\" href=\"" + link +
+                        "\"><img  class=\"img-circle\" src=\"" + imageurl + "\" onerror=\"javascript:this.src='@Url.Content("~/Content/images/man.png")'\"/></a>" +
+                            "</div><div class=\"user-right\"><p>" + user.Name + "</p><p title=\"" + xxmc + "\">" + shortxxmc + "</p></div></li>";
+                            }
+                        });
+                    }
+
+                    $("#ulresult").html(html);
+                } else {
+                    $("#ulresult").html("");
+                }
+            });
+        }
+    }
+
+    function createTable(currPage) {
+        var html = "<div><img style=\"margin-left: 45%;\" src=\"@Url.Content("~/Content/images/loading.gif")\"/><br/>" +
+    "<span style=\"margin-left: 40%; font-size: 12px;\">正在加载数据，请稍候...</span></div>";
+
+        $("#ulresult").html(html);
+        var imageHead = $("#hidImageHead").val();
+        var https = $("#hidAPIHTTP").val();
+
+        $("#callBackPager").hide();
+
+        $.ajaxSettings.async = false;
+        $.post("@Url.Action("GetMyBookList")", { curPage: currPage }, function (data) {
+            if (data != null && data.rows != null && data.rows.length > 0) {
+                $("#callBackPager").show();
+                var html = "";
+
+                for (var i = 0; i < data.rows.length; i++) {
+                    var imageurl = "../../../upload/headimages/" + data.rows[i].UID + ".jpg";                  
+
+                    $.get(https + "/RedisCache.Api/api/user/" + data.rows[i].UID, function (user) {
+                        if (user != null) {
+                            var xxmc = "无";
+
+                            if (user.XXMC != null && user.XXMC.length > 0) {
+                                xxmc = user.XXMC;
+                            }
+                            var shortxxmc = xxmc;
+                            if (xxmc.length > 11) {
+                                shortxxmc = xxmc.substring(0, 11);
+                            }
+
+                            var link = "";
+
+                            if (user.UserType != null && user.UserType.length > 0) {
+                                if (user.UserType === "T") {
+                                    link = imageHead + "/TeacherCenter/Query?id=" + data.rows[i].UID;
+                                } else if (user.UserType === "S") {
+                                    link = imageHead + "/StudentCenter/Query?id=" + data.rows[i].UID;
+                                }
+                            }
+
+                            html += "<li id=\"" + data.rows[i].UID + "\"><div class=\"user-pic\"><a target=\"_blank\" href=\"" + link +
+                        "\"><img class=\"img-circle\" src=\"" + imageurl + "\" onerror=\"javascript:this.src='@Url.Content("~/Content/images/man.png")'\"/></a>" +
+                                "</div><div class=\"user-right\"><p>" + data.rows[i].UName +
+                                "<a class=\"glyphicon glyphicon-remove\" onclick=\"RemoveMyBook('" + data.rows[i].UID + "','');\">取消</a></p><p title=\""+xxmc+"\">" +
+                                shortxxmc + "</p></div></li>";
+                        }
+                    });
+                }
+
+                $("#ulresult").html(html);
+            } else {
+                $("#ulresult").html("");
+            }
+        });
+    }
+
+    function createTable1(currPage) {
+        var html = "<div><img style=\"margin-left: 45%;\" src=\"@Url.Content("~/Content/images/loading.gif")\"/><br/>" +
+    "<span style=\"margin-left: 40%; font-size: 12px;\">正在加载数据，请稍候...</span></div>";
+
+        $("#ulresult").html(html);
+        var imageHead = $("#hidImageHead").val();
+        var https = $("#hidAPIHTTP").val();
+
+        $("#callBackPager").hide();
+
+        $.ajaxSettings.async = false;
+        $.post("@Url.Action("GetBeMyBookList")", { curPage: currPage }, function (data) {
+            if (data != null && data.rows != null && data.rows.length > 0) {
+                $("#callBackPager").show();
+
+                var html = "";
+
+                for (var i = 0; i < data.rows.length; i++) {
+                    var imageurl = "../../../upload/headimages/" + data.rows[i] + ".jpg";                  
+
+                    $.get(https + "/RedisCache.Api/api/user/" + data.rows[i], function (user) {
+                        if (user != null) {
+                            var xxmc = "无";
+
+                            if (user.XXMC != null && user.XXMC.length > 0) {
+                                xxmc = user.XXMC;
+                            }
+                            var shortxxmc = xxmc;
+                            if (xxmc.length > 11) {
+                                shortxxmc = xxmc.substring(0, 11);
+                            }
+
+                            var link = "";
+
+                            if (user.UserType != null && user.UserType.length > 0) {
+                                if (user.UserType === "T") {
+                                    link = imageHead + "/TeacherCenter/Query?id=" + data.rows[i];
+                                } else if (user.UserType === "S") {
+                                    link = imageHead + "/StudentCenter/Query?id=" + data.rows[i];
+                                }
+                            }
+
+                            html += "<li><div class=\"user-pic\"><a target=\"_blank\" href=\"" + link +
+                        "\"><img class=\"img-circle\" src=\"" + imageurl + "\"onerror=\"javascript:this.src='@Url.Content("~/Content/images/man.png")'\"/></a>" +
+                        "</div><div class=\"user-right\"><p>" + user.Name + "</p><p title=\""+xxmc+"\">" + shortxxmc + "</p></div></li>";
+                        }
+                    });
+                }
+
+                $("#ulresult").html(html);
+            } else {
+                $("#ulresult").html("");
+            }
+        });
+    }
+</script>

@@ -1,0 +1,63 @@
+﻿@{
+    Layout = null;
+}
+@using System.Web.Mvc
+@using HomeWork.Model
+@model Homework_HwPublish
+<link rel="stylesheet" href="@Url.Content("~/plugs/datetimepicker/css/bootstrap-datetimepicker.css")">
+<link rel="stylesheet" href="@Url.Content("~/content/css/homework.css")">
+<style>
+    .red {
+        color: red;
+    }
+</style>
+@using (Ajax.BeginForm(
+    new AjaxOptions()
+    {
+        HttpMethod = "post",
+        Url = @Url.Action("HW_Deploy"),
+        UpdateTargetId = "#homework_publish",
+        LoadingElementId = "loding",
+        LoadingElementDuration = 2000
+    }))
+{
+    <div id="homework_publish" class="form-horizontal form-position pagew ">
+        <div class="form-group">
+            <label for="hwname" class="col-sm-2 control-label">日期选择：</label>
+            <div class="col-sm-5">
+                <div class="date form_datetime input-group" data-date-format="yyyy-mm-dd" data-link-field="dtp_input1">
+                    <input class="form-control" id="FinishDateEnd" name="FinishDateEnd" type="text" value="" placeholder="请选择日期">
+                    <div class="input-group-addon">
+                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                    </div>
+                    <div class="input-group-addon">
+                        <span class="glyphicon glyphicon-th" aria-hidden="true"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<script src="@Url.Content("~/plugs/datetimepicker/js/bootstrap-datetimepicker.min.js")"></script>
+<script src="@Url.Content("~/plugs/datetimepicker/js/bootstrap-datetimepicker.zh-CN.js")"></script>
+<script>
+    $('.form_datetime').datetimepicker({
+        format:'yyyy-mm-dd hh:ii',
+        language: 'zh-CN',
+        weekStart: 1,
+        todayBtn: 0,
+        autoclose: 1,
+        todayHighlight: 1,
+        //控制显示的视图，0为小时视图，1为日视图，2为月视图，3为年视图，4为十年视图，如需要选择单视图，则最小值最大值设置相同，否则会从大视图向小视图逐层选择时间
+        startView: 2,
+        minView: 2,
+        maxView: 2,
+        forceParse: 0,
+        //控制显示区间
+        showMeridian: true,
+        startDate: '2016/12/30 0:00',
+        endDate: '2016/12/30 23:59',
+        hoursDisabled: ['0', '1', '2', '3', '4', '5', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24']
+    });   
+</script>

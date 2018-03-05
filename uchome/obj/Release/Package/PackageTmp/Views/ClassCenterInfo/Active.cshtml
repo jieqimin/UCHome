@@ -1,0 +1,225 @@
+﻿@{
+    Layout = null;
+}
+
+    <div class="content">
+        <div class="carousel">
+            <div class="carousel-ul">
+                <ul class="imgbox" id="imgboxphoto">
+                    <div class="spinner">
+                        <div class="spinner-container container1">
+                            <div class="circle1"></div>
+                            <div class="circle2"></div>
+                            <div class="circle3"></div>
+                            <div class="circle4"></div>
+                        </div>
+                        <div class="spinner-container container2">
+                            <div class="circle1"></div>
+                            <div class="circle2"></div>
+                            <div class="circle3"></div>
+                            <div class="circle4"></div>
+                        </div>
+                        <div class="spinner-container container3">
+                            <div class="circle1"></div>
+                            <div class="circle2"></div>
+                            <div class="circle3"></div>
+                            <div class="circle4"></div>
+                        </div>
+                    </div>
+                </ul>
+            </div>
+            <a href="##" class="pre">
+                <img src="@Url.Content("~/Content/ClassCenter/images/activity/left.png")" /></a>
+            <a href="##" class="next">
+                <img src="@Url.Content("~/Content/ClassCenter/images/activity/right.png")" /></a>
+        </div>
+
+        <div class="details-title">
+            <img src="@Url.Content("~/Content/ClassCenter/images/public/note1.png")" /><span>班级活动</span>
+@*            <div class="details-more"><a href="#">more</a></div>*@
+        </div>
+        <div class="details">
+            <ul class="details-ul" id="divdetails">
+                <div class="spinner">
+                    <div class="spinner-container container1">
+                        <div class="circle1"></div>
+                        <div class="circle2"></div>
+                        <div class="circle3"></div>
+                        <div class="circle4"></div>
+                    </div>
+                    <div class="spinner-container container2">
+                        <div class="circle1"></div>
+                        <div class="circle2"></div>
+                        <div class="circle3"></div>
+                        <div class="circle4"></div>
+                    </div>
+                    <div class="spinner-container container3">
+                        <div class="circle1"></div>
+                        <div class="circle2"></div>
+                        <div class="circle3"></div>
+                        <div class="circle4"></div>
+                    </div>
+                </div>
+            </ul>
+        </div>
+
+       <div id="callBackPager" style="text-align: center;"></div>
+    </div>
+
+
+<link rel="stylesheet" href="@Url.Content("~/Content/bootstrap/css/bootstrap.min.class.css")">
+<link rel="stylesheet" href="@Url.Content("~/Content/bootstrap/css/bootstrap-theme.min.css")">
+<script src="@Url.Content("~/Content/js/extendPagination.js")"></script>
+<script>
+    var slideX = {
+        thisUl: $('.imgbox'),
+        btnLeft: $('.pre'),
+        btnRight: $('.next'),
+        thisLi: $('.imgbox li'),
+        init: function () {
+            //slideX.thisUl.width(slideX.thisLi.length * 294);
+            slideX.slideAuto();
+            slideX.btnLeft.click(slideX.slideLeft).hover(slideX.slideStop, slideX.slideAuto);
+            slideX.btnRight.click(slideX.slideRight).hover(slideX.slideStop, slideX.slideAuto);
+            slideX.thisUl.hover(slideX.slideStop, slideX.slideAuto);
+        },
+        slideLeft: function () {
+            slideX.btnLeft.unbind('click', slideX.slideLeft);
+            slideX.thisUl.find('li:last').prependTo(slideX.thisUl);
+            slideX.thisUl.css('marginLeft', -294);
+            slideX.thisUl.animate({ 'marginLeft': 0 }, 350, function () {
+                slideX.btnLeft.bind('click', slideX.slideLeft);
+            });
+            return false;
+        },
+        slideRight: function () {
+            slideX.btnRight.unbind('click', slideX.slideRight);
+            slideX.thisUl.animate({ 'marginLeft': -294 }, 350, function () {
+                slideX.thisUl.css('marginLeft', '0');
+                slideX.thisUl.find('li:first').appendTo(slideX.thisUl);
+                slideX.btnRight.bind('click', slideX.slideRight);
+            });
+            return false;
+        },
+        slideAuto: function () {
+            slideX.intervalId = window.setInterval(slideX.slideRight, 3000);
+        },
+        slideStop: function () {
+            window.clearInterval(slideX.intervalId);
+        }
+    }
+    $(document).ready(function () {
+
+
+        GetActiveList();
+        slideX.init();
+    });
+
+    function GetActiveList() {
+
+        $("#divdetails").html("");
+        $("#callBackPager").hide();
+        $("#imgboxphoto").html("");
+
+        $.post("@Url.Action("GetActive")", { bjid: $("#BJID").val(), page: 0 }, function (data) {
+
+            if (data != null && data.GetActive != null && data.GetActive.length > 0) {
+                $("#callBackPager").show();
+                $('#callBackPager').extendPagination({
+                    totalCount: data.Count,
+                    showCount: 10,
+                    limit: 8,
+                    callback: function (curr, limit, totalCount) {
+                        createTable(curr, limit, totalCount);
+                    }
+                });
+
+                var html = "";
+                var photpurl = "";
+                var html1 = "";
+                var photpurl1 = "";
+                var coent = "";
+                for (var i = 0; i < data.GetActive.length; i++) {
+
+                    if (data.GetActive[i].ActivePhotoName != null && data.GetActive[i].ActivePhotoName.length > 0) {
+                        var url = data.GetActive[i].ActivePhotoUrl.split(';');
+                        photpurl1 = url[0];
+                        photpurl1 = "@Url.Content("~/upload/awards/images/")" + photpurl1;
+                    } else {
+                        photpurl1 = "@Url.Content("~/Content/ClassCenter/images/activity/pic2.png")";
+
+                    }
+
+                    html1 += "<li><a href=\"@Url.Action("ClassIndex")?bjid=" + data.GetActive[i].BJID + "&bjmc=" + data.GetActive[i].BJMC + "&urlType=" + data.GetActive[i].ID + "\"><img src=\"" + photpurl1 + "\"><img src=\"" + photpurl1 + "\" /></a></li>";
+
+                    var xx = data.GetActive[i].ActiveContent;
+
+                    if (data.GetActive[i].ActivePhotoName != null && data.GetActive[i].ActivePhotoName.length > 0) {
+                        var url = data.GetActive[i].ActivePhotoUrl.split(';');
+                        photpurl = url[0];
+                        photpurl = "@Url.Content("~/upload/awards/images/")" + photpurl;
+                    }
+                    else {
+                        photpurl = "@Url.Content("~/Content/ClassCenter/images/activity/pic2.png")";
+                    }
+                    if (xx.length > 65) {
+                        var con = xx.substring(0, 65) + "......";
+                        coent = con;
+                    }
+                    else {
+                        coent = xx;
+                    }
+                    html += "<li><a target=\"_balnk\" href=\"@Url.Action("ClassIndex")?bjid=" + data.GetActive[i].BJID + "&bjmc=" + data.GetActive[i].BJMC + "&urlType=" + data.GetActive[i].ID + "\"><img src=\"" + photpurl + "\" /><div class=\"details-font\"><div class=\"xxx\">" +
+                        data.GetActive[i].ActiveTitle + "</div><p>&nbsp;&nbsp;" + coent + "</p></div></a></li>";
+                }
+
+                $("#imgboxphoto").html(html1);
+                $("#divdetails").html(html);
+            }
+        });
+
+    }
+
+    function createTable(currPage) {
+        $("#divdetails").html("");
+        $("#callBackPager").hide();
+
+        $.post("@Url.Action("GetActive")", { bjid: $("#BJID").val(), page: currPage }, function (data) {
+            $("#callBackPager").show();
+            if (data != null && data.GetActive != null && data.GetActive.length > 0) {
+                var html = "";
+                var photpurl = "";
+                var coent = "";
+                for (var i = 0; i < data.GetActive.length; i++) {
+                    var xx = data.GetActive[i].ActiveContent;
+                    var yy = xx.replace(/<[^>]+>/g, "");
+                    if (data.GetActive[i].ActivePhotoUrl.length > 0) {
+                        var url = data.GetActive[i].ActivePhotoUrl.split(';')
+                        photpurl = url[0];
+                        photpurl = "@Url.Content("~/upload/awards/images/")" + photpurl;
+                    }
+                    else {
+                        photpurl = "@Url.Content("~/Content/ClassCenter/images/activity/pic2.png")";
+                    }
+                    if (xx.length > 60) {
+
+
+                        var con = xx.substring(0, 60) + "......";
+                        coent = con;
+                    }
+                    else {
+
+
+                        coent = xx;
+                    }
+                    html += "<li><a target=\"_balnk\" href=\"@Url.Action("ClassIndex")?bjid=" + data.GetActive[i].BJID + "&bjmc=" + data.GetActive[i].BJMC + "&urlType=" + data.GetActive[i].ID + "\"><img src=\"" + photpurl + "\" /><div class=\"details-font\"><div class=\"xxx\">" +
+                        data.GetActive[i].ActiveTitle + "</div><p>" + coent + "</p></div></a></li>";
+                }
+
+
+                $("#divdetails").html(html);
+            }
+        });
+    }
+</script>
+

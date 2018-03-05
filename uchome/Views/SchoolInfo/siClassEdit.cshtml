@@ -1,0 +1,127 @@
+﻿@model SchInfo.Model.siClass
+@{}
+@using (Ajax.BeginForm("EditSIClass", null,
+                                                                                        new AjaxOptions() {
+                                                                                            HttpMethod = "post",
+                                                                                            Url = @Url.Action("EditSIClass"),
+                                                                                            UpdateTargetId = "#siclass",
+                                                                                            LoadingElementId = "loding",
+                                                                                            LoadingElementDuration = 2000
+                                                                                        }, new { id = "form-siclass" })) {
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal form-position pagew" id="siclass">
+        @Html.HiddenFor(model => model.ClassID)
+        @Html.HiddenFor(model => model.IsGraduation)
+        @Html.HiddenFor(model => model.IsState)
+        @Html.HiddenFor(model => model.ClassID_SchID)
+        <div class="form-group">
+            @Html.LabelFor(model => model.ClassStage, "* 学段", htmlAttributes: new { @class = "control-label col-md-2 required" })
+            <div class="col-md-5">
+                <select id="ClassStage col-md-12" name="ClassStage" class="form-control">
+                    @{  List<int> stages = ViewBag.Stages as List<int>;
+                    }
+                    @if (stages.Contains(1)) {
+                        <option value="1" @(Model.ClassStage == 1 ? "selected" : "")>学前</option>
+}
+                    @if (stages.Contains(2)) {
+                        <option value="2" @(Model.ClassStage == 2 ? "selected" : "")>小学</option>
+}
+                    @if (stages.Contains(3)) {
+                        <option value="3" @(Model.ClassStage == 3 ? "selected" : "")>初中</option>
+}
+                    @if (stages.Contains(4)) {
+                        <option value="4" @(Model.ClassStage == 4 ? "selected" : "")>高中</option>
+}
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.ClassName, "* 班级名称", htmlAttributes: new { @class = "control-label col-md-2 required" })
+            <div class="col-md-5">
+                @Html.EditorFor(model => model.ClassName, new { htmlAttributes = new { @class = "form-control", placeholder = "请输入班级名称，例如 01班" } })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.ClassCreateYear, "* 建班年份", htmlAttributes: new { @class = "control-label col-md-2 required" })
+            <div class="col-md-5">
+                @Html.EditorFor(model => model.ClassCreateYear, new { htmlAttributes = new { @class = "form-control", placeholder = "请输入四位数字，例如2017" } })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.ClassGraduationYear, "* 毕业年份", htmlAttributes: new { @class = "control-label col-md-2 required" })
+            <div class="col-md-5">
+                @Html.EditorFor(model => model.ClassGraduationYear, new { htmlAttributes = new { @class = "form-control", placeholder = "请输入四位数字，例如2023" } })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.ClassRoom_VenueID, "行政班教室", htmlAttributes: new { @class = "control-label col-md-2 required" })
+            <div class="col-md-5">
+                @Html.DropDownListFor(model => model.ClassRoom_VenueID, null, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.ClassType_DictCode, "班级类型", htmlAttributes: new { @class = "control-label col-md-2 required" })
+            <div class="col-md-5">
+                <select id="ClassType_DictCode col-md-12" class="form-control">
+                    <option value="行政班">行政班</option>
+                    <option value="教学班">教学班</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-4 col-md-8">
+                <input type="submit" value="保存" id="btn-siclassEdit" class="btn btn-info col-md-2" />&nbsp;&nbsp;
+                <button type="button" class="btn btn-default" onclick="RedircetUrl('@Url.Action("SIClassIndex","SchoolInfo")')">返回</button>
+            </div>
+        </div>
+    </div>
+                        }
+@*数据提交*@
+<script>
+    $(function () {
+        var siclassvalid = $("#form-siclass").validate({
+            rules: {
+                ClassName: "required",
+                ClassCreateYear: "required",
+                ClassGraduationYear: "required"
+            },
+            ignore: "hidden",
+            messages: {
+                ClassName: "班级名称不能为空",
+                ClassCreateYear: "建班年份不能为空",
+                ClassGraduationYear: "毕业年份不能为空"
+            },
+            errorClass: "validate-error", //设置错误样式
+            errorElement: "label", //设置显示错误提示的控件,默认为<label>
+            errorLabelContainer: "#validmsg", //指定错误信息放置容器
+            wrapper: "li",
+            //errorPlacement: function (error,element) { //指定错误信息放置位置
+            //    error.appendTo($("#validmsg"));
+            //},
+            //debug: true,//进行调试模式（表单不提交）
+            submitHandler: function () {
+                $("#btn-siclassEdit").val("正在保存，请稍候…");
+                $("#btn-siclassEdit").attr("disabled", "disabled");
+                $("#form-siclass").ajaxSubmit({
+                    success: function (data) {
+                        if (data.Data.StatusCode == 200) {
+                            tipsuccessmsg("保存成功");
+                             RedircetUrl("@Url.Action("siClassIndex")");
+                            //validator.resetForm(); //重置表单
+                        } else {
+                            tipfailmsg("保存失败，原因可能为：" + data.Data.ErrorMessage);
+                            //$("#PKID").val(data.data.PKID);
+                            //validator.resetForm(); //重置表单
+                        }
+                        $("#btn-siclassEdit").val("保存");
+                        $("#btn-siclassEdit").removeAttr("disabled");
+                    }
+                });
+            }
+            //onsubmit: false,//是否提交时验证，默认为True,用于设置某一个不需要验证的控件
+            //onfocusin: false,//是否获取焦点时验证，默认为True
+            //onkeyup: false,//是否在敲击键盘时验证，默认为True
+            //onclick: false//是否在鼠标点击时验证，默认为True
+        });
+    });
+</script>

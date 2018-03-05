@@ -1,0 +1,87 @@
+﻿@{
+    Layout = null;
+}
+
+
+    <ul style="min-height: 120px; height: auto;">
+        <li>
+            <span class="span">[年级]</span>
+        </li>
+        <li>
+            @for (int i = 0; i < ViewBag.gradeList.Count; i++)
+            {
+                if (string.IsNullOrWhiteSpace(ViewBag.njid))
+                {
+                    if (i == 0)
+                    {
+                        <span class="xz" onclick="selectGrade('@ViewBag.gradeList[i].Id', this) ">@ViewBag.gradeList[i].Name</span>
+                    }
+                    else
+                    {
+                        <span class="noxz" onclick="selectGrade('@ViewBag.gradeList[i].Id', this) ">@ViewBag.gradeList[i].Name</span>
+                    }
+                }
+                else
+                {
+                    if (ViewBag.gradeList[i].Id == ViewBag.njid)
+                    {
+                        <span class="xz" onclick="selectGrade('@ViewBag.gradeList[i].Id', this) ">@ViewBag.gradeList[i].Name</span>
+                    }
+                    else
+                    {
+                        <span class="noxz" onclick="selectGrade('@ViewBag.gradeList[i].Id', this) ">@ViewBag.gradeList[i].Name</span>
+                    }
+                }
+            }
+        </li>
+        <li>
+            <span class="span">[班级]</span>
+        </li>
+        <li id="partLi">
+            @for (int i = 0; i < ViewBag.classList.Count; i++)
+            {
+                if (i == 0)
+                {
+                    <span class="xz" onclick="selectClass('@ViewBag.classList[i].Id',this)">@ViewBag.classList[i].Name</span>
+                }
+                else
+                {
+                    <span class="noxz" onclick="selectClass('@ViewBag.classList[i].Id',this)">@ViewBag.classList[i].Name</span>
+                }
+            }
+        </li>
+        <div style="clear:both;"></div> 
+    </ul>
+<script >
+    function selectGrade(njid, e) {
+        $(e).parent().find("span").removeClass("xz");
+        $(e).parent().find("span").addClass("noxz");
+        $(e)[0].className = "xz";
+        $("#njid").val(njid);
+        $("#moreSelect").load("@Url.Action("PartStudent","Query")?xxid=" + $("#xxid").val() + "&njid=" + $("#njid").val());
+        getStudent();
+    }
+    function selectClass(bjid, e) {
+        $(e).parent().find("span").removeClass("xz");
+        $(e).parent().find("span").addClass("noxz");
+        $(e)[0].className = "xz";
+        $("#bjid").val(bjid);
+        getStudent();
+    }
+    function getStudent() {
+        if ("@ViewBag.classList.Count" <= 0) {
+            $("#bjid").val("7E4C35CD-E1FD-15B0-9122-92AF8EA74ECF");
+        }
+        if ($("#bjid").val()!="") {
+            $("#dataContent").load("@Url.Action("PageStudent","Query")?bjid=" + $("#bjid").val());
+        }
+    }
+
+    $(function () {
+        if ("@ViewBag.classList.Count" <= 0) {
+            $("#bjid").val("7E4C35CD-E1FD-15B0-9122-92AF8EA74ECF");
+            $("#dataContent").load("@Url.Action("PageStudent","Query")?bjid=" + $("#bjid").val());
+        }
+        $("#partLi").find("span[class='xz']").click();
+    });
+</script>

@@ -1,0 +1,112 @@
+﻿@{
+    Layout = null;
+}
+@using System.Web.Mvc
+@using M = MessageCenter.Model;
+@model M.MsgHelp
+<style type="text/css">
+    .pd {
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+
+    .h {
+        height: 34px;
+        line-height: 34px;
+    }
+
+    .lic {
+        float: left;
+        margin-right: 10px;
+        height: 33px;
+        line-height: 33px;
+    }
+
+    .w {
+        width: 450px;
+    }
+</style>
+
+<div id="noticeSend" class="form-horizontal form-position pagew " style="margin-bottom: 0px; margin-top: 0px;">
+    <div class="form-group">
+        <label for="MsgTypeName" class="col-sm-2 control-label">通知类型：</label>
+        <div class="col-sm-9 pd h">
+            @Model.notice.MsgTypeName
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="MsgTitle" class="col-sm-2 control-label">通知标题：</label>
+        <div class="col-sm-9 pd h">
+            @Model.notice.MsgTitle
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="MsgContent" class="col-sm-2 control-label">通知内容：</label>
+        <div class="col-sm-9 pd">
+            @Model.notice.MsgContent
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="MsgContent" class="col-sm-2 control-label">通知时间：</label>
+        <div class="col-sm-9 pd h">
+            @Model.notice.MsgDate
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="MsgContent" class="col-sm-2 control-label">附件：</label>
+        <div class="col-sm-9 pd h">
+            @{
+
+                var arry = Model.notice.FileID;
+                var arryfile = Model.notice.FileUrl;
+                if (arry != null || arry != "")
+                {
+                    string[] array1 = arry.Split(',');
+                    string[] array2 = arryfile.Split(',');
+                    for (int i = 0; i < array1.Length; i++)
+                    {
+
+
+                        <a href="@array2[i]">@array1[i];</a>
+
+
+                    }
+                }
+                else
+                {
+
+                }
+
+            }
+        </div>
+
+    </div>
+
+    <div class="form-group">
+        <label for="NoticeContent" class="col-sm-2 control-label">通知对象：</label>
+        <div class="col-sm-8 pd">
+            <ul>
+                @foreach (M.Msg_Receive item in Model.receiveList)
+                {
+
+                    if (item.IsRead == false)
+                    {
+                        <li class="lic">
+                            <a class="btn" role="button">@item.ReceiveUserName</a>
+                          
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="lic">
+                            <a class="btn btn-info btn-sm active" role="button">@item.ReceiveUserName</a>
+                        </li>
+
+                    }
+                }
+            </ul>
+        </div>
+    </div>
+
+</div>

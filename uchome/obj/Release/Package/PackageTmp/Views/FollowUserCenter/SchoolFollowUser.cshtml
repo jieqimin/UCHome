@@ -1,0 +1,234 @@
+﻿@{
+    Layout = null;
+}
+<div class="banner">
+    <img src="@Url.Content("~/Content/images/2.png")" /></div>
+
+<ul class="title">
+    <li class="title-check" onclick="GetUserList('1')">@ViewBag.TeaTitle</li>
+    <li onclick="GetUserList('2')">@ViewBag.StuTitle</li>
+</ul>
+
+<div class="course" style="margin-top: 10px;">
+    <input id="hidUserName" type="hidden" />
+    <input type="text" style="margin-left: 569px; margin-top: -51px; position: absolute; width: 120px; text-align: center;"
+        placeholder="请输入姓名查询" id="txtName" />
+</div>
+<input id="hidAPIHTTP" type="hidden" value="@ViewBag.APIHTTP2" />
+<input id="hidSchoolId" type="hidden" value="@ViewBag.ShoolId"/>
+<input id="hidImageHead" type="hidden" value="@ViewBag.ImageHead"/>
+<div style="display: none;" id="divuserids">
+</div>
+
+<ul class="result" id="ulresult" style="overflow: hidden;"></ul>
+<div id="callBackPager" style="text-align: center;"></div>
+<script src="@Url.Content("~/Content/js/extendPagination.js")"></script>
+<script>
+    $(function () {
+        $(".title li").click(function () {
+            $(".title li").removeClass("title-check");
+            $(this).addClass("title-check");
+        });
+        $(".course-ul li").click(function () {
+            $(this).children("ul").toggle();
+        });
+        getUserIds();
+    });
+
+    function getUserIds() {
+        var schoolId = $("#hidSchoolId").val();
+
+        $("#divuserids").html("");
+
+        $.post("@Url.Action("GetMyBookUserIds")", { schoolId: schoolId }, function (data) {
+
+            if (data != null && data.length > 0) {
+
+                var html = "";
+
+                for (var i = 0; i < data.length; i++) {
+                    html += data[i] + ";";
+                }
+
+                $("#divuserids").html(html);
+            }
+
+            GetUserList('1');
+        });
+    }
+
+    function GetUserListByName(url, center) {
+        var https = $("#hidAPIHTTP").val();
+        var imageHead = $("#hidImageHead").val();
+        var userIds = $("#divuserids").html();
+
+        $.get(https + url, function (data) {
+
+            if (data != null && data.UserList != null && data.UserList.length > 0) {
+
+                var dataJson = data.UserList;
+
+                $("#callBackPager").show();
+                $('#callBackPager').extendPagination({
+                    totalCount: data.TotalCount,
+                    showCount: 10,
+                    limit: 15,
+                    callback: function (curr, limit, totalCount) {
+                        if (center === "TeacherCenter") {
+                            createTeaTable(curr, limit, totalCount);
+                        } else {
+                            createStuTable(curr, limit, totalCount);
+                        }
+                    }
+                });
+
+                var html = "";
+
+                for (var i = 0; i < dataJson.length; i++) {
+
+                    var pid = "p" + dataJson[i].Id;
+
+                    var link = imageHead + "/" + center + "/Query?id=" + dataJson[i].Id;
+
+                    var imageurl = "../../../upload/headimages/" + dataJson[i].Id + ".jpg";
+
+                    var fir = "<a class=\"glyphicon glyphicon-plus\" onclick=\"AddMyBook('" + dataJson[i].Id + "','" + dataJson[i].Name + "');\">关注</a>";
+
+                    if (userIds.indexOf(dataJson[i].Id) > 0) {
+                        fir = "<a class=\"glyphicon glyphicon-remove\" onclick=\"RemoveMyBook('" + dataJson[i].Id + "','" + dataJson[i].Name + "');\">取消</a>";
+                    }
+
+
+
+                    var xxmc = dataJson[i].OrgName;
+
+                    if (xxmc.length > 11) {
+                        xxmc = xxmc.substring(0, 11);
+                    }
+
+                    html += "<li id=\"" + dataJson[i].Id + "\"><div class=\"user-pic\"><a target=\"_blank\" href=\"" + link +
+                        "\"><img class=\"img-circle\" src=\"" + imageurl + "\" onerror=\"javascript:this.src='@Url.Content("~/Content/images/man.png")'\"/></a>" +
+                        "</div><div class=\"user-right\"><p id=\"" + pid + "\">" + dataJson[i].Name + fir + "</p><p title=\"" + dataJson[i].XXMC + "\">" +
+                        xxmc + "</p></div></li>";
+                }
+
+                $("#ulresult").html(html);
+            }
+        });
+    }
+
+    function GetUserListByPage(url, center, page) {
+        var https = $("#hidAPIHTTP").val();
+        var imageHead = $("#hidImageHead").val();
+        var userIds = $("#divuserids").html();
+
+        $.get(https + url, function (data) {
+
+            if (data != null && data.UserList != null && data.UserList.length > 0) {
+
+                var dataJson = data.UserList;
+
+                $("#callBackPager").show();
+
+                var html = "";
+
+                for (var i = 0; i < dataJson.length; i++) {
+
+                    var pid = "p" + dataJson[i].Id;
+
+                    var link = imageHead + "/" + center + "/Query?id=" + dataJson[i].Id;
+
+                    var imageurl = "../../../upload/headimages/" + dataJson[i].Id + ".jpg";
+
+                    var fir = "<a class=\"glyphicon glyphicon-plus\" onclick=\"AddMyBook('" + dataJson[i].Id + "','" + dataJson[i].Name + "');\">关注</a>";
+
+                    if (userIds.indexOf(dataJson[i].Id) > 0) {
+                        fir = "<a class=\"glyphicon glyphicon-remove\" onclick=\"RemoveMyBook('" + dataJson[i].Id + "','" + dataJson[i].Name + "');\">取消</a>";
+                    }
+
+                    var xxmc = dataJson[i].OrgName;
+
+                    if (xxmc.length > 11) {
+                        xxmc = xxmc.substring(0, 11);
+                    }
+
+                    html += "<li id=\"" + dataJson[i].Id + "\"><div class=\"user-pic\"><a target=\"_blank\" href=\"" + link +
+                        "\"><img class=\"img-circle\" src=\"" + imageurl + "\" onerror=\"javascript:this.src='@Url.Content("~/Content/images/man.png")'\"/></a>" +
+                        "</div><div class=\"user-right\"><p id=\"" + pid + "\">" + dataJson[i].Name + fir + "</p><p title=\"" + dataJson[i].XXMC + "\">" +
+                        xxmc + "</p></div></li>";
+                }
+
+                $("#ulresult").html(html);
+            }
+        });
+    }
+
+    function GetUserList(type) {
+
+        var html = "<div><img style=\"margin-left: 45%;\" src=\"@Url.Content("~/Content/images/loading.gif")\"/><br/>" +
+    "<span style=\"margin-left: 40%; font-size: 12px;\">正在加载数据，请稍候...</span></div>";
+
+        $("#ulresult").html(html);
+        $("#callBackPager").hide();
+
+        var userName = $("#txtName").val();
+        var schoolId = $("#hidSchoolId").val();
+        //var schoolId = "aedaf5bb-f410-46ba-abb0-00d15911889e";
+
+        if (userName != null && userName.length > 0) {
+
+            $("#hidUserName").val(userName);
+
+            //教师
+            if (type === "1") {
+                GetUserListByName("/RedisCache.Api/api/user/SchoolUsers/teacherSearch/" + schoolId + "/" + userName + "/15/1", "TeacherCenter");
+            } else {
+                GetUserListByName("/RedisCache.Api/api/user/SchoolUsers/studentSearch/" + schoolId + "/" + userName + "/15/1", "StudentCenter");
+            }
+        } else {
+            $("#hidUserName").val("");
+
+            //教师
+            if (type === "1") {
+                GetUserListByName("/RedisCache.Api/api/user/SchoolUsers/teacher/" + schoolId + "/15/1", "TeacherCenter");
+            } else {
+                GetUserListByName("/RedisCache.Api/api/user/SchoolUsers/student/" + schoolId + "/15/1", "StudentCenter");
+            }
+        }
+
+    }
+
+    function createTeaTable(currPage) {
+        var html = "<div><img style=\"margin-left: 45%;\" src=\"@Url.Content("~/Content/images/loading.gif")\"/><br/>" +
+    "<span style=\"margin-left: 40%; font-size: 12px;\">正在加载数据，请稍候...</span></div>";
+
+        $("#ulresult").html(html);
+        $("#callBackPager").hide();
+        var schoolId = $("#hidSchoolId").val();
+        //var schoolId = "aedaf5bb-f410-46ba-abb0-00d15911889e";
+        var userName = $("#hidUserName").val();
+
+        if (userName != null && userName.length > 0) {
+            GetUserListByPage("/RedisCache.Api/api/user/SchoolUsers/teacherSearch/" + schoolId + "/" + userName + "/15/" + currPage, "TeacherCenter", currPage);
+        } else {
+            GetUserListByPage("/RedisCache.Api/api/user/SchoolUsers/teacher/" + schoolId + "/15/" + currPage, "TeacherCenter", currPage);
+        }
+    }
+
+    function createStuTable(currPage) {
+        var html = "<div><img style=\"margin-left: 45%;\" src=\"@Url.Content("~/Content/images/loading.gif")\"/><br/>" +
+    "<span style=\"margin-left: 40%; font-size: 12px;\">正在加载数据，请稍候...</span></div>";
+
+        $("#ulresult").html(html);
+        $("#callBackPager").hide();
+        var schoolId = $("#hidSchoolId").val();
+        //var schoolId = "aedaf5bb-f410-46ba-abb0-00d15911889e";
+        var userName = $("#hidUserName").val();
+
+        if (userName != null && userName.length > 0) {
+            GetUserListByPage("/RedisCache.Api/api/user/SchoolUsers/studentSearch/" + schoolId + "/" + userName + "/15/" + currPage, "StudentCenter", currPage);
+        } else {
+            GetUserListByPage("/RedisCache.Api/api/user/SchoolUsers/student/" + schoolId + "/15/" + currPage, "StudentCenter", currPage);
+        }
+    }
+</script>

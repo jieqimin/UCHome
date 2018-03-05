@@ -1,0 +1,63 @@
+﻿@{
+    Layout = null;
+}
+<script type="text/javascript">
+    $(function() {
+        var obj = $("#Resource");
+        GetSumResource(obj);
+        var idName = $("#lessonCount");
+        GetSumLesson(idName);
+    });
+    //市级资源总计
+    function GetSumResource(obj) {
+      var   html = "";
+        $.ajax({
+            type: "GET",
+            url: "@Url.Action("GetSumResource", "CityCenter")",
+            success: function(results) {
+                var count = results;
+                html += "市级资源总计：";
+                html += count;
+                obj.html(html);
+            }
+        });
+    }
+    //获取全市教案数
+    function GetSumLesson(idName) {
+        var   html = "";
+        var pageSize = "5";
+        var pageIndex = "1";
+        $.ajax({
+            type: "GET",
+            url: "@Url.Action("GetSumLessonCount", "CityCenter")",
+            data:{"pageSize":pageSize,"pageIndex":pageIndex},
+            success: function (results) {
+                debugger;
+                var resultData = eval("(" + results + ")");
+                var count = resultData.Result.TotalRecords;
+                html += "全市教案数：";
+                html += count;
+                idName.html(html);
+            }
+    });
+    } 
+
+   
+</script>
+
+        <li>
+
+            全市空间数：<span>@ViewBag.zoom</span>
+        </li>
+        <li>
+            全市文章数：<span>@ViewBag.article</span>
+        </li>
+        <li>
+            市访问总计：<span>@(int.Parse((ViewBag.total).ToString()) + 2000000)</span>
+        </li>
+        <li id="lessonCount">
+            @*全市教案数：<span>***</span>*@
+        </li>
+        <li id="Resource">
+
+        </li>

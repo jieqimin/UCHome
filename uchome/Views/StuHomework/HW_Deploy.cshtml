@@ -1,0 +1,175 @@
+﻿@{
+    Layout = null;
+}
+@using System.Web.Mvc
+@using HomeWork.Model
+@model Homework_HwPublish
+<link rel="stylesheet" href="@Url.Content("~/plugs/webuploader/css/webuploader.css")">
+<link rel="stylesheet" href="@Url.Content("~/plugs/webuploader/css/demo.css")">
+<link rel="stylesheet" href="@Url.Content("~/plugs/datetimepicker/css/bootstrap-datetimepicker.css")">
+<link rel="stylesheet" href="@Url.Content("~/content/css/homework.css")">
+<style>
+    .red {
+        color: red;
+    }
+</style>
+@using (Ajax.BeginForm("HW_Deploy",null,
+    new AjaxOptions()
+    {
+        HttpMethod = "post",
+        Url = @Url.Action("HW_Deploy"),
+        UpdateTargetId = "#homework_publish",
+        LoadingElementId = "loding",
+        LoadingElementDuration = 2000
+    }, new { id = "form_hwdeploy" }))
+{
+    @Html.HiddenFor(model => model.HomeworkID)
+    <div id="homework_publish" class="form-horizontal form-position pagew ">
+        <div class="form-group">
+            <label for="HomeworkName" class="col-sm-2 control-label">作业名称：</label>
+            <div class="col-sm-6">
+                <input type="text" class="form-control" id="HomeworkName" name="HomeworkName" placeholder="请输入作业名称" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="HomeworkContent" class="col-sm-2 control-label">作业内容：</label>
+            <div class="col-sm-9">
+                <textarea class="form-control" id="HomeworkContent" name="HomeworkContent" rows="5" placeholder="请输入作业内容" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="hwname" class="col-sm-2 control-label">作业附件：</label>
+            <div class="col-sm-9">
+                <div id="uploader1" class="wu-example">
+                </div>
+            </div>
+        </div>
+        <input id="Attachment" name="Attachment" type="hidden" />
+        <div class="form-group">
+            <label for="hwname" class="col-sm-2 control-label">上交日期：</label>
+            <div class="col-sm-5">
+                <div class="date form_datetime input-group" data-date-format="yyyy-mm-dd" data-link-field="dtp_input1">
+                    <input class="form-control" id="FinishDateEnd" name="FinishDateEnd" type="text" value="" placeholder="请选择日期">
+                    <div class="input-group-addon">
+                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                    </div>
+                    <div class="input-group-addon">
+                        <span class="glyphicon glyphicon-th" aria-hidden="true"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="btn-group center-block" style="width: 200px;">
+                <button id="btnsend" type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    发布到班级 <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" id="btndeploy">
+                    @{
+                      foreach (var cla in ViewBag.BJMC as List<SelectListItem>)
+                        {
+                            <li><a href="#" value="@cla.Value">@cla.Text</a></li>
+                        }
+                    }
+                </ul>
+            </div>
+        </div>
+        <input type="hidden" id="GuideToStu" name="GuideToStu" />
+        <div class="form-group">
+            <ul id="validmsg"></ul>
+        </div>
+    </div>
+}
+<script src="@Url.Content("~/plugs/datetimepicker/js/bootstrap-datetimepicker.min.js")"></script>
+<script src="@Url.Content("~/plugs/datetimepicker/js/bootstrap-datetimepicker.zh-CN.js")"></script>
+<script>
+    $('.form_datetime').datetimepicker({
+        language: 'zh-CN',
+        weekStart: 1,
+        todayBtn: 1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 2,
+        minView: 2,
+        forceParse: 0
+    });
+    $("#btndeploy li a").click(function() {
+        var bjid = $(this).attr("value");
+        $("#GuideToStu").val(bjid);
+        $("#form_hwdeploy").submit();
+    });
+    $(document).ready(function() {
+        var validator = $("form").validate({
+            rules: {
+                HomeworkName: "required",
+                HomeworkContent: "required"
+            },
+            messages: {
+                HomeworkName: "请输入作业名称",
+                HomeworkContent: "请输入作业内容"
+            },
+            errorClass: "red", //设置错误样式
+            errorElement: "label", //设置显示错误提示的控件,默认为<label>
+            errorLabelContainer: "#validmsg", //指定错误信息放置容器
+            wrapper: "li",
+            //errorPlacement: function (error,element) { //指定错误信息放置位置
+            //    error.appendTo($("#validmsg"));
+            //},
+            //debug: true//进行调试模式（表单不提交）
+            submitHandler: function(form) {
+                $("#btnsend").text("正在发布，请稍候…");
+                $("#btnsend").toggleClass("btn-info", "btn-default");
+                $("#btnsend").attr("disabled", "disabled");
+                $(form).ajaxSubmit({
+                    success: function(data) {
+                        if (data.Data.statuscode == 200) {
+                            var obj = "<div id='operresultmsg' class='alert alert-success center-block' role='alert'>作业发布成功！</div>";
+                            $("#form_hwdeploy").append(obj);
+                            validator.resetForm(); //重置表单                          
+                            $("#HomeworkID").val(Guid.NewGuid().ToString()); //动态生成newid
+                            setTimeout(function() {
+                                $("#operresultmsg").remove();
+                            }, 2000);
+                        } else {
+                            var obj = "<div id='operresultmsg' class='alert alert-danger center-block' role='alert'>发布失败，请重试！<p style='display:none'>" + data.Data.msg + "</p></div>";
+                            $("#form_hwdeploy").append(obj);
+                            setTimeout(function() {
+                                $("#operresultmsg").remove();
+                            }, 2000);
+                        }
+                        $("#btnsend").text("发布到班级");
+                        $("#btnsend").removeAttr("disabled");
+                        $("#btnsend").toggleClass("btn-info", "btn-default");
+                    }
+                });
+            }
+            //onsubmit: false,//是否提交时验证，默认为True,用于设置某一个不需要验证的控件
+            //onfocusin: false,//是否获取焦点时验证，默认为True
+            //onkeyup: false,//是否在敲击键盘时验证，默认为True
+            //onclick: false//是否在鼠标点击时验证，默认为True
+        });
+    });
+</script>
+<script src="@Url.Content("~/plugs/webuploader/js/webuploader.js")"></script>
+<script src="@Url.Content("~/plugs/webuploader/js/upfile.js")"></script>
+<script>
+    var BASE_URL = '@Url.Content("~/plugs/webuploader/")';
+    //文件处理服务
+    var Server_URL = "@Url.Action("AddFileTwo", "PublicShare")";
+    var upfile = new Upfiles({
+        id: "uploader1",
+        baseurl: BASE_URL,
+        serverurl: Server_URL,
+        callbackfn: function(ret) {
+            if (ret != null) {
+                var results = new Array();
+                var files = eval("(" + ret + ")");
+                $.each(files, function(index, item) {
+                    results.push(item.filepath);
+                });
+                $("#Attachment").val(results);
+            }
+        }
+    });
+</script>
+

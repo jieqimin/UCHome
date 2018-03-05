@@ -1,0 +1,129 @@
+﻿@model Guid
+<script  src="@Url.Content("~/Scripts/jquery.form.js")"></script>
+<link rel="stylesheet"  href="@Url.Content("~/plugs/webuploader/css/webuploader.css")">
+<link rel="stylesheet"  href="@Url.Content("~/plugs/webuploader/css/demo.css")">
+<script  src="@Url.Content("~/scripts/jquery.validate.min.js")"></script>
+<script  src="@Url.Content("~/scripts/validate.msg.cn.js")"></script>
+<style>
+    .myphoto_menu {
+        margin: 0 20px;
+        border-bottom: solid 1px #add8e6;
+        height: 49px;
+    }
+
+        .myphoto_menu .myphoto_menu_list {
+            height: 50px;
+            float: left;
+            position: relative;
+            zoom: 1;
+            z-index: 200;
+        }
+
+    .myphoto_menu_list ul {
+        position: relative;
+    }
+
+        .myphoto_menu_list ul li {
+            float: left;
+            line-height: 50px;
+            color: #000;
+            margin: 0 20px;
+            display: inline-block;
+            font-size: 15px;
+            cursor: pointer;
+        }
+
+    .myphoto_menu li.foucs {
+        height: 47px;
+        border-bottom: solid 3px #2595b7;
+        font-weight: bold;
+    }
+
+    .myphoto_menu .myphoto_menu_other {
+        float: right;
+    }
+
+    .myphoto_menu_other .myphoto_menu_other_item {
+        float: left;
+        line-height: 50px;
+        color: #2595b7;
+        margin: 0 10px;
+        display: inline-block;
+        font-size: 14px;
+        cursor: pointer;
+    }
+  
+    .myphoto_menu_other_item .recyclephoto {
+        background: url("@Url.Content("~/Content/images/Recycle.png")") no-repeat center center;
+        display: inline-block;
+        width: 28px;
+        height: 18px;
+    }
+    .myphoto_showstyle {
+        text-align: left;
+        color: #2595b7;
+        font-size: 12px;
+        margin: 5px 20px;
+        cursor: pointer;
+        width: 560px;
+    }
+        .myphoto_showstyle button {
+            margin: 5px;
+    }
+    .myphoto_showstyle i {
+        background-image: url("@Url.Content("~/Content/images/Properties.png")");
+        background-repeat: no-repeat;
+        background-position-x: center;
+        background-position-y: center;
+        display: inline-block;
+        width: 16px;
+        height: 16px;
+        vertical-align: middle;
+        margin-right: 5px;
+    }
+    .myphoto_content {
+        margin-top: 20px;
+    }
+    .custom-head {
+        border-bottom: 1px dotted #e9e9e9;
+        padding-bottom: 10px;
+    }
+    label.error {      
+        color: red;
+        font-size: 14px;
+        display: none;
+    }
+</style>
+<div>
+    <div class="myphoto_menu">
+        <div class="myphoto_menu_list">
+            <ul class="myphoto_menu_ul">
+                <li id="myphoto_menu_li_album" class="myphoto_menu_ul_li foucs">相 册 </li>
+                <li id="myphoto_menu_li_photo" class="myphoto_menu_ul_li">照 片 </li>
+            </ul>
+        </div>
+    </div>
+    <div class="myphoto_content" id="myphoto_content">
+        @Html.Partial("PhotoAlbum2", Model)
+    </div>
+</div>
+<script>
+
+    function BackAlbumPage() {
+        $("#myphoto_content").load("@Url.Action("PhotoAlbum2", "PublicShare", new { ID = Model })");
+    }
+</script>
+
+<script>
+
+    $("#myphoto_menu_li_album").click(function () {
+        $(".myphoto_menu_ul li").removeClass("foucs");
+        $("#myphoto_content").load("@Url.Action("PhotoAlbum2", "PublicShare", new { id = Model })");
+        $(this).addClass("foucs");
+    });
+    $("#myphoto_menu_li_photo").click(function () {
+        $(".myphoto_menu_ul li").removeClass("foucs");
+        $("#myphoto_content").load("@Url.Action("PhotoAbstract2", "PublicShare", new { id = Model })");
+        $(this).addClass("foucs");
+    });
+</script>

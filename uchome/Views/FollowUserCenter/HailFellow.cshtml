@@ -1,0 +1,104 @@
+﻿@using System.Web.UI.WebControls
+@{
+    ViewBag.Title = "好友";
+}
+@section Head{
+    <link href="@Url.Content("~/Content/css/homepage.css")" rel="stylesheet" />
+}
+
+<link href="@Url.Content("~/Content/css/HailFellow.css")" rel="stylesheet">
+
+<div class="top">
+    <div class="top_content">
+        @Html.Action("Portal", "Home")
+    </div>
+</div>
+<div class="container" id="top">
+    <div class="row">
+        <div class="col-sm-12" ng-include="'@Url.Action("Header", "Home")'">
+        </div>
+    </div>
+    <div class="row clearfix" style="margin-top: 50px;"></div>
+    <div class="row">
+        <div class="body-left col-lg-3 bg-white div-margin-10 min-height-500">
+            @Html.Action("HomeLeft","Home")
+            <hr/>
+            @Html.Partial("../Home/TeaShortMenu")
+        </div>
+        <div class="body-right col-lg-8 bg-white div-margin-10 min-height-500" style="padding: 15px 30px 15px 25px; height: 883px; ">
+            <div class="main">
+                <div class="right-box">
+                    <ul class="nav">
+                        <li class="li-check" onclick="showPage('1');">我关注的好友</li>
+                        <li onclick="showPage('2');">本校教师学生</li>
+                        <li onclick="showPage('3');">添加寻找好友</li>
+                    </ul>
+
+                    <div class="contentfellow">
+                        <img style="margin-left: 45%;" src="@Url.Content("~/Content/images/loading.gif")" /><br />
+                        <span style="margin-left: 40%; font-size: 12px;">正在加载数据，请稍候...</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    $(function () {
+        $(".nav li").click(function () {
+            $(".nav li").removeClass("li-check");
+            $(this).addClass("li-check");
+        });
+
+        showPage("1");
+    });
+
+    function showPage(page) {
+        $(".contentfellow").html("<img style=\"margin-left:45%;\" src=\"@Url.Content("~/Content/images/loading.gif")\" /><br />"+
+            "<span style=\"margin-left:40%;font-size: 12px;\">正在加载数据，请稍候...</span>");
+
+        var loadurl = "@Url.Action("FollowUser")";
+
+        if (page === "1") {
+            loadurl = "@Url.Action("FollowUser")";
+        }else if (page === "2") {
+            loadurl = "@Url.Action("SchoolFollowUser")";
+        }else if (page === "3") {
+            loadurl = "@Url.Action("SelectFollowUser")";
+        }
+
+        $(".contentfellow").load(loadurl);
+    }
+
+    function RemoveMyBook(uId,name) {
+        if (confirm("确认取消关注该用户吗？")) {
+            $.post("@Url.Action("RemoveMyBook")", { removeUserId: uId }, function (data) {
+                if (data != null && data === true) {
+                    if (name!=null&& name.length>0) {
+                        var html = name + "<a class=\"glyphicon glyphicon-remove\" onclick=\"AddMyBook('" + uId + "','" + name + "');\">关注</a>";
+                        $("#p" + uId).html(html);
+                    } else {
+                        $("#" + uId).remove();
+                    }
+                } else {
+                    alert("取消失败！");
+                }
+
+            });
+        }
+    }
+
+    function AddMyBook(uId,name) {
+        $.post("@Url.Action("AddMyBook")", { addUserId: uId }, function(data) {
+            if (data != null && data === true) {
+                var html = name + "<a class=\"glyphicon glyphicon-remove\" onclick=\"RemoveMyBook('" + uId + "');\">取消</a>";
+                $("#p" + uId).html(html);
+            } else {
+                alert("关注失败！");
+            }
+        });
+
+    }
+</script>

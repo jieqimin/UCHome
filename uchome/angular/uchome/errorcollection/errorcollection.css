@@ -1,0 +1,60 @@
+﻿@px10 :10px;
+@fontbasiccolor:#333;
+@white:#fff;
+@fontbasicstyle:微软雅黑;
+
+.aligncenter {
+    text-align: center;
+}
+
+.ml10 {
+    margin-left: @px10;
+}
+
+.mb10 {
+    margin-bottom: @px10;
+}
+.mr10 {
+    margin-right: @px10;
+}
+.mt10 {
+    margin-top: @px10;
+}
+.mm5 {
+    margin: 0 5px;
+}
+.w700 {
+    width: 700px;
+}
+.text-of {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.text-cut {
+    max-width: 200px;
+    display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.fontbasiccss {
+    color: @fontbasiccolor;
+    font-family: @fontbasicstyle;
+}
+
+.list-group-item a {
+    color: #333;
+    .ml10;
+    .fontbasiccss;
+}
+
+.sysman-body {
+    min-height: 680px;
+}
+
+.list-group-item.active a {
+    color: @white;
+}

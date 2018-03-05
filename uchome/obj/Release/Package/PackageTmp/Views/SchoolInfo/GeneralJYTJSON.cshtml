@@ -1,0 +1,23 @@
+﻿
+@{
+    Layout = null;
+}
+@model System.Text.StringBuilder
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>GeneralJYTJSON</title>
+</head>
+<body>
+    <form action="@Url.Action("GeneralJson")">
+        <div>
+            <button type="submit">生成JSON字符串</button>
+        </div>
+        <div>
+            @Model.ToString()
+        </div>
+    </form>
+</body>
+</html>

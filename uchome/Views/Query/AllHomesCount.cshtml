@@ -1,0 +1,14 @@
+﻿@using UCHome.Model
+@model List<View_Statics_HomesGroupByArea>
+<tr>
+   @foreach (View_Statics_HomesGroupByArea item in Model)
+   {
+       <td>@item.Areaname</td>
+   }
+</tr>
+<tr>
+    @foreach (View_Statics_HomesGroupByArea item in Model)
+    {
+        <td>@item.homecount</td>
+    }
+</tr>

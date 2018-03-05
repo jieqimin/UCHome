@@ -1,0 +1,28 @@
+﻿@model UCHome.Model.View_Simple_SchoolClass
+@{
+    if (Model == null)
+    {
+    @Html.Raw("<li class=\"noinfo\">没有找到任何班级信息！</li>")
+        return;
+    }
+}
+<script >
+    $.ajax({
+        url: "@Url.Content("~/ashx/GetClassNewInfo.ashx")",
+        data: { id: "@Model.bjid", topcount: 5, newtype: "class" },
+        success: function (data) {
+            var schclass = eval("(" + data + ")"); //
+            if (schclass.length > 0)
+                $.each(schclass, function (idx, item) {
+                    var newcontent = item.newcontent;
+                    var newdate = item.newdate;
+                    var newuser = item.newuser;
+                    var obj = "<li><p class=\"person\"><span class=\"newscontent\">" + newcontent + "</span><span class=\"newsdate\">" + newuser + " " + newdate + "</span></p></li>";
+                    $("#content1_tab11").append($(obj));
+                });
+            else {
+                $("#content1_tab11").append("<li class=\"noinfo\">没有找到相应的任何信息！</li>");
+            }
+        }
+    })
+</script>

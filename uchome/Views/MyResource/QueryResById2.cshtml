@@ -1,0 +1,210 @@
+﻿@model UCHome.Model.UCHome_BaseInfo
+@{
+    if (Model == null)
+    {
+        @Html.Raw("<div class='dinfo text-center'>空间未激活，暂时无法查看资源！</div>")
+        return;
+    }
+    string sec = Model.Section != null ? Model.Section.Split(',')[0] : "全部";
+    string sub = Model.Subject != null ? Model.Subject.Split(',')[0] : "全部";
+}
+<style >
+    .searchwhere {
+        background-color: #f8f8f8;
+    }
+
+        .searchwhere .where_type {
+            width: 60px;
+            float: left;
+            display: inline-block;
+            line-height: 40px;
+            text-align: center;
+            color: #077DB0;
+            font-weight: bold;
+        }
+
+        .searchwhere .search_where_ul {
+            line-height: 30px;
+            float: left;
+            display: inline-block;
+            width: 660px;
+        }
+
+            .searchwhere .search_where_ul li {
+                float: left;
+                line-height: 40px;
+                margin: 0 10px;
+                cursor: pointer;
+            }
+
+                .searchwhere .search_where_ul li.selected {
+                    color: #077DB0;
+                }
+
+    .searchBar {
+        height: 40px;
+        line-height: 40px;
+        background-color: #F8F8F8;
+        border-top: solid 1px #CCCCCC;
+        border-bottom: solid 1px #CCCCCC;
+        text-indent: 15px;
+        position: relative;
+    }
+
+    #searchBar {
+        color: #077DB0;
+        font-size: 12px;
+        position: absolute;
+        left: 80px;
+        top: 0;
+    }
+
+    .searchBar .search_order {
+        display: inline-block;
+        height: 40px;
+        line-height: 40px;
+        position: absolute;
+        right: 80px;
+        top: 2px;
+    }
+
+    .searchBar .search_btn {
+        display: inline-block;
+        height: 40px;
+        line-height: 40px;
+        position: absolute;
+        right: 10px;
+        top: -3px;
+    }
+
+    #resourcecenter .log-pager {
+        text-align: center;
+        width: 100%;
+    }
+
+    .well {
+        margin: 0;
+        padding: 0 5px;
+        text-align: center;
+    }
+
+    .pagination_custom {
+        margin: 5px 0;
+    }
+
+    #resourcelist {
+        margin: 10px 20px;
+        min-height: 500px;
+    }
+
+        #resourcelist .res-content {
+            line-height: 30px;
+            width: 100%;
+            border-bottom: dotted 1px #ccc;
+        }
+
+    .res-content li.res-abstract {
+        float: left;
+        width: 420px;
+        overflow: hidden;
+    }
+
+    .res-content li.res-schoolstage {
+        float: right;
+        width: 60px;
+        line-height: 65px;
+        text-align: center;
+        color: #4D8C31;
+    }
+
+    .res-content li.res-sub {
+        float: right;
+        width: 120px;
+        line-height: 65px;
+        text-align: center;
+        color: #4D8C31;
+    }
+
+    .res-content li.res-grade {
+        float: right;
+        width: 70px;
+        line-height: 65px;
+        text-align: center;
+        color: #4D8C31;
+    }
+
+    .res-content .res-name {
+        color: #333;
+        font-size: 14px;
+        line-height: 30px;
+        height: 30px;
+        width: 420px;
+        overflow: hidden;
+    }
+
+    .res-content .res-property {
+        color: #999;
+        font-size: 12px;
+        line-height: 25px;
+    }
+
+        .res-content .res-property span {
+            float: left;
+            display: inline-block;
+            line-height: 25px;
+            margin: 5px;
+        }
+</style>
+<div class="hidden">
+    <input type="hidden" name="search_section" id="search_section" value="全部" />
+    <input type="hidden" name="search_subject" id="search_subject" value="全部" />
+    <input type="hidden" name="search_grade" id="search_grade" value="全部" />
+    <input type="hidden" name="search_restype" id="search_restype" value="" />
+    <input type="hidden" name="search_doctype" id="search_doctype" value="" />
+    <input type="hidden" name="search_knowledge" id="search_knowledge" value="" />
+</div>
+<div id="resourcelist">
+    <div class="loading">正在读取，请稍候……</div>
+</div>
+<script >
+    var currpage = 1;
+    getresourcebywhere2(5, currpage, "@Model.UserID.ToString()");
+    function getresourcebywhere2(pagesize, pageindex, userid) {
+        var w_res = $("#search_restype").val();
+        var w_doc = $("#search_doctype").val();
+        var w_kl = $("#search_knowledge").val();
+        var s_order = $("#search_order").val();
+        $("#resourcelist").html("");
+        $.ajax({
+            url: "@Url.Content("~/ashx/GetResoucesByWhere.ashx")",
+            data: { pagesize: pagesize, curpage: pageindex, w_res: escape(w_res), w_doc: escape(w_doc), w_kl: escape(w_kl), s_order: s_order, userid: userid },
+            success: function (data) {
+                var infos = eval("(" + data + ")"); //            
+                if (infos.length > 0) {
+                    $.each(infos[0].resourceinfo, function (idx, item) {
+                        var pid = item.pkid;
+                        var name = item.name;
+                        var time = item.createtime;
+                        var user = item.creatorname;
+                        var hits = item.hits;
+                        var learntype = item.learntype;
+                        var schoolstage = item.schoolstage;
+                        var grade = item.grade;
+                        var subject = item.subject;
+                        var str = "<div class=\"res-content\"><ul class='clearfix'><li class='res-abstract'>";
+                        str += "<div class=\"res-name\"><a href=\"http://jx.taedu.gov.cn:83/Resource.Portal.Web/SubjectResource/Preview?resid=" + pid + "\" target=\"_blank\">[" + learntype + "]" + name + "</a></div>";
+                        str += "<div class=\"res-property clearfix\"><span>上传时间：" + time + "</span><span>上传人：" + user + "</span><span>点击率：" + hits + "</span></div>";
+                        str += "</li><li class='res-grade'>" + grade + "</li><li class='res-sub'>" + subject + "</li><li class='res-schoolstage'>" + schoolstage + "</li>";
+                        str += " </ul></div>";
+                        var obj = str;
+                        $("#resourcelist").append($(obj));
+                    });
+                } else {
+                    var obj = "<li class=\"noinfo\"><p class=\"person\"><span class=\"newscontent\">没有发现任何资源！</span></p></li>";
+                    $("#resourcelist").append($(obj));
+
+                }
+            }
+        });
+    }
+</script>

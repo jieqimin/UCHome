@@ -1,0 +1,158 @@
+﻿<link href="@Url.Content("~/angular/uchome/studentaffairs/studentaffaris.css")" rel="stylesheet" />
+<link rel="stylesheet" href="@Url.Content("~/plugs/datetimepicker/css/bootstrap-datetimepicker.css")">
+<script src="@Url.Content("~/plugs/datetimepicker/js/bootstrap-datetimepicker.min.js")"></script>
+<script src="@Url.Content("~/plugs/datetimepicker/js/bootstrap-datetimepicker.zh-CN.js")"></script>
+<script src="@Url.Content("~/plugs/usercontrol/selectuser.js")"></script>
+<script type="text/javascript" charset="utf-8" src="@Url.Content("~/plugs/ueditor/ueditor.config.js")"></script>
+<script type="text/javascript" charset="utf-8" src="@Url.Content("~/plugs/ueditor/ueditor.all.js")"></script>
+@model StudentAffaris.Model.Class_SocialPractice
+@using (Html.BeginForm("CreateSend", "StudentAffairs", FormMethod.Post, new { @class = "form-horizontal", id = "form-studentAffairs-create" }))
+{
+    <div class="form-group">
+        <label class=" col-sm-2 control-label" for="Title">标题：</label>
+        <div class="col-sm-4">
+            <input id="Title" name="Title" class="form-control"/>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label" for="Classes">班级：</label>
+        <div class="col-sm-4">
+           @Html.DropDownList("Classes",ViewBag.Class as IEnumerable<SelectListItem>,new{@class="form-control"})
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label" for="Type">类型：</label>
+        <div class="col-sm-4">
+            <select class="form-control" id="Type" name="Type">
+                <option value="1">社会实践</option>
+                <option value="2">校园活动</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label" for="DateTime">时间：</label>
+        <div class="col-sm-4">
+            <div class="input-group date" id="DateTimeDiv">
+                <input type="text" class="form-control" name="DateTime" id="DateTime" readonly  placeholder="请选择时间">
+                <div class="input-group-addon">
+                    <span class="glyphicon glyphicon-th"></span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label" for="Place">地点：</label>
+        <div class="col-sm-4">
+            <input id="Place" name="Place" class="form-control" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label" for="Members">成员：</label>
+        <div class="col-sm-4">
+            <textarea id="MemberNames" name="MemberNames" class="form-control" readonly></textarea>
+            <input type="hidden" id="Members" name="Members"/>
+        </div>
+        <button type="button" class="btn btn-success btn-sm col-sm-1" style=" top: 14px;" id="selectUserBtn">选择</button>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label" for="ContentsContainer">内容：</label>
+        <div class="col-sm-9">
+            <script type="text/plain" id="ContentsContainer" style="margin-bottom: 10px; height: 300px">
+            </script>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-offset-3 col-sm-1">
+            <input class="btn btn-success" type="submit"  value="保存" />
+        </div>
+
+    </div>
+    @Html.HiddenFor(model=>model.ID)
+    @Html.HiddenFor(model=>model.Contents)
+}
+<script src="@Url.Content("~/Scripts/jquery.form.js")"></script>
+<script src="@Url.Content("~/scripts/jquery.validate.min.js")"></script>
+<script type="text/javascript">
+    $(function () {
+        // 在键盘按下并释放及提交后验证提交表单
+        $("#form-studentAffairs-create").validate({
+            rules: {
+                Title: "required",
+                DateTime: "required",
+                Place: "required",
+                MemberNames: "required"
+            },
+            messages: {
+                Title: "请输入活动标题",
+                DateTime: "请选择活动时间",
+                Place: "请填写活动地点",
+                MemberNames: "选择活动成员"
+            },
+            errorPlacement: function (error, element) {
+                if (element[0].name == "DateTime") {
+                    error.appendTo(element.parent().parent());
+                } else {
+                    error.appendTo(element.parent());
+                }
+            },
+            submitHandler: function (form) {
+                $("#Contents").val($("[name=editorValue]").val().replace('src="/upload','src="http://localhost/upload'));
+                $(form).ajaxSubmit({
+                    success: function (response) {
+                        if (response.flag) {
+                            if (confirm("保存成功，去查看？")) {
+                                var type = $("#Type").val();
+                                if (type === "1") {
+                                    $("[href='#/classactivity']").click();
+                                }else if (type === "2") {
+                                    $("[href='#/classactivity2']").click();
+                                }
+                            }
+                        } else {
+                            console.info(response);
+                        }
+                    }
+                });
+                
+            }
+        });
+        
+    });
+    $('#DateTimeDiv').datetimepicker({
+        language: 'zh-CN',
+        format: 'yyyy-mm-dd',
+        autoclose: true,
+        todayBtn: true,
+        weekStart: 1,
+        todayHighlight: true,
+        initalDate: new Date(),
+        startView: 2,
+        minView: 2
+    });
+    var seluser2 = new SelUser({
+        obj: $("#selectUserBtn"),
+        selRole: "tea",//tea,stu,fam
+        selType: "muti",//多选：muti,单选:single
+        selArea: "student",//friend:我的好友,student:我的学生,stuparent:学生家长,colleague:我的同事,myclassmate:我的同学,teacher:我的老师,classmateparent:同学家长
+        selValue: $("#Members"),
+        selText: $("#MemberNames"),
+        callBackfn: function (ids, names) {
+            //将先中的结果进行处理
+            $("#Members").val(ids);
+            $("#MemberNames").text(names);
+        }
+    });
+    var editor = UE.getEditor('ContentsContainer', {
+        theme: "default", //皮肤
+        UEDITOR_HOME_URL: "@Url.Content("~/plugs/ueditor/")",
+        @*themePath: "@Url.Content("~/plugs/ueditor/themes/")",
+ langPath: "@Url.Content("~/plugs/ueditor/lang/")",*@
+        minFrameHeight: "50",
+        lang: 'zh-cn', //语言
+        toolbars: [['FullScreen', 'Source', 'Undo', 'Redo', 'Bold', 'simpleupload', 'insertimage', '|',
+            'justifyleft', 'justifycenter', 'justifyright', 'justifyjustify', '|', 'rowspacingtop', 'rowspacingbottom', 'lineheight', '|', 'forecolor', 'fontfamily', 'fontsize']],
+        serverUrl: "@Url.Content("~/plugs/ueditor/net/ActivityController.ashx")"
+    });
+
+</script>

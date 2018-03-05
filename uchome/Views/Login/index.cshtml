@@ -1,0 +1,266 @@
+﻿@{
+    ViewBag.Title = "人人通网络学习空间";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!--[if lt IE9]>
+<script src="http://cdn.static.runoob.com/libs/html5shiv/3.7/html5shiv.min.js"></script>
+<![endif]-->
+<style>
+    /*html5*/
+    article, aside, dialog, footer, header, section, footer, nav, figure, menu {
+        display: block
+    }
+</style>
+@section Head
+{
+    <title>泰安教育云平台</title>
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/login/login.css")">
+    <script src="@Url.Content("~/Content/CityCenter/js/jquery-1.10.2.js")"></script>
+}
+<body>
+    @Html.Partial("_Header")
+    <section>
+        <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+            <!-- Indicators -->
+            <ol class="carousel-indicators">
+                <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+                <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+                <li data-target="#carousel-example-generic" data-slide-to="3"></li>
+                <li data-target="#carousel-example-generic" data-slide-to="4"></li>
+                <li data-target="#carousel-example-generic" data-slide-to="5"></li>
+            </ol>
+            <!-- Wrapper for slides -->
+            <div class="carousel-inner" role="listbox">
+                <div class="item active" style="background:#22B962;">
+                    <img src="@Url.Content("~/Content/login/images/1.png")" class="center-block" width="1140" height="450" alt="...">
+                    <div class="carousel-caption">
+                        dfdfd
+                    </div>
+                </div>
+                <div class="item" style="background:#D5D5D7;">
+                    <img src="@Url.Content("~/Content/login/images/2.jpg")" class="center-block" width="1140" height="450" alt="...">
+                    <div class="carousel-caption">
+                        ...
+                    </div>
+                </div>
+                <div class="item" style="background:#FF9C00;">
+                    <img src="@Url.Content("~/Content/login/images/3.png")" class="center-block" width="1140" height="450" alt="...">
+                    <div class="carousel-caption">
+                        ...
+                    </div>
+                </div>
+                <div class="item" style="background:#2677E3;">
+                    <img src="@Url.Content("~/Content/login/images/4.jpg")" class="center-block" width="1140" height="450" alt="...">
+                    <div class="carousel-caption">
+                        ...
+                    </div>
+                </div>
+                <div class="item" style="background:#00B68C;">
+                    <img src="@Url.Content("~/Content/login/images/5.png")" class="center-block" width="1140" height="450" alt="...">
+                    <div class="carousel-caption">
+                        ...
+                    </div>
+                </div>
+                <div class="item" style="background:#0984F7;">
+                    <img src="@Url.Content("~/Content/login/images/6.png")" class="center-block" width="1140" height="450" alt="...">
+                    <div class="carousel-caption">
+                        ...
+                    </div>
+                </div>
+            </div>
+            <!-- Controls -->
+            <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+    </section>
+    <section>
+        <div class="row rolelist">
+            <div class="abstract abstract-admin col-lg-3">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h4 class="text-center"><strong>我是管理者</strong></h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <dl>
+                            <dt><span class="glyphicon glyphicon-user" aria-hidden="true"></span> 领导决策系统</dt>
+                            <dd>
+                                实时展示学校当前状况，通过图形动态曲线变化反映学校数据最新动态，为学校领导决策提供充分有力依据。
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <dl>
+                            <dt><span class="glyphicon glyphicon-stats" aria-hidden="true"></span> 数据监控平台</dt>
+                            <dd>
+                                提供系统异常、事件异常、系统日志监控，实时了解系统运行状态、充过曲线图反映任何时间段系统使用峰值。
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <dl>
+                            <dt><span class="glyphicon glyphicon-home" aria-hidden="true"></span> 学校综合管理</dt>
+                            <dd>
+                                提供学校基础信息管理（包括部门、班级、校历、学年学期、数据字典等）、学校总务管理（包括资产、报修、图书等）、学校教务管理（包括任教、课表、考试等）。
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+                <button class="btn btn-info center-block" id="btnadmin" style="width:200px;margin-top:20px;">立即进入体验</button>
+            </div>
+            <div class="abstract abstract-teacher col-lg-3 ">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h4 class="text-center"><strong>我是教师</strong></h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <dl>
+                            <dt><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> 日常办公平台</dt>
+                            <dd>
+                                提供教师网上便捷办公、信息查询等服务，例如请假管理、加班管理、会议管理、工资查询等。
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <dl>
+                            <dt><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> 班级管理系统</dt>
+                            <dd>
+                                提供班主任管理班级日常事务，包括学生考勤、班级活动、班级评比、班级空间等服务。
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <dl>
+                            <dt><span class="glyphicon glyphicon-blackboard" aria-hidden="true"></span> 教学互动平台</dt>
+                            <dd>
+                                提供教师通过在线课程制作、资源上传、习题上传等功能进行备课、生成并发布教学教案的服务。
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <dl>
+                            <dt><span class="glyphicon glyphicon-book" aria-hidden="true"></span> 教师培训平台</dt>
+                            <dd>
+                                提供个性化的教师培训服务，通过流程化的管理带动老师进入培训学习体系。
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+                <button class="btn btn-success center-block" id="btnteacher" style="width:200px;margin-top:20px;">立即进入体验</button>
+            </div>
+            <div class="abstract abstract-student col-lg-3">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h4 class="text-center"><strong>我是学生</strong></h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <dl>
+                            <dt><span class="glyphicon glyphicon-globe" aria-hidden="true"></span> 网络学习平台</dt>
+                            <dd>
+                                提供在线网络学习平台服务，学生通过观看在线微课视频的方式进行网络在线学习。
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <dl>
+                            <dt><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> 学生成长档案</dt>
+                            <dd>
+                                记录学生成长过程记录并生成个人学生成长档案，主要包括有学生学业成绩、德育表现、体质健康、艺术素养、社会实践。
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <dl>
+                            <dt><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> 课堂教学平台</dt>
+                            <dd>
+                                学生预习教师发布的课前教案，完成课前练习，有针对性的了解自己的薄弱环节，通过课堂互动向老师提出问题并认真听取讲解从而实现翻转课堂。
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <dl>
+                            <dt><span class="glyphicon glyphicon-duplicate" aria-hidden="true"></span> 作业题库系统</dt>
+                            <dd>
+                                提供大量的习题、试卷供学生课后练习，系统智能推送相应的知识学习章节习题，学生做错的题目还可以形成个人错题集。
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+                <button class="btn btn-warning center-block" id="btnstudent" style="width:200px;margin-top:20px;">立即进入体验</button>
+            </div>
+            <div class="abstract abstract-family col-lg-3">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h4 class="text-center"><strong>我是家长</strong></h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <dl>
+                            <dt><span class="glyphicon glyphicon-transfer" aria-hidden="true"></span> 家校互动平台</dt>
+                            <dd>
+                                提供家长和学校、教师之间的沟通交流平台，一方面学校将最新的学校动态、学校通知推送给家长，另一方面家长可以主动咨询学校和教师小孩在校的表现情况。
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <dl>
+                            <dt><span class="glyphicon glyphicon-send" aria-hidden="true"></span> 移动智能平台</dt>
+                            <dd>
+                                提供智能推送服务，将信息推送到家长微信端、移动app端，家长关注微信公众号或者下载移动App便可以实时接收和查询信息。
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+                <button class="btn btn-primary center-block" id="btnparent" style="width:200px;margin-top:20px;">立即进入体验</button>
+            </div>
+        </div>
+    </section>
+    @Html.Partial("_Footer")
+</body>
+<script>
+    $(function () {
+        $("#btnadmin").click(function () {
+            document.location.href = "@Url.Action("AdminLogin")";
+        })
+        $("#btnteacher").click(function () {
+            document.location.href = "@Url.Action("TeacherLogin")";
+        })
+        $("#btnstudent").click(function () {
+            document.location.href = "@Url.Action("StudentLogin")";
+         })
+        $("#btnparent").click(function () {
+            document.location.href = "@Url.Action("ParentLogin")";
+        })
+    });
+</script>

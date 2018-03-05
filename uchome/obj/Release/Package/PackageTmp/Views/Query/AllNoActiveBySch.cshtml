@@ -1,0 +1,48 @@
+﻿@using UCHome.Model
+@model List<proc_uchome_getnoactivebysch_Result>
+    @*<script >
+            loaddata($("#AllHomeslist"));
+        </script>*@
+    <style>
+        ul,li{
+            margin:0;
+            padding:0;
+        }
+        tbody ul li{
+            line-height:30px;
+            height:30px;
+        }
+    </style>
+    <div id="AllArticleslist">
+        @*<div>附加说明：数据统计每小时更新一次，最新统计时间：@ViewBag.Cachetimebysch</div>*@
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <td rowspan="2">教师姓名 </td>
+                    <td colspan="3">学生姓名 </td>
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr>
+                    <td>
+                        <ul>
+                            @foreach (proc_uchome_getnoactivebysch_Result item in Model.Where(m => m.usertype == "t").ToList())
+                            {
+                                <li>@item.xm</li>
+                            }
+                        </ul>
+                    </td>
+                    <td>
+                        <ul>
+                            @foreach (proc_uchome_getnoactivebysch_Result item in Model.Where(m => m.usertype == "s").ToList())
+                            {
+                                <li>【@item.ssmc】@item.xm</li>
+                            }
+                        </ul>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>

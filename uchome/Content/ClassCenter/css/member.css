@@ -1,0 +1,137 @@
+﻿@charset "utf-8";
+/* CSS Document */
+.teacher-box{
+	width:100%;
+	height:auto;
+	margin-top:20px;
+	}
+.student-box{
+	width:100%;
+	height:auto;
+	margin-top:40px;
+	}
+.title{
+	width:100%;
+	height:40px;
+	background:url(../images/member/titilebg.png) no-repeat;
+	line-height:40px;
+	}
+.title img{
+	margin:0 8px 0 15px;
+	vertical-align:-6px;
+	}
+.title span{
+	font-size: 16px;
+	font-family: "Microsoft YaHei";
+	color:#fff;
+	}
+.tea{
+	width:100%;
+	height:auto;
+	background:#fff;
+	box-sizing:border-box;
+	border:1px solid #ebebeb;
+	}
+.stu{
+	width:100%;
+	height:413px;
+	background:#fff;
+	box-sizing:border-box;
+	border:1px solid #ebebeb;
+	}
+.details{
+	width:950px;
+	height:auto;
+	margin:23px auto;
+	}
+.details li{
+	float:left;
+	width:298px;
+	height:100px;
+	box-sizing:border-box;
+	margin:0 28px 23px 0;
+	border-radius:10px;
+	border:1px dashed #e5e5e5;
+	overflow:hidden;
+	}
+.details li:nth-child(3n){
+	margin-right:0px;
+	}
+.details li img{
+	display:block;
+	float:left;
+	width:90px;
+	height:90px;
+	border-radius:50%;
+	margin:5px 10px;
+	}
+.datum{
+	float:left;
+	width:170px;
+	height:100px;
+	}
+.datum p{
+	width:100%;
+	height:30px;
+	font-size: 16px;
+	font-family: "Microsoft YaHei";
+	color:#1db2ca;
+	line-height:30px;
+	margin-top:5px;
+	border-bottom:1px solid #eeeeee;
+	}
+.datum p a{
+	float:right;
+	display:block;
+	width:50px;
+	height:22px;
+	background:#89abe7;
+	font-size: 12px;
+	font-family: "SimSun";
+	color:#fff;
+	line-height:22px;
+	text-align:center;
+	text-decoration:none;
+	border-radius:11px;
+	margin-top:3px;
+	}
+.datum span{
+	display:block;
+	font-size: 12px;
+	font-family: "SimSun";
+	color:#727272;
+	line-height:20px;
+    margin-top: 8px
+	}
+	
+/*分页*/
+.page{
+	width:auto;
+	height:24px;
+	float:right;
+	margin-bottom:63px;
+	margin-top:10px;
+	}
+.page a{
+	display:block;
+	float:left;
+	width:24px;
+	height:24px;
+	text-align:center;
+	line-height:24px;
+	margin-left:2px;
+	font-size: 14px;
+	font-family: "Microsoft YaHei";
+	color:#bcbcbc;
+	text-decoration:none;
+	}
+.page-item,.page-pre,.page-next{
+	background:#e2e2e2;
+	}
+.page-pre img,.page-next img{
+	vertical-align:-3px;
+	}
+.page-check{
+	background:#1db2ca !important;
+	color:#ffffff !important;
+	}

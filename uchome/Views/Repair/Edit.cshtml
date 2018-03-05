@@ -1,0 +1,261 @@
+﻿@{
+    Layout = null;
+}
+
+@using System.Web.Mvc
+@using M = OA.Model;
+@model M.View_Repair
+<link rel="stylesheet" href="@Url.Content("~/Content/css/msg.css")">
+<script src="@Url.Content("~/plugs/usercontrol/selectuser.js")"></script>
+<link rel="stylesheet" href="@Url.Content("~/plugs/webuploader/css/webuploader.css")">
+<link rel="stylesheet" href="@Url.Content("~/plugs/webuploader/css/demo.css")">
+<link rel="stylesheet" href="@Url.Content("~/plugs/datetimepicker/css/bootstrap-datetimepicker.css")">
+<link rel="stylesheet" href="@Url.Content("~/content/css/homework.css")">
+<style type="text/css">
+    .sel-notice {
+        width: 120px !important;
+        margin-right: 10px;
+    }
+</style>
+@using (Ajax.BeginForm("EditRepairSend", null,
+    new AjaxOptions()
+    {
+        HttpMethod = "post",
+        Url = Url.Action("EditRepairSend"),
+        UpdateTargetId = "#editRepairSend",
+        LoadingElementId = "loding",
+        LoadingElementDuration = 2000
+    }, new { id = "form_editRepairSend" }))
+{
+    @Html.HiddenFor(model => model.REID)
+
+    <div id="editRepairSend" class="form-horizontal form-position pagew ">
+        <div class="form-group">
+            <label for="DongLou" class="col-sm-2 control-label">报修类型：</label>
+            <div class="col-sm-9">
+                <select id="DongLou" name="DongLou" class="form-control input-sm col-xs-2 sel-notice"></select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="BaoXiuProject" class="col-sm-2 control-label">报修项目：</label>
+            <div class="col-sm-9">
+                <select id="BaoXiuProject" name="BaoXiuProject" class="form-control input-sm col-xs-2 sel-notice"></select>
+            </div>
+        </div>
+        @{
+    var btime = Model.BaoXiuTime.Value.ToShortDateString();
+        }
+        <div class="form-group">
+            <label for="hwname" class="col-sm-2 control-label">报修日期：</label>
+            <div class="col-sm-5">
+                <div class="date form_datetime input-group" data-date-format="yyyy-mm-dd" data-link-field="dtp_input1">
+                    <input class="form-control" id="BaoXiuTime" name="BaoXiuTime" type="text" value="@btime" placeholder="请选择日期">
+                    <div class="input-group-addon">
+                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                    </div>
+                    <div class="input-group-addon">
+                        <span class="glyphicon glyphicon-th" aria-hidden="true"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="QTBX" class="col-sm-2 control-label">审核人：</label>
+            <div class="col-sm-9">
+                <select id="QTBX" name="QTBX" class="form-control input-sm col-xs-2 sel-notice"></select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="Remark" class="col-sm-2 control-label">报修内容：</label>
+            <div class="col-sm-9">
+                @Html.TextArea("Remark", Model.Remark, new { @class = "form-control", rows = "5", placeholder = "请输入报修内容并且在100字以内" })
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            <label for="OtherCause" class="col-sm-2 control-label">报修地址：</label>
+            <div class="col-sm-9">
+                @Html.TextArea("OtherCause", Model.OtherCause, new { @class = "form-control", rows = "5", placeholder = "请输入报修地址并且在100字以内" })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <div class="btn-group center-block" style="width: 200px;">
+                <button id="btnSend" type="button" class="btn btn-info dropdown-toggle" data-toggle="button" aria-haspopup="true" aria-expanded="false">
+                    保存
+                </button>
+                <button style="margin-left:10px" id="btnClose" type="button" class="btn btn-info dropdown-toggle" data-toggle="button" aria-haspopup="true" aria-expanded="false">
+                    关闭
+                </button>
+            </div>
+        </div>
+        <div class="form-group">
+            <ul id="validmsg"></ul>
+        </div>
+    </div>
+}
+<script src="@Url.Content("~/plugs/webuploader/js/webuploader.js")"></script>
+<script src="@Url.Content("~/plugs/webuploader/js/upfile.js")"></script>
+<script>
+    $(document).ready(function () {
+
+        var approver = '@ViewBag.approver';
+        $.getJSON('@Url.Action("GetApprovePeopleList")', function (data) {
+            $.each(data, function (i, item) {
+                if (approver == item["Value"]) {
+                    $("<option></option>").val(item["Value"]).text(item["Text"]).attr("selected", true).appendTo($("#QTBX"));
+                }
+                else {
+
+                    $("<option></option>").val(item["Value"]).text(item["Text"]).appendTo($("#QTBX"));
+                }
+            });
+        });
+
+        var repaortype = '@ViewBag.RepairType';
+        var repaorproject = '@Html.Raw(ViewBag.RepairProjectType)';
+        $.getJSON('@Url.Action("GetRepairTypeList")', function (data) {
+            $.each(data, function (i, item) {
+                if (repaortype == item["Value"]) {
+                    $("<option></option>").val(item["Value"]).text(item["Text"]).attr("selected", true).appendTo($("#DongLou"));
+                    $.getJSON('@Url.Action("GetReairProjectList")', { dlid: repaortype }, function (data) {
+                        $.each(data, function (i, item) {
+                            if (repaorproject == item["Value"]) {
+                                $("<option></option>").val(item["Value"]).text(item["Text"]).attr("selected", true).appendTo($("#BaoXiuProject"));
+                            }
+                            else {
+
+                                $("<option></option>").val(item["Value"]).text(item["Text"]).appendTo($("#BaoXiuProject"));
+                            }
+
+                        });
+                    });
+                }
+                else {
+
+                    $("<option></option>").val(item["Value"]).text(item["Text"]).appendTo($("#DongLou"));
+                }
+            });
+        });
+
+
+        $("#DongLou").change(function () {
+            // GetReairProject();
+            var value = $("#DongLou").val();
+            $("#BaoXiuProject").empty();
+            $.getJSON('@Url.Action("GetReairProjectList")', { dlid: value }, function (data) {
+                $.each(data, function (i, item) {
+                    $("<option></option>").val(item["Value"]).text(item["Text"]).appendTo($("#BaoXiuProject"));
+                });
+            });
+        });
+
+        @*function GetReairProject() {
+            var value = $("#DongLou").val();
+            $.getJSON('@Url.Action("GetReairProjectList")', { dlid: value }, function (data) {
+                $.each(data, function (i, item) {
+                    $("<option></option>").val(item["Value"]).text(item["Text"]).appendTo($("#BaoXiuProject"));
+                });
+            });
+        }*@
+
+
+        $("#btnClose").click(function () {
+            var loadurl = "@Url.Action("Index")";
+            redirecturl(loadurl);
+        });
+
+        $("#btnSend").click(function () {
+            var code = $("#Type").val();
+
+            var tiem = $("#BaoXiuTime").val();
+            var dates = new Date();
+
+            $("#validmsg li").remove();
+            $("#form_editRepairSend").submit();
+            $("#validmsg").show();
+
+        });
+
+        var validator = $("form").validate({
+            rules: {
+                DongLou: "required",
+                BaoXiuProject: "required",
+                BaoXiuTime: "required",
+                QTBX: "required",
+                Remark: "required",
+                OtherCause: "required"
+
+            },
+            messages: {
+                DongLou: "请选择报修类型",
+                BaoXiuProject: "请选择报修项目",
+                BaoXiuTime: "请选择报修时间",
+                QTBX: "请选择审核人",
+                Remark: "请输入报修内容",
+                OtherCause: "请输入报修地址"
+
+            },
+            errorClass: "red",//设置错误样式
+            errorElement: "label",//设置显示错误提示的控件,默认为<label>
+            errorLabelContainer: "#validmsg",//指定错误信息放置容器
+            wrapper: "li",
+            //errorPlacement: function (error,element) { //指定错误信息放置位置
+            //    error.appendTo($("#validmsg"));
+            //},
+            //debug: true//进行调试模式（表单不提交）
+            submitHandler: function (form) {
+                $(form).ajaxSubmit({
+                    success: function (data) {
+                        if (data.Data.statuscode == 200) {
+                            var obj = "<div id='operresultmsg' class='alert alert-success center-block' role='alert'>保存成功！</div>";
+                            $("form").append(obj);
+
+                            validator.resetForm();//重置表单
+                            $("#validmsg").show();
+                            @*var guid = '@Guid.NewGuid().ToString()';
+                            $("#REID").val(guid);//动态生成newid*@
+                            setTimeout(function () {
+                                $("#operresultmsg").remove();
+                            }, 2000);
+                        } else {
+                            var obj = "<div id='operresultmsg' class='alert alert-danger center-block' role='alert'>保存失败，请重试！<p style='display:none'>" + data.Data.msg + "</p></div>";
+                            $("form").append(obj);
+
+                            setTimeout(function () {
+                                $("#operresultmsg").remove();
+                            }, 2000);
+                        }
+                    }
+                })
+            }
+            //onsubmit: false,//是否提交时验证，默认为True,用于设置某一个不需要验证的控件
+            //onfocusin: false,//是否获取焦点时验证，默认为True
+            //onkeyup: false,//是否在敲击键盘时验证，默认为True
+            //onclick: false//是否在鼠标点击时验证，默认为True
+        })
+    });
+
+
+</script>
+<script src="@Url.Content("~/plugs/datetimepicker/js/bootstrap-datetimepicker.min.js")"></script>
+<script src="@Url.Content("~/plugs/datetimepicker/js/bootstrap-datetimepicker.zh-CN.js")"></script>
+<script>
+    $('.form_datetime').datetimepicker({
+        language: 'zh-CN',
+        weekStart: 1,
+        todayBtn: 1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 2,
+        minView: 2,
+        forceParse: 0
+    });
+</script>
+

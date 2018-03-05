@@ -1,0 +1,34 @@
+﻿@using M = VenueSetup.Model;
+@using (Ajax.BeginForm("ApplyDetail", null,
+    new AjaxOptions()
+    {
+        HttpMethod = "post",
+        Url = @Url.Action("ApplyDetail"),
+        UpdateTargetId = "#applyDetail",
+        LoadingElementId = "loding",
+        LoadingElementDuration = 2000
+    }, new { id = "form_ApplyDetail" }))
+{
+    <div id="applyDetail" class="form-horizontal form-position pagew">
+        <table class="table table-hover">
+            @foreach (M.ApplyMeeting item in Model)
+            {
+                <tr>
+                    <td>@item.StartTime - @item.EndTime</td>
+                    <td>@item.CreatorDisplayName</td>
+                    <td>@item.Status</td>
+                    @if (item.MeetingName.Length > 10)
+                    {
+                        item.MeetingName = item.MeetingName.Substring(0, 10) + "...";
+                        <td>@item.MeetingName</td>
+                    }
+                    else
+                    {
+                        <td>@item.MeetingName</td>
+                    }
+                </tr>
+            }
+        </table>
+    </div>
+
+}

@@ -1,0 +1,82 @@
+﻿
+@{
+    ViewBag.Title = "treeviewDemo";
+    Layout = null;
+}
+@using UCHome.Model
+<style>
+    .red {
+        color: red;
+    }
+
+    #ul_appicon {
+    }
+
+        #ul_appicon > li {
+            position: relative;
+        }
+
+            #ul_appicon > li input[type=checkbox] {
+                position: absolute;
+                right: 0;
+                bottom: 0;
+                border: solid 1px #ccc !important;
+            }
+
+    #app_menu_add_modal {
+        overflow-x: hidden;
+    }
+</style>
+<script src="@Url.Content("~/Content/js/jquery.min.js")"></script>
+<link rel="stylesheet" href="@Url.Content("~/Content/bootstrap/css/bootstrap.min.css")">
+<link rel="stylesheet" href="@Url.Content("~/Content/bootstrap/css/bootstrap-theme.min.css")">
+<script src="@Url.Content("~/Content/bootstrap/js/bootstrap.min.js")"></script>
+<link rel="stylesheet" href="@Url.Content("~/plugs/treeview/bootstrap-treeview.min.css")">
+<script src="@Url.Content("~/plugs/treeview/bootstrap-treeview.min.js")"></script>
+<div id="tree"></div>
+<script>
+    $(function () {
+        $.ajax({
+            url: "@Url.Action("GetUserList","SysManage")",
+            data:{"XM":"","UserName":""},
+            success: function (data) {
+                var result = [{
+                    text: data.data[0].XM,
+                    href: "@Url.Action("usermanage")?PKID=" + data.data[0].PKID,
+                    nodes: [{
+                        text: data.data[1].XM,
+                        href: "@Url.Action("usermanage")?PKID=" + data.data[1].PKID
+                    }, {
+                            text: data.data[2].XM,
+                            href: "@Url.Action("usermanage")?PKID=" + data.data[2].PKID
+                    }]
+                }, {
+                        text: data.data[3].XM,
+                        href: "@Url.Action("usermanage")?PKID=" + data.data[3].PKID,
+                    nodes: [{
+                        text: data.data[4].XM,
+                        href: "@Url.Action("usermanage")?PKID=" + data.data[4].PKID
+                    }]
+                }];
+                $("#tree").treeview({
+                    data: result,
+                    levels: 1,
+                    backColor: '#fff',
+                    onNodeSelected: function (event, data)
+                    {
+                        console.log(data);
+                        //获取选中节点兄弟节点
+                        console.log($('#tree').treeview('getSiblings',data));
+                    },
+                    onNodeUnselected: function (event, data) {
+                        console.log(data);
+                    }
+                });
+
+            }
+        })
+    })
+
+</script>
+
+

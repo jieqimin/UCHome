@@ -1,0 +1,114 @@
+﻿@model Guid
+<script src="@Url.Content("~/Content/bootstrap/Plugs/pagination/jquery.pagination.min.js")"></script>
+<style >
+    .logabstract-content {
+        margin: 0px 30px;
+        border-bottom: dashed 1px #add8e6;
+    }
+
+        .logabstract-content .logabstract-content-title {
+            height: 40px;
+            line-height: 40px;
+        }
+
+    .logabstract-content-title h4 {
+        height: 40px;
+        line-height: 40px;
+        color: #2595b7;
+    }
+
+    .logabstract-content .logabstract-content-body {
+        color: #999;
+        font-size: 14px;
+        line-height: 25px;
+    }
+
+    .logabstract-content .logabstract-content-other {
+        height: 40px;
+        line-height: 40px;
+        color: #2e8b57;
+        font-size: 12px;
+    }
+
+    .logabstract-content-other .logproperty {
+        float: left;
+    }
+
+    .logproperty a {
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    .logabstract-content-other .logfunctioin {
+        margin-left: 10px;
+        float: left;
+    }
+
+    .log-pager {
+        text-align: center;
+        width: 100%;
+    }
+
+    .mylog_content .well {
+        margin: 0;
+        padding: 0 5px;
+        text-align: center;
+    }
+
+    .mylog_content .pagination_custom {
+        margin: 5px 0;
+    }
+</style>
+<ul id="contentList" style="width: 100%; height: 385px;padding-top: 15px;"></ul>
+<div class="log-pager" id="plugs-pager">
+</div>
+<script >
+    var pagesize = 10;
+    var pageCount = "@ViewBag.pageCount";
+    var total = Math.ceil(pageCount * 1.0 / pagesize);
+    GetLogAbstracts("@Model", pagesize, "article", 1);
+    function GetLogAbstracts(id, pagesize, uctype, pageindex) {
+        $("#logabstracts").html("");
+        $.ajax({
+            url: "@Url.Content("~/ashx/GetArticleByXXID.ashx")",
+            data: { id: id, pagesize: pagesize, uctype: uctype, curpage: pageindex },
+            success: function (data) {
+                var infos = eval("(" + data + ")"); //
+                $("#contentList").empty();
+                if (infos.length > 0) {
+                    listCount = infos.length;
+                    $.each(infos, function (idx, item) {
+                        var pid = item.pkid;
+                        var title = item.title;
+                        var hits = item.hits;
+                        var str = "<li><a target='_blank' href="+"@Url.Action("ArticleInfo","Query")" + "/" + pid + ">" + title + "</a></li>";
+                        var obj = str;
+                        $("#contentList").append($(obj));
+                    });
+                } else {
+                    var obj = "<li class=\"noinfo\"><p class=\"person\"><span class=\"newscontent\">该学校教师还没有发布文章！</span></p></li>";
+                    $("#contentList").append($(obj));
+                }
+            }
+        });
+    }
+
+//分页
+    //$(function () {
+    if (total > 0) {
+        var rsc_bs_pag = { go_to_page_title: "转到", rows_per_page_title: "第几页", current_page_label: "页", current_page_abbr_label: "", total_pages_label: "/", total_pages_abbr_label: "/", total_rows_label: "/", rows_info_records: "记录", go_top_text: "&laquo;", go_prev_text: "&larr;", go_next_text: "&rarr;", go_last_text: "&raquo;" };
+        $("#plugs-pager").bs_pagination({
+            currentPage: 1,
+            visiblePageLinks: 10,
+            totalPages: total, //根据实际数量/visiblePageLinks
+            showGoToPage: false,
+            showRowsPerPage: false,
+            showRowsInfo: false,
+            onChangePage: function(type, page, current) {
+                GetLogAbstracts("@Model", pagesize, "article", page.currentPage);
+        }
+    });
+}
+    //});
+
+</script>

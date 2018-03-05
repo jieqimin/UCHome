@@ -1,0 +1,122 @@
+﻿@{
+    Layout = null;
+}
+
+    <div class="content">
+        <div class="teacher">
+            <div class="tea-title">教师风采</div>
+            <ul class="mien" id="xxxx">
+                <div class="spinner">
+                    <div class="spinner-container container1">
+                        <div class="circle1"></div>
+                        <div class="circle2"></div>
+                        <div class="circle3"></div>
+                        <div class="circle4"></div>
+                    </div>
+                    <div class="spinner-container container2">
+                        <div class="circle1"></div>
+                        <div class="circle2"></div>
+                        <div class="circle3"></div>
+                        <div class="circle4"></div>
+                    </div>
+                    <div class="spinner-container container3">
+                        <div class="circle1"></div>
+                        <div class="circle2"></div>
+                        <div class="circle3"></div>
+                        <div class="circle4"></div>
+                    </div>
+                </div>
+            </ul>
+        </div>
+        <div class="student">
+            <div class="stu-title">学生风采</div>
+            <ul class="mien" id="yyyy">
+                <div class="spinner">
+                    <div class="spinner-container container1">
+                        <div class="circle1"></div>
+                        <div class="circle2"></div>
+                        <div class="circle3"></div>
+                        <div class="circle4"></div>
+                    </div>
+                    <div class="spinner-container container2">
+                        <div class="circle1"></div>
+                        <div class="circle2"></div>
+                        <div class="circle3"></div>
+                        <div class="circle4"></div>
+                    </div>
+                    <div class="spinner-container container3">
+                        <div class="circle1"></div>
+                        <div class="circle2"></div>
+                        <div class="circle3"></div>
+                        <div class="circle4"></div>
+                    </div>
+                </div>
+            </ul>
+        </div>
+    </div>
+
+
+
+<script>
+    function lookmore(pkid) {
+        var loadurl = "@Url.Action("Details")?bjid=" + $("#BJID").val()+"&pkid="+pkid;
+
+           $(".content-box").load(loadurl);
+       }
+    $(function () {
+
+        var _ROOT_ = '@Url.Content("~/")';
+
+        $("#xxxx").html("");
+     //获取老师的
+     $.ajax({
+         url: "@Url.Content("~/ashx/GetTeaClassPhoto.ashx")",
+            data: { id: $("#BJID").val(), NewType: "photo" },
+            success: function (data) {
+                var schclass = eval("(" + data + ")"); // 
+                var obj = "";
+                if (schclass.length > 0) {
+                    $.each(schclass, function (idx, item) {
+                        var url = item.photourl;
+                        var pid = item.pkid;
+                        obj = "<li><a target=\"_blank\" onclick=\"lookmore('" + item.pkid + "');\" class=\"in\"><img src=\"" + url + "\" /></a></li>"
+                        $("#xxxx").append($(obj));
+
+                    });
+                }
+            }
+     });
+        $("#yyyy").html("");
+     //获取学生的
+     $.ajax({
+         url: "@Url.Content("~/ashx/GetStuClassPhoto.ashx")",
+         data: { id: $("#BJID").val(), NewType: "photo" },
+         success: function (data) {
+             var schclass = eval("(" + data + ")"); // 
+             var obj = "";
+             if (schclass.length > 0) {
+                 $.each(schclass, function (idx, item) {
+
+                     var url = item.photourl;
+                     var pid = item.pid;
+                     obj = "<li><a onclick=\"lookmore('" + item.pkid + "');\" class=\"in\"><img src=\"" + url + "\" /></a></li>"
+                     $("#yyyy").append($(obj));
+
+                 });
+             }
+         }
+     });
+ });
+
+
+    $(".mien>li").hover(function () {
+        $(this).addClass("on");
+        $(this).find("img").animate({ "width": "200px", "height": "150px" });
+        $(this).find("a").animate({ "width": "200px", "height": "150px" });
+
+    }, function () {
+        $(this).animate({ height: "89px" }).removeClass("on");
+        $(this).find("img").stop(true, true).animate({ "width": "118px", "height": "89px" });
+        $(this).find("a").stop(true, true).animate({ "width": "118px", "height": "89px" });
+    });
+</script>

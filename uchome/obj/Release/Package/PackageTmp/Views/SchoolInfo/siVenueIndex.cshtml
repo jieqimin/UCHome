@@ -1,0 +1,61 @@
+﻿@model IEnumerable<SchInfo.Model.siVenue>
+
+@{
+}
+<link rel="stylesheet" href="@Url.Content("~/plugs/datatables/css/jquery.dataTables.css")">
+<link rel="stylesheet" href="@Url.Content("~/plugs/datatables/css/dataTables.bootstrap.css")">
+<link rel="stylesheet" href="@Url.Content("~/plugs/scrollbar/css/sui.css")">
+<script src="@Url.Content("~/plugs/datatables/js/jquery.datatables.js")"></script>
+<script src="@Url.Content("~/plugs/datatables/js/dataTables.bootstrap.js")"></script>
+<script src="@Url.Content("~/plugs/datatables/js/Jquery.dataTableSetting.js")"></script>
+<div class="pagew form-position">
+    <div class="searchbar form-inline">
+        <div class="form-group">
+            <label for="exampleInputName2">选择场地</label>
+            <select class="form-control" id="search_ground">
+                <option value="@(Guid.Empty)">全部</option>}
+                @foreach (var item in ViewBag.Grounds as List<SchInfo.Model.siGround>) {
+                    <option value="@item.GroundID">@item.GroundName</option>}
+            </select>
+        </div>
+        <button type="button" id="btn-searchsivenue" class="btn btn-primary">搜索</button>
+        <button type="button" class="btn btn-info" onclick="RedircetUrl('@Url.Action("SIVenueCreate","SchoolInfo")')">添加新场馆</button>
+    </div>
+    <hr class="divider" />
+    <table class="table  table-striped table-bordered table-hover datatable" id="table_sivenue">
+        <thead>
+            <tr>
+                <th>
+                    场地名称
+                </th>
+                <th>
+                    场馆分类
+                </th>
+                <th>
+                    场馆名称
+                </th>
+                <th>
+                    容纳人数
+                </th>
+                <th>
+                    状态
+                </th>
+                <th>
+                    操作
+                </th>
+            </tr>
+        </thead>
+        <tfoot>
+            <tr><th colspan="6">共<label id="records"></label> 项，当前显示前100项记录，如未找到你想要的结果，可以将筛选条件调整更精确！</th></tr>
+        </tfoot>
+    </table>
+</div>
+<script>
+    var initlisturl = "@Url.Action("GetSIVenueList")";
+    var operurl_delete = "@Url.Action("DeleteSIVenue")";
+    var operurl_edit = "@Url.Action("SIVenueEdit")";
+    var operurl_recovery = "@Url.Action("RescoverSIVenue")";
+    var venuetypegeturl = "@Url.Action("GetVenueTypes")";
+    var venuegroundgeturl="@Url.Action("GetGrounds")";
+</script>
+<script src="@Url.Content("~/Data/SchoolInfo/SIVenue/sivenue.js")"></script>

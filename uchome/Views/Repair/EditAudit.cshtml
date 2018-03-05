@@ -1,0 +1,229 @@
+﻿@{
+    Layout = null;
+}
+
+@using System.Web.Mvc
+@using M = OA.Model;
+@model M.View_Repair
+<link rel="stylesheet" href="@Url.Content("~/Content/css/msg.css")">
+<script src="@Url.Content("~/plugs/usercontrol/selectuser.js")"></script>
+<link rel="stylesheet" href="@Url.Content("~/plugs/webuploader/css/webuploader.css")">
+<link rel="stylesheet" href="@Url.Content("~/plugs/webuploader/css/demo.css")">
+<link rel="stylesheet" href="@Url.Content("~/plugs/datetimepicker/css/bootstrap-datetimepicker.css")">
+<link rel="stylesheet" href="@Url.Content("~/content/css/homework.css")">
+<style type="text/css">
+    .sel-notice {
+        width: 120px !important;
+        margin-right: 10px;
+    }
+</style>
+
+<script>
+    $(function () {
+        var approver = '@ViewBag.approver';
+        $.getJSON('@Url.Action("GetApprovePeopleList")', function (data) {
+            $.each(data, function (i, item) {
+                if (approver == item["Value"]) {
+                    $("<option></option>").val(item["Value"]).text(item["Text"]).attr("selected", true).appendTo($("#QTBX"));
+                }
+                else {
+
+                    $("<option></option>").val(item["Value"]).text(item["Text"]).appendTo($("#QTBX"));
+                }
+            });
+        });
+
+        $("#Transfer").click(function () {
+            var ApplicantID1 = $("#QTBX").val()
+          
+            $.ajax({
+                type: "GET",
+                url: "@Url.Action("EditTransfer", "Repair", new { REID = Model.REID })",
+                data: { ApplicantID: ApplicantID1 },
+            success: function (data1) {
+                if (data1.Data.statuscode == 200)
+                {
+                       
+                    alert("转交成功");
+                    var loadurl = "@Url.Action("IndexAudit")";
+                    redirecturl(loadurl);
+
+                    $('#myModal').modal('hide');
+                       
+                } else
+                {
+                    alert("转交失败，请重试！")
+                       
+                }
+            }
+        })
+
+    })
+
+
+
+
+    })
+
+</script>
+
+@Html.Hidden("id")
+<div id="auditLeave" class="form-horizontal form-position pagew " style="margin-bottom: 0px; margin-top: 0px;">
+    <div class="form-group">
+        <label for="DongLou" class="col-sm-2 control-label">报修类型：</label>
+        <div class="col-sm-9 pd h">
+            @Model.DongLou
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="BaoXiuProject" class="col-sm-2 control-label">报修项目：</label>
+        <div class="col-sm-9 pd h">
+            @Model.BaoXiuProject
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="BaoXiuTime" class="col-sm-2 control-label">报修时间：</label>
+        <div class="col-sm-9 pd">
+            @Model.BaoXiuTime
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="Remark" class="col-sm-2 control-label">报修内容：</label>
+        <div class="col-sm-9 pd h">
+            @Model.Remark
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="OtherCause" class="col-sm-2 control-label">报修地址：</label>
+        <div class="col-sm-9 pd h">
+            @Model.OtherCause
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="RepairStatus" class="col-sm-2 control-label">报修状态：</label>
+        <div class="col-sm-9 pd h">
+            @Model.RepairStatus
+        </div>
+    </div>
+
+    @{
+        if (Model.RepairStatus == "维修")
+        {
+            <div class="form-group">
+                <label for="RepairPeoson" class="col-sm-2 control-label">维修人：</label>
+                <div class="col-sm-9">
+                    已提交维修人进行维修了！维修人： @ViewBag.People
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="btn-group center-block" style="width: 200px;">
+
+                    <button style="margin-left:10px" id="btnClose" type="button" class="btn btn-info dropdown-toggle" data-toggle="button" aria-haspopup="true" aria-expanded="false">
+                        关闭
+                    </button>
+                </div>
+            </div>
+
+        }
+        else
+        {
+            <div class="form-group">
+                <label for="RepairPeoson" class="col-sm-2 control-label">维修人：</label>
+                <div class="col-sm-9">
+                    <select id="RepairPeoson" name="RepairPeoson" class="form-control input-sm col-xs-2 sel-notice"></select>
+                </div>
+            </div>
+            if (Model.RepairStatus == "待审核" || Model.RepairStatus == "审核中" )
+            {
+                <div class="form-group">
+                    <label for="QTBX" class="col-sm-2 control-label">转交审核人：</label>
+                    <div class="col-sm-9">
+                        <select id="QTBX" name="QTBX" class="form-control input-sm col-xs-2 sel-notice"></select>
+                    </div>
+                </div>
+            }  
+        
+            <div class="form-group">
+                <div class="btn-group center-block" style="width: 200px;">
+                    @if (Model.RepairStatus == "待审核" || Model.RepairStatus == "审核中" )
+                    {
+                        <button id="Transfer" type="button" class="btn btn-info dropdown-toggle" data-toggle="button" aria-haspopup="true" aria-expanded="false">
+                            转交
+                        </button>
+                    }
+
+                    <button id="btnSend" style="margin-left:10px" type="button" class="btn btn-info dropdown-toggle" data-toggle="button" aria-haspopup="true" aria-expanded="false">
+                        保存
+                    </button>
+                    <button style="margin-left:10px" id="btnClose" type="button" class="btn btn-info dropdown-toggle" data-toggle="button" aria-haspopup="true" aria-expanded="false">
+                        关闭
+                    </button>
+                </div>
+            </div>
+        }
+    }
+
+
+
+</div>
+
+<script src="@Url.Content("~/plugs/webuploader/js/webuploader.js")"></script>
+<script src="@Url.Content("~/plugs/webuploader/js/upfile.js")"></script>
+<script>
+    $(document).ready(function () {
+
+        var approver = '@ViewBag.approver';
+        $.getJSON('@Url.Action("GetRepairPeopleList")', function (data) {
+            $.each(data, function (i, item) {
+                if (approver == item["Value"]) {
+                    $("<option></option>").val(item["Value"]).text(item["Text"]).attr("selected", true).appendTo($("#RepairPeoson"));
+                }
+                else {
+
+                    $("<option></option>").val(item["Value"]).text(item["Text"]).appendTo($("#RepairPeoson"));
+                }
+            });
+        });
+        $("#btnClose").click(function () {
+            var loadurl = "@Url.Action("IndexAudit")";
+            redirecturl(loadurl);
+        });
+
+        $("#btnSend").click(function () {
+            var id = $("#id").val();
+            var people = $("#RepairPeoson").val();
+            $.post('@Url.Action("EditAuditSend")', { Id: id, repairpeople: people }, function (data) {
+                if (data.Data.statuscode == 1) {
+                    alert("审核成功");
+                    $(".modal-backdrop").remove();
+                    var loadurl = "@Url.Action("IndexAduit")";
+                    redirecturl(loadurl);
+
+                }
+                else {
+                    alert("审核失败");
+                }
+
+            });
+
+        });
+    });
+
+
+</script>
+<script src="@Url.Content("~/plugs/datetimepicker/js/bootstrap-datetimepicker.min.js")"></script>
+<script src="@Url.Content("~/plugs/datetimepicker/js/bootstrap-datetimepicker.zh-CN.js")"></script>
+<script>
+    $('.form_datetime').datetimepicker({
+        language: 'zh-CN',
+        weekStart: 1,
+        todayBtn: 1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 2,
+        minView: 2,
+        forceParse: 0
+    });
+</script>
+

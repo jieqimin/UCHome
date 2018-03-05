@@ -1,0 +1,30 @@
+﻿@{
+    Layout = null;
+    var images_head = System.Web.Configuration.WebConfigurationManager.AppSettings["images_head"];
+}
+@using M = UCHome.Model;
+<div class="teacher-box">
+    <div class="title">
+        <img src="@Url.Content("~/Content/ClassCenter/images/member/teacher.png")" /><span>班级教师</span>
+    </div>
+    <div class="tea">
+        <ul class="details" style="border:none;">
+            @foreach (M.View_Class_Teacher item in Model)
+            {
+                //var imageurl = "/upload/headimages/" + item.jsid + ".jpg";
+
+                var link = images_head + "/TeacherCenter/Query?id=" + item.jsid;
+                
+                <li>
+                    <img src="@item.ZP" />
+                    <div class="datum">
+                             <p>@item.XM <a target="_blank" href="@link">空间</a></p>
+                        <span>部门：@item.jgmc</span>
+                        <span>任课：@item.bjmc</span>
+                    </div>
+                </li>
+            }
+
+        </ul>
+    </div>
+</div>

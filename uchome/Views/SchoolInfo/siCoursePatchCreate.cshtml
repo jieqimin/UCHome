@@ -1,0 +1,47 @@
+﻿@model List<SelectListItem>
+@using (Ajax.BeginForm("CreateSICourse", null,
+                                        new AjaxOptions() {
+                                            HttpMethod = "post",
+                                            Url = @Url.Action("PatchCreateSICourse"),
+                                            UpdateTargetId = "#sicourse",
+                                            LoadingElementId = "loding",
+                                            LoadingElementDuration = 2000
+                                        }, new { id = "form-sicourse" })) {
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal form-position pagew" id="sicourse">
+        <div class="form-group">
+            <label class="control-label">请选择关联学科（温馨提示：课程名称将自动同步学科名称，如需修改课程信息请通过<a onclick="RedircetUrl('@Url.Action("SICourseIndex")')">课程信息</a>管理进行操作）</label>
+            <div class="list-group">
+                @foreach (var item in Model) {
+                    <div class="list-group-item col-md-4"><input type="checkbox" name="CourseID_DMCode" value="@item.Value" checked="@item.Selected" coursename="@item.Text" />@item.Text</div>
+}
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-4 col-md-8">
+                <input type="button" value="保存" id="btn-sicoursepatchAdd" class="btn btn-info col-md-2" />&nbsp;&nbsp;                
+            </div>
+        </div>
+    </div>
+}
+@*数据提交*@
+<script>
+    $(function () {
+        $("#btn-sicoursepatchAdd").click(function () {
+            var selsubjects = [];
+            $('input[name="CourseID_DMCode"]:checked').each(function (item) {
+                selsubjects.push({ "Value": $(this).val(), "Text": $(this).attr("coursename") });
+            });
+            $.post("@Url.Action("PatchCreateSICourse")", { subjects: selsubjects}, function (data) {
+                 if (data.Data.StatusCode == 200) {
+                            tipsuccessmsg("保存成功");
+                            //validator.resetForm(); //重置表单
+                        } else {
+                            tipfailmsg("保存失败，原因可能为：" + data.Data.ErrorMessage);
+                            //$("#PKID").val(data.data.PKID);
+                            //validator.resetForm(); //重置表单
+                        }
+            })
+        })
+    });
+</script>

@@ -1,0 +1,50 @@
+﻿@{
+    Layout = null;
+    
+    var images_head = System.Web.Configuration.WebConfigurationManager.AppSettings["images_head"];
+}
+@using M = UCHome.Model;
+<div class="student-box">
+    <div class="title">
+        <img src="@Url.Content("~/Content/ClassCenter/images/member/teacher.png")" /><span>班级学生</span>
+    </div>
+    <div class="stu" style="height: auto">
+        <ul class="details" style="border:none;">
+            @foreach (M.View_Simple_StuInfo item in Model)
+            {
+                var csrq = "";
+                var xb = "男";
+                if (item.XBM == "1")
+                {
+                    xb = "男";
+                }
+                else if (item.XBM == "2")
+                {
+                    xb = "女";
+                }
+                else
+                {
+                    xb = "未设置";
+                }
+                if (item.SFZJH != null && item.SFZJH.Length > 15)
+                {
+                    csrq = item.SFZJH.Substring(6, 4) + "年" + item.SFZJH.Substring(10, 2) + "月" + item.SFZJH.Substring(12, 2) + "日";
+                }
+                //var imageurl = "/upload/headimages/" + item.xsid + ".jpg";
+
+
+                var link = images_head + "/StudentCenter/Query?id=" + item.xsid;
+                <li>
+                    <img src="@item.ZP" />
+                    <div class="datum">
+                        <p>@item.XM <a target="_blank" href="@link">空间</a></p>
+                        <span>生日：@csrq</span>
+                        <span>性别：@xb</span>
+                    </div>
+                </li>
+            }
+
+        </ul>
+    </div>
+
+</div>

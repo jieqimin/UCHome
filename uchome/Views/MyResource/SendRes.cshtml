@@ -1,0 +1,303 @@
+﻿@model UCHome.Model.UCHome_BaseInfo
+@{
+    string sec = Model.Section != null ? Model.Section.Split(',')[0] : "全部";
+    string sub = Model.Subject != null ? Model.Subject.Split(',')[0] : "全部";
+}
+
+<div id="searchwhere" class="searchwhere clearfix">
+    @Html.Partial("SearchWhere", Model)
+</div>
+<div class="searchBar">
+    <input type="hidden" name="" id="search_section" value="@(sec)" />
+    <input type="hidden" name="" id="search_subject" value="@(sub)" />
+    <input type="hidden" name="" id="search_grade" value="" />
+    <input type="hidden" name="" id="search_restype" value="" />
+    <input type="hidden" name="" id="search_doctype" value="" />
+    <input type="hidden" name="" id="search_version" value="" />
+    当前检索：<div id="searchBar"></div>
+   @* <span class="search_order">
+        <select id="search_order" class="form-control col-md-3">
+            <option value="createtime">按更新时间</option>
+            <option value="hits">按下载次数</option>
+        </select>
+    </span>*@
+    <span class="search_btn">
+        <input id="btn-search" type="button" class="btn btn-info" value="搜索" />
+    </span>
+
+</div>
+<div id="resourcelist">
+    <div class="loading">正在读取，请稍候……</div>
+</div>
+<div id="page_data">
+    <div class="log-pager" id="plugs-pager">
+    </div>
+</div>
+<script>
+    $(".res-style li").each(function (index, item) {
+        $(this).click(function () {
+            $(".res-style li").removeClass("selected");
+            $(this).addClass("selected");
+            var seltype = $(this).attr("value");
+            var seltypename = $(this).attr("typename");
+            $("#search_restype").val(seltype);
+            $("#search_restype").attr("name",seltypename);
+            getselsearchwhere();
+        });
+    });
+    $(".res-doc li").each(function (index, item) {
+        $(this).click(function () {
+            $(".res-doc li").removeClass("selected");
+            $(this).addClass("selected");
+            var seldoc = $(this).attr("value");
+            var seldocname = $(this).attr("docname");
+            $("#search_doctype").val(seldoc);
+            $("#search_doctype").attr("name",seldocname);
+            getselsearchwhere();
+        });
+    });
+</script>
+
+<script>
+    $(".search_where_ul li[name=section]").each(function (index, item) {
+        if ($(item).html() == "@sec") {
+            $(item).addClass("selected");
+            getsubjectbysection($(item));
+        }
+        $(this).click(function () {
+            $("#search_subject").val("");
+            $("#search_grade").val("");
+            $("#search_version").val("");
+            $("#search_subject").attr("name", "");
+            $("#search_grade").attr("name", "");
+            $("#search_version").attr("name", "");
+            getselsearchwhere();
+            getsubjectbysection($(this));
+        });
+    });
+
+    function getsubjectbysection(obj) {
+        $(".search_where_ul li[name=section]").removeClass("selected");
+        $(obj).addClass("selected");
+        $("#search_type_subject li").remove();
+        $("#search_type_version li").remove();
+        $("#search_type_grade li").remove();
+        var sectionvalue = $(obj).attr("value");
+        var sectionname = $(obj).html();
+        $("#search_section").val(sectionvalue);
+        $("#search_section").attr("name", sectionname);
+        $.ajax({
+            url: "http://jp.taedu.gov.cn:84/Repository.Api/api/CacheGetJson/GetSubject",
+            type: 'GET',
+            data: { schoolstageid: sectionvalue },
+            success: function (data) {
+                var infos = eval("(" + data + ")"); // 
+                $.each(infos, function (index, item) {
+                    var subname = item.DisplayName;
+                    var subjectid = item.Value;
+                    var subitem;
+                    if (sectionname + subname == "@sub") {
+                        subitem = "<li name=\"subject\" class=\"selected\" sectioin=\"" + sectionvalue + "\" value=\"" + subjectid + "\">" + subname + "</li>";
+                        $("#search_subject").val(subjectid);
+                        getresourcebywhere(8, currpage);
+                    }
+                    else
+                        subitem = "<li name=\"subject\" sectioin=\"" + sectionvalue + "\" value=\"" + subjectid + "\">" + subname + "</li>";
+                    $("#search_type_subject").append(subitem);
+                });
+                $(".search_where_ul li[name=subject]").each(function (index, item) {
+                    $(this).click(function () {
+                        var selsubject = $(this).attr("value");
+                        var selsubjectname = $(this).html();
+                        $(".search_where_ul li[name=subject]").removeClass("selected");
+                        $(this).addClass("selected");
+                        $("#search_subject").val(selsubject);
+                        $("#search_subject").attr("name", selsubjectname);
+                        $("#search_grade").val("");
+                        $("#search_version").val("");
+                        $("#search_grade").attr("name", "");
+                        $("#search_version").attr("name", "");
+                        getselsearchwhere();
+                        getversionbysubject($(this));
+                    });
+
+                });
+            }
+        });
+
+    }
+    function getversionbysubject(obj) {
+        $("#search_type_version li").removeClass("selected");
+        $(obj).addClass("selected");
+        $("#search_type_version li").remove();
+        $("#search_type_grade li").remove();
+        var subjectvalue = $(obj).attr("value");
+        var allitem = "<li name='version' value='全部' class='allversion selected'>全部</li>";
+        $("#search_type_version").append(allitem);
+        $.ajax({
+            url: "http://jp.taedu.gov.cn:84/Repository.Api/api/CacheGetJson/GetVersion",
+            type: 'GET',
+            data: { SubjectId: subjectvalue },
+            success: function (data) {
+                var infos = eval("(" + data + ")"); // 
+                $.each(infos, function (index, item) {
+                    var versionname = item.DisplayName;
+                    var versionid = item.Value;
+                    var versionitem = "<li name=\"subject\" sectioin=\"" + subjectvalue + "\" value=\"" + versionid + "\">" + versionname + "</li>";
+                    $("#search_type_version").append(versionitem);
+                });
+                $("#search_type_version li").each(function (index, item) {
+                    $(this).click(function () {
+                        var seversion = $(this).attr("value");
+                        var selversionname = $(this).html();
+                        $("#search_type_version li").removeClass("selected");
+                        $(this).addClass("selected");
+                        $("#search_version").val(seversion);
+                        $("#search_version").attr("name", selversionname);
+                        $("#search_grade").val("");
+                        $("#search_grade").attr("name", "");
+                        getselsearchwhere();
+                        getgradebyversion($(this));
+                    });
+
+                });
+            }
+        });
+    }
+    function getgradebyversion(obj) {
+        $("#search_type_grade li").removeClass("selected");
+        $(obj).addClass("selected");
+        $("#search_type_grade li").remove();
+        var versionvalue = $(obj).attr("value");
+        var versionname = $(obj).html();
+        var allitem = "<li name='grade' value='全部' class='allgrade selected'>全部</li>";
+        $("#search_type_grade").append(allitem);
+        if (versionname != "全部") {
+            $.ajax({
+                url: "http://jp.taedu.gov.cn:84/Repository.Api/api/CacheGetJson/GetGrade",
+                type: 'GET',
+                data: { VersionId: versionvalue },
+                success: function (data) {
+                    var infos = eval("(" + data + ")"); // 
+                    $.each(infos, function (index, item) {
+                        var gradename = item.DisplayName;
+                        var gradeid = item.Value;
+                        var gradeitem = "<li name=\"subject\" sectioin=\"" + versionvalue + "\" value=\"" + gradeid + "\">" + gradename + "</li>";
+                        $("#search_type_grade").append(gradeitem);
+                    });
+                    $("#search_type_grade li").each(function (index, item) {
+                        $(this).click(function () {
+                            var selgrade = $(this).attr("value");
+                            var selgradename = $(this).html();
+                            $("#search_type_grade li").removeClass("selected");
+                            $(this).addClass("selected");
+                            $("#search_grade").val(selgrade);
+                            $("#search_grade").attr("name", selgradename);
+                            getselsearchwhere();
+                        });
+
+                    });
+                }
+            });
+        } else {
+
+        }
+    }
+</script>
+<script>
+    var currpage = 1;
+    var totalcount = 1;
+    var rsc_bs_pag = { go_to_page_title: "转到", rows_per_page_title: "第几页", current_page_label: "页", current_page_abbr_label: "", total_pages_label: "/", total_pages_abbr_label: "/", total_rows_label: "/", rows_info_records: "记录", go_top_text: "&laquo;", go_prev_text: "&larr;", go_next_text: "&rarr;", go_last_text: "&raquo;" };
+    $("#btn-search").click(function () {
+        currpage = 1;
+        getresourcebywhere(8, currpage);
+    });
+    function getresourcebywhere(pagesize, pageindex, userid) {
+        var condition = "";
+        var conditionType = "";
+        var sec = $("#search_section").val();
+        var secname = $("#search_section").attr("name");
+        var sub = $("#search_subject").val();
+        var subname = $("#search_subject").attr("name");
+        var version = $("#search_version").val();
+        var versionname = $("#search_version").attr("name");
+        var gra = $("#search_grade").val();
+        var gradename = $("#search_grade").attr("name");
+        if ($.trim(sec) == "" || $.trim(sec) == "全部") {
+            tipfailmsg("请选择学段");
+            return false;
+        }
+        if ($.trim(sub) == "" || $.trim(sub) == "全部") {
+            tipfailmsg("请选择学科");
+            return false;
+        }
+        if ($.trim(version) == "" || $.trim(version) == "全部") {
+            condition = sub;
+            conditionType = "Subject";
+        }
+        else if ($.trim(gra) == "" || $.trim(gra) == "全部") {
+            condition = version;
+            conditionType = "Version";
+        }
+        else {
+            condition = gra;
+            conditionType = "Grade";
+        }
+        var res = $("#search_restype").val();
+        var doc = $("#search_doctype").attr("name");
+        $("#resourcelist").html("");
+        $.ajax({
+            url: "@Url.Action("GetResourceByWhere")",
+            data: { conditionType: conditionType, condition: condition, format: doc, type: res, page: pageindex, userid: userid },
+            success: function (data) {
+                var infos = eval("(" + data + ")");
+                var result = eval("(" + infos + ")");
+                if (result.ResourceList.length > 0) {
+                    totalcount = result.TotalPage;
+                    $.each(result.ResourceList, function (idx, item) {
+                        var pid = item.Id;
+                        var name = item.ResourceName;
+                        var time = eval(item.CreateTime.replace(/\/Date\((\d+)\)\//gi, "new Date($1)")).toLocaleDateString();
+                        var user = item.CreatorName;
+                        var hits = item.CommentScore;
+                        var learntype =res;
+                        var schoolstage = secname;
+                        var grade = gradename;
+                        var subject = subname;
+                        var linkurl = item.LinkUrl;
+                        var str = "<div class=\"res-content\"><ul class='clearfix'><li class='res-abstract'>";
+                        str += "<div class=\"res-name\"><a href=\"" + linkurl + "\" target=\"_blank\">" + name + "</a></div>";
+                        str += "<div class=\"res-property clearfix\"><span>上传时间：" + time + "</span><span>上传人：" + user + "</span><span>评分：" + hits + "</span></div>";
+                        str += "</li><li class='res-grade'>" + grade + "</li><li class='res-sub'>" + subject + "</li><li class='res-schoolstage'>" + schoolstage + "</li>";
+                        str += " </ul></div>";
+                        var obj = str;
+                        $("#resourcelist").append($(obj));
+                    });
+                } else {
+                    var obj = "<li class=\"noinfo\"><p class=\"person\"><span class=\"newscontent\">找不到相关的匹配资源！</span></p></li>";
+                    $("#resourcelist").append($(obj));
+                }
+                var tc = totalcount / 8;
+                var tci = parseInt(tc);
+                var tps;
+                if (tc > tci)
+                    tps = tci + 1;
+                else
+                    tps = tci;
+                $("#plugs-pager").bs_pagination({
+                    currentPage: currpage,
+                    visiblePageLinks: 10,
+                    totalPages: tps,//根据实际数量/visiblePageLinks
+                    showGoToPage: false,
+                    showRowsPerPage: false,
+                    showRowsInfo: false,
+                    onChangePage: function (type, page) {
+                        currpage = page.currentPage;
+                        getresourcebywhere(8, page.currentPage);
+                    }
+                });
+            }
+        });
+
+    }
+</script>

@@ -1,0 +1,474 @@
+﻿@model Guid
+<style>
+    .mydicuss_menu {
+        margin: 0 20px;
+        border-bottom: solid 1px #cfebf5;
+        height: 49px;
+    }
+
+    .mydicuss_menu .mydicuss_menu_list {
+        height: 50px;
+        float: left;
+        position: relative;
+        zoom: 1;
+        z-index: 200;
+    }
+
+    .mydicuss_menu_list ul {
+        position: relative;
+    }
+
+    .mydicuss_menu_list ul li {
+        float: left;
+        line-height: 50px;
+        color: #2595b7;
+        margin: 0 20px;
+        display: inline-block;
+        font-size: 15px;
+        cursor: pointer;
+    }
+
+    .mydicuss_menu li.foucs {
+        height: 47px;
+        border-bottom: solid 3px #2595b7;
+        font-weight: bold;
+    }
+
+    .mydicuss_menu .mydicuss_menu_other {
+        float: right;
+    }
+
+    .mydicuss_menu_other .mydicuss_menu_other_item {
+        float: left;
+        line-height: 50px;
+        color: #2595b7;
+        margin: 0 10px;
+        display: inline-block;
+        font-size: 14px;
+        cursor: pointer;
+    }
+  
+    .mydicuss_menu_other_item .recycledicuss {
+        background: url("@Url.Content("~/Content/images/Recycle.png")") no-repeat center center;
+        display: inline-block;
+        width: 28px;
+        height: 18px;
+    }
+    .mydicuss_showstyle {
+        text-align: right;
+        color: #2595b7;
+        font-size: 12px;
+        margin: 5px 20px;
+        line-height: 16px;
+        height: 16px;
+        cursor: pointer;
+        width: 560px;
+    }
+    .mydicuss_showstyle a {             
+        display:inline-block;
+        height: 16px;
+        line-height: 16px;
+        text-align: center;
+    }
+    .mydicuss_showstyle i {
+        background-image: url("@Url.Content("~/Content/images/Properties.png")");
+        background-repeat: no-repeat;
+        background-position-x: center;
+        background-position-y: center;
+        display: inline-block;
+        width: 16px;
+        height: 16px;
+        vertical-align: middle;
+        margin-right: 5px;
+    }
+    .mydicuss_content {
+        margin-top: 20px;
+    }
+    #Attens label:first-child {
+        margin-left: 10px;
+    }
+    #selectedAttens p {
+        margin-left: 5px;margin-top: 5px;
+        height: 25px;
+        line-height: 25px;
+        padding-left: 5px;
+        padding-right: 5px;        
+    }
+    #selectedAttens p span.delsel {
+        cursor: pointer;
+    }
+</style>
+<style>
+    .dicussabstract-content {
+        margin: 0 30px;
+        border-bottom: dashed 1px #add8e6;
+    }
+
+        .dicussabstract-content .dicussabstract-content-title {
+            height: 40px;
+            line-height: 40px;
+        }
+
+    .dicussabstract-content-title h4 {
+        height: 40px;
+        line-height: 40px;
+        color: #2595b7;
+    }
+
+    .dicussabstract-content .dicussabstract-content-body {
+        color: #999;
+        font-size: 14px;
+        line-height: 25px;
+    }
+
+    .dicussabstract-content .dicussabstract-content-other {
+        height: 40px;
+        line-height: 40px;
+        font-size: 12px;
+    }
+
+    .dicussabstract-content-other .dicussproperty {
+        float: left;
+        color: #556b2f;
+    }
+
+    .dicussproperty a {
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    .dicussabstract-content-other .dicussfunctioin {
+        margin-left: 10px;
+        float: left;
+        cursor: pointer;
+        color: #2e8b57;
+    }
+
+        .dicussabstract-content-other .dicussfunctioin span {
+            padding: 0 3px;
+        }
+
+    #dicuss-connection {
+        position: absolute;
+        top: 0;
+        left: 20px;
+    }
+
+    #coninfo {
+        color: red;
+        font-size: 14px;
+        letter-spacing: 1px;
+    }
+
+    #discussion {
+        padding: 0 20px;
+        height: 400px;
+        min-height: 400px;
+        overflow-y: auto;
+        overflow-x: no-display;
+    }
+
+        #discussion li {
+            line-height: 20px;
+            margin-top: 5px;
+        }
+
+        #discussion .chatusername {
+            color: #2595b7;
+            line-height: 25px;
+        }
+</style>
+<script  src="@Url.Content("~/scripts/Base64-80.js")"></script>
+<div style="background-color: #fff; min-height: 1080px;">
+    <div class="mydicuss_menu">
+        <div class="mydicuss_menu_list">
+            <ul class="mydicuss_menu_ul">
+                <li class="mydicuss_menu_ul_li foucs">讨论组</li>
+                <li class="mydicuss_menu_ul_li hidden">私人日志</li>
+            </ul>
+        </div>
+        <div class="mydicuss_menu_other">
+            <div class="mydicuss_menu_other_item">
+                <button id="newdicussbtn" class="btn btn-info btn-sm">发起讨论</button>
+            </div>
+        </div>
+    </div>
+    <div class="mydicuss_content" id="mydicuss_content">
+    </div>
+    <div class="modal fade" id="Createdicuss" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="exampleModalLabel">新建讨论组</h4>
+                </div>
+                <form method="POST" name="form-newdiscussgroup" class="form-horizontal" id="form-newdiscussgroup">
+                    <div class="modal-body">
+                        @Html.Hidden("PKID")
+                        @Html.Hidden("AddUser", Model)
+                        @Html.Hidden("groupuser")
+                        @Html.Hidden("opertype", "add")
+                        <div class="form-group ">
+                            <label for="dicuss-name" class="col-sm-2 control-label">讨论主题</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="required form-control" id="dicuss-name" name="dicuss-name" title="主题不能为空">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="dicuss-memo" class="col-sm-2 control-label">主题描述</label>
+                            <div class="col-sm-10">
+                                <textarea class="form-control" id="dicuss-memo" name="dicuss-memo"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group ">
+                            <label for="dicuss-role" class="col-sm-2 control-label">参与成员</label>
+                            <div class="col-sm-10">
+                                <button id="selattendtions" type="button" class="btn btn-info">选择人员</button>
+                                <div id="selectedAttens">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="modal-dicussopera" class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关 闭 </button>
+                        <button id="btn-discuss" type="submit" class="btn btn-primary">保 存 </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="Attentions" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="exampleModalLabel2">好友名单</h4>
+                </div>
+                <form method="POST" name="form-newdiscussgroup" class="form-horizontal" id="form-newdiscussgroup">
+                    <div class="modal-body">
+                        <div class="form-group " id="Attens">
+                        </div>
+                    </div>
+                    <div id="modal-selectperson" class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关 闭 </button>
+                        <button id="btn-select" type="button" class="btn btn-primary">确 定 </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade bs-example-modal-lg" id="dicuss-room" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="exampleModalLabel3">讨论</h4>
+                </div>
+                <form method="POST" name="form-dicussroom" class="form-horizontal" id="form-dicussroom">
+                    <input type="hidden" id="roomid" class="chatroom" />
+                    <div class="modal-body">
+                        <div class="form-group " id="dicuss-connection">
+                            <p id="coninfo"></p>
+                        </div>
+                        <div class="form-group " id="dicuss-contents">
+                            <ul id="discussion">
+                            </ul>
+                        </div>
+                        <div class="form-group " id="dicuss-function">
+                        </div>
+                    </div>
+                    <div id="modal-ducusssend" class="modal-footer">
+                        <div class=" col-md-9">
+                            <input id="message" type="text" class="form-control col-md-12">
+                        </div>
+                        <input type="hidden" id="displayname" />
+                        <button type="button" class="btn btn-default" id="clearinfo">清 空 </button>
+                        <button id="sendmessage" type="button" class="btn btn-primary">发 送 </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    //$(function () {
+
+    $("#newdicussbtn").click(function () {
+        $("#Createdicuss").modal("show");
+    });
+    $("#selattendtions").click(function () {
+        $("#Attentions").modal("show");
+        getattentions();
+    });
+    $("#btn-select").click(function () {
+        $("#selectedAttens").html("");
+        var selpersons = "";
+        var split = "";
+        $("#Attens input[type=checkbox]:checked").each(function () {
+            $("#selectedAttens").append("<p pid='" + $(this).attr("value") + "' class='bg-success pull-left'>" + $(this).attr("xm") + "<span class='delsel' xm='" + $(this).attr("xm") + "'pid='" + $(this).attr("value") + "'> ×</span></p>");
+            selpersons += split + $(this).attr("value");
+            split = ",";
+        });
+        $("#groupuser").val(selpersons);
+        $(".delsel").click(function () {
+            $(this).parent().remove();
+            var nselpersons = "";
+            var nsplit = "";
+            $("#selectedAttens p").each(function () {
+                nselpersons += nsplit + $(this).attr("pid");
+                nsplit = ",";
+            });
+            $("#groupuser").val(nselpersons);
+        });
+        $("#Attentions").modal("hide");
+    });
+    //})
+</script>
+<script>
+    //填充课表
+    function getattentions() {
+        $("#Attens").html("");
+        var selpersons = $("#groupuser").val();
+        $.ajax({
+            url: "@Url.Content("~/ashx/GetAttention.ashx")",
+            data: { id: "@Model" },
+            success: function (data) {
+                var kb = eval("(" + data + ")"); //
+                $.each(kb, function (idx, item) {
+                    var id = item.attenuser;
+                    var xm = item.attenname;
+                    //var xb = item.attentime;
+                    //var identity = item.identity;
+                    //var zp = item.zp;
+                    var obj2;
+                    if (selpersons.indexOf(id) > -1)
+                        obj2 = "<label class='checkbox-inline'><input checked='checked' type=\"checkbox\" value=\"" + id + "\" xm='" + xm + "'>" + xm + "</label>";
+                    else
+                        obj2 = "<label class='checkbox-inline'><input type=\"checkbox\" value=\"" + id + "\" xm='" + xm + "'>" + xm + "</label>";
+                    $("#Attens").append($(obj2));
+                });
+            }
+        });
+    }
+
+
+</script>
+<script src="@Url.Content("~/Scripts/json2.js")" ></script>
+<script src="@Url.Content("~/Scripts/jquery.signalR-2.2.0.min.js")" ></script>
+<!--Reference the autogenerated SignalR hub script. -->
+<script src="@Url.Content("~/signalr/hubs")" ></script>
+<script>
+    var chat = $.connection.chat;
+    chat.client.addNewMessageToPage = function (name, message) {
+        $('#discussion').append('<li><strong class=\"chatusername\">' + htmlEncode(name)
+            + '</strong>:<br /><p class=\"bg-default\"> ' + htmlEncode(message) + '</p></li>');
+        var o = $("#discussion")[0].scrollHeight;
+        $("#discussion").animate({ scrollTop: o }, 1000);
+    };
+    chat.client.connectionuser = function (connectionid, name) {
+        $("#coninfo").html("用户[" + name + "]已连接");
+        setTimeout(function () {
+            $("#coninfo").html("");
+        }, 3000);
+    };
+    chat.client.disconnectuser = function (connectionid, name) {
+        $("#coninfo").html("用户[" + name + "]已退出");
+        setTimeout(function () {
+            $("#coninfo").html("");
+        }, 3000);
+    };
+    $.connection.hub.start().done(function () {
+        $('#sendmessage').click(function () {
+            chat.server.send($('#displayname').val(), $('#message').val(), $('#roomid').val());
+            $('#message').val('').focus();
+        });
+        $("#clearinfo").click(function () {
+            $("#discussion").html("");
+        });
+        $(".close").click(function () {
+            //alert("你已选择离开，将无法浏览历史记录！");
+            var roomid = $(".chatroom").val();
+            $("#discussion").html("");
+            $("#coninfo").html("");
+            chat.server.leaveroom(roomid);
+            $("#dicuss-room").modal("hide");
+        });
+    });
+    function htmlEncode(value) {
+        var encodedValue = $('<div />').text(value).html();
+        return encodedValue;
+    }
+
+</script>
+<script>
+    $("#form-newdiscussgroup").validate({
+        submitHandler: function (form) {
+            $(form).ajaxSubmit({
+                url: "@Url.Action("AddDicussGroup", "PublicShare")",
+                success: function (data) {
+                    if (data) {
+                        opersuccesstip($("#modal-dicussopera"), "创建成功");
+                        hidesuccesstip(1000);
+                        $("#Createdicuss").modal("hide");
+                        getdicussinfos();
+                    } else {
+                        operfailtip($("#modal-dicussopera"), "创建失败，网络异常！");
+                        hidefailtip(1000);
+                    }
+                }
+            });
+        }
+    });
+
+    function getdicussinfos() {
+        $("#mydicuss_content").html("");
+        $.ajax({
+            url: "@Url.Content("~/ashx/GetDicussInfos.ashx")",
+            data: { id: "@Model" },
+            success: function (data) {
+                var kb = eval("(" + data + ")"); //
+                $.each(kb, function (idx, item) {
+                    var dicusstopic = item.dicusstopic;
+                    var abstracts = utf8to16(decode64(item.abstracts));
+                    var createdate = item.createdate;
+                    var pid = item.id;
+                    var nickname = item.nickname;
+                    var str = "<div class=\"dicussabstract-content\">";
+                    str += "  <div class=\"dicussabstract-content-title\">";
+                    str += "   <h4>" + dicusstopic + "</h4>";
+                    str += "</div>";
+                    str += " <div class=\"discussabstract-content-body\">";
+                    str += "    <p>" + abstracts + "</p>";
+                    str += " </div>";
+                    str += " <div class=\"dicussabstract-content-other\">";
+                    str += "    <div class=\"dicussproperty\">创建人：" + nickname + " | 创建时间：" + createdate + "【<a pid='" + pid + "' dtopic='" + dicusstopic + "' class='dicussroom'>进入讨论</a>】</div>";
+                    str += "    <div class=\"dicussfunctioin\"><span pid=" + pid + " class='logedit'>编辑</span> <span data-toggle='modal' data-target='#delconfirm' class='logdelete' pid=" + pid + ">删除</span></div>";
+                    str += " </div>";
+                    var obj = str;
+                    $("#mydicuss_content").append($(obj));
+                });
+                $(".dicussroom").click(function () {
+                    $('#displayname').val("@ViewBag.XM");
+                    $('#message').focus();
+                    // Start the connection.
+                    chat.state.userName = "@ViewBag.XM";
+                    var t = $(this).attr("dtopic");
+                    var roomid = $(this).attr("pid");
+                    $("#dicuss-room").on("show.bs.modal", function () {
+                        var modal = $(this);
+                        modal.find('.modal-title').text("讨论主题：" + t);
+                        modal.find('.chatroom').val(roomid);
+                        chat.server.joinroom(roomid);
+                    });
+                    $("#dicuss-room").modal("show");
+
+                });
+
+            }
+        });
+    }
+    getdicussinfos();
+</script>
+
+

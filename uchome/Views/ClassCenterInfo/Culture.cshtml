@@ -1,0 +1,234 @@
+﻿@{
+    Layout = null;
+}
+@model bool
+<script type="text/javascript" src="@Url.Content("~/Content/ClassCenter/js/main.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Content/ClassCenter/js/sinaFaceAndEffec.js")"></script>
+<div class="content" style="position: relative;">
+    @if (Model != null && Model == true)
+    {
+    <div class="comment" id="commentdiv" style="position: fixed; *position: absolute; top: 30%; left: 40%; margin: -50px 0 0 -50px;display:none;">
+        <div class="content">
+            <div class="cont-box">
+                <textarea class="text" id="txtContent" placeholder="请输入..."></textarea>
+            </div>
+            <div class="tools-box">
+                <div class="operator-box-btn">
+                    <span class="face-icon">☺</span>
+                    <span id="lastlength" style="float: left;margin-top: 6px;margin-left: 10px;font-size:13px;color:rgb(249, 108, 78);">还剩30个字</span>
+                    @*<span class="img-icon">▧</span>*@
+                </div>
+                <div class="submit-btn"><input type="button" onclick="out()" value="提交"/>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="position: fixed; bottom: 50%; right: 26px; z-index: 100;" onclick="showMessage();">
+        <a style="height: 19px; width: 68px; display: block; background: rgb(234, 72, 72) none repeat scroll 0% 0%; padding: 9px 8px; text-align: center; color: #fff; border-radius: 50%; ">
+            我要发表
+        </a>
+    </div>
+    }
+    <div class="birthday" id="birdiv">本月寿星</div>
+    <ul class="people" id="birstu">
+        <div class="spinner">
+            <div class="spinner-container container1">
+                <div class="circle1"></div>
+                <div class="circle2"></div>
+                <div class="circle3"></div>
+                <div class="circle4"></div>
+            </div>
+            <div class="spinner-container container2">
+                <div class="circle1"></div>
+                <div class="circle2"></div>
+                <div class="circle3"></div>
+                <div class="circle4"></div>
+            </div>
+            <div class="spinner-container container3">
+                <div class="circle1"></div>
+                <div class="circle2"></div>
+                <div class="circle3"></div>
+                <div class="circle4"></div>
+            </div>
+        </div>
+    </ul>
+    <ul class="people2" id="culturelist" style="float:right;">
+        <div class="spinner">
+            <div class="spinner-container container1">
+                <div class="circle1"></div>
+                <div class="circle2"></div>
+                <div class="circle3"></div>
+                <div class="circle4"></div>
+            </div>
+            <div class="spinner-container container2">
+                <div class="circle1"></div>
+                <div class="circle2"></div>
+                <div class="circle3"></div>
+                <div class="circle4"></div>
+            </div>
+            <div class="spinner-container container3">
+                <div class="circle1"></div>
+                <div class="circle2"></div>
+                <div class="circle3"></div>
+                <div class="circle4"></div>
+            </div>
+        </div>
+    </ul>
+
+    <div id="callBackPager" style="text-align: center;"></div>
+</div>
+
+<link rel="stylesheet" href="@Url.Content("~/Content/ClassCenter/css/culture.css")">
+@*<link rel="stylesheet" href="@Url.Content("~/Content/bootstrap/css/bootstrap.min.class.css")">
+<link rel="stylesheet" href="@Url.Content("~/Content/bootstrap/css/bootstrap-theme.min.css")">*@
+<script src="@Url.Content("~/Content/js/extendPagination.js")"></script>
+<script>
+    $(document).ready(function() {
+        // 绑定表情
+        $('.face-icon').SinaEmotion($('.text'));
+
+        GetCultureList();
+        getStu();
+        var otxt = document.getElementById("txtContent");
+        if (document.all) {
+            otxt.onpropertychange = function() {
+                var len = $('.text').val().length;
+
+                if (len < 31) {
+                    $("#lastlength").html("还剩" + (30 - len) + "个字");
+                } else {
+                    $("#lastlength").html("已超过最大字数");
+                }
+            }
+        } else {
+
+            otxt.oninput = function() {
+                var len = $('.text').val().length;
+
+                if (len < 31) {
+                    $("#lastlength").html("还剩" + (30 - len) + "个字");
+                } else {
+                    $("#lastlength").html("已超过最大字数");
+                }
+            }
+        }
+    });
+
+    function showMessage() {
+        $("#commentdiv").show();
+    }
+
+    function hideMessage() {
+        $("#commentdiv").hide();
+    }
+
+    function getStu() {
+        $("#birstu").html("");
+        $("#birdiv").hide();
+
+        $.post("@Url.Action("GetModthBirStu")", { bjid: $("#BJID").val() }, function(data) {
+
+            if (data != null && data.length > 0) {
+                $("#birdiv").show();
+
+                var html = "";
+
+                for (var i = 0; i < data.length; i++) {
+
+                    html += "<li><img src=\"" + data[i].ZP + "\"/><span>" + data[i].XM + "</span></li>";
+                }
+
+                $("#birstu").html(html);
+            }
+        });
+    }
+
+    function out() {
+        var inputText = $('.text').val();
+
+        if (inputText != null && inputText.length > 0) {
+
+            if (inputText.length < 31) {
+                var text = escape(AnalyticEmotion(inputText));
+
+                $.post("@Url.Action("PostCicrleCreate")", { bjid: $("#BJID").val(), content: text }, function(data) {
+                    if (data != null && data === true) {
+                        GetCultureList();
+
+                        $('.text').val("");
+                    }
+
+                    hideMessage();
+                });
+            } 
+        } else {
+            hideMessage();
+        }
+    }
+
+    function GetCultureList() {
+
+        $("#culturelist").html("");
+        $("#callBackPager").hide();
+
+        $.post("@Url.Action("GetCicrle")", { bjid: $("#BJID").val(),page:1 }, function (data) {
+
+            if (data != null && data.CicrleList != null && data.CicrleList.length > 0) {
+                $("#callBackPager").show();
+
+                $('#callBackPager').extendPagination({
+                    totalCount: data.Count,
+                    showCount: 10,
+                    limit: 9,
+                    callback: function (curr, limit, totalCount) {
+                        createTable(curr, limit, totalCount);
+                    }
+                });
+
+                var html = "";
+
+                for (var i = 0; i < data.CicrleList.length; i++) {
+
+                    var content = data.CicrleList[i].Content;
+
+                    html += "<li><p><img style=\"vertical-align: -20px;\" src=\"" + data.CicrleList[i].Creator +
+                        "\"/><span>" + data.CicrleList[i].UserName + "</span>说:</p><p>" + content
+                        + "</p></li>";
+
+                    //html += "<li><p><img src=\"" + data.CicrleList[i].Creator +
+                    //    "\"/><span>" + data.CicrleList[i].UserName + "</span>说:</p><p>" + content
+                    //    + "</p><p>" + data.CicrleList[i].CurrentDate + "</p></li>";
+                }
+
+                $("#culturelist").html(html);
+            }
+        });
+
+    }
+
+    function createTable(currPage) {
+        $("#culturelist").html("");
+        $("#callBackPager").hide();
+
+        $.post("@Url.Action("GetCicrle")", { bjid: $("#BJID").val(), page: currPage }, function (data) {
+
+            if (data != null && data.CicrleList != null && data.CicrleList.length > 0) {
+                $("#callBackPager").show();
+
+                var html = "";
+
+                for (var i = 0; i < data.CicrleList.length; i++) {
+
+                    var content = data.CicrleList[i].Content;
+
+                    html += "<li><p><img style=\"vertical-align: -20px;\" src=\"" + data.CicrleList[i].Creator +
+                        "\"/><span>" + data.CicrleList[i].UserName + "</span>说:</p><p>" + content
+                        + "</p></li>";
+                }
+
+                $("#culturelist").html(html);
+            }
+        });
+    }
+</script>
+

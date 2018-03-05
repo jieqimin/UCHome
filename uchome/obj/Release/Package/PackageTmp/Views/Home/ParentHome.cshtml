@@ -1,0 +1,297 @@
+﻿@using UCHome.Controllers
+@using UCHome.Model
+@{
+    ViewBag.Title = "个人主页";
+}
+@model ChildInfo
+@section Head{
+    <script src="@Url.Content("~/plugs/highcharts/js/highcharts.js")"></script>
+    <script src="@Url.Content("~/plugs/justifiedGallery/jquery.justifiedGallery.min.js")"></script>
+    <link href="@Url.Content("~/plugs/justifiedGallery/justifiedGallery.min.css")" rel="stylesheet"/>
+    <link href="@Url.Content("~/Content/css/homepage.css")" rel="stylesheet" />
+}
+<div class="row margin-top-15 todaystatic">
+    <div class="col-lg-2 title">
+        <nobr><span>今日动态：</span></nobr>
+    </div>
+    <div class="col-lg-10">
+        <marquee><span>今日@(Model.childusername)同学的到校时间为7点15分</span></marquee>
+    </div>
+</div>
+<div class="row margin-top-15">
+    <div class="task col-lg-7">
+        <p class="task-title">学校最新通知<a class="more" href="@Url.Action("SystemAppRedirectPage", "AppCenter", new { id = "6b051716-3ec2-4a3d-9174-e19ecda3d9e4" })">查看更多</a></p>
+        <hr class="task-hr" />
+        <ul class="list-group list-group-noborder" id="SchoolNotices">
+        </ul>
+    </div>
+    <div class="task col-lg-5">
+        <p class="task-title">班级最新活动<a class="more" href="@Url.Action("SystemAppRedirectPage", "AppCenter", new { id = "6b051716-3ec2-4a3d-9174-e19ecda3d9e4" })">查看更多</a></p>
+        <hr class="task-hr" />
+        <ul class="list-group list-group-noborder" id="ClassAction">
+            @* <li class="list-group-item"><span class="task-type">【资源任务】</span><span class="task-score">【2分】</span><a href="@Url.Action("UrlRedirect", "PublicShare", new { returnurl = "http://jx.taedu.gov.cn:83/Resource.Portal.Web/", sysname = "zy", isRedirect = true })">每天上传一个资源</a></li>
+                        <li class="list-group-item"><span class="task-type">【文章任务】</span><span class="task-score">【2分】</span><a href="#">每天发表一篇文章日志</a></li>
+                        <li class="list-group-item"><span class="task-type">【教学任务】</span><span class="task-score">【2分】</span><a href="#">每天设计制作一个教案</a></li>
+                        <li class="list-group-item"><span class="task-type">【资源任务】</span><span class="task-score">【1分】</span><a href="#">每天收藏一个资源</a></li>
+                        <li class="list-group-item"><span class="task-type">【文章任务】</span><span class="task-score">【1分】</span><a href="#">每天收藏一篇文章日志</a></li>*@
+        </ul>
+    </div>
+</div>
+<div class="zxkt row">
+    <div class="col-lg-7">
+        <p class="zxkt-title">在学课堂<a class="more" href="@Url.Action("SystemAppRedirectPage", "AppCenter", new { id = "6b051716-3ec2-4a3d-9174-e19ecda3d9e4" })">查看更多</a></p>
+        <hr class="zxkt-hr" />
+        <div id="zxktlist">
+        </div>
+    </div>
+    <div class="hchart col-lg-5" id="personhchart">
+        <div class="loading">图表正在加载，请稍等…</div>
+    </div>
+</div>
+<div class="row">
+    <div class="task col-lg-12">
+        <p class="task-title">家校互动<a class="more" href="@Url.Action("SystemAppRedirectPage", "AppCenter", new { id = "6b051716-3ec2-4a3d-9174-e19ecda3d9e4" })">点击头像可以进行留言咨询</a></p>
+        <hr class="task-hr" />
+        <div id="famschlist" class="list-group list-group-noborder">
+            <div class="loading">图表正在加载，请稍等…</div>
+            @* <li class="list-group-item"><span class="task-type">【资源任务】</span><span class="task-score">【2分】</span><a href="@Url.Action("UrlRedirect", "PublicShare", new { returnurl = "http://jx.taedu.gov.cn:83/Resource.Portal.Web/", sysname = "zy", isRedirect = true })">每天上传一个资源</a></li>
+                        <li class="list-group-item"><span class="task-type">【文章任务】</span><span class="task-score">【2分】</span><a href="#">每天发表一篇文章日志</a></li>
+                        <li class="list-group-item"><span class="task-type">【教学任务】</span><span class="task-score">【2分】</span><a href="#">每天设计制作一个教案</a></li>
+                        <li class="list-group-item"><span class="task-type">【资源任务】</span><span class="task-score">【1分】</span><a href="#">每天收藏一个资源</a></li>
+                        <li class="list-group-item"><span class="task-type">【文章任务】</span><span class="task-score">【1分】</span><a href="#">每天收藏一篇文章日志</a></li>*@
+        </div>
+    </div>
+</div>
+<div id="schnoticedetail" class="modal fade in" title="通知详情"></div>
+<div id="classactiondetail" class="modal fade in" title="活动详情">
+    <div class="modal-body form-horizontal">
+        <div class="form-group">
+            <label class=" col-sm-2 control-label">标题：</label>
+            <div id="affairstitle" class="col-sm-8 form-control-static">
+                {{Detail.Title}}
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">班级：</label>
+            <div id="affairsclass" class="col-sm-8  form-control-static">
+                {{Detail.Classes}}
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">类型：</label>
+            <div id="affairstype" class="col-sm-8  form-control-static">
+                {{Detail.Type}}
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">时间：</label>
+            <div id="affairsdate" class="col-sm-8  form-control-static">
+                {{Detail.DateTime}}
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">地点：</label>
+            <div id="affairsaddress" class="col-sm-8  form-control-static">
+                {{Detail.Place}}
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">成员：</label>
+            <div id="affairsmember" class="col-sm-8  form-control-static">
+                {{Detail.Members}}
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label" for="">内容：</label>
+            <div id="affairscontent" class="col-sm-9  form-control-static">
+                <span ng-bind-html="Detail.Contents|htmlContent" id="Contents"></span>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    //积分
+    function queryschnotice(id) {
+        $("#schnoticedetail").load("@Url.Action("NoticeDetailByFam", "FamilySchInteraction")?noticeID=" + id);
+        $("#schnoticedetail").dialog({
+            autoOpen: true,
+            modal: true,
+            width: 600,
+            height: 360
+        });
+    }
+    function queryclassaction(id) {
+        $.ajax({
+            url: "@Url.Action("ActivityDetail", "StudentAffairs")",
+            data: { activityId: id },
+            success: function (data) {
+                var result = data.result;
+                $("#affairstitle").html(result.Title);
+                $("#affairsclass").html(result.Classes);
+                $("#affairstype").html(result.Type);
+                $("#affairsdate").html(result.DateTime);
+                $("#affairsaddress").html(result.Place);
+                $("#affairsmember").html(result.Members);
+                $("#affairscontent").html(result.Contents);
+            }
+        });
+        $("#classactiondetail").dialog({
+            autoOpen: true,
+            modal: true,
+            width: 600,
+            height: 560
+        });
+    }
+    $(function () {
+        //学校通知
+        //班级活动
+        $.ajax({
+            url: "@Url.Action("GetSchoolNotices")",
+            data: { xxid: "@Model.childxxid", top: "4" },
+            success: function (data) {
+                var result = eval("(" + data + ")");
+                console.log(result);
+                if (result.length == 0) {
+                    var li = "<li><div class='margin-top-30 text-center content-font-color'>暂未发现有新的学校通知！</div></li>";
+                    $("#SchoolNotices").append(li);
+                }
+                else {
+                    $.each(result, function (index, item) {
+                        var noticedate = new Date(item.notice.NoticeDate);
+                        var li = "<li onclick=\"queryschnotice('" + item.notice.NoticeID + "')\" class='list-group-item text-cut'><span class='date-font-color'>[" + noticedate.toLocaleDateString() + "]</span><span class='content-font-color'>" + item.notice.NoticeTitle + "</span></li>";
+                        $("#SchoolNotices").append(li);
+                    });
+                }
+            }
+        });
+
+        //班级活动
+        $.ajax({
+            url: "@Url.Action("GetClassAction")",
+            data: { classid: "@Model.childbjid", type: "", top: "4" },
+            success: function (data) {
+                var result = eval("(" + data + ")");
+                console.log(result.result);
+                if (result.result.length == 0) {
+                    var li = "<li><div class='margin-top-30 text-center content-font-color'>暂未发现有新的班级活动！</div></li>";
+                    $("#ClassAction").append(li);
+                }
+                else {
+                    $.each(result.result, function (index, item) {
+                        var li = "<li onclick=\"queryclassaction('" + item.ID + "')\" class='list-group-item  text-cut'><span class='date-font-color'>[" + item.DateTime + "]</span><span class='content-font-color'>" + item.Title + "</span></li>";
+                        $("#ClassAction").append(li);
+                    });
+                }
+            }
+        });
+
+        //家校互动
+        $("#famschlist").load("@Url.Action("FamMsgSend", "FamilySchInteraction")");
+        //亲子在学课堂
+        $.ajax({
+            url: "@Url.Action("GetStuCourse")",
+            data: { childidGuid: "@Model.childuserid" },
+            success: function (data) {
+                var result = eval("(" + data + ")");
+                var ebookcount = result.Result.TotalRecords;
+                if (ebookcount > 0)
+                    $.each(result.Result.Results, function (index, item) {
+                        console.log(item);
+                        if (index >= 2) {
+                            return false;
+                        }
+                        var imgsrc = SubjectImg(item.Subject);
+                        var li = "<div class='img-rounded zxktdetail text-cut' style='' title='" + item.CourseName + "'><img src='" + imgsrc + "'><nobr><a class='text-cut' style='display:block;line-height:40px;color:#333;' target='_blank' href='" + item.CoursePath + "'>" + item.CourseName + "</a></nobr><nobr><span class='techtea'>【" + item.ClassDate + "】</span></nobr></div>";
+                        $("#zxktlist").append(li);
+                    });
+                else
+                    $("#zxktlist").append("<li><div class='margin-top-30 text-center'>暂未发现需要学习的课程！</div></li>");
+            }
+        });
+        //亲子综合素质表现
+        $.ajax({
+            url: "@Url.Action("StatData")",
+            success: function (result) {
+                $('#personhchart').highcharts({
+                    chart: {
+                        polar: true,
+                        type: 'area'
+                    },
+                    title: {
+                        text: '学生综合素质表现',
+                        style: { "color": "#000", "fontFamily": "微软雅黑" }
+                    },
+                    pane: {
+                        size: '70%'
+                    },
+                    xAxis: {
+                        categories: ['学业成长', '卫生情况', '社会实践', '心理健康',
+                                     '德育评价', '体测体检'],
+                        tickmarkPlacement: 'on',
+                        lineWidth: 0,
+                        labels: {
+                            style: { "color": "#1C83B4" }
+                        }
+                    },
+                    yAxis: {
+                        gridLineInterpolation: 'circle',
+                        lineWidth: 0,
+                        min: 0,
+                        max: 100,
+                        gridLineColor: "#1C83B4",
+                        gridLineDashStyle: "Solid",
+                        gridLineWidth: 1,
+                        gridZIndex: 1,
+                        minorGridLineColor: "#B2D2E4",
+                        minorGridLineDashStyle: "Solid",
+                        minorTickInterval: 'auto',
+                        minorGridLineWidth: 1
+                    },
+                    tooltip: {
+                        shared: true,
+                        pointFormat: '<span style="color:{series.color};">{series.name}: <b>{point.y:,.0f}</b><br/>'
+                    },
+                    legend: {
+                        align: 'right',
+                        verticalAlign: 'top',
+                        y: 10,
+                        layout: 'vertical',
+                        enabled: false
+                    },
+                    series: [{
+                        name: '得分',
+                        data: [0, 0, 0, 0, 0, 0],
+                        pointPlacement: 'on',
+                        color: "#B2D2E4"
+                    }]
+                });
+            }
+        });
+    });
+
+    function SubjectImg(subject) {
+        switch (subject) {
+            case "语文":
+                return "@Url.Content("~/Content/images/yw.png")";
+            case "数学":
+                return "@Url.Content("~/Content/images/sx.png")";
+            case "英语":
+                return "@Url.Content("~/Content/images/yy.png")";
+            case "物理":
+                return "@Url.Content("~/Content/images/wl.png")";
+            case "化学":
+                return "@Url.Content("~/Content/images/hx.png")";
+            case "生物":
+                return "@Url.Content("~/Content/images/sw.png")";
+            case "历史":
+                return "@Url.Content("~/Content/images/ls.png")";
+            case "政治":
+                return "@Url.Content("~/Content/images/zz.png")";
+            case "地理":
+                return "@Url.Content("~/Content/images/dl.png")";
+            default:
+                return "@Url.Content("~/Content/images/qt.png")";
+        }
+    }
+
+</script>

@@ -1,0 +1,128 @@
+﻿@section Head{
+    <script src="js/jquery-1.7.1.min.js"></script>
+    <style >
+        ul, li {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #ccc;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        .chat {
+            width: 700px;
+            height: 460px;
+            float: left;
+            background-color: #fff;
+        }
+
+        .stulist {
+            float: left;
+            width: 298px;
+            height: 458px;
+            overflow-y: auto;
+            background-color: #fff;
+            border: solid 1px #ccc;
+        }
+
+        .chat .message {
+            height: 400px;
+            border-bottom: solid 1px #ccc;
+            overflow-y: auto;
+        }
+
+        .message li {
+            line-height: 35px;
+            height: 35px;
+            font-size: 14px;
+            font-family: 微软雅黑;
+            background-color: #eee;
+            margin-top: 5px;
+        }
+
+            .message li.left {
+                text-align: left;
+                padding-left: 10px;
+            }
+
+            .message li.right {
+                text-align: right;
+                padding-right: 10px;
+            }
+
+        .chat .send {
+            margin-top: 10px;
+            height: 40px;
+        }
+
+        .send input {
+            border: solid 1px #999;
+            margin-left: 10px;
+        }
+
+            .send input[type=text] {
+                width: 460px;
+                height: 35px;
+                line-height: 35px;
+            }
+
+            .send input[type=button] {
+                width: 100px;
+                height: 37px;
+                line-height: 37px;
+                cursor: pointer;
+            }
+
+        .stulist li {
+            height: 35px;
+            line-height: 35px;
+            font-size: 14px;
+            background-color: #fff;
+            text-indent: 20px;
+            cursor: pointer;
+            font-family: 微软雅黑;
+        }
+
+            .stulist li:hover, .stulist li.selected {
+                background-color: #ccc;
+                cursor: pointer;
+            }
+    </style>
+    <script >
+        function addmsg() {
+            if ($("#msgvalue").val() != "") {
+                var msg = "<li class='right'>" + $("#msgvalue").val() + "</li>";
+                $(".message ul").append(msg);
+                $("#msgvalue").val("");
+
+            }
+        }
+    </script>
+    }
+<body>
+    <div class="chat">
+        <div class="message">
+            <ul>
+            </ul>
+        </div>
+        <div class="send">
+            <input id="msgvalue" type="text" width="400px" /><input type="button" value="发送" onclick="addmsg()" />
+        </div>
+    </div>
+    <div class="stulist">
+        <ul>
+           <li class="selected"><a href="@Url.Action("Chat")">◀  孙国立</a></li>
+            <li><a href="@Url.Action("Chat")"> 伍咏薇</a></li>
+            <li><a href="@Url.Action("Chat")"> 丁洋</a></li>
+        </ul>
+    </div>
+</body>

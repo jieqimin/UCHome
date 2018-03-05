@@ -1,0 +1,47 @@
+﻿<link href="@Url.Content("~/plugs/zTree/zTreeStyle/zTreeStyle.css")" rel="stylesheet"/>
+<link href="@Url.Content("~/angular/uchome/studentaffairs/studentaffaris.css")" rel="stylesheet" />
+<script src="@Url.Content("~/Scripts/jquery-1.7.1.min.js")"></script>
+<script src="@Url.Content("~/plugs/zTree/jquery.ztree.all.min.js")"></script>
+<style >
+    .ng-invalid-required {
+        border-color: red !important;
+    }
+</style>
+
+<div class="evaluation-container">
+    <div class="evaluation-left">
+        <ul id="treeDemo" class="ztree" style="margin: 10px;"></ul>
+        <div class="float-right">
+            <button class="btn btn-warning btn-sm" ng-if="showSystem.getPreNode()!=null" ng-click="ToUp()">上移</button>
+            <button class="btn btn-warning btn-sm" ng-if="showSystem.getNextNode()!=null" ng-click="ToDown()">下移</button>
+            <button ng-click="AddChildSystem()" ng-if="showSystem.level==0 || showSystem.level==1" class="btn btn-warning btn-sm">添加子节点</button>
+            <button ng-click="deleteSystem(true)" ng-if="EditBtn && showSystem.check_Child_State==-1" class="btn btn-danger btn-sm">删除</button>
+            <button ng-click="switchView(true)" ng-if="EditBtn" class="btn btn-warning btn-sm">编辑</button>
+            <button ng-click="AddSystem()" class="btn btn-default btn-sm">新建体系</button>
+        </div>
+    </div>
+    <div class="evaluation-right">
+        <div ng-if="addSystem" class="form-horizontal">
+            <div class="form-group">
+                <span class="col-sm-2 control-label">名称:</span>
+                <div class="col-sm-9">
+                    <input ng-if="edit" type="text" class="form-control" required ng-model="showSystem.Name" placeholder="必填" />
+                    <span ng-if="!edit" class="form-line-height">{{showSystem.Name}}</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <span class="col-sm-2 control-label">描述:</span>
+                <div class="col-sm-9">
+                    <textarea ng-if="edit" class="form-control" ng-model="showSystem.Describe"></textarea>
+                    <p ng-if="!edit" class="form-line-height" style="word-wrap: break-word;">{{showSystem.Describe}}</p>
+                </div>
+            </div>
+            <div class="form-group" ng-if="edit">
+                <div class="col-sm-5 " style="text-align: right">
+                    <button class="btn btn-success btn-sm" ng-click="ToAdd()">保存</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

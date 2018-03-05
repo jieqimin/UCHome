@@ -1,0 +1,32 @@
+﻿@using UCHome.Model
+<div class="row center-align">
+    <ul id="sysman" class="list-group list-group-noborder kjtd ">
+        <li class="list-group-item {{selvalue1}}">
+            <span class="glyphicon glyphicon-blackboard" aria-hidden="true"></span><a  href="@Url.Action("ClassIndex", "ClassCenterInfo", new { bjid = ViewBag.OrgID })" target="_self">我的班级</a>
+        </li>
+        <li class="list-group-item {{selvalue2}}">
+            <span class="glyphicon glyphicon-home"></span><a href="@Url.Action("Index", "SchoolCenter", new { id = ViewBag.XXID })" target="_self">我的学校</a>
+        </li>
+        <li class="list-group-item {{selvalue3}}">
+            <span class="glyphicon glyphicon-open"></span><a href="@Url.Action("SystemAppRedirectPage", "AppCenter", new { id = "f1cdd034-7386-97e3-bfa1-d543becf72ad" })" target="_self">我的作业</a>
+        </li>
+        <li class="list-group-item {{selvalue4}}">
+            <span class="glyphicon glyphicon-pencil"></span><a target="_blank" href="http://111.17.215.232:96/TaiXue/Teacher/Course" target="_self">我的学案</a>
+        </li>
+        <li class="list-group-item {{selvalue5}}">
+            <span class="glyphicon glyphicon-ok"></span><a href="@Url.Action("SystemAppRedirectPage", "AppCenter", new { id = "89a59133-3e4e-5006-e40e-64ec33c7860c" })" target="_self">我的学业</a>
+        </li>
+        <li class="list-group-item {{selvalue6}}">
+            <span class="glyphicon glyphicon-earphone"></span><a href="@Url.Action("SystemAppRedirectPage", "AppCenter", new { id = "89a59133-3e4e-5006-e40e-64ec33c7860c" })" target="_self">我的课表</a>
+        </li>
+        <li class="list-group-item {{selvalue7}}">
+            <span class="glyphicon glyphicon-volume-up"></span><a href="@Url.Action("SystemAppRedirectPage", "AppCenter", new { id = "7e37504f-8803-9fb9-a168-de345c279acb" })" target="_self">请假申请</a>
+        </li>
+        <li class="list-group-item {{selvalue8}}">
+            <span class="glyphicon glyphicon-tasks"></span><a href="@Url.Action("SystemAppRedirectPage", "AppCenter", new { id = "c4a78a2b-0d59-29b0-eda9-68e70cfeee41" })" target="_self">错题集</a>
+        </li>
+        <li class="list-group-item {{selvalue8}}">
+            <span class="glyphicon glyphicon-stats"></span><a href="@Url.Action("Index", "StudentCenter")">文章发布</a>
+        </li>
+    </ul>
+</div>

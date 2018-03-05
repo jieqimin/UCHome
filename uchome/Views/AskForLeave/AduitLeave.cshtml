@@ -1,0 +1,202 @@
+﻿@{
+    Layout = null;
+}
+@using System.Web.Mvc
+@using M = OA.Model;
+<style type="text/css">
+    .pd {
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+
+    .h {
+        height: 34px;
+        line-height: 34px;
+    }
+
+    .lic {
+        float: left;
+        margin-right: 10px;
+        height: 33px;
+        line-height: 33px;
+    }
+
+    .w {
+        width: 450px;
+    }
+</style>
+<link rel="stylesheet" href="@Url.Content("~/Content/css/msg.css")">
+<script src="@Url.Content("~/plugs/usercontrol/selectuser.js")"></script>
+<link rel="stylesheet" href="@Url.Content("~/plugs/webuploader/css/webuploader.css")">
+<link rel="stylesheet" href="@Url.Content("~/plugs/webuploader/css/demo.css")">
+<link rel="stylesheet" href="@Url.Content("~/plugs/datetimepicker/css/bootstrap-datetimepicker.css")">
+<link rel="stylesheet" href="@Url.Content("~/content/css/homework.css")">
+<style type="text/css">
+    .sel-notice {
+        width: 120px !important;
+        margin-right: 10px;
+    }
+</style>
+
+<script>
+    $(function () {
+       
+        var approver1 = '@ViewBag.approver1';
+        $.getJSON('@Url.Action("GetApprove1PeopleList")', function (data) {
+            $.each(data, function (i, item) {
+                if (approver1 == item["Value"]) {
+                    $("<option></option>").val(item["Value"]).text(item["Text"]).attr("selected", true).appendTo($("#Approver1"));
+                }
+                else {
+
+                    $("<option></option>").val(item["Value"]).text(item["Text"]).appendTo($("#Approver1"));
+                }
+            });
+        });
+
+       
+        $("#Transfer").click(function () {
+            var ApplicantID1 = $("#Approver1").val()
+          
+            $.ajax({
+                type: "GET",
+                url: "@Url.Action("EditTransfer", "AskForLeave", new { id = Model.ID })",
+                data: { ApplicantID: ApplicantID1 },
+                success: function (data1) {
+                    if (data1.Data.statuscode == 200)
+                    {
+                       
+                        alert("转交成功");
+                        $('#myModal').modal('hide');
+                       
+                    } else
+                    {
+                        alert("转交失败，请重试！")
+                       
+                    }
+                }
+            })
+
+        })
+
+
+       
+
+
+    })
+   
+    
+
+</script>
+@*@Html.HiddenFor(Model => )*@
+@Html.Hidden("id")
+
+<div id="auditLeave" class="form-horizontal form-position pagew " style="margin-bottom: 0px; margin-top: 0px;">
+    <div class="form-group">
+        <label for="Time" class="col-sm-2 control-label">请假时间：</label>
+        <div class="col-sm-9 pd h">
+            @Model.ApplicantName
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="Time" class="col-sm-2 control-label">请假时间：</label>
+        <div class="col-sm-9 pd h">
+            @Model.StartDate 至 @Model.EndDate
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="Memo" class="col-sm-2 control-label">请假时长：</label>
+        <div class="col-sm-9 pd h">
+            @Model.Memo 天
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="CJR" class="col-sm-2 control-label">请假类型：</label>
+        <div class="col-sm-9 pd">
+            @Model.CJR
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="Reason" class="col-sm-2 control-label">请假说明：</label>
+        <div class="col-sm-9 pd h">
+            @Model.Reason
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="Status" class="col-sm-2 control-label">审核状态：</label>
+        <div class="col-sm-9 pd h">
+            @Model.Status
+        </div>
+    </div>
+    @if (Model.Status == "未审核" || Model.Status == "审核中")
+    {
+     <div class="form-group">
+         <label for="Approver1" class="col-sm-2 control-label">转交审核人：</label>
+         <div>
+             <select id="Approver1" name="Approver1" class="form-control input-sm col-xs-2 sel-notice"></select>
+         </div>
+    </div>
+    }
+
+    <div class="form-group">
+        <div class="btn-group center-block" style="width: 300px;">
+            @if (Model.Status == "未审核" || Model.Status=="审核中")
+            {
+            <button  id="Transfer" type="button" class="btn btn-info dropdown-toggle" data-toggle="button" aria-haspopup="true" aria-expanded="false">
+                转交
+            </button>
+            }
+            
+            <button style="margin-left:10px" id="btnPass" type="button" class="btn btn-info dropdown-toggle" data-toggle="button" aria-haspopup="true" aria-expanded="false">
+                通过
+            </button>
+            <button style="margin-left: 10px" id="btnNoPass" type="button" class="btn btn-info dropdown-toggle" data-toggle="button" aria-haspopup="true" aria-expanded="false">
+                不通过
+            </button>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+
+       
+        $("#btnNoPass").click(function () {
+            var id = $("#id").val();
+            $.post('@Url.Action("NoPass")', { Id: id }, function (data) {
+                if (data.Data.code == 1) {
+                    alert("审核成功");
+                    $(".modal-backdrop").remove();
+                    var loadurl = "@Url.Action("IndexAduit")";
+                    redirecturl(loadurl);
+                   
+                }
+                else {
+                    alert("审核失败");
+                }
+            });
+          
+        });
+
+        $("#btnPass").click(function () {
+            var id = $("#id").val();
+            $.post('@Url.Action("Pass")', { Id: id }, function (data) {
+                if (data.Data.code == 1) {
+                    alert("审核成功");
+                    $(".modal-backdrop").remove();
+                    var loadurl = "@Url.Action("IndexAduit")";
+                    redirecturl(loadurl);
+                  
+                }
+                else {
+                    alert("审核失败");
+                }
+
+            });
+         
+        });
+
+
+
+    });
+</script>

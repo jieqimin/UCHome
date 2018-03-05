@@ -1,0 +1,24 @@
+﻿@{
+    ViewBag.Title = "亲子空间";
+}
+@using UCHome.Model
+@model List<UCHome.Model.View_Simple_StuInfo>
+<div id="modal-alive" class="modal fade in modal-alive">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">请选择关联的亲子</h4>
+            </div>
+            <div class="modal-body center-block">
+                @foreach (View_Simple_StuInfo stu in Model)
+                {
+                    <a class="btn btn-info" href="@Url.Action("ChildRedirect", new { childid = stu.xsid })">@stu.XM</a>
+                }
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<div id="backdropdiv" class="modal-backdrop fade in"></div>

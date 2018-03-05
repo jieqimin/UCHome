@@ -1,0 +1,77 @@
+﻿<link href="@Url.Content("~/angular/uchome/studentaffairs/studentaffaris.css")" rel="stylesheet" />
+<link rel="stylesheet" href="@Url.Content("~/plugs/datatables/css/jquery.dataTables.css")">
+<link rel="stylesheet" href="@Url.Content("~/plugs/datatables/css/dataTables.bootstrap.css")">
+<script src="@Url.Content("~/plugs/datatables/js/jquery.datatables.js")"></script>
+<script src="@Url.Content("~/plugs/datatables/js/dataTables.bootstrap.js")"></script>
+<div class="form-horizontal div-body">
+    <div id="toolBar" class="form-group">
+        <label class="col-sm-1 control-label" style="width: 62px;">班级:</label>
+        <div class="col-sm-2 select-input">
+            <select id="classes" class="form-control" ng-model="selectedClassId" ng-change="ChangeTerms()">
+                <option value="1">选择班级</option>
+                <option ng-repeat="class in classList" value="{{class.Key}}">{{class.Value}}</option>
+            </select>
+        </div>
+        <label class="col-sm-1 control-label" style="width: 93px;">学年学期:</label>
+        <div class="col-sm-2 select-input" style=" width: 167px; ">
+            <select id="yearTerm" class="form-control" ng-model="selectedTermId">
+                <option value="1">选择学年学期</option>
+                <option ng-repeat="term in Terms" value="{{term}}">{{ TransXNXQ(term) }}</option>
+            </select>
+        </div>
+        <button class="btn btn-success btn-sm col-sm-1 ml10" ng-click="GetStaticResult()">查看</button>
+
+        <label class="control-label red col-sm-3" id="warn" style="display: none;text-align: left"></label>
+    </div>
+    <hr />
+    <table datatable="ng" dt-options="this.dtOptions" dt-column-defs="this.dtColumnDefs" class="table table-bordered table-condensed table-hover datatable">
+        <thead>
+            <tr>
+                <th>
+                    学生姓名
+                </th>
+                <th>
+                    社会实践
+                </th>
+                <th>
+                    校园活动
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="tr in tableData">
+                <td class="text-overflow" style="max-width: 220px" title="{{tr.StudentName}}">{{tr.StudentName}}</td>
+                <td>
+                    <a ng-if="tr.StudentSocial.length>0" href="javascript:void(0)" ng-click="ShowTitle(tr.StudentSocial,1,tr.StudentName)">{{tr.StudentSocial.length}}</a>
+                    <span ng-if="tr.StudentSocial.length==0">{{tr.StudentSocial.length}}</span>
+                </td>
+                <td>
+                    <a ng-if="tr.StudentSchool.length>0" href="javascript:void(0)" ng-click="ShowTitle(tr.StudentSchool,2)">{{tr.StudentSchool.length}}</a>
+                    <span ng-if="tr.StudentSchool.length==0">{{tr.StudentSchool.length}}</span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="modal fade" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">{{showModal.StudentName}}</h4>
+            </div>
+            <div class="modal-body form-horizontal">
+               <label>{{showModal.type+":"}}</label>
+                <ul>
+                    <li ng-repeat="item in  showModal.list" class="text-overflow" title="{{item.Title}}">
+                        {{TransDate(item.DateTime)+"："+item.Title}}
+                    </li>
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>

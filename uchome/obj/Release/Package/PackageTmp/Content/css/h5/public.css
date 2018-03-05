@@ -1,0 +1,102 @@
+header{
+	position: fixed;
+	top: 0;
+    width: 100%;
+    height: 2.5rem;
+    line-height: 2.5rem;
+    background: #00c0e7;
+    font-family: "幼圆";
+    font-size: 0.8rem;
+    color: #fff;
+    text-align: center;
+}
+.List{
+    overflow: hidden;
+    width: 90%;
+    margin:2.5rem auto 0 auto;
+}
+.List,
+.Count{
+    width: 90%;
+    margin:2.5rem auto 0 auto;
+}
+.List>li{
+    width: 100%;
+    height: 2.5rem;
+    padding: 0.55rem 0;
+    border-bottom: 0.05rem solid #e4e4e4;
+}
+.List>li:nth-last-child(1){
+    border-bottom: none;
+}
+.Title{
+    padding-bottom: 0.4rem;
+    font-family: "微软雅黑";
+    font-size: 0.7rem;
+    color: #333333;
+}
+.Title>span{
+    font-weight: bold;
+}
+.SubTitle{
+    font-family: "微软雅黑";
+    font-size: 0.6rem;
+    color: #999999;
+    overflow: hidden;
+}
+.SubTitle span:nth-child(1){
+    float: left;
+}
+.SubTitle span:nth-last-child(1){
+    float: right;
+}
+
+
+.Count>.SubTitle{
+	height: 2.5rem;
+	line-height: 2.5rem;
+}
+.Count>table{
+	width: 100%;
+	height: 1.5rem;
+	line-height: 1.5rem;
+	font-family: "微软雅黑";
+	font-size: 0.7rem;
+	color: #545454;
+	text-align: center;
+}
+.Count td{
+	width: 50%;
+}
+.Btn{
+	display: inline-block;
+	margin: 1rem 0;
+	width: 100%;
+	height: 2.0rem;
+	line-height: 2.0rem;
+	border-radius: 0.2rem;
+	background: #00c0e7;
+}
+.Btn>p{
+	font-family: "微软雅黑";
+	font-size: 0.8rem;
+	color: #fff;
+	text-align: center;
+}
+
+.Current .Title,
+.Current .SubTitle
+{
+	color: #6699cc !important;
+}
+.totalscore {
+    color: #6699cc !important;
+    font-weight: bold;
+}
+table {
+    border-collapse: collapse;
+}
+table td {
+    border-collapse: collapse;
+    border-top: dotted 1px #ccc;
+}

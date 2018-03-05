@@ -1,0 +1,61 @@
+﻿@{
+    ViewBag.Title = "VenueApplyStatistics";
+}
+@model List<UCHome.Controllers.DataStatisticsController.VenueApply>
+<link rel="stylesheet" href="@Url.Content("~/plugs/datatables/css/jquery.dataTables.css")">
+<link rel="stylesheet" href="@Url.Content("~/plugs/datatables/css/dataTables.bootstrap.css")">
+<script src="@Url.Content("~/plugs/datatables/js/jquery.datatables.js")"></script>
+<script src="@Url.Content("~/plugs/datatables/js/dataTables.bootstrap.js")"></script>
+ @using (Ajax.BeginForm(
+     new AjaxOptions()
+     {
+         HttpMethod = "post",
+         Url = Url.Action("VenueApplyStatistics"),
+         UpdateTargetId = "#venueApplyStatistics",
+         LoadingElementId = "loding",
+         LoadingElementDuration = 2000
+     }))
+ {
+     <div id="venueApplyStatistics" class="form-position pagew">
+         <table class="table table-striped table-bordered table-hover datatable" id="VenueApplyTable">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>姓名</th>
+                        <th>申请次数</th>
+                        <th>已通过</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                      int i = 0;
+                    }
+                    @foreach (var item in Model)
+                    {
+                        i++;
+                        <tr>
+                            <td>@i</td>
+                            <td>@item.applyer</td>
+                            <td>@item.applyCount</td>
+                            <td>@item.auditCount</td>
+                        </tr>
+                    }
+                    <tr>
+                        <td>申请总计</td>
+                        <td>@ViewBag.allApplyCount</td>
+                        <td>通过总计</td>
+                        <td>@ViewBag.allAuditConunt</td>
+                    </tr>
+                </tbody>
+            </table>
+     </div>
+ }
+ <script type="text/javascript">
+        $(document).ready(function () {
+            $("#VenueApplyTable").DataTable({
+                "oLanguage": {
+                    "sUrl": "@Url.Content("~/plugs/datatables/language/zh_cn.json")"
+                }
+            });
+        });
+    </script>

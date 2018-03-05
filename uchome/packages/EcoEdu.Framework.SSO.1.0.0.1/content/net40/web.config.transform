@@ -1,0 +1,50 @@
+﻿<configuration>
+  <configSections>
+    <!--For WIF 3.5 Start--><section name="microsoft.identityModel" type="Microsoft.IdentityModel.Configuration.MicrosoftIdentityModelSection, Microsoft.IdentityModel, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" /><!--For WIF 3.5 End-->
+  </configSections>
+  <system.web>
+    <compilation debug="true" targetFramework="4.0">
+      <assemblies>
+        <!--For WIF 3.5 Start--><add assembly="Microsoft.IdentityModel, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31BF3856AD364E35" /><!--For WIF 3.5 End-->
+      </assemblies>
+    </compilation>
+    <!--For WIF 3.5 Start--><authentication mode="None" />
+    <authorization>
+      <deny users="?" />
+    </authorization>
+    <httpRuntime requestValidationType="EcoEdu.Framework.SingleSignOn.SingleSignOnRequestValidator" /><!--For WIF 3.5 End-->
+  </system.web>
+
+  <system.webServer>
+    <modules runAllManagedModulesForAllRequests="true">
+      <!--For WIF 3.5 Start--><remove name="FormsAuthentication" />
+      <add name="WSFederationAuthenticationModule" type="EcoEdu.Framework.SingleSignOn.SingleSignOnModule, EcoEdu.Framework.SingleSignOn, Version=1.0.0.2, Culture=neutral" preCondition="managedHandler" />
+      <add name="SessionAuthenticationModule" type="Microsoft.IdentityModel.Web.SessionAuthenticationModule, Microsoft.IdentityModel, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" /><!--For WIF 3.5 End-->
+    </modules>
+  </system.webServer>
+  
+  <!--For WIF 3.5 Start--><microsoft.identityModel>
+    <service saveBootstrapTokens="true">
+      <audienceUris>
+        <add value="http://localhost/Wef.Adapter.Web/" />
+      </audienceUris>
+      <federatedAuthentication>
+        <wsFederation passiveRedirectEnabled="true" issuer="http://rd.istudy.sh.cn/wef.auth/" realm="http://localhost/Wef.Adapter.Web/" requireHttps="false" />
+        <cookieHandler requireSsl="false" />
+      </federatedAuthentication>
+      <issuerNameRegistry type="Microsoft.IdentityModel.Tokens.ConfigurationBasedIssuerNameRegistry, Microsoft.IdentityModel, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+        <trustedIssuers>
+          <add thumbprint="f52f2f66be6bcecbdc0c051a49c11fbecbc71662" name="rd.istudy.sh.cn" />
+        </trustedIssuers>
+      </issuerNameRegistry>
+    </service>
+  </microsoft.identityModel><!--For WIF 3.5 End-->
+  <runtime>
+    <assemblyBinding xmlns="urn:schemas-microsoft-com:asm.v1">
+      <dependentAssembly>
+        <assemblyIdentity name="Newtonsoft.Json" publicKeyToken="30ad4fe6b2a6aeed" culture="neutral" />
+        <bindingRedirect oldVersion="0.0.0.0-6.0.0.0" newVersion="4.5.0.0" />
+      </dependentAssembly>
+     </assemblyBinding>
+  </runtime>
+</configuration>

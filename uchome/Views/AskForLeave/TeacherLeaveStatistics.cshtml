@@ -1,0 +1,188 @@
+﻿@{
+    Layout = null;
+    int currentYear = DateTime.Now.Year;
+}
+<link rel="stylesheet" href="@Url.Content("~/Content/css/msg.css")">
+<script src="@Url.Content("~/plugs/usercontrol/selectuser.js")"></script>
+<link rel="stylesheet" href="@Url.Content("~/plugs/webuploader/css/webuploader.css")">
+<link rel="stylesheet" href="@Url.Content("~/plugs/webuploader/css/demo.css")">
+<link rel="stylesheet" href="@Url.Content("~/plugs/datetimepicker/css/bootstrap-datetimepicker.css")">
+<link rel="stylesheet" href="@Url.Content("~/content/css/homework.css")">
+
+<link rel="stylesheet" href="@Url.Content("~/content/css/selUserStyle.css")">
+
+<div id="noticeSend" class="form-horizontal form-position pagew ">
+    <div class="form-group">
+
+        <div class="col-sm-9">
+            <div class="radio-list" id="selectType">
+                <label class="radio-inline">
+                    <select id="SelectYear" name="SelectYear" class="input-sm col-xs-2 sel-notice" style="width: 85px;">
+                        @for (int i = currentYear - 5; i <= currentYear + 5; i++)
+                        {
+                            if (currentYear == i)
+                            {
+                                <option value="@i" selected="selected">@(i)年</option>
+                            }
+                            else
+                            {
+                                <option value="@i">@(i)年</option>
+                            }
+                        }
+                    </select>
+                </label>
+                <label class="radio-inline">
+                    <button id="btnSelect" type="button" class="btn btn-info dropdown-toggle" data-toggle="button" aria-haspopup="true" aria-expanded="false">
+                        查询
+                    </button>
+                </label>
+            </div>
+        </div>
+    </div>
+    <div id="index" class="form-position pagew">
+        <table class="table table-striped table-bordered table-hover datatable" id="leaveDetailTable"></table>
+
+    </div>
+    <div class="form-group">
+        <div id="container" style="width: 350px; height: 300px; float: left;"></div>
+        <div id="container1" style="width: 350px; height: 300px;float: left;"></div><br />
+    </div>
+
+</div>
+
+<script>
+    $(document).ready(function () {
+
+        var chart;
+        selectYearLeave();
+        selectTypeLeave();
+
+        $("#btnSelect").click(function () {
+            selectYearLeave();
+            selectTypeLeave();
+        });
+    });
+
+    function selectYearLeave() {
+        $("#container").html("");
+        $.ajaxSettings.async = false;
+        $.getJSON('@Url.Action("GetTeacherLeaveByID")', { SelectYear: $("#SelectYear").val(), type: "年份" }, function (data) {
+            if (data != null) {
+                var seriesList = data.SeriesPieList;
+                if (seriesList != null && seriesList.length > 0) {
+
+                    chart = new Highcharts.Chart({
+                        chart: {
+                            renderTo: 'container',
+                            plotBackgroundColor: null,
+                            plotBorderWidth: null,
+                            plotShadow: false
+                        },
+                        title: {
+                            text: $("#SelectYear").val()+'年每月统计'
+                        },
+                        tooltip: {
+                            pointFormat: '天数: <b>{point.y}天</b>'
+                        },
+                        plotOptions: {
+                            pie: {
+                                allowPointSelect: true,
+                                cursor: 'pointer',
+                                dataLabels: {
+                                    enabled: true,
+                                    color: '#000000',
+                                    connectorColor: '#000000',
+                                    format: '<b>{point.name}</b>: {point.y}天 '
+                                }
+                            }
+                        },
+                        series: [{
+                            type: 'pie',
+                            name: '天数',
+                            data: (function() {
+                                var data = [];
+                                var count = seriesList.length;
+                                for (var i = 0; i < count; i++) {
+                                    data.push({
+                                        name: seriesList[i].name,
+                                        y: seriesList[i].data
+                                    });
+                                }
+                                return data;
+                            })()
+                        }]
+                    });
+                }
+            }
+        });
+    }
+
+    function selectTypeLeave() {
+        $("#leaveDetailTable").html("");
+        $("#container1").html("");
+        $.ajaxSettings.async = false;
+        $.getJSON('@Url.Action("GetTeacherLeaveByID")', { SelectYear: $("#SelectYear").val(), type: "请假类型" }, function (data) {
+            if (data != null) {
+                var seriesList = data.SeriesPieList;
+                if (seriesList != null && seriesList.length > 0) {
+
+                    chart = new Highcharts.Chart({
+                        chart: {
+                            renderTo: 'container1',
+                            plotBackgroundColor: null,
+                            plotBorderWidth: null,
+                            plotShadow: false
+                        },
+                        title: {
+                            text: $("#SelectYear").val()+'年按请假类型统计'
+                        },
+                        tooltip: {
+                            pointFormat: '天数: <b>{point.y}天</b>'
+                        },
+                        plotOptions: {
+                            pie: {
+                                allowPointSelect: true,
+                                cursor: 'pointer',
+                                dataLabels: {
+                                    enabled: true,
+                                    color: '#000000',
+                                    connectorColor: '#000000',
+                                    format: '<b>{point.name}</b>: {point.y}天 '
+                                }
+                            }
+                        },
+                        series: [{
+                            type: 'pie',
+                            name: '天数',
+                            data: (function () {
+                                var data = [];
+                                var count = seriesList.length;
+                                for (var i = 0; i < count; i++) {
+                                    data.push({
+                                        name: seriesList[i].name,
+                                        y: seriesList[i].data
+                                    });
+                                }
+                                return data;
+                            })()
+                        }]
+                    });
+                    var teacherLeaveDetailList = data.TeacherLeaveDetailList;
+
+                    //if (teacherLeaveDetailList != null && teacherLeaveDetailList.length > 0) {
+                    //    var len = teacherLeaveDetailList.length;
+                    //    var html = "<thead><tr><th>日期</th><th>请假类型</th><th>请假天数</th></tr></thead><tbody>";
+                    //    for (var i = 0; i < len; i++) {
+                    //        html += "<tr><td>" + teacherLeaveDetailList[i].Date + "</td><td>"
+                    //            + teacherLeaveDetailList[i].LeaveType + "</td><td>"
+                    //            + teacherLeaveDetailList[i].DayNum + "</td></tr>";
+                    //    }
+                    //    html += "</tbody>";
+
+                    //    $("#leaveDetailTable").html(html);
+                    //}
+                }
+            }
+        });
+    }
+</script>

@@ -1,0 +1,63 @@
+﻿@using M = UCHome.Model;
+@model List<M.View_UCHome_Msg_Receive>
+<div class="container" style="width: 560px; padding-left: 0px; padding-right: 0px; height: 430px; overflow: hidden">
+    <ul class="list-group" style="height: 320px; overflow-y: auto;">
+        @{int i = 0;}
+        @if (Model == null || Model.Count == 0)
+        {
+            <li>
+                <div class="noinfo">暂未找到任何留言信息</div>
+            </li>
+        }
+        @foreach (M.View_UCHome_Msg_Receive item in Model)
+        {
+            i++;
+            if (item.ReceiveUserID == M.UCHomeBasePage.RequestUser.userid)
+            {
+            <li class="text-left list-group-item list-group-item-info">
+                <div>
+                    <label class="label label-info  text-left">@item.MsgUserName：[@item.MsgDate.Value.ToString("yyyy-MM-dd HH:mm")]</label>
+                </div>
+                <div>
+                    <label class="form-control-static">@item.MsgContent</label>
+                </div>
+            </li>
+            }
+            else
+            {
+            <li class="text-left list-group-item list-group-item-success">
+                <div>
+                    <label class="label label-success   text-left">@item.MsgUserName：[@item.MsgDate.Value.ToString("yyyy-MM-dd HH:mm")]</label>
+                </div>
+                <div>
+                    <label class="form-control-static">@item.MsgContent</label>
+                    @if (item.MsgDate.Value.AddMinutes(1) > DateTime.Now)
+                    {
+                        <a style="cursor: pointer;" onclick=" deleteMsg('@item.PKID', '@item.ReceiveUserID') ">[撤销留言]</a>
+                    }
+                </div>
+            </li>
+            }
+        }
+    </ul>
+    <div class="divider"></div>
+    <div>
+        <div class="form-group">
+            <textarea id="fammsgcontent" class="form-control" rows="3" placeholder="请输入留言内容"></textarea>
+        </div>
+    </div>
+</div>
+<script>
+    function deleteMsg(pkId, receiveid) {
+        if (confirm("确定要撤销吗？")) {
+            $.post("@Url.Action("DeleteMsgReceiver")", { pkId: pkId }, function (data) {
+                if (data == "1") {
+                    tipsuccessmsg("撤销成功");                   
+                    $("#dialog-msglist").load("@Url.Action("MsgList")?receiveUserId=" + receiveid);
+                } else {
+                    tipfailmsg("撤销失败,请重试");                  
+                }
+            });
+        }
+    }
+</script>

@@ -1,0 +1,306 @@
+﻿@model StuInfo.Model.StuInfo
+
+@{
+}
+<link rel="stylesheet" href="@Url.Content("~/plugs/webuploader/css/webuploader.css")">
+<link rel="stylesheet" href="@Url.Content("~/plugs/webuploader/css/demo.css")">
+<link rel="stylesheet" href="@Url.Content("~/plugs/datetimepicker/css/bootstrap-datetimepicker.css")">
+<script src="@Url.Content("~/plugs/AddressSelect/selectaddress.js")"></script>
+<form id="form-schoolinfoedit" method="post" action="@Url.Action("Edit")">
+    <div id="schoolinfo" class="form-horizontal form-position pagew">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.SchID)
+        @Html.HiddenFor(model => model.SchCode)
+        @Html.HiddenFor(model => model.SchName)
+        @Html.HiddenFor(model => model.SchType_DictCode)
+        @Html.HiddenFor(model => model.SchDistrict_GBT2260)
+
+        <div class="form-group" style=" text-align:center;">
+            @Html.LabelFor(model => model.SchNature_DictCode, "基本信息", htmlAttributes: new { @class = "control-label col-md-2" })
+            @{string distinct = string.Empty, city = string.Empty, province = string.Empty;
+                string proname = string.Empty, cityname = string.Empty, distinctname = string.Empty;
+                if (!string.IsNullOrEmpty(Model.SchDistrict_GBT2260)) {
+                    distinct = Model.SchDistrict_GBT2260;
+                    city = distinct.Substring(0, 4) + "00";
+                    province = distinct.Substring(0, 2) + "0000";
+                    SchInfo.BLL.GBTBLL gbtbll = new SchInfo.BLL.GBTBLL();
+                    List<SchInfo.Model.GBT>
+                        gbt2260 = gbtbll.GetGBTList("gbt2260");
+                    if (gbt2260 != null) {
+                        proname = SchInfo.BLL.GBTBLL.GetGBTCodeName(gbt2260, province);
+                        cityname = SchInfo.BLL.GBTBLL.GetGBTCodeName(gbt2260, city);
+                        distinctname = SchInfo.BLL.GBTBLL.GetGBTCodeName(gbt2260, distinct);
+                    }
+                }
+            }
+            <div class="col-md-4">
+                <ul style="color:#0696AF;">
+                    <li class="text-left form-control-static">学校代码：@Html.DisplayFor(model => model.SchCode)</li>
+                    <li class="text-left form-control-static">学校名称：@Html.DisplayFor(model => model.SchName)</li>
+                    <li class="text-left form-control-static">学校类型：@(SchInfo.BLL.DictionaryBLL.GetDictName("学校类型", Model.SchType_DictCode))</li>
+                    <li class="text-left form-control-static">行政区码：@proname@cityname@distinctname</li>
+                </ul>
+            </div>
+            <div class="col-md-3">
+                <div id="imgschbdage" style="position:relative;">
+                    @if (Model.Schbadge == null) {
+                        <img id="img-schbadge" style="border:solid 1px #eeeeee;" src="@Url.Content("~/Content/images/defaultimg.png")" width="125" height="120" />}
+                    else {
+                        <img id="img-schbadge" style="border:solid 1px #eeeeee;" width="125" height="120" src="@Model.Schbadge" />}
+                </div>
+
+                <p>学校校徽</p>
+
+            </div>
+            <div class="col-md-3">
+                <div id="imgschlogo" style="position:relative;">
+                    @if (Model.SchLogo == null) {
+                        <img id="img-schlogo" style="border:solid 1px #eeeeee;" src="@Url.Content("~/Content/images/defaultimg.png")" width="125" height="120" />}
+                    else {
+                        <img id="img-schlogo" style="border:solid 1px #eeeeee;" width="125" height="120" src="@Model.SchLogo" />}
+                </div>
+                <p>学校标志</p>
+
+
+                <input id="Schbadge" class="col-md-10" name="Schbadge" type="hidden" value="@Model.Schbadge" placeholder="校徽" />
+                <input id="SchLogo" class="col-md-10" name="SchLogo" type="hidden" value="@Model.SchLogo" placeholder="校标" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.SchNature_DictCode, "学校性质", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.DropDownListFor(model => model.SchNature_DictCode, null, new { @class = "form-control col-md-12" })
+            </div>
+            @Html.LabelFor(model => model.SchEnName, "英文名称", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.SchEnName, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+
+        <div class="form-group">
+
+            @Html.LabelFor(model => model.SchAbbreviationCn, "中文简称", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.SchAbbreviationCn, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+            @Html.LabelFor(model => model.SchAbbreviationEn, "英文简称", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.SchAbbreviationEn, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.SchParentDepartment, "上级主管部门", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.SchParentDepartment, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+            @Html.LabelFor(model => model.SchEmail, "电子信箱", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.SchEmail, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.SchTelephone, "联系方式", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.SchTelephone, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+
+            @Html.LabelFor(model => model.SchFax, "传真", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.SchFax, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.SchPostCode, "邮政编码", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.SchPostCode, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+            @Html.LabelFor(model => model.SchlegalPerson, "法人", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.SchlegalPerson, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.SchBuildingDate, "建校年月", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.SchBuildingDate, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+            @Html.LabelFor(model => model.SchAnniversary, "校庆日", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                <div class="date form_datetime input-group" data-date-format="yyyy-mm-dd" data-link-field="dtp_input1">
+                    @Html.EditorFor(model => model.SchAnniversary, new { htmlAttributes = new { @class = "form-control", placeholder = "请选择日期" } })
+                    <div class="input-group-addon">
+                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                    </div>
+                    <div class="input-group-addon">
+                        <span class="glyphicon glyphicon-th" aria-hidden="true"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.SchSite, "学校网站", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.SchSite, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+            @Html.LabelFor(model => model.SchAddress, "学校地址", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.SchAddress, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.SchIntroduction, "学校介绍", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.SchIntroduction, 4, 92, new { htmlAttributes = new { @class = "form-control col-md-12" } })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-4 col-md-8">
+                <button type="submit" id="btn-schoolinfoedit" class="btn btn-info col-md-4">保存</button>
+            </div>
+        </div>
+    </div>
+</form>
+<script>
+    $(function () {
+        //绑定省市区校三级联动
+        var schdistrict = $("#SchDistrict_GBT2260").val();
+        var provincecode = schdistrict.substring(0, 2) + "0000";
+        var citycode = schdistrict.substring(0, 4) + "00";
+        $(this).SelAddress({
+            defaultprovince: provincecode,
+            defaultcity: citycode,
+            defaultdistrict: schdistrict,
+            callBackfn: function (value, text) {
+                $("#SchDistrict_GBT2260").val(value);
+            }
+        });
+        //end
+        //上传校徽
+        //end
+        //上传校标
+        //end
+    })
+</script>
+<script src="@Url.Content("~/plugs/datetimepicker/js/bootstrap-datetimepicker.min.js")"></script>
+<script src="@Url.Content("~/plugs/datetimepicker/js/bootstrap-datetimepicker.zh-CN.js")"></script>
+<script>
+    $('.form_datetime').datetimepicker({
+        format: 'yyyy-mm-dd',
+        language: 'zh-CN',
+        weekStart: 1,
+        todayBtn: 1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 2,
+        minView: 2,
+        maxView: 2,
+        forceParse: 0
+
+    });
+</script>
+@*设置校徽校标*@
+<style>
+    .webuploader-pick {
+        background-color: transparent;
+    }
+</style>
+<script src="@Url.Content("~/plugs/webuploader/js/webuploader.js")"></script>
+<script src="@Url.Content("~/plugs/webuploader/js/upimg.js")"></script>
+<script>
+
+    var BASE_URL = '@Url.Content("~/plugs/webuploader/")';
+    //文件处理服务
+    var Server_URL = "@Url.Action("AddFile", "PublicShare")";
+    var upfile1 = new Upfiles({
+        id: "imgschbdage",
+        baseurl: BASE_URL,
+        serverurl: Server_URL,
+        //files: [{ fileid: "fileid1", filename: "filename1", filepath: "filepath1" }, { fileid: "fileid2", filename: "filename2", filepath: "filepath2" }],
+        callbackfn: function (ret) {//返回值格式为：[{fileid:"",filename:"",filepath:""},{fileid:"",filename:"",filepath:""}]
+
+            if (ret != null) {
+                //var results = new Array();
+                var files =eval("("+ret+")");
+                $.each(files, function (index, item) {
+                    //results.push(item.filename);
+                    $("#Schbadge").val(item.filepath);
+                    $("#img-schbadge").attr("src",item.filepath);
+                })
+
+            }
+        }
+    })
+    var upfile2 = new Upfiles({
+        id: "imgschlogo",
+        baseurl: BASE_URL,
+        serverurl: Server_URL,
+
+        callbackfn: function (ret) {
+            if (ret != null) {
+                //var results = new Array();
+                var files = eval("(" + ret + ")");
+                $.each(files, function (index, item) {
+                    //results.push(item.filename);
+                    $("#SchLogo").val(item.filepath);
+                    $("#img-schlogo").attr("src", item.filepath);
+                })
+                //$("#SchLogo").val(results);
+            }
+        }
+    })
+</script>
+@*数据提交*@
+<script>
+    $(function () {
+        $("#form-schoolinfoedit").validate({
+            rules: {
+                //XM: "required",
+                //UserPwd: "required",
+                //SchAbbreviationCn: "required"
+            },
+            ignore: "hidden",
+            messages: {
+                //XM: "姓名不能为空",
+                //UserPwd: "登录密码不能为空",
+                //SchAbbreviationCn: "中文简称不能为空"
+            },
+            errorClass: "validate-error", //设置错误样式
+            errorElement: "label", //设置显示错误提示的控件,默认为<label>
+            errorLabelContainer: "#validmsg", //指定错误信息放置容器
+            wrapper: "li",
+            //errorPlacement: function (error,element) { //指定错误信息放置位置
+            //    error.appendTo($("#validmsg"));
+            //},
+            //debug: true,//进行调试模式（表单不提交）
+            submitHandler: function () {
+                $("#btn-schoolinfoedit").text("正在保存，请稍候…");
+                $("#btn-schoolinfoedit").attr("disabled", "disabled");
+                $("#form-schoolinfoedit").ajaxSubmit({
+                    success: function (data) {
+                        if (data.Data.StatusCode == 200) {
+                            tipsuccessmsg("保存成功");
+                            //validator.resetForm(); //重置表单
+                        } else {
+                            tipfailmsg("保存失败，原因可能为：" + data.Data.ErrorMessage);
+                            //$("#PKID").val(data.data.PKID);
+                            //validator.resetForm(); //重置表单
+                        }
+                        $("#btn-schoolinfoedit").text("保存");
+                        $("#btn-schoolinfoedit").removeAttr("disabled");
+                    }
+                });
+            }
+            //onsubmit: false,//是否提交时验证，默认为True,用于设置某一个不需要验证的控件
+            //onfocusin: false,//是否获取焦点时验证，默认为True
+            //onkeyup: false,//是否在敲击键盘时验证，默认为True
+            //onclick: false//是否在鼠标点击时验证，默认为True
+        });
+    });
+</script>

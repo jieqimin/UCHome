@@ -1,0 +1,64 @@
+﻿@using UCHome.Controllers
+@using UCHome.Model
+@model UserInfo
+@{
+    ViewBag.Title = "个人主页";
+}
+@section Head{
+    <script src="@Url.Content("~/plugs/highcharts/js/highcharts.js")"></script>
+    <script src="@Url.Content("~/plugs/highcharts/js/highcharts-more.js")"></script>
+    <script src="@Url.Content("~/plugs/justifiedGallery/jquery.justifiedGallery.min.js")"></script>
+    <link href="@Url.Content("~/plugs/justifiedGallery/justifiedGallery.min.css")" rel="stylesheet"/>
+    <link href="@Url.Content("~/Content/css/homepage.css")" rel="stylesheet" />
+}
+<div class="top">
+    <div class="top_content">
+        @Html.Action("Portal")
+    </div>
+</div>
+<div class="container" id="top">
+    <div class="row clearfix" style="margin-top: 50px;"></div>
+    <div class="row">
+        <div class="body-left col-lg-3 bg-white div-margin-10 min-height-500">
+            @Html.Action("HomeLeft")
+            <hr />
+            @if (Model.usertype.ToLower() == "t")
+            {
+                @Html.Partial("TeaShortMenu",Model)
+            }
+            else if (Model.usertype.ToLower() == "s")
+            {
+                @Html.Partial("StuShortMenu",Model)
+            }
+            else if (Model.usertype.ToLower() == "p")
+            {
+                @Html.Partial("ParentShortMenu",Model)
+            }
+            else
+            {
+                @Html.Partial("TeaShortMenu", Model)
+            }
+        </div>
+
+        <div class="body-right col-lg-8 bg-white div-margin-10 min-height-500">
+            <div class="col-lg-12">
+                @if (Model.usertype.ToLower() == "t")
+                {
+                    @Html.Partial("TeacherHome")
+                }
+                else if (Model.usertype.ToLower() == "s")
+                {
+                    @Html.Partial("StudentHome")
+                }
+                else if (Model.usertype.ToLower() == "p")
+                {
+                    @Html.Partial("ParentHome",Model.childinfo)
+                }
+                else
+                {
+                    @Html.Partial("TeacherHome")
+                }
+            </div>
+        </div>
+    </div>
+</div>

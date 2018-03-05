@@ -1,0 +1,72 @@
+﻿@{
+    Layout = null;
+}
+<div class="part1">
+    <ul>
+        <li>
+            <span class="span">[区县]</span>
+        </li>
+        <li>
+            @for (int i = 0; i < ViewBag.areaList.Count; i++)
+            {
+                if (ViewBag.areaList[i].Id == ViewBag.xzqhm)
+                {
+                    <span class="xz" onclick="selectArea('@ViewBag.areaList[i].Id',this)">@ViewBag.areaList[i].Name</span>
+                }
+                else
+                {
+                    <span class="noxz" onclick="selectArea('@ViewBag.areaList[i].Id',this)">@ViewBag.areaList[i].Name</span>
+                }
+
+            }
+        </li>
+        <li>
+            <span class="span">[学制]</span>
+        </li>
+        <li>
+            
+            @for (int i = 0; i < ViewBag.schoolTypeList.Count; i++)
+            {
+                if (ViewBag.schoolTypeList[i].Id == ViewBag.schoolType)
+                {
+                    <span class="xz" onclick="selectSchoolType('@ViewBag.schoolTypeList[i].Id',this)">@ViewBag.schoolTypeList[i].Name</span>
+                }
+                else
+                {
+                    <span class="noxz" onclick="selectSchoolType('@ViewBag.schoolTypeList[i].Id',this)">@ViewBag.schoolTypeList[i].Name</span>
+                }
+
+            }
+        </li>
+    </ul>
+</div>
+<script >
+    function selectArea(xzqhm, e) {
+        $(e).parent().find("span").removeClass("xz");
+        $(e).parent().find("span").addClass("noxz");
+        $(e)[0].className = "xz";
+        $("#xzqhm").val(xzqhm);
+        getSchool();
+    }
+    function selectSchoolType(typeId, e) {
+        $(e).parent().find("span").removeClass("xz");
+        $(e).parent().find("span").addClass("noxz");
+        $(e)[0].className = "xz";
+        $("#schoolType").val(typeId);
+        getSchool();
+    }
+
+    function getSchool() {
+        if ($("#dataType").val() == "4") {
+            $("#schoolList").load("@Url.Action("PageSchool","Query")?key=" + escape($("#txtKey").val()) + "&xzqhm=" + $("#xzqhm").val() + "&schoolType=" + $("#schoolType").val());
+        } else {
+            $("#schoolList").load("@Url.Action("Part2", "Query")?key=" + escape($("#txtKey").val()) + "&xzqhm=" + $("#xzqhm").val() + "&schoolType=" + $("#schoolType").val() + "&xxid=" + "&dataType=" + $("#dataType").val());
+        }
+    }
+
+    $(function () {
+        if ($("#dataType").val() == "4") {
+            getSchool();
+        }
+    });
+</script>

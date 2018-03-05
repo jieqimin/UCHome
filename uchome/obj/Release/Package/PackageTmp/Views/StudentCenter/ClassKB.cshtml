@@ -1,0 +1,82 @@
+﻿@using UCHome.Model;
+@model View_Simple_StuInfo
+<dl>
+    <dt>课节\星期</dt>
+    <dd>星期一</dd>
+    <dd>星期二</dd>
+    <dd>星期三</dd>
+    <dd>星期四</dd>
+    <dd>星期五</dd>
+</dl>
+<dl>
+    <dt>第一节</dt>
+    <dd id="kb11"></dd>
+    <dd id="kb12"></dd>
+    <dd id="kb13"></dd>
+    <dd id="kb14"></dd>
+    <dd id="kb15"></dd>
+</dl>
+<dl>
+    <dt>第二节</dt>
+    <dd id="kb21"></dd>
+    <dd id="kb22"></dd>
+    <dd id="kb23"></dd>
+    <dd id="kb24"></dd>
+    <dd id="kb25"></dd>
+</dl>
+<dl>
+    <dt>第三节</dt>
+    <dd id="kb31"></dd>
+    <dd id="kb32"></dd>
+    <dd id="kb33"></dd>
+    <dd id="kb34"></dd>
+    <dd id="kb35"></dd>
+</dl>
+<dl>
+    <dt>第四节</dt>
+    <dd id="kb41"></dd>
+    <dd id="kb42"></dd>
+    <dd id="kb43"></dd>
+    <dd id="kb44"></dd>
+    <dd id="kb45"></dd>
+</dl>
+<dl>
+    <dt>第五节</dt>
+    <dd id="kb51"></dd>
+    <dd id="kb52"></dd>
+    <dd id="kb53"></dd>
+    <dd id="kb54"></dd>
+    <dd id="kb55"></dd>
+</dl>
+<dl>
+    <dt>第六节</dt>
+    <dd id="kb61"></dd>
+    <dd id="kb62"></dd>
+    <dd id="kb63"></dd>
+    <dd id="kb64"></dd>
+    <dd id="kb65"></dd>
+</dl>
+<dl>
+    <dt>第七节</dt>
+    <dd id="kb71"></dd>
+    <dd id="kb72"></dd>
+    <dd id="kb73"></dd>
+    <dd id="kb74"></dd>
+    <dd id="kb75"></dd>
+</dl>
+<script>
+    //填充课表
+    $.ajax({
+        url: "@Url.Content("~/ashx/GetClassKBInfo.ashx")",
+        data: { id: "@Model.BJID", uctype: "class", xnxq: "@((new UCHomeBasePage()).CurrentSchTerm)" },
+        success: function (data) {
+            var kb = eval("(" + data + ")"); //
+            $.each(kb, function (idx, item) {
+                var week = item.weekday;
+                var classth = item.courseth;
+
+                $("#kb" + classth + week).addClass("selected").text(item.teacher + "-" + item.kcmc);
+            });
+        }
+    })
+</script>

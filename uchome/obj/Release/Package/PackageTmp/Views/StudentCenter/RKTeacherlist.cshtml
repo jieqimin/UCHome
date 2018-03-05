@@ -1,0 +1,38 @@
+﻿@using UCModel;
+@model PersonInfo
+<div class="dtitle">我的老师</div>
+<div class="dpicture">
+    <ul>
+        @{
+            foreach (var tea in Model.rklist)
+            {
+            <li onclick="openwindow('@Url.Action("TChat", new { bjid=tea.bjid,name = tea.jsxm})',1000,500,'我的老师')">
+                <dl>
+                    <dd class="photo">
+                        @{
+                            if(tea.jsSex=="2"){
+                                <img src="@Url.Content("~/Content/images/male.png")" border="0" />
+                            }
+                            else{
+                                 <img src="@Url.Content("~/Content/images/man.png")" border="0" />
+                            }
+                            }
+                        </dd>
+                    <dd class="info">
+                        <p style="font-size:13px;line-height:30px;">@tea.jsxm</p>  
+                        <p style="font-size:13px;line-height:30px;">@tea.kcmc</p>
+                    </dd>
+                    @*<dd class="msgcount">1</dd>*@
+                </dl>
+            </li>
+            }
+        }
+    </ul>
+</div>
+@{
+    if (Model.classlist.Count()>0)
+    {
+        <div class="more" onclick="openwindow('@Url.Action("MoreTealist", new { bjid = Model.rklist.First().bjid })',1000,500,'我的老师')">查看更多</div>
+
+    }
+    }

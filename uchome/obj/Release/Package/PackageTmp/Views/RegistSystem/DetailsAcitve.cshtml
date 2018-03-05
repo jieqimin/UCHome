@@ -1,0 +1,110 @@
+﻿@{
+    Layout = null;
+}
+@model TeacherAwards.Model.Entity.RegistActiveTable
+<style type="text/css">
+    .pd {
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+
+    .h {
+        line-height: 34px;
+    }
+
+    .lic {
+        float: left;
+        margin-right: 10px;
+        height: 33px;
+        line-height: 33px;
+    }
+
+    .w {
+        width: 450px;
+    }
+</style>
+<div id="noticeSend" class="form-horizontal form-position pagew " style="margin-bottom: 0px; margin-top: 0px;">
+    <div class="form-group">
+        <label for="Time" class="col-sm-2 control-label">活动标题：</label>
+        <div class="col-sm-7 pd h">
+            @Html.HiddenFor(model => model.WriteRegistTable)
+            @Model.ActiveName
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="Time" class="col-sm-2 control-label">起止时间：</label>
+        <div class="col-sm-7 pd h">
+            @Model.StartTime.Value.ToString("yyyy-MM-dd")&nbsp;--&nbsp;@Model.EndTime.Value.ToString("yyyy-MM-dd")
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="Time" class="col-sm-2 control-label">活动图片：</label>
+        <div class="col-sm-7 pd h">
+            <div class='pic' style='float: left;'>
+                <img src='@Model.ActiveFJ' width='270' height='150' />
+            </div>
+            <br />
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="Time" class="col-sm-2 control-label">活动类别：</label>
+        <div class="col-sm-7 pd h">
+            @Model.Type
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="Time" class="col-sm-2 control-label">活动级别：</label>
+        <div class="col-sm-7 pd h">
+            @Model.ActiveType
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="Time" class="col-sm-2 control-label">活动组织方：</label>
+        <div class="col-sm-7 pd h">
+            @Model.Organization
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="Time" class="col-sm-2 control-label">活动地点：</label>
+        <div class="col-sm-7 pd">
+            @Model.ActivePlace
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="Time" class="col-sm-2 control-label">活动要求：</label>
+        <div class="col-sm-7 pd">
+            @Html.Raw(Model.Require)
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="Time" class="col-sm-2 control-label">活动说明：</label>
+        <div class="col-sm-7 pd">
+            @Html.Raw(Model.ActiveSM)
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="Time" class="col-sm-2 control-label">参与对象：</label>
+        <div class="col-sm-7 pd h">
+            @Model.ActiveDX
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="Time" class="col-sm-2 control-label">参与人数：</label>
+        <div class="col-sm-7 pd h">
+            @Model.ActiveNum
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="Time" class="col-sm-2 control-label">考核分数：</label>
+        <div class="col-sm-7 pd h">
+            @Model.ActiveScore
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="Time" class="col-sm-2 control-label">审核：</label>
+        <div class="col-sm-7 pd h">
+            @Model.ActiveAudit
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,229 @@
+﻿@{
+    Layout = null;
+    int currentYear = DateTime.Now.Year;
+}
+<link rel="stylesheet" href="@Url.Content("~/Content/css/msg.css")">
+<script src="@Url.Content("~/plugs/usercontrol/selectuser.js")"></script>
+<link rel="stylesheet" href="@Url.Content("~/plugs/webuploader/css/webuploader.css")">
+<link rel="stylesheet" href="@Url.Content("~/plugs/webuploader/css/demo.css")">
+<link rel="stylesheet" href="@Url.Content("~/plugs/datetimepicker/css/bootstrap-datetimepicker.css")">
+<link rel="stylesheet" href="@Url.Content("~/content/css/homework.css")">
+
+<link rel="stylesheet" href="@Url.Content("~/content/css/selUserStyle.css")">
+
+<div id="noticeSend" class="form-horizontal form-position pagew ">
+    <div class="form-group">
+
+        <div class="col-sm-9">
+            <button type="button" class="btn btn-info dropdown-toggle selUsers" data-toggle="button"
+                    aria-haspopup="true" aria-expanded="false">
+                选择人员
+            </button>
+            <div id="showSelectUserName" class="plus-tag tagbtn clearfix" style="margin-top: 10px;">
+            </div>
+            <div id="showSelectUserNameDispalyNone" style="display: none;">
+            </div>
+
+            <div class="radio-list" id="selectType">
+                <label class="radio-inline">
+                    <input type="radio" name="selectType" id="rdoLeaveYear" value="年份" checked="checked" /> 年份
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="selectType" id="rdoLeaveType" value="请假类型" /> 请假类型
+                </label>
+                &nbsp;
+                <label class="radio-inline">
+                    <select id="SelectYear" name="SelectYear" class="input-sm col-xs-2 sel-notice" style="width: 85px;">
+                        @for (int i = currentYear - 5; i <= currentYear + 5; i++)
+                        {
+                            if (currentYear == i)
+                            {
+                                <option value="@i" selected="selected">@(i)年</option>
+                            }
+                            else
+                            {
+                                <option value="@i">@(i)年</option>
+                            }
+                        }
+                    </select>
+                </label>
+                <label class="radio-inline">
+                    <button id="btnSelect" type="button" class="btn btn-info dropdown-toggle" data-toggle="button" aria-haspopup="true" aria-expanded="false">
+                        查询
+                    </button>
+                </label>
+            </div>
+
+            <input id="selectUserID" name="selectUserID" type="hidden" value="" />
+            <input id="selectUserName" name="selectUserName" type="hidden" value="" />
+        </div>
+    </div>
+    <div class="form-group">
+        <div id="container"></div>
+    </div>
+    <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel" style="font-weight: bold;"></h4>
+                </div>
+                <div class="modal-body">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        var chart;
+
+        $("#btnSelect").click(function () {
+            selectLeave();
+        });
+
+        var seluser1 = new SelUser({
+            obj: $(".selUsers"),
+            selRole: "tea", //tea,stu,fam
+            selType: "muti", //多选：muti,单选:single
+            selArea: "department", //friend:我的好友,student:我的学生,stuparent:学生家长,colleague:我的同事,myclassmate:我的同学,teacher:我的老师,classmateparent:同学家长,department:学校部门
+            selValue: $("#selectUserID"),
+            selText: $("#showSelectUserNameDispalyNone"),
+            callBackfn: function (ids, names) {
+                //将先中的结果进行处理
+                $("#selectUserID").val(ids);
+                $("#selectUserName").val(names);
+                $("#showSelectUserNameDispalyNone").text(names);
+
+                var idList = ids.split(",");
+                var nameList = names.split(",");
+                var nameLen = nameList.length;
+                var html = "";
+                for (var i = 0; i < nameLen; i++) {
+                    html += "<a title=\"" + nameList[i] + "\"  onclick=\"showTeacherLeave('" + nameList[i] + "','" + idList[i] + "')\" style=\"cursor:pointer;\"><span>" + nameList[i] + " </span></a>";
+                }
+                $("#showSelectUserName").html(html);
+            }
+        });
+    });
+
+    function showTeacherLeave(name,id) {
+        $('#myModal1').modal('show');
+        $("#myModalLabel").html(name + "老师请假情况");
+        var loadurl = "@Url.Action("LeaveDetail")?SelectYear=" + $("#SelectYear").val() + "&UserId=" + id;
+        $(".modal-body").load(loadurl);
+    }
+
+    function selectLeave() {
+        var userId = $("#selectUserID").val();
+
+        if (userId == null || userId == "") {
+            alert("请选择要查看的教师！");
+        } else {
+            $("#container").html("");
+            $.ajax({
+                url: "@Url.Action("GetTeacherLeave")",
+                data: { selectUserID: $("#selectUserID").val(), selectUserName: $("#selectUserName").val(), SelectYear: $("#SelectYear").val(), type: $("input[name=selectType]:checked").val() },
+                type: "Post",
+                dataType: "json",
+                success: function (msg) {
+
+                    var resultmsg = eval("(" + msg + ")");
+
+                    if (resultmsg != null) {
+                        var seriesList = resultmsg.SeriesList;
+                        if (seriesList != null && seriesList.length > 0) {
+
+                            chart = new Highcharts.Chart({
+                                chart: {
+                                    renderTo: 'container',
+                                    type: 'column'
+                                },
+                                title: {
+                                    text: '年度请假次数按' + $("input[name=selectType]:checked").val() + '总计'
+                                },
+                                xAxis: {
+                                    categories: resultmsg.TeacherNames,
+                                    labels: {
+                                        rotation: -45,
+                                        align: 'right',
+                                        style: {
+                                            fontSize: '12px',
+                                            fontFamily: 'Verdana, sans-serif'
+                                        }
+                                    }
+                                },
+                                yAxis: [
+                                    {
+                                        min: 0,
+                                        title: {
+                                            text: '请假次数'
+                                        },
+                                        stackLabels: {
+                                            enabled: true,
+                                            style: {
+                                                fontWeight: 'bold',
+                                                color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
+                                            }
+                                        }
+                                    }
+                                ],
+                                legend: {
+                                    align: 'right',
+                                    x: -70,
+                                    verticalAlign: 'top',
+                                    y: 20,
+                                    floating: true,
+                                    backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColorSolid) || 'white',
+                                    borderColor: '#CCC',
+                                    borderWidth: 1,
+                                    shadow: false
+                                },
+                                tooltip: {
+                                    formatter: function () {
+                                        return '<b>' + this.x + '</b><br/>' +
+                                            this.series.name + ': ' + this.y + '天<br/>' +
+                                            '总计: ' + this.point.stackTotal + '天';
+                                    }
+                                },
+                                plotOptions: {
+                                    column: {
+                                        stacking: 'normal',
+                                        dataLabels: {
+                                            formatter: function () {
+                                                if (this.y > 0)
+                                                    return this.y;
+                                            },
+                                            enabled: true,  
+                                            color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white'
+                                        }
+                                    }
+                                },
+                                series: function () {
+                                    var serie = [];
+                                    var count = seriesList.length;
+                                    for (var i = 0; i < count; i++) {
+                                        var item = {
+                                            name: seriesList[i].name,
+                                            data: seriesList[i].data
+                                        }
+                                        serie.push(item);
+                                    };
+                                    return serie;
+                                }()
+                            });
+                        }
+                    }
+
+                },
+                error: function () {
+                    //alert("没有相关数据！");
+                }
+            });
+        }
+    }
+</script>

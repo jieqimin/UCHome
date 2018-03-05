@@ -1,0 +1,78 @@
+﻿@using System.Web.Mvc
+@using M = UCHome.Model;
+@model List<M.Colleague>
+<link rel="stylesheet" href="@Url.Content("~/Content/css/msg.css")">
+<script src="@Url.Content("~/plugs/usercontrol/selectuser.js")"></script>
+
+@using (Ajax.BeginForm("FamMsgSend", null,
+    new AjaxOptions()
+    {
+        HttpMethod = "post",
+        Url = Url.Action("FamMsgSend"),
+        UpdateTargetId = "#fammsgSend",
+        LoadingElementId = "loding",
+        LoadingElementDuration = 2000
+    }, new { id = "form-familysch-fammsgsend" }))
+{
+    <div class="row margin-top-30">
+        @foreach (M.Colleague item in Model)
+        {
+            <div class="col-xs-4 col-md-2" onclick="openmsgdialog('@item.jsid','@item.jsmc')">
+                <div class="thumbnail" title="点击留言">
+                    @if (!string.IsNullOrEmpty(item.headpic))
+                    {
+                        <img  src="@item.headpic" width="85" height="85" />
+                    }
+                    else
+                    {
+                        <img src="@Url.Content("~/Content/images/noimg_min.jpg")" width="85" height="85" />
+                    }
+                    <div class="caption text-center">
+                        @item.jsmc
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+    <div id="dialog-msglist" class="modal fade in" style="overflow: hidden;" title="家长留言">
+    </div>
+}
+
+<script>
+    function openmsgdialog(receiveId, receivename) {
+        $("#dialog-msglist").load("@Url.Action("MsgList")?receiveUserId=" + receiveId);
+        $("#dialog-msglist").dialog({
+            autoOpen: true,
+            modal: true,
+            width: 600,
+            height: 560,
+            title:"和"+receivename+"的留言",
+            create: function () {
+                if ($("div[aria-describedby='dialog-msglist']").length > 1) {
+                    $("div[aria-describedby='dialog-msglist']:first").remove();
+                }
+            },
+            buttons: {
+                "发送留言": function () {
+                    var msgcontent = $("#fammsgcontent").val();
+                    $.ajax({
+                        url: "@Url.Action("FamMsgSend")",
+                        data: { receiveUserId: receiveId, receiveUsername: escape(receivename), fammsgcontent: escape(msgcontent) },
+                        type: "POST",
+                        success: function (data) {
+                            console.log(data);
+                            if (data.Data.statuscode == "200") {
+                                tipsuccessmsg("留言成功");
+                                $("#dialog-msglist").load("@Url.Action("MsgList")?receiveUserId=" + receiveId);
+                            }
+                        }
+                    });
+                },
+                "取消": function () {
+                    $(this).dialog("close");
+                }
+            }
+        });
+    }
+
+</script>

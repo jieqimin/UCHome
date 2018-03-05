@@ -1,0 +1,138 @@
+﻿@using UCHome.Model
+@{    
+    ViewBag.Title = "教师个人空间";   
+}
+@model UCHome_BaseInfo
+@{
+    if (Model == null)
+    {
+    @Html.Raw("<div class='modal-backdrop fade in center-block' style='opacity:1'><div class='modal-dialog modal-sm show'><div class='modal-content'><div class='modal-body text-center'>检测到帐号访问异常，请联系管理员！</div></div></div></div>")
+        return;
+    }
+    string sec = Model.Section != null ? Model.Section.Split(',')[0] : "全部";
+    string sub = Model.Subject != null ? Model.Subject.Split(',')[0] : "全部";
+}
+@section Head{
+    <link href="@Url.Content("~/Content/css/resource.css")" rel="stylesheet" />
+    <script>
+        $(function () {
+            //数据绑定 BindData
+            $("#PersonInfo").load("@Url.Action("PersonInfo2", "TeacherCenter", new { id = Model.UserID })");
+            //End
+        });
+        function getselsearchwhere() {
+            var research_where_content = "";
+            var sec = $("#search_section").attr("name");
+            if (sec.length > 0 && sec != "全部")
+                research_where_content += sec + "、";
+            var sub = $("#search_subject").attr("name");
+            if (sub.length > 0 && sub != "全部")
+                research_where_content += sub + "、";
+            var version = $("#search_version").attr("name");
+            if (version.length > 0 && version != "全部")
+                research_where_content += version + "、";
+            var gra = $("#search_grade").attr("name");
+            if (gra.length > 0 && gra != "全部")
+                research_where_content += gra + "、";
+            var res = $("#search_restype").attr("name");
+            if (res.length > 0 && res != "全部")
+                research_where_content += res + "、";
+            var doc = $("#search_doctype").attr("name");
+            if (doc.length > 0 && doc != "全部")
+                research_where_content += doc + "、";
+            $("#searchBar").html(research_where_content.substring(0, research_where_content.length - 1));
+        }
+    </script>
+}
+
+<div class="top" id="top">
+    <div class="top_content">
+        @Html.Action("Portal", "Home")
+    </div>
+</div>
+
+<div class="content2 clearfix">
+    <div class="concent_body2">
+        <div class="body_left2 clearfix">
+            <div class="br_content1 clearfix" id="PersonInfo">
+                <div style="margin-top: 80px;" class="loading">正在加载中，请稍候……</div>
+            </div>
+            <div class="myresandfav">
+                <ul class="clearfix">
+                    <li id="li-myres"><i class="icon-myres"></i><span>我的资源</span></li>
+                    <li id="li-myfav"><i class="icon-myfav"></i><span>资源检索</span></li>
+                    <li id="li-upres"><i class="icon-upres"></i><a href="http://jx.taedu.gov.cn:83/Resource.Portal.Web/PersonCenter/Index?num=2" target="_blank"><span>资源上传</span></a></li>
+                    @* <li id="li-myfav"><i class="icon-myfav"></i><span>我的收藏</span></li>*@
+                </ul>
+            </div>
+            <div class="br_content2">
+                <div class="dtitle icon-latest">
+                    按资源类型 
+                </div>
+                <div class="res-style">
+                    <ul class="shortcut clearfix">
+                        <li class="pull-left selected" value="" typename=""><i></i><span>全部</span></li>
+                        <li class="pull-left" value="5802854b-cd6d-4358-986e-53c3cac9e84d" typename="教学设计"><i></i><span>教学设计</span></li>
+                        <li class="pull-left" value="ded65366-cce1-4a42-ab1a-95f103ff97ad" typename="教学课件"><i></i><span>教学课件</span></li>
+                        <li class="pull-left" value="5544f4e0-e0f9-454a-9c2e-044cc9a2961e" typename="教学素材"><i></i><span>教学素材</span></li>
+                        <li class="pull-left" value="68ce7cf1-f7c6-4d13-95b9-2de3b39b94dd" typename="课堂实录"><i></i><span>课堂实录</span></li>
+                        <li class="pull-left" value="e3502c3d-fe97-4dc0-a573-d6cf91988b0c" typename="试题试卷"><i></i><span>试题试卷</span></li>
+                        <li class="pull-left" value="5655f9ac-7ca4-449b-a457-9fa159bfc739" typename="实验设计"><i></i><span>实验设计</span></li>
+                        <li class="pull-left" value="35913791-f7b5-40c5-a2f7-0071b18ecd5f" typename="微课程"><i></i><span>微课程</span></li>
+                        <li class="pull-left" value="6e7da764-375f-43ea-a232-cc6c238bac75" typename="其它"><i></i><span>其它</span></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="br_content2">
+                <div class="dtitle icon-latest">
+                    按资源格式 
+                </div>
+                <div class="res-doc">
+                    <ul class="shortcut clearfix">
+                        <li class="pull-left selected" value="" docname=""><i></i><span>全部</span></li>
+                        <li class="pull-left" value="bf07e8bd-72f0-40f3-a8ad-aee708df77ba" docname="文档"><i></i><span>文档</span></li>
+                        <li class="pull-left" value="f491b7f8-7b6e-4b3b-957a-6c3e09788ef4" docname="图片"><i></i><span>图片</span></li>
+                        <li class="pull-left" value="c0cee0bf-f7ee-4521-b76e-790c00321969" docname="视频"><i></i><span>视频</span></li>
+                        <li class="pull-left" value="78e30683-45e0-4c52-af84-8f912918eb61" docname="音频"><i></i><span>音频</span></li>
+                        <li class="pull-left" value="6dce2193-0294-4d3d-9bb3-1c6f7601ba76" docname="动画"><i></i><span>动画</span></li>
+                        <li class="pull-left" value="e4fac869-719d-4482-a4ec-5ce14e588838" docname="其他"><i></i><span>其他</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div id="body_content" class="body_center2">
+            <div class="bc_content1">
+                <div class="dtitle icon-ressearch">
+                    相关推送资源 
+                </div>
+                <div id="resourcecenter">
+                    @Html.Partial("SendRes", Model)
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+<div class="bottom"></div>
+<script>
+    $("#li-myfav").click(function () {
+        $(".icon-ressearch").html("资源检索");
+        setdefaultwhere();
+        $("#resourcecenter").load("@Url.Action("SendRes", "MyResource", new { id = Model.UserID })");
+    });
+    $("#li-myres").click(function () {
+        $(".icon-ressearch").html("我的资源");
+        setdefaultwhere();
+        $("#resourcecenter").load("@Url.Action("MyRes", "MyResource", new { id = Model.UserID })");
+    });
+    function setdefaultwhere() {
+        $(".res-style li").removeClass("selected");
+        $(".res-style li[value='']").addClass("selected");
+        $(".res-doc li").removeClass("selected");
+        $(".res-doc li[value='']").addClass("selected");
+    }
+</script>
+
+

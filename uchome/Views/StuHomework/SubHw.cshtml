@@ -1,0 +1,150 @@
+﻿@{
+    Layout = null;
+    ViewBag.Title = "SubHw";
+}
+@using HomeWork.Model
+@model Homework_StuHomeworks
+<link rel="stylesheet" href="@Url.Content("~/plugs/webuploader/css/webuploader.css")">
+<link rel="stylesheet" href="@Url.Content("~/plugs/webuploader/css/demo.css")">
+<link rel="stylesheet" href="@Url.Content("~/plugs/datetimepicker/css/bootstrap-datetimepicker.css")">
+<link rel="stylesheet" href="@Url.Content("~/content/css/homework.css")">
+<style>
+    .red {
+        color: red;
+    }
+</style>
+@using (Ajax.BeginForm("SubHw", null,
+    new AjaxOptions()
+    {
+        HttpMethod = "post",
+        Url = @Url.Action("SubHw"),
+        UpdateTargetId = "#subhw",
+        LoadingElementId = "loding",
+        LoadingElementDuration = 2000
+    }, new { id = "form_stuHw" }))
+{
+    @Html.HiddenFor(model => model.HwID)
+    @Html.HiddenFor(model=>model.HomeworkID)
+    @Html.HiddenFor(model=>model.HwAttachment)
+    <div id="subhw" class="form-horizontal form-position pagew ">
+        <div class="form-group">
+            <label for="HomeworkContent" class="col-sm-2 control-label">作业内容：</label>
+            <div class="col-sm-9">
+                <textarea class="form-control" id="HwContent" name="HwContent" rows="5" placeholder="请输入作业内容" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="hwname" class="col-sm-2 control-label">作业附件：</label>
+            <div class="col-sm-9">
+                <div id="uploader1" class="wu-example">
+                </div>
+            </div>
+        </div>
+        <input id="HwAttachment" name="HwAttachment" type="hidden" />
+        <div class="form-group">
+            <div class="btn-group center-block" style="width: 200px;">
+                <button id="btnSend" type="button" class="btn btn-info dropdown-toggle" data-toggle="button" aria-haspopup="true" aria-expanded="false">
+                    保存
+                </button>
+            </div>
+        </div>
+         <div class="form-group">
+            <ul id="validmsg"></ul>
+        </div>
+    </div>
+}
+<script src="@Url.Content("~/plugs/datetimepicker/js/bootstrap-datetimepicker.min.js")"></script>
+<script src="@Url.Content("~/plugs/datetimepicker/js/bootstrap-datetimepicker.zh-CN.js")"></script>
+<script>
+    $("#btnSend").click(function() {
+        $("#form_stuHw").submit();
+        $("#validmsg").show();
+    });
+    var validator = $("form").validate({
+        rules: {
+            HwContent: "required"
+           
+        },
+        messages: {
+            HwContent: "请选择人员"
+       
+        },
+        errorClass: "red", //设置错误样式
+        errorElement: "label", //设置显示错误提示的控件,默认为<label>
+        errorLabelContainer: "#validmsg", //指定错误信息放置容器
+        wrapper: "li",
+        //errorPlacement: function (error,element) { //指定错误信息放置位置
+        //    error.appendTo($("#validmsg"));
+        //},
+        //debug: true//进行调试模式（表单不提交）
+        submitHandler: function(form) {
+            $(form).ajaxSubmit({
+                success: function(data) {
+                    if (data.Data.statuscode == 200) {
+                        var obj = "<div id='operresultmsg' class='alert alert-success center-block' role='alert'>保存成功！</div>";
+                        $("form").append(obj);
+
+                        validator.resetForm(); //重置表单
+                        $("#HwContent").val("");
+                        $("#validmsg").show();
+                        var guid = '@Guid.NewGuid().ToString()';
+                        $("#HwID").val(guid); //动态生成newid
+
+                        setTimeout(function() {
+                            $("#operresultmsg").remove();
+                        }, 2000);
+                    } else {
+                        var obj = "<div id='operresultmsg' class='alert alert-danger center-block' role='alert'>保存失败，请重试！<p style='display:none'>" + data.Data.msg + "</p></div>";
+                        $("form").append(obj);
+
+                        setTimeout(function() {
+                            $("#operresultmsg").remove();
+                        }, 2000);
+                    }
+                }
+            });
+        }
+        //onsubmit: false,//是否提交时验证，默认为True,用于设置某一个不需要验证的控件
+        //onfocusin: false,//是否获取焦点时验证，默认为True
+        //onkeyup: false,//是否在敲击键盘时验证，默认为True
+        //onclick: false//是否在鼠标点击时验证，默认为True
+    });
+    //$(document).ready(function() {
+    //    var validator = $("form").validate({
+    //        rules: {
+    //            HomeworkName: "required",
+    //            HomeworkContent: "required"
+    //        },
+    //        messages: {
+    //            HomeworkName: "请输入作业名称",
+    //            HomeworkContent: "请输入作业内容"
+    //        },
+    //        errorClass: "red", //设置错误样式
+    //        errorElement: "label", //设置显示错误提示的控件,默认为<label>
+    //        errorLabelContainer: "#validmsg", //指定错误信息放置容器
+    //        wrapper: "li"
+    //    });
+    //})
+</script>
+<script src="@Url.Content("~/plugs/webuploader/js/webuploader.js")"></script>
+<script src="@Url.Content("~/plugs/webuploader/js/upfile.js")"></script>
+<script>
+    var BASE_URL = '@Url.Content("~/plugs/webuploader/")';
+    //文件处理服务
+    var Server_URL = "@Url.Action("AddFileTwo", "PublicShare")";
+    var upfile = new Upfiles({
+        id: "uploader1",
+        baseurl: BASE_URL,
+        serverurl: Server_URL,
+        callbackfn: function (ret) {
+            if (ret != null) {
+                var results = new Array();
+                var files = eval("(" + ret + ")");
+                $.each(files, function (index, item) {
+                    results.push(item.filepath);
+                });
+                $("#HwAttachment").val(results);
+            }
+        }
+    });
+</script>

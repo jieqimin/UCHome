@@ -1,0 +1,36 @@
+﻿@{
+    ViewBag.Title = "TeacherList";
+}
+
+<div class="dtitle">孩子教师</div>
+<div class="dpicture">
+    <ul>
+
+        <li onclick="openwindow('@Url.Action("Chat")',1000,500,'孩子教师')">
+            <dl>
+                <dd class="photo">
+                    <img src="@Url.Content("~/Content/images/male.png")" border="0" /></dd>
+                <dd class="info">孙国立</dd>
+                <dd class="msgcount">1</dd>
+            </dl>
+        </li>
+        <li onclick="openwindow('@Url.Action("Chat")',1000,500,'孩子教师')">
+            <dl>
+                <dd class="photo">
+                    <img src="@Url.Content("~/Content/images/man.png")" border="0" /></dd>
+                <dd class="info">伍咏薇</dd>
+
+            </dl>
+        </li>
+        <li onclick="openwindow('@Url.Action("Chat")',1000,500,'孩子教师')">
+            <dl>
+                <dd class="photo">
+                    <img src="@Url.Content("~/Content/images/male.png")" border="0" /></dd>
+                <dd class="info">丁洋</dd>
+
+            </dl>
+        </li>
+
+    </ul>
+</div>
+<div class="more" onclick="openwindow('@Url.Action("MoreTeacherlist")',1000,500,'孩子教师')">查看更多</div>

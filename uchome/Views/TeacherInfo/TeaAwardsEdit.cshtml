@@ -1,0 +1,407 @@
+﻿@{
+    Layout = null;
+}
+
+@using System.Web.Mvc
+@using M = TeacherAwards.Model;
+@model M.Entity.Teacher_JCJG0110
+<link rel="stylesheet" href="@Url.Content("~/Content/css/msg.css")">
+<script src="@Url.Content("~/plugs/usercontrol/selectuser.js")"></script>
+<link rel="stylesheet" href="@Url.Content("~/plugs/webuploader/css/webuploader.css")">
+<link rel="stylesheet" href="@Url.Content("~/plugs/webuploader/css/demo.css")">
+<link rel="stylesheet" href="@Url.Content("~/plugs/datetimepicker/css/bootstrap-datetimepicker.css")">
+<link rel="stylesheet" href="@Url.Content("~/content/css/homework.css")">
+<style type="text/css">
+    .sel-notice {
+        width: 120px !important;
+        margin-right: 10px;
+    }
+</style>
+@using (Ajax.BeginForm("EditSend", null,
+    new AjaxOptions()
+    {
+        HttpMethod = "post",
+        Url = Url.Action("EditSend"),
+        UpdateTargetId = "#editSend",
+        LoadingElementId = "loding",
+        LoadingElementDuration = 2000
+    }, new { id = "form_editSend" }))
+{
+    @Html.HiddenFor(model => model.JLID)
+    @Html.HiddenFor(model => model.JLDJM)
+    @Html.HiddenFor(model => model.JLJBM)
+    @Html.HiddenFor(model => model.HJLBM)
+    @Html.HiddenFor(model => model.JLFSM)
+    @Html.HiddenFor(model => model.CJR)
+
+    var time = DateTime.Now.ToString("yyyy-MM-dd");
+    if (Model.HJRQ != null && Model.HJRQ != "")
+    {
+        time = Model.HJRQ.Substring(0, 4) + "-" + Model.HJRQ.Substring(4, 2) + "-" + Model.HJRQ.Substring(6, 2);
+    }
+
+
+    <div id="editSend" class="form-horizontal form-position pagew ">
+
+        <div class="form-group">
+            <label for="HJXM" class="col-sm-2 control-label">
+                <i class="required" style="color: red;">*</i>
+                获奖项目：
+            </label>
+            <div class="col-sm-9">
+                <input type="text" class="col-xs-3" id="HJXM" name="HJXM" value="@Model.HJXM" placeholder=" 请输入获奖项目" style="width:200px;" />
+                <label for="HJXM" class="col-xs-5">例如:全国十佳教师</label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="JLDJM1" class="col-sm-2 control-label">
+                <i class="required" style="color: red;">*</i>
+                获奖等级：
+            </label>
+            <div class="col-sm-9">
+                <select id="JLDJM1" name="JLDJM1" class="form-control input-sm col-xs-2 sel-notice" style="width:200px;"></select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="JLJBM1" class="col-sm-2 control-label">
+                <i class="required" style="color: red;">*</i>
+                奖励级别：
+            </label>
+            <div class="col-sm-9">
+                <select id="JLJBM1" name="JLJBM1" class="form-control input-sm col-xs-2 sel-notice" style="width:200px;"></select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="HJLBM1" class="col-sm-2 control-label">
+                <i class="required" style="color: red;">*</i>
+                获奖类别：
+            </label>
+            <div class="col-sm-9">
+                <select id="HJLBM1" name="HJLBM1" class="form-control input-sm col-xs-2 sel-notice" style="width:200px;"></select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="JLFSM1" class="col-sm-2 control-label">
+                <i class="required" style="color: red;">*</i>
+                奖励方式：
+            </label>
+            <div class="col-sm-9">
+                <select id="JLFSM1" name="JLFSM1" class="form-control input-sm col-xs-2 sel-notice" style="width:200px;"></select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="JLMC" class="col-sm-2 control-label">
+                <i class="required" style="color: red;">*</i>
+                奖励名称：
+            </label>
+            <div class="col-sm-9">
+                <input type="text" class="col-xs-3" id="JLMC" name="JLMC" value="@Model.JLMC" placeholder=" 请输入奖励名称" style="width:200px ;" />
+                <label for="JLMC" class="col-xs-5">例如:全国十佳教师第五名</label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="HJRQ" class="col-sm-2 control-label">
+                <i class="required" style="color: red;">*</i>
+                获奖日期：
+            </label>
+            <div class="col-sm-5">
+                <div class="date form_datetime input-group" data-date-format="yyyy-mm-dd" data-link-field="dtp_input1">
+                    <input class="form-control" id="HJRQ" name="HJRQ" type="text" value="@time" placeholder="请选择获奖日期">
+                    <div class="input-group-addon">
+                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                    </div>
+                    <div class="input-group-addon">
+                        <span class="glyphicon glyphicon-th" aria-hidden="true"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="HJYY" class="col-sm-2 control-label">获奖原因：</label>
+            <div class="col-sm-9">
+                <input type="text" class="col-xs-3" id="HJYY" name="HJYY" value="@Model.HJYY" placeholder=" 请输入获奖原因" style="width:300px;" />
+                <label for="HJYY" class="col-xs-5">例如:各方面表现优秀</label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="JLNR" class="col-sm-2 control-label">获奖内容：</label>
+            <div class="col-sm-9">
+                <input type="text" class="col-xs-3" id="JLNR" name="JLNR" value="@Model.JLNR" placeholder=" 请输入获奖内容" style="width:300px;" />
+                <label for="JLNR" class="col-xs-5">例如:荣誉证书</label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="BJDW" class="col-sm-2 control-label">颁奖单位：</label>
+            <div class="col-sm-9">
+                <input type="text" class="col-xs-3" id="BJDW" name="BJDW" value="@Model.BJDW" placeholder=" 请输入颁奖单位" style="width:300px;" />
+                <label for="BJDW" class="col-xs-5">例如:国家教育厅</label>
+            </div>
+        </div>
+
+      @*  <div class="form-group">
+            <label for="Approver" class="col-sm-2 control-label">审核人：</label>
+            <div class="col-sm-9">
+                <select id="Approver" name="Approver" class="form-control input-sm col-xs-2 sel-notice" style="width:200px;"></select>
+            </div>
+        </div>*@
+
+        <div class="form-group">
+            <label for="HJRQ" class="col-sm-2 control-label">
+                图片：
+            </label>
+            <div class="col-sm-5">
+
+            </div>
+        </div>
+
+        <div class="imagedemo" id="uploadImages">
+
+        </div>
+
+        <div class="form-group" id="uploadedImages" style="margin-top: 20px;">
+        </div>
+        <div id="imageHtml" style="display: none;">
+
+        </div>
+        <input id="hidImages" name="hidImages" type="hidden" />
+
+        <div class="form-group">
+            <div class="btn-group center-block" style="width: 200px;">
+                <button id="btnSend" type="button" class="btn btn-info dropdown-toggle" data-toggle="button" aria-haspopup="true" aria-expanded="false">
+                    保存
+                </button>
+                <button style="margin-left: 10px" id="btnClose" type="button" class="btn btn-info dropdown-toggle" data-toggle="button" aria-haspopup="true" aria-expanded="false">
+                    关闭
+                </button>
+            </div>
+        </div>
+
+        <div class="form-group" id="addLast">
+            <ul id="validmsg"></ul>
+        </div>
+    </div>
+}
+
+<link rel="stylesheet" href="@Url.Content("~/Content/css/zyUpload.css")" type="text/css">
+<!-- 引用核心层插件 -->
+<script type="text/javascript" src="@Url.Content("~/Content/js/zyFile.js")"></script>
+<!-- 引用控制层插件 -->
+<script type="text/javascript" src="@Url.Content("~/Content/js/zyUpload.js")"></script>
+<!-- 引用初始化JS -->
+<script type="text/javascript" src="@Url.Content("~/Content/js/uploadImages.js")"></script>
+
+<link href="@Url.Content("~/Content/css/nanogallery.css")" rel="stylesheet" type="text/css">
+<!-- nanoGALLERY js -->
+<script type="text/javascript" src="@Url.Content("~/Content/js/jquery.nanogallery.js")"></script>
+
+<script>
+    ///阻止事件冒泡的通用函数
+    function stopBubble(e) {
+        // 如果传入了事件对象，那么就是非ie浏览器
+        if (e && e.stopPropagation) {
+            //因此它支持W3C的stopPropagation()方法
+            e.stopPropagation();
+        } else {
+            //否则我们使用ie的方法来取消事件冒泡
+            window.event.cancelBubble = true;
+        }
+    }
+
+    ///删除上传的照片
+    function chearImage(obj, imageName, ext, e) {
+
+        if (confirm("确认删除该照片吗？")) {
+            $(obj).parent().parent().parent().remove();
+            $("#imageHtml").find("a[id=" + imageName + "]").remove();
+            $("#hidImages").val($("#hidImages").val().replace(imageName + ext + ";", ""));
+        }
+
+        stopBubble(e);
+    }
+
+    $(document).ready(function () {
+
+        var images = '@ViewBag.Images';
+
+        if (images != null && images.length > 0) {
+
+            var imageNames = images.split(";");
+            var len = imageNames.length;
+
+            if (len > 0) {
+                var html = "";
+                for (var i = 0; i < len; i++) {
+                    if (imageNames[i] != null && imageNames[i].length > 0) {
+                        var ind = imageNames[i].lastIndexOf('.');
+                        var name = imageNames[i].substring(0, ind);
+
+                        html += "<a id=\"" + name + "\" href=\"" + imageNames[i] + "\" data-ngthumb=\"" + imageNames[i] + "\" data-ngdesc=\"" + imageNames[i] + "\"></a>";
+                    }
+                }
+
+                $("#imageHtml").html(html);
+                $("#uploadedImages").html(html);
+                $("#hidImages").val(images+";");
+
+                $("#uploadedImages").nanoGallery({
+                    thumbnailWidth: 160, thumbnailHeight: 160,
+                    itemsBaseURL: '/upload/awards/images',
+                    displayCaption: true,
+                    //thumbnailHoverEffect:[{'name':'imageRotateCornerBL','duration':300},{'name':'borderLighter'}],
+                    thumbnailHoverEffect: [{ 'name': 'overScale', 'duration': 300 }, { 'name': 'borderLighter' }],
+                    colorScheme: 'light'
+                });
+            }
+        }
+
+        $.getJSON('@Url.Action("GetSyDictSelectItemJson")', { "codeType": "奖励等级" }, function (data) {
+            var Html = "";
+            $.each(data, function (i, e) {
+                if ($("#JLDJM").val() === e.Value) {
+                    Html += "<option value=\"" + e.Value + "\" title=\"" + e.Text + "\" selected=\"selected\">" + e.Text + "</option>";
+                }
+                else {
+                    Html += "<option value=\"" + e.Value + "\" title=\"" + e.Text + "\">" + e.Text + "</option>";
+                }
+            });
+            $("#JLDJM1").html(Html);
+        });
+        $.getJSON('@Url.Action("GetSyDictSelectItemJson")', { "codeType": "奖励级别" }, function (data) {
+            var Html = "";
+            $.each(data, function (i, e) {
+                if ($("#JLJBM").val() === e.Value) {
+                    Html += "<option value=\"" + e.Value + "\" title=\"" + e.Text + "\" selected=\"selected\">" + e.Text + "</option>";
+                }
+                else {
+                    Html += "<option value=\"" + e.Value + "\" title=\"" + e.Text + "\">" + e.Text + "</option>";
+                }
+            });
+            $("#JLJBM1").html(Html);
+        });
+        $.getJSON('@Url.Action("GetSyDictSelectItemJson")', { "codeType": "教师获奖类别" }, function (data) {
+            var Html = "";
+            $.each(data, function (i, e) {
+                if ($("#HJLBM").val() === e.Value) {
+                    Html += "<option value=\"" + e.Value + "\" title=\"" + e.Text + "\" selected=\"selected\">" + e.Text + "</option>";
+                }
+                else {
+                    Html += "<option value=\"" + e.Value + "\" title=\"" + e.Text + "\">" + e.Text + "</option>";
+                }
+            });
+            $("#HJLBM1").html(Html);
+        });
+        $.getJSON('@Url.Action("GetSyDictSelectItemJson")', { "codeType": "奖励方式" }, function (data) {
+            var Html = "";
+            $.each(data, function (i, e) {
+                if ($("#JLFSM").val() === e.Value) {
+                    Html += "<option value=\"" + e.Value + "\" title=\"" + e.Text + "\" selected=\"selected\">" + e.Text + "</option>";
+                }
+                else {
+                    Html += "<option value=\"" + e.Value + "\" title=\"" + e.Text + "\">" + e.Text + "</option>";
+                }
+            });
+            $("#JLFSM1").html(Html);
+        });
+       @* $.getJSON('@Url.Action("GetSchApproveJson")', { type: "13" }, function (data) {
+            var Html = "";
+            $.each(data, function (i, e) {
+                if ($("#CJR").val() === e.DriverID) {
+                    Html += "<option value=\"" + e.TeacherId + "\" title=\"" + e.TeacherName + "\" selected=\"selected\">" + e.TeacherName + "</option>";
+                } else {
+                    Html += "<option value=\"" + e.TeacherId + "\" title=\"" + e.TeacherName + "\">" + e.TeacherName + "</option>";
+                }
+            });
+            $("#Approver").html(Html);
+        });*@
+
+
+        $("#btnClose").click(function () {
+            var loadurl = "@Url.Action("IndexTeaAwards")";
+            redirecturl(loadurl);
+        });
+
+        $("#btnSend").click(function () {
+            $("#validmsg li").remove();
+            $("#form_editSend").submit();
+            $("#validmsg").show();
+        });
+
+        var validator = $("form").validate({
+            rules: {
+                HJXM: "required",
+                JLMC: "required",
+                HJRQ: "required",
+                JLDJM1: "required",
+                JLJBM1: "required",
+                HJLBM1: "required",
+                JLFSM1: "required",
+                Approver: "required"
+            },
+            messages: {
+                HJXM: "请输入获奖项目",
+                JLMC: "请输入获奖名称",
+                HJRQ: "请选择获奖时间",
+                JLDJM1: "请选择奖励等级",
+                JLJBM1: "请选择奖励级别",
+                HJLBM1: "请选择获奖类别",
+                JLFSM1: "请选择奖励方式",
+                Approver: "请选择审核人"
+            },
+            errorClass: "red", //设置错误样式
+            errorElement: "label", //设置显示错误提示的控件,默认为<label>
+            errorLabelContainer: "#validmsg", //指定错误信息放置容器
+            wrapper: "li",
+            //errorPlacement: function (error,element) { //指定错误信息放置位置
+            //    error.appendTo($("#validmsg"));
+            //},
+            //debug: true//进行调试模式（表单不提交）
+            submitHandler: function (form) {
+                $(form).ajaxSubmit({
+                    success: function (data) {
+                        if (data.Data.statuscode == 200) {
+                            var obj = "<div id='operresultmsg' class='alert alert-success center-block' role='alert'>保存成功！</div>";
+                            $("#addLast").append(obj);
+
+                            //validator.resetForm(); //重置表单
+                            $("#validmsg").show();
+                            //var guid = '@Guid.NewGuid().ToString()';
+                            //$("#JLID").val(guid); //动态生成newid
+                            setTimeout(function () {
+                                $("#operresultmsg").remove();
+                            }, 2000);
+                        } else {
+                            var obj = "<div id='operresultmsg' class='alert alert-danger center-block' role='alert'>保存失败，请重试！<p style='display:none'>" + data.Data.msg + "</p></div>";
+                            $("#addLast").append(obj);
+
+                            setTimeout(function () {
+                                $("#operresultmsg").remove();
+                            }, 2000);
+                        }
+                    }
+                });
+            }
+            //onsubmit: false,//是否提交时验证，默认为True,用于设置某一个不需要验证的控件
+            //onfocusin: false,//是否获取焦点时验证，默认为True
+            //onkeyup: false,//是否在敲击键盘时验证，默认为True
+            //onclick: false//是否在鼠标点击时验证，默认为True
+        });
+    });
+
+</script>
+<script src="@Url.Content("~/plugs/datetimepicker/js/bootstrap-datetimepicker.min.js")"></script>
+<script src="@Url.Content("~/plugs/datetimepicker/js/bootstrap-datetimepicker.zh-CN.js")"></script>
+<script>
+    $('.form_datetime').datetimepicker({
+        minView: "month", //选择日期后，不会再跳转去选择时分秒
+        language: 'zh-CN',
+        format: 'yyyy-mm-dd',
+        autoclose: true
+    });
+</script>
+

@@ -1,0 +1,75 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutClass.cshtml";
+}
+<input type="hidden" id="BJID" value="@ViewBag.BJID" />
+<input type="hidden" id="XXID" value="@ViewBag.XXID" />
+<input type="hidden" id="XNXQ" value="@ViewBag.XNXQ"/>
+<input id="hidUrlType" type="hidden" value="@ViewBag.UrlType" />
+
+    <div class="connav-bar" id="connav-bar">
+    <ul class="connav">
+        <li id="1" class="connav-check"><a onclick="changeCheck(1)">班级主页</a></li>
+        <li id="2"><a onclick="changeCheck(2)" href="#connav-bar">班级活动</a></li>
+        <li id="3"><a onclick="changeCheck(3)" href="#connav-bar">班级动态</a></li>
+        <li id="4"><a onclick="changeCheck(4)" href="#connav-bar">班级风采</a></li>
+        <li id="5"><a onclick="changeCheck(5)" href="#connav-bar">班级成员</a></li>
+        <li id="6"><a onclick="changeCheck(6)" href="#connav-bar">光荣榜</a></li>
+        <li id="7"><a onclick="changeCheck(7)" href="#connav-bar">文化墙</a></li>
+    </ul>
+</div>
+    <div class="content-box">
+
+</div>
+<div class="footer"></div>
+<script>
+    $(function() {
+        changeCheck(1);
+
+        $.post("@Url.Action("PostUserAction")", { bjid: $("#BJID").val() }, function(data) {
+
+        });
+    });
+
+    function changeCheck(num) {
+
+        var urlType = $("#hidUrlType").val();
+
+        var loadurl = "@Url.Action("Index")?bjid=" + $("#BJID").val();
+
+        if (urlType.length > 0) {
+            $("#1").removeClass("connav-check");
+            $("#2").removeClass("connav-check");
+            $("#3").addClass("connav-check");
+            $("#4").removeClass("connav-check");
+            $("#5").removeClass("connav-check");
+            $("#6").removeClass("connav-check");
+            $("#7").removeClass("connav-check");
+            loadurl = "@Url.Action("ActiveDetails")?id=" + urlType;
+
+            $("#hidUrlType").val("");
+        } else {
+            if (num === 1) {
+                loadurl = "@Url.Action("Index")?bjid=" + $("#BJID").val();
+            } else if (num === 2) {
+                loadurl = "@Url.Action("Active")?bjid=" + $("#BJID").val();
+            } else if (num === 3) {
+                loadurl = "@Url.Action("Dynamic")?bjid=" + $("#BJID").val();
+            } else if (num === 4) {
+                loadurl = "@Url.Action("Mien")?bjid=" + $("#BJID").val();
+            } else if (num === 5) {
+                loadurl = "@Url.Action("Member")?bjid=" + $("#BJID").val();
+            } else if (num === 6) {
+                loadurl = "@Url.Action("Honor")?bjid=" + $("#BJID").val();
+            } else if (num === 7) {
+                loadurl = "@Url.Action("Culture")?bjid=" + $("#BJID").val();
+            }
+            
+        }
+
+        $(".content-box").load(loadurl);
+    }
+</script>
+
+
+
+

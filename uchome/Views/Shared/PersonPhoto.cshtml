@@ -1,0 +1,352 @@
+﻿@model Guid
+<script  src="@Url.Content("~/Scripts/jquery.form.js")"></script>
+<link rel="stylesheet"  href="@Url.Content("~/plugs/webuploader/css/webuploader.css")">
+<link rel="stylesheet"  href="@Url.Content("~/plugs/webuploader/css/demo.css")">
+<script  src="@Url.Content("~/scripts/jquery.validate.min.js")"></script>
+<script  src="@Url.Content("~/scripts/validate.msg.cn.js")"></script>
+<style>
+    .myphoto_menu {
+        margin: 0 20px;
+        border-bottom: solid 1px #add8e6;
+        height: 49px;
+    }
+
+        .myphoto_menu .myphoto_menu_list {
+            height: 50px;
+            float: left;
+            position: relative;
+            zoom: 1;
+            z-index: 200;
+        }
+
+    .myphoto_menu_list ul {
+        position: relative;
+    }
+
+        .myphoto_menu_list ul li {
+            float: left;
+            line-height: 50px;
+            color: #000;
+            margin: 0 20px;
+            display: inline-block;
+            font-size: 15px;
+            cursor: pointer;
+        }
+
+    .myphoto_menu li.foucs {
+        height: 47px;
+        border-bottom: solid 3px #2595b7;
+        font-weight: bold;
+    }
+
+    .myphoto_menu .myphoto_menu_other {
+        float: right;
+    }
+
+    .myphoto_menu_other .myphoto_menu_other_item {
+        float: left;
+        line-height: 50px;
+        color: #2595b7;
+        margin: 0 10px;
+        display: inline-block;
+        font-size: 14px;
+        cursor: pointer;
+    }
+  
+    .myphoto_menu_other_item .recyclephoto {
+        background: url("@Url.Content("~/Content/images/Recycle.png")") no-repeat center center;
+        display: inline-block;
+        width: 28px;
+        height: 18px;
+    }
+    .myphoto_showstyle {
+        text-align: left;
+        color: #2595b7;
+        font-size: 12px;
+        margin: 5px 20px;
+        cursor: pointer;
+        width: 560px;
+    }
+        .myphoto_showstyle button {
+            margin: 5px;
+    }
+    .myphoto_showstyle i {
+        background-image: url("@Url.Content("~/Content/images/Properties.png")");
+        background-repeat: no-repeat;
+        background-position-x: center;
+        background-position-y: center;
+        display: inline-block;
+        width: 16px;
+        height: 16px;
+        vertical-align: middle;
+        margin-right: 5px;
+    }
+    .myphoto_content {
+        margin-top: 20px;
+    }
+    .custom-head {
+        border-bottom: 1px dotted #e9e9e9;
+        padding-bottom: 10px;
+    }
+    label.error {      
+        color: red;
+        font-size: 14px;
+        display: none;
+    }
+</style>
+<div style="background-color: #DCF1F5; min-height: 610px;">
+    <div class="myphoto_menu">
+        <div class="myphoto_menu_list">
+            <ul class="myphoto_menu_ul">
+                <li id="myphoto_menu_li_album" class="myphoto_menu_ul_li foucs">相 册 </li>
+                <li id="myphoto_menu_li_photo" class="myphoto_menu_ul_li">照 片 </li>
+            </ul>
+        </div>
+        <div class="myphoto_menu_other">
+            <div class="myphoto_menu_other_item"><i class="recyclephoto"></i>草稿箱</div>
+        </div>
+    </div>
+    <div class="myphoto_showstyle">
+        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#uploadphoto">上传照片</button>
+        <button id="btnnewalbum" type="button" class="btn btn-default" data-toggle="modal" data-target="#CreateAlbum">创建相册</button>
+        @*<button type="button" class="btn btn-default" data-toggle="modal" data-target="#ShowSet">展示设置</button>*@
+
+
+    </div>
+    <div class="myphoto_content" id="myphoto_content">
+        @Html.Partial("PhotoAlbum", Model)
+    </div>
+</div>
+<div class="modal fade" id="CreateAlbum" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">新建相册</h4>
+            </div>
+            <form method="POST" name="form-newalbum" class="form-horizontal" id="form-newalbum">
+                <div class="modal-body">
+                    @Html.Hidden("PKID")
+                    @Html.Hidden("AddUser", Model)
+                    @Html.Hidden("opertype", "add")
+                    <div class="form-group ">
+                        <label for="album-name" class="col-sm-2 control-label">相册名称</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="required form-control" id="album-name" name="album-name" title="相册名称不能为空">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="album-memo" class="col-sm-2 control-label">相册描述</label>
+                        <div class="col-sm-10">
+                            <textarea class="form-control" id="album-memo" name="album-memo"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group ">
+                        <label for="album-style" class="col-sm-2 control-label">相册主题</label>
+                        <div class="col-sm-10">
+                            <label class="radio-inline">
+                                <input type="radio" name="album-themes" id="inlineRadio1" value="1" title="请至少选择一种主题" required>
+                                普通
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="album-themes" id="inlineRadio2" value="2">
+                                教师
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="album-themes" id="inlineRadio3" value="3">
+                                同学
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="album-themes" id="inlineRadio4" value="4">
+                                校友
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="album-themes" id="inlineRadio5" value="5">
+                                朋友
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="album-themes" id="inlineRadio6" value="6">
+                                家人
+                            </label>
+                            <label for="album-themes" class="error">请至少选择一种主题</label>
+                        </div>
+                    </div>
+                    <div class="form-group ">
+                        <label for="album-type" class="col-sm-2 control-label">相册分类</label>
+                        <div class="col-sm-10">
+                            <select class="form-control" id="album-type" name="album-type" title="请至少选择一种分类" required>
+                                <option value="1">活动</option>
+                                <option value="2">风景</option>
+                                <option value="3">最爱</option>
+                                <option value="4">旅游</option>
+                                <option value="5">生活</option>
+                                <option value="0">其他</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group ">
+                        <label for="album-role" class="col-sm-2 control-label">访问权限</label>
+                        <div class="col-sm-10">
+                            <select class=" form-control" id="album-role" name="album-role" title="请至少选择一种权限" required>
+                                <option value="9" selected="selected">完全公开</option>
+                                <option value="0">个人私有</option>
+                                <option value="1">好友公开</option>
+                                <option value="2">同学公开</option>
+                                <option value="3">教师公开</option>
+                                <option value="4">本校公开</option>
+                                <option value="5">本区公开</option>
+                                <option value="6">本市公开</option>
+                            </select>
+                        </div>
+                    </div>
+
+                </div>
+                <div id="modal-albumopera" class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关 闭 </button>
+                    <button id="btn-ablum" type="submit" class="btn btn-primary">保 存 </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="modal fade bs-example-modal-lg" id="uploadphoto" tabindex="-1" role="dialog" aria-labelledby="uploadlabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="uploadlabel">上传照片</h4>
+            </div>
+            <div class="modal-body">
+                <form id="form-uploadphotos" name="form-uploadphotos" class="form-horizontal">
+                    @Html.Hidden("photoids", Model)
+                    <div class="form-group custom-head">
+                        <label for="album-name" class="col-sm-2 control-label">选择相册</label>
+                        <div class="col-sm-6">
+                            <select class="form-control" id="album" name="album"></select>
+                        </div>
+                    </div>
+                    <div class="form-group text-center custom-photoarea center-block">
+                        <div id="uploader" class="wu-example">
+                            <div class="queueList">
+                                <div id="dndArea" class="placeholder">
+                                    <div id="filePicker">
+                                        <button class="btn btn-info btn-lg center-align"><i class="icon-add"></i>选择图片</button>
+                                    </div>
+                                    <p>或将照片拖到这里，单次最多可选30张</p>
+                                </div>
+                            </div>
+                            <div class="statusBar" style="display: none;">
+                                <div class="progress">
+                                    <span class="text">0%</span>
+                                    <span class="percentage"></span>
+                                </div>
+                                <div class="info"></div>
+                                <div class="btns">
+                                    <div id="filePicker2"></div>
+                                    <div class="uploadBtn">开始上传</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+            <div id="modal-photoopera" class="modal-footer">
+                <span style="color: red; float: left;">友情提示：为了更好的图片展现效果，推荐图片宽高比例为4:3</span>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关 闭 </button>
+                <button id="btn-uploadphoto" type="button" class="btn btn-primary">保 存 </button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $("#btnnewalbum").click(function () {
+        resetalbum();
+    });
+    $("#form-newalbum").validate({
+        submitHandler: function (form) {
+            $(form).ajaxSubmit({
+                url: "@Url.Action("AddAlbum", "PublicShare")",
+                success: function (data) {
+                    if (data) {
+                        var obj = "<p id='albumoper-message' class='bg-success col-md-3 text-center input-sm'>操作成功！</div>";
+                        $("#modal-albumopera").append(obj);
+                        BackAlbumPage();
+                        resetalbum();
+                        setTimeout(function () {
+                            $("#albumoper-message").remove();
+                        }, 1000);
+                    } else {
+                        var obj = "<p id='albumoper-message' class='bg-success col-md-3 text-center input-sm'>操作成功，请重试！</div>";
+                        $("#modal-albumopera").append(obj);
+                        setTimeout(function () {
+                            $("#albumoper-message").remove();
+                        }, 1000);
+                    }
+                }
+            });
+        }
+    });
+    //$("#btn-ablum").click(function () {
+
+    //});
+    function resetalbum() {
+        $("#opertype").val("add");
+        $("#PKID").val("");
+        $("#album-name").val("");
+        $("#album-memo").val("");
+        $("input[type=radio]").removeAttr("checked");
+        $("select[name='album-type']").find("option").removeAttr("selected");
+        $("select[name='album-role']").find("option").removeAttr("selected");
+
+    }
+    function BackAlbumPage() {
+        $("#myphoto_content").load("@Url.Action("PhotoAlbum", "PublicShare", new { ID = Model })");
+    }
+</script>
+<script>
+    // 添加全局站点信息
+    var BASE_URL = '@Url.Content("~/plugs/webuploader/")';
+    var photoserver = "@Url.Action("AddPhoto", "PublicShare")";
+</script>
+<script  src="@Url.Content("~/plugs/webuploader/js/webuploader.js")"></script>
+<script  src="@Url.Content("~/plugs/webuploader/js/demo.js")"></script>
+
+<script>
+    var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+    var photolists = new Array();
+    function callbackfn(ret) {
+        var statuscode = ret.Data.statuscode;
+        if (statuscode == 200) {
+            var photourl = ret.Data.photourl;
+            photolists.push(photourl);
+            $("#photoids").val(photolists);
+        }
+    }
+
+
+    $("#btn-uploadphoto").click(function () {
+        $("#form-uploadphotos").ajaxForm({
+            url: "@Url.Action("AddAlbumPhotoRel", "PublicShare")",
+            success: function (data) {
+                if (data.Data.statuscode == 200) {
+                    var obj = "<p class='bg-success col-md-4 text-center input-sm'>添加成功，已上传了" + data.Data.photos + "张照片到" + $("#album").find("option:selected").text() + "相册！</div>";
+                    $("#modal-photoopera").append(obj);
+                    setTimeout(function () {
+                        $(".modal-backdrop").fadeOut();
+                        $("#body_content").load("@Url.Action("PhotoShow", "PublicShare", new { id = Model })");
+                    }, 2000);
+                } else {
+                    var obj = "<p class='bg-success col-md-3 text-center input-sm'>添加失败，请重试！</div>";
+                    $("#modal-photoopera").append(obj);
+                }
+            }
+        }).submit();
+    });
+    $("#myphoto_menu_li_album").click(function () {
+        $("#body_content").load("@Url.Action("PersonPhoto", "PublicShare", new { id = Model })");
+    });
+    $("#myphoto_menu_li_photo").click(function () {
+        $("#body_content").load("@Url.Action("PhotoShow", "PublicShare", new { id = Model })");
+    });
+</script>

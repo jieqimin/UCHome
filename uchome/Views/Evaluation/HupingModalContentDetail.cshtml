@@ -1,0 +1,65 @@
+﻿@{
+    Layout = null;
+}
+@using M = Evaluation.Model;
+@model M.Models.EvaluationGuageGuide          
+<div id="evalscore" class="form-horizontal">
+    @Html.HiddenFor(model => model.EvalID)
+    @Html.HiddenFor(model => model.XSID)
+
+    @if (Model.listGuageGuide.Count == 0)
+    {
+        @Html.Raw("当前学期没有设置评价指标！");
+    }
+    else
+    {
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>评价一级指标</th>
+                    <th>评价二级指标</th>
+                    <th>分值范围</th>
+                    <th class="cell2">评分</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+        var firstLevelList = Model.listGuageGuide.Where(w => w.ParentId == 0).OrderBy(w => w.ItemOrder).ToList();
+        foreach (M.View_Tbl_GuageGuide item in firstLevelList)
+        {
+            var secondLevelList = Model.listGuageGuide.Where(w => w.ParentId == item.Id).OrderBy(w => w.ItemOrder).ToList();
+            var rowcount = secondLevelList.Count;
+            var i = 0;
+
+            foreach (M.View_Tbl_GuageGuide t in secondLevelList)
+            {
+                i++;
+                var itemscore = "";
+                if (Model.listEvaluationItem != null)
+                {
+                    var m = Model.listEvaluationItem.FirstOrDefault(w => w.GuageGuideLineId == t.Id);
+                    if (m != null) { itemscore = m.EvalItem_Score.ToString(); }
+                }
+                            
+                    <tr>
+                        @if (i == 1)
+                        { 
+                            <td rowspan="@rowcount">@item.NodeName</td>
+                        }
+
+                        <td>@t.NodeName</td>
+                        <td>@t.Description</td>
+                        <td>@itemscore</td>
+                    </tr>
+            }
+        }
+                }
+            </tbody>
+        </table>
+        <div class="pull-left" style="height: 30px;">评语：</div>
+        <div class="pull-right" style="height: 30px;">总评分：<span id="sp_score">@Model.EvalTotalScore</span></div>
+        <div class="clear-both">
+            @Html.DisplayFor(model => model.EvalContent)
+        </div>
+    }
+</div>

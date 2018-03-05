@@ -1,0 +1,223 @@
+﻿@model Guid
+<script  src="@Url.Content("~/scripts/mycustomtip.js")"></script>
+<style>
+    .saylists {
+        padding-top: 1px;
+        padding-bottom: 1px;
+        background-color: #fff;
+        min-height: 500px;
+    }
+
+    .say-content {
+        margin: 10px 10px;
+        padding: 5px;
+        border: solid 1px #add8e6;
+    }
+
+        .say-content .say-content-title {
+            line-height: 40px;
+        }
+
+    .say-content-title h5 {
+        line-height: 40px;
+        color: #2595b7;
+    }
+
+    .say-content .say-content-body {
+        color: #666;
+        font-size: 14px;
+        line-height: 25px;
+    }
+
+    .say-content .say-content-other {
+        height: 40px;
+        line-height: 40px;
+        color: #999;
+        font-size: 12px;
+    }
+
+    .say-content-other .sayproperty {
+        float: left;
+    }
+
+    .say a {
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    .say-content-other .sayfunctioin {
+        margin-left: 10px;
+        float: left;
+        cursor: pointer;
+    }
+
+    .say-pager {
+        text-align: center;
+        width: 100%;
+    }
+
+    #page_data {
+        height: 75px;
+    }
+
+    .page_bg, #plugs-pager {
+        margin: 0;
+        padding: 0 5px;
+        text-align: center;
+        position: absolute;
+        bottom: 0;
+        right: 10px;
+    }
+
+        #plugs-pager .pagination_custom {
+            margin: 5px 0;
+        }
+</style>
+<script  src="@Url.Content("~/scripts/Base64-80.js")"></script>
+<div id="saycontent" class="bc_content0">
+    <textarea id="txtcontent" placeholder="晒一下我今天的心情吧！" class="txtcontent"></textarea>
+    <div class="sendc" id="sendc">发 表 </div>
+</div>
+<div class="saylists">
+    <div id="saylists">
+        <div class="loading">正在加载中，请稍候……</div>
+    </div>
+    <div id="page_data" class="clearfix">
+        <div class="say-pager" id="plugs-pager">
+        </div>
+    </div>
+</div>
+
+@* ReSharper disable once UsingOfReservedWord *@
+<script>
+    var currpage = 1;
+    var tps = 1;
+    var rsc_bs_pag = { go_to_page_title: "转到", rows_per_page_title: "第几页", current_page_label: "页", current_page_abbr_label: "", total_pages_label: "/", total_pages_abbr_label: "/", total_rows_label: "/", rows_info_records: "记录", go_top_text: "&laquo;", go_prev_text: "&larr;", go_next_text: "&rarr;", go_last_text: "&raquo;" };
+
+    $("#sendc").click(function () {
+        var tc = $("#txtcontent").val();
+        if (tc == "") {
+            tipfailmsg("内容不能为空！");
+            hidefailmsg(2000);
+        } else {
+            $.ajax({
+                url: "@Url.Content("~/ashx/AddStaticNews.ashx")",
+                data: { id: "@(Model)", content: escape(tc) },
+                success: function (data) {
+                    var result = eval("(" + data + ")"); //
+                    if (result[0].result) {
+                        alert("发表成功！");
+                        Getsays("@Model", 9, "new", currpage);
+                    } else {
+                        alert(result[0].result);
+                    }
+                }
+            });
+        }
+    });
+    $("#txtcontent").focus(function () {
+        if ($(this).val() == this.defaultValue)
+            $("#txtcontent").val("");
+    }).blur(function () {
+        if ($("#txtcontent").val() == "")
+            $("#txtcontent").val(this.defaultValue);
+    });
+
+    getsayscount("@Model", "new");
+    Getsays("@Model", 9, "new", 1);
+
+    function Getsays(id, pagesize, uctype, pageindex) {
+        $("#saylists").html("");
+        $.ajax({
+            url: "@Url.Content("~/ashx/GetLogByID.ashx")",
+            data: { id: id, pagesize: pagesize, uctype: uctype, curpage: pageindex },
+            success: function (data) {
+                var infos = eval("(" + data + ")"); //            
+                if (infos.length > 0) {
+                    $.each(infos, function (idx, item) {
+                        var pid = item.pkid;
+                        var title = utf8to16(decode64(item.title));
+                        var time = item.time;
+                        //var user = item.user;
+                        var hits = item.hits;
+                        var abstract = utf8to16(decode64(item.abstract));
+                        //var isshare = item.isshare;
+                        //var isaudit = item.isaudit;
+                        //var isshow = item.isshow;
+                        var str = "<div class=\"say-content\">";
+                        str += "  <div class=\"say-content-title\">";
+                        str += "   <h5>" + title + "</h5>";
+                        str += "</div>";
+                        str += " <div class=\"say-content-body\">";
+                        str += "    <p>" + abstract + "</p>";
+                        str += " </div>";
+                        str += " <div class=\"say-content-other\">";
+                        str += "    <div class=\"sayproperty\">" + time + " 评论(" + hits + ")</div>";
+                        str += "    <div data-toggle='modal' data-target='#delconfirm' pid=" + pid + " class=\"sayfunctioin\">删除</div>";
+                        str += " </div>";
+                        var obj = str;
+                        $("#saylists").append($(obj));
+                    });
+                    $(".sayfunctioin").each(function () {
+                        $(this).click(function () {
+                            delconfirm("确定删除这条说说内容吗？", delsay, $(this).attr("pid"));
+                        });
+                    });
+                } else {
+                    var obj = "<li class=\"noinfo\"><p class=\"person\"><span class=\"newscontent\">还没有任何动态信息！</span></p></li>";
+                    $("#saylists").append($(obj));
+                }
+                $("#plugs-pager").bs_pagination({
+                    currentPage: currpage,
+                    visiblePageLinks: 10,
+                    totalPages: tps,
+                    showGoToPage: false,
+                    showRowsPerPage: false,
+                    showRowsInfo: false,
+                    onChangePage: function (type, page) {
+                        currpage = page.currentPage;
+                        Getsays("@Model", 9, "new", currpage);
+                    }
+                });
+            }
+        });
+    }
+    function getsayscount(id, uctype) {
+        $.ajax({
+            url: "@Url.Content("~/ashx/GetLogCount.ashx")",
+            data: { id: id, uctype: uctype },
+            success: function (data) {
+                var infos = eval("(" + data + ")"); //            
+                tps = infos[0].recordcount;
+                var tc = tps / 9;
+                var tci = parseInt(tc);
+                if (tc > tci)
+                    tps = tci + 1;
+                else
+                    tps = tci;
+            }
+        });
+    }
+    function ReflashSay() {
+        Getsays("@Model", 9, "new", currpage);
+    }
+
+
+    function delsay(id) {
+        $.ajax({
+            url: "@Url.Content("~/ashx/DelPersonNew.ashx")",
+            data: { pid: id, uctype: "recyclesay" },
+            success: function (data) {
+                if (data == "200") {
+                    tipsuccessmsg("删除成功");
+                    setTimeout(hidesuccessmsg, 1000);
+                    ReflashSay();
+                } else {
+                    tipfailmsg("删除失败");
+                    setTimeout(hidefailmsg, 1000);
+                }
+            }
+        });
+    }
+
+</script>

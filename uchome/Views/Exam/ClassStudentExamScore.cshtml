@@ -1,0 +1,196 @@
+﻿@{
+    Layout = null;
+}
+
+<link rel="stylesheet" href="@Url.Content("~/Content/css/msg.css")">
+<script src="@Url.Content("~/plugs/usercontrol/selectuser.js")"></script>
+<link rel="stylesheet" href="@Url.Content("~/plugs/webuploader/css/webuploader.css")">
+<link rel="stylesheet" href="@Url.Content("~/plugs/webuploader/css/demo.css")">
+<link rel="stylesheet" href="@Url.Content("~/plugs/datetimepicker/css/bootstrap-datetimepicker.css")">
+<link rel="stylesheet" href="@Url.Content("~/content/css/homework.css")">
+
+<link rel="stylesheet" href="@Url.Content("~/content/css/selUserStyle.css")">
+
+@using (Ajax.BeginForm(
+    new AjaxOptions()
+    {
+        HttpMethod = "post",
+        Url = Url.Action("OriginalScore"),
+        UpdateTargetId = "#index",
+        LoadingElementId = "loding",
+        LoadingElementDuration = 2000
+    }))
+{
+    <div id="noticeSend" class="form-horizontal form-position pagew ">
+        <div class="form-group">
+
+            <div class="col-sm-9">
+                <div class="radio-list" id="selectType">
+                    <label class="radio-inline">
+                        <div style="margin-bottom: 10px;">
+                            <span>学年学期</span>&nbsp;&nbsp;@Html.DropDownList("SchYearTerm")&nbsp;&nbsp;
+                            <input id="hidYearTerm" type="hidden" />
+                            <span>考试</span>&nbsp; &nbsp;@Html.DropDownList("SchExam", "请选择")&nbsp;&nbsp;
+                        </div>
+                        <div style="margin-bottom: 10px;">
+                            <span>年级</span>&nbsp;&nbsp;@Html.DropDownList("SchGrade", "请选择")&nbsp;&nbsp;
+                            <span>班级</span>&nbsp;&nbsp;@Html.DropDownList("SchClass", "请选择")&nbsp;&nbsp;
+                            <span>科目</span>&nbsp;&nbsp;@Html.DropDownList("SchSubject", "请选择")&nbsp;&nbsp;
+                            <input id="hidSubject" type="hidden" />
+                            <span>科类</span>&nbsp;&nbsp;@Html.DropDownList("SchKLDM")&nbsp;&nbsp;
+                        </div>
+                        <div style="margin-bottom: 10px;">
+                            <button id="btnSelect" onclick="clickGetSearchList();" type="button" class="btn btn-info dropdown-toggle" data-toggle="button" aria-haspopup="true" aria-expanded="false">
+                                查询
+                            </button>
+                            <span style="color: red;">（点击学生姓名查看年度成绩明细）</span>
+                        </div>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="component" id="dataContent">
+
+        </div>
+    </div>
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="clearBody();"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel" style="font-weight: bold;"></h4>
+                </div>
+                <div class="modal-body">
+                    
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" onclick="clearBody();">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<script>
+    function clearBody() {
+        $(".modal-body").html("");
+    }
+
+    function ShowStudentYearScoreDetails(studentId, gradeCode, classTypeCode, studentName) {
+        $(".modal-body").html("<img style=\" margin-left:45%;\" src=\"@Url.Content("~/Content/images/loading.gif")\" /><br />" +
+            "<span style=\"margin-left:40%;font-size: 12px;\">数据加载中，请稍候...</span>");
+
+        var yearTerm = $("#hidYearTerm").val();
+        var subjectName = $("#hidSubject").val();
+
+        var year = yearTerm.substring(0, 4) + "-" + (parseInt(yearTerm.substring(0, 4)) + 1);
+        var title = studentName + year + "学年度历次考试明细";
+
+        $("#myModalLabel").html(title);
+        $('#myModal').modal('show');
+        var loadurl = "@Url.Action("StudentYearScoreDetails")?StudentId=" + studentId + "&GradeCode=" + gradeCode +
+            "&ClassTypeCode=" + classTypeCode + "&YearTerm=" + yearTerm + "&SubjectName=" + subjectName;
+        $(".modal-body").load(loadurl);
+    }
+
+    $(document).ready(function () {
+        $("#SchYearTerm").addClass("input-sm sel-notice");
+        $("#SchExam").addClass("input-sm sel-notice");
+        $("#SchGrade").addClass("input-sm sel-notice");
+        $("#SchClass").addClass("input-sm sel-notice");
+        $("#SchSubject").addClass("input-sm sel-notice");
+        $("#SchKLDM").addClass("input-sm sel-notice");
+        $("#hidYearTerm").val($("#SchYearTerm").val());
+        $("#hidSubject").val($("#SchSubject").val());
+
+        $("#SchYearTerm").change(function () {
+            GetSchExamList();
+            $("#hidYearTerm").val($("#SchYearTerm").val());
+        });
+        $("#SchGrade").change(function () {
+            GetSchClassList();
+        });
+        $("#SchSubject").change(function () {
+            $("#hidSubject").val($("#SchSubject").val());
+        });
+    });
+
+    function clickGetSearchList() {
+        var yearTerm = $("#SchYearTerm").val();
+        var grade = $("#SchGrade").val();
+        var exam = $("#SchExam").val();
+        var subject = $("#SchSubject").val();
+        var schClass = $("#SchClass").val();
+        var kldm = $("#SchKLDM").val();
+        if (grade === "" || grade == null || exam === "" || exam == null || subject === "" || subject == null || schClass === "" || schClass == null) {
+            alert("请完善查询条件");
+            return false;
+        }
+        $("#dataContent").html("<img style=\" margin-left:45%;\" src=\"@Url.Content("~/Content/images/loading.gif")\" /><br />" +
+            "<span style=\"margin-left:40%;font-size: 12px;\">数据加载中，请稍候...</span>");
+
+        var loadurl = "@Url.Action("OriginalScore")?SchYearTerm=" + yearTerm + "&SchExam=" + exam +
+            "&SchGrade=" + grade + "&SchClass=" + schClass + "&SchSubject=" + subject + "&SchKLDM=" + kldm;
+        $("#dataContent").load(loadurl);
+    }
+
+    ///加载考试下拉列表
+    function GetSchExamList() {
+        var yearTerm = $("#SchYearTerm").val();
+
+        $("#SchExam").empty();
+        $("<option></option>").val("").text("请选择").appendTo($("#SchExam"));
+        $.getJSON('@Url.Action("GetAllExamListJson")', { "yearTerm": yearTerm }, function (data) {
+            if (data != null && data.length > 0) {
+                $("#SchExam").empty();
+                $.each(data, function (i, item) {
+                    $("<option></option>").val(item["Value"]).text(item["Text"]).appendTo($("#SchExam"));
+                });
+            }
+        });
+
+        $("#SchGrade").empty();
+        $("<option></option>").val("").text("请选择").appendTo($("#SchGrade"));
+        $.getJSON('@Url.Action("GetGradeListJson")', { "yearTerm": yearTerm }, function (data) {
+            if (data != null && data.length > 0) {
+                $("#SchGrade").empty();
+                $.each(data, function (i, item) {
+                    $("<option></option>").val(item["Value"]).text(item["Text"]).appendTo($("#SchGrade"));
+                });
+            }
+        });
+
+        $("#SchSubject").empty();
+        $("<option></option>").val("").text("请选择").appendTo($("#SchSubject"));
+        $.getJSON('@Url.Action("GetSubjectListJson")', { "yearTerm": yearTerm }, function (data) {
+            if (data != null && data.length > 0) {
+                $("#SchSubject").empty();
+                $.each(data, function (i, item) {
+                    $("<option></option>").val(item["Value"]).text(item["Text"]).appendTo($("#SchSubject"));
+                });
+            }
+            $("#hidSubject").val($("#SchSubject").val());
+            GetSchClassList();
+        });
+
+        return true;
+    }
+
+    ///加载班级下拉列表
+    function GetSchClassList() {
+        var yearTerm = $("#SchYearTerm").val();
+        var grade = $("#SchGrade").val();
+
+        $("#SchClass").empty();
+        $("<option></option>").val("").text("请选择").appendTo($("#SchClass"));
+        $.getJSON('@Url.Action("GetClassListJson")', { "yearTerm": yearTerm, "gradeCode": grade }, function (data) {
+            if (data != null && data.length > 0) {
+                $("#SchClass").empty();
+                $.each(data, function (i, item) {
+                    $("<option></option>").val(item["Value"]).text(item["Text"]).appendTo($("#SchClass"));
+                });
+            }
+        });
+        return true;
+    }
+</script>

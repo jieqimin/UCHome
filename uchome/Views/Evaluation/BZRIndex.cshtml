@@ -1,0 +1,99 @@
+﻿@{
+    Layout = null;
+}
+@using M = Evaluation.Model;
+@model M.Models.EvaluationStudent
+<link rel="stylesheet" href="@Url.Content("~/Content/css/msg.css")">
+<link rel="stylesheet" href="@Url.Content("~/Content/css/eval.css")">
+
+<div class="form-position pagew">
+    <a class="btn btn-info pull-right btn-exp" href="@Url.Action("MyAppRedirectPage", "AppCenter", new { id = "1730CA48-EA7A-499D-8EE0-178C1DFE476C", menuid = "EC1131ED-5F79-4014-BC18-CF61C0DF7C6C" })">批量评价</a>
+    <ul class="nav nav-tabs" id="myTabs" role="tablist">
+        <li class="active" role="presentation">
+            <a href="#home" role="tab" aria-controls="home" data-toggle="tab">未评学生</a>
+        </li>
+        <li role="presentation">
+            <a href="#profile" role="tab" aria-controls="profile" data-toggle="tab">已评学生</a>
+        </li>
+    </ul>
+    <div class="tab-content pull-left" id="myTabContent">
+        <div class="tab-pane fade pull-left active in" id="home" role="tabpanel">
+            @if (Model.notEvaluatedStuList.Count > 0)
+            { 
+                <ul>
+                    @foreach (M.Models.Stu item in Model.notEvaluatedStuList)
+                    {
+                        <li><a href="javascript:void(0);" onclick="openform('noteval','@item.XSID','@item.XM')">@item.XM</a></li>
+                    }
+                </ul>
+            }
+            else
+            {
+                @Html.Raw("班主任评价全部完成！")
+            }
+        </div>
+        <div class="tab-pane fade pull-left" id="profile" role="tabpanel">
+            @if (Model.alreadyEvaluatedStuList.Count > 0)
+            {
+                <ul>
+                    @foreach (M.Models.Stu item in Model.alreadyEvaluatedStuList)
+                    {
+                        <li><a href="javascript:void(0);" onclick="openform('noteval','@item.XSID','@item.XM')">@item.XM</a></li>
+                    }
+                </ul>
+            }
+            else
+            {
+                @Html.Raw("目前还没有班主任评价哦！")
+            }
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="Modal-BZRPJ" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">
+                    <span style="font-weight: bold;">班主任评价</span>
+                </h4>
+            </div>
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btnSaveScore" class="btn btn-info">保存</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $("#btnSaveScore").click(function () {
+            submitdata();
+        });
+    });
+
+    function openform(type, id, name) {
+        $("#myModalLabel").find("span").html("班主任评价(" + name + ")");
+        if (type == "noteval") {
+            $("#btnSaveScore").show();
+
+            $('#Modal-BZRPJ').modal('show');
+            $("#Modal-BZRPJ .modal-body").html("正在加载数据，请稍后...");
+            var loadurl = "@Url.Action("BZRIndexModalContent")?xsid=" + id;
+            $("#Modal-BZRPJ .modal-body").load(loadurl);
+        }
+        else {
+            $("#btnSaveScore").hide();
+
+            $('#Modal-BZRPJ').modal('show');
+            $("#Modal-BZRPJ .modal-body").html("正在加载数据，请稍后...");
+            var loadurl = "@Url.Action("BZRIndexModalContentDetail")?xsid=" + id;
+            $("#Modal-BZRPJ .modal-body").load(loadurl);
+        }
+    }
+
+</script>

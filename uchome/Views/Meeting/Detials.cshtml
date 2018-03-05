@@ -1,0 +1,109 @@
+﻿@{
+    Layout = null;
+}
+@using System.Web.Mvc
+@using M = MeetingModel;
+<style type="text/css">
+    .pd {
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+
+    .h {
+        height: 34px;
+        line-height: 34px;
+    }
+
+    .lic {
+        float: left;
+        margin-right: 10px;
+        height: 33px;
+        line-height: 33px;
+    }
+
+    .w {
+        width: 450px;
+    }
+</style>
+
+<div id="noticeSend" class="form-horizontal form-position pagew " style="margin-bottom: 0px; margin-top: 0px;">
+    <div class="form-group">
+        <label for="Time" class="col-sm-2 control-label">申请人：</label>
+        <div class="col-sm-9 pd h">
+            @Model.ApplierName
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="Memo" class="col-sm-2 control-label">部门：</label>
+        <div class="col-sm-9 pd h">
+            @Model.Department
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="CJR" class="col-sm-2 control-label">会议名称：</label>
+        <div class="col-sm-9 pd">
+            @Model.MeetingName
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="CJR" class="col-sm-2 control-label">会议名称：</label>
+        <div class="col-sm-9 pd">
+            @Model.MeetingRoom
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="CJR" class="col-sm-2 control-label">会议时间：</label>
+        <div class="col-sm-9 pd">
+            @Model.StartTime 至 @Model.EndTime
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="Reason" class="col-sm-2 control-label">会议说明：</label>
+        <div class="col-sm-9 pd h">
+            @Model.Remark
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="Reason" class="col-sm-2 control-label">与会人员：</label>
+        <div class="col-sm-12 pd h">
+            @Model.AttenderDisplayName
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="Approver" class="col-sm-2 control-label">审核人：</label>
+        <div class="col-sm-8 pd">
+            <ul>
+                @{
+                    if (@Model.Status == "审请中")
+                    {
+                       
+                        <li class="lic">
+                            <a class="btn" role="button">@ViewBag.Approver</a>
+                        </li>
+                    }
+                   
+                    else
+                    {
+                        <li class="lic">
+                            <a class="btn btn-info btn-sm active" role="button">@ViewBag.Approver</a>
+                        </li>
+                      
+                    }
+                }
+            </ul>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="Status" class="col-sm-2 control-label">审核状态：</label>
+        <div class="col-sm-9 pd h">
+            @Model.Status
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="Status" class="col-sm-2 control-label">审核说明：</label>
+        <div class="col-sm-9 pd h">
+            @Model.ApproveComment
+        </div>
+    </div>
+</div>

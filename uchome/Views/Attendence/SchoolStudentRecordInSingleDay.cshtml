@@ -1,0 +1,36 @@
+﻿@{
+    Layout = null;
+}
+<link href="@Url.Content("~/Content/css/StuRecordIndex.css")" rel="stylesheet" />
+<link rel="stylesheet" href="@Url.Content("~/plugs/datetimepicker/css/bootstrap-datetimepicker.css")">
+<script src="@Url.Content("~/plugs/datetimepicker/js/bootstrap-datetimepicker.min.js")"></script>
+<script src="@Url.Content("~/plugs/datetimepicker/js/bootstrap-datetimepicker.zh-CN.js")"></script>
+<link rel="stylesheet" href="@Url.Content("~/plugs/datatables/css/jquery.dataTables.css")">
+<link rel="stylesheet" href="@Url.Content("~/plugs/datatables/css/dataTables.bootstrap.css")">
+<script src="@Url.Content("~/plugs/datatables/js/jquery.datatables.js")"></script>
+<script src="@Url.Content("~/plugs/datatables/js/dataTables.bootstrap.js")"></script>
+<div class="clearfix">
+    <div class="row toolBar" style="margin: 0px">
+        <div class="col-sm-3" style="padding-left: 0;padding-top: 5px">
+            <label>年级班级:</label>
+            <select ng-options="grade as grade.NJMC for grade in Grades" ng-change="GetGradeClass()" ng-model="grade" class="input"></select>
+            <select ng-options="class as class.XZBMC for class in Classes" ng-change="GetClassStudents()" ng-model="class" class="input"></select>
+            <label>时间:</label>
+            <input type="text" class="form-control" ng-model="CheckTime" id="CheckTime" readonly>
+            <label>类型:</label>
+            <select ng-options="type for type in CheckTypes" ng-model="checkType" class="input" ng-change="GetStatistic()"></select>
+        </div>
+    </div>
+    <hr/>
+     <div style="text-align: left; padding-bottom: 10px;">
+        <label>统计：</label>
+        <label class="label-success attencestatus">正常({{ Statistic.default }})</label>
+        <label class="label-warning attencestatus">迟到({{ Statistic.warning }})</label>
+        <label class="label-danger attencestatus">未签({{ Statistic.danger}})</label>
+    </div>
+    <ul>
+        <li class="{{FilterClass(item.Records,$first)}}" ng-repeat="item in ClassStudents">{{item.XM}}</li>
+    </ul>
+   
+
+</div>

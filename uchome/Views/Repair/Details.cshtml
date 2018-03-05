@@ -1,0 +1,128 @@
+﻿@{
+    Layout = null;
+}
+@using System.Web.Mvc
+@using M = OA.Model;
+<style type="text/css">
+    .pd {
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+
+    .h {
+        height: 34px;
+        line-height: 34px;
+    }
+
+    .lic {
+        float: left;
+        margin-right: 10px;
+        height: 33px;
+        line-height: 33px;
+    }
+
+    .w {
+        width: 450px;
+    }
+</style>
+
+<div id="noticeSend" class="form-horizontal form-position pagew " style="margin-bottom: 0px; margin-top: 0px;">
+    <div class="form-group">
+        <label for="DongLou" class="col-sm-2 control-label">报修类型：</label>
+        <div class="col-sm-9 pd h">
+            @Model.DongLou
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="BaoXiuProject" class="col-sm-2 control-label">报修项目：</label>
+        <div class="col-sm-9 pd h">
+            @Model.BaoXiuProject
+        </div>
+    </div>
+    @{
+      
+        var time = Model.BaoXiuTime.ToShortDateString();
+    }
+    <div class="form-group">
+        <label for="BaoXiuTime" class="col-sm-2 control-label">报修时间：</label>
+        <div class="col-sm-9 pd">
+            @time
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="Remark" class="col-sm-2 control-label">报修内容：</label>
+        <div class="col-sm-9 pd h">
+            @Model.Remark
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="OtherCause" class="col-sm-2 control-label">报修地址：</label>
+        <div class="col-sm-9 pd h">
+            @Model.OtherCause
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="RepairStatus" class="col-sm-2 control-label">报修状态：</label>
+        <div class="col-sm-9 pd h">
+            @Model.RepairStatus
+        </div>
+    </div>
+    @{
+        var rptime = "";
+        if (Model.RepairTime!=null)
+          { rptime = Model.RepairTime.ToShortDateString(); }
+         
+    }
+    <div class="form-group">
+        <label for="RepairStatus" class="col-sm-2 control-label">维修时间：</label>
+        <div class="col-sm-9 pd h">
+            @rptime
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="RepairFanKui" class="col-sm-2 control-label">维修备注：</label>
+        <div class="col-sm-9 pd h">
+            @Model.RepairFankui
+        </div>
+    </div>
+        <div class="form-group">
+        <label for="URL" class="col-sm-2 control-label">照片：</label>
+        <div class="col-sm-9 pd">
+           <a target="_blank" href="@Model.URL" title="点击查看原图"><img src="@Model.URL" target="_blank" width="60" height="60" /></a>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="Approver" class="col-sm-2 control-label">审核人：</label>
+        <div class="col-sm-8 pd">
+            <ul>
+                @{
+                    if (@Model.RepairStatus == "维修审核")
+                    {
+                        <li class="lic">
+                            <a class="btn " role="button">@Model.WXFK</a>
+                        </li>                        
+                    }
+                    else if (@Model.RepairStatus == "维修")
+                    {
+                        <li class="lic">
+                            <a class="btn btn-info btn-sm active" role="button">@Model.WXFK</a>
+                        </li>
+                        <li class="lic">
+                            <a class="btn" role="button">维修已经审核等待维修人员进行处理。维修人：@ViewBag.People</a>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="lic">
+                            <a class="btn btn-info btn-sm active" role="button">@Model.WXFK</a>
+                        </li>
+                        <li class="lic">
+                            已经维修,维修人：@ViewBag.People
+                        </li>
+                    }
+                }
+            </ul>
+        </div>
+    </div>
+
+</div>

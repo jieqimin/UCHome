@@ -1,0 +1,263 @@
+﻿@using System.Web.UI.WebControls
+@using UCHome.Controllers
+@using UCHome.Model
+@{
+    ViewBag.Title = "个人主页";
+}
+@section Head{
+    <script src="@Url.Content("~/plugs/highcharts/js/highcharts.js")"></script>
+    <script src="@Url.Content("~/plugs/justifiedGallery/jquery.justifiedGallery.min.js")"></script>
+    <link href="@Url.Content("~/plugs/justifiedGallery/justifiedGallery.min.css")" rel="stylesheet"/>
+    <link href="@Url.Content("~/Content/css/homepage.css")" rel="stylesheet" />
+}
+
+<div class="rwjf row">
+    @*                <span class="pull-left">LV1</span>
+                <div class="col-lg-9">
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
+                            120分
+                        </div>
+                    </div>
+                </div>
+                <span>LV2</span>
+                <a>查看积分等级规则</a>*@
+</div>
+<div class="row">
+    <div class="col-lg-12" id="jftip"></div>
+</div>
+<div class="row margin-top-15">
+    <div class="col-lg-4">
+        <div class="jf stats-list row">
+            <div class="col-lg-5">
+                <img src="@Url.Content("~/Content/images/resource.png")" width="80" height="80" />
+            </div>
+            <div class="col-lg-7">
+                <p class="stats-type">错题集：<span id="errorcount">0</span></p>
+                <p><a target="_blank" href="@Url.Action("SystemAppRedirectPage", "AppCenter", new { id = "6b051716-3ec2-4a3d-9174-e19ecda3d9e3" })">查看详情</a></p>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="jf stats-list row">
+            <div class="col-lg-5">
+                <img src="@Url.Content("~/Content/images/ebook.png")" width="80" height="80" />
+            </div>
+            <div class="col-lg-7">
+                <p class="stats-type">学案数：<span id="ebookcount">0</span></p>
+                <p><a target="_blank" href="http://jxts.taedu.gov.cn:96/TaiXue/Student/Course">查看详情</a></p>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="jf stats-list row">
+            <div class="col-lg-5">
+                <img src="@Url.Content("~/Content/images/article.png")" width="80" height="80" />
+            </div>
+            <div class="col-lg-7">
+                <p class="stats-type">文章数：<span id="articlecount">0</span></p>
+                <p><a href="@Url.Action("Index", "TeacherCenter")">查看详情</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="zxkt row margin-top-30">
+    <div class=" col-lg-7">
+        <p class="zxkt-title">在学课堂<a class="more" href="http://jxts.taedu.gov.cn:96/TaiXue/Student/Course">查看更多</a></p>
+        <hr class="zxkt-hr" />
+        <div id="zxktlist">
+        </div>
+    </div>
+    <div class="hchart col-lg-5" id="personhchart">
+        <div class="loading">图表正在加载，请稍等…</div>
+    </div>
+</div>
+<div class="grx row margin-top-15">
+    <div class="col-lg-12 margin-left-15" id="mygallery">
+        <img src="@Url.Content("~/Content/images/personshow-default.png")" height="400" width="98%" />
+    </div>
+</div>
+<script>
+    //积分
+    $.ajax({
+        url: "@Url.Action("IntegralInfo")",
+        success: function (data) {
+            var Level = data.Data.Level;
+            var LLevel = data.Data.LLevel;
+            var TotalScore = data.Data.TotalScore;
+            var Score = data.Data.Score;
+            var diffscore = Score - TotalScore;
+            var curper = TotalScore * 100 / Score;
+            var percent = curper + "%";
+            var CityNum = data.Data.CityNum;
+            var AreaNum = data.Data.AreaNum;
+            var SchoolNum = data.Data.SchoolNum;
+            var obj = "<div class='col-lg-12'><span class='pull-left'>LV" + Level + " &nbsp;&nbsp;</span>";
+            obj += "";
+            obj += "<div class='progress col-lg-8'>";
+            obj += "<div class='progress-bar progress-bar-warning' role='progressbar' aria-valuenow='" + curper + "' aria-valuemin='0' aria-valuemax='100' style='width: " + percent + ";'>";
+            obj += TotalScore + "分";
+            obj += "</div>";
+            obj += "</div>";
+            obj += "";
+            obj += "<span class='pull-left'>&nbsp;&nbsp;LV" + LLevel + "&nbsp;&nbsp;</span>";
+            obj += "<a  class='pull-left' target='_blank' href='@Url.Action("Integral")'> 查看积分等级规则</a></div>";
+            $(".rwjf").html(obj);
+            if (TotalScore > 0) {
+                $("#jftip").text("恭喜您，你的积分排名全市第" + CityNum + "位，本区县第" + AreaNum + "位，本校第" + SchoolNum + "位，离下一等级还需" + diffscore + "分！");
+            } else {
+                $("#jftip").text("你已经落后很多了，让我们一起撸起袖子加油干吧，现在就去赚取积分！");
+            }
+        }
+    });
+    $.ajax({
+        url: "@Url.Action("GetArticleCount")",
+        success: function (data) {
+            var result = eval("(" + data + ")");
+            $("#articlecount").html(result.Data.Count);
+        }
+    });
+    $.ajax({
+        url: "@Url.Action("GetErrorCount")",
+        success: function (data) {
+            $("#errorcount").html(data);
+        }
+    });
+    $.ajax({
+        url: "@Url.Action("GetStuCourse")",
+        success: function (data) {
+            var result = eval("(" + data + ")");
+            var ebookcount = result.Result.TotalRecords;
+            $("#ebookcount").html(ebookcount);
+            if (ebookcount > 0)
+                $.each(result.Result.Results, function (index, item) {
+                    console.log(item);
+                    if (index >= 2) {
+                        return false;
+                    }
+                    var imgsrc = SubjectImg(item.Subject);
+                    var li = "<div class='img-rounded zxktdetail'  title='" + item.CourseName + "'><img src='" + imgsrc + "'><nobr><a class='text-cut' style='display:block;line-height:40px;color:#333;' target='_blank' href='" + item.CoursePath + "'>" + item.CourseName + "</a></nobr><nobr><span class='techtea'>【" + item.ClassDate + "】</span></nobr></div>";
+                    $("#zxktlist").append(li);
+                });
+            else
+                $("#zxktlist").append("<li><div class='margin-top-30 text-center'>暂未发现需要学习的课程！</div></li>");
+        }
+    });
+    function SubjectImg(subject) {
+        switch (subject) {
+            case "语文":
+                return "@Url.Content("~/Content/images/yw.png")";
+            case "数学":
+                return "@Url.Content("~/Content/images/sx.png")";
+            case "英语":
+                return "@Url.Content("~/Content/images/yy.png")";
+            case "物理":
+                return "@Url.Content("~/Content/images/wl.png")";
+            case "化学":
+                return "@Url.Content("~/Content/images/hx.png")";
+            case "生物":
+                return "@Url.Content("~/Content/images/sw.png")";
+            case "历史":
+                return "@Url.Content("~/Content/images/ls.png")";
+            case "政治":
+                return "@Url.Content("~/Content/images/zz.png")";
+            case "地理":
+                return "@Url.Content("~/Content/images/dl.png")";
+            default:
+                return "@Url.Content("~/Content/images/qt.png")";
+        }
+    }
+    $.ajax({
+        url: "@Url.Action("StatData")",
+        success: function (result) {
+            $('#personhchart').highcharts({
+                chart: {
+                    polar: true,
+                    type: 'area'
+                },
+                title: {
+                    text: '学生综合素质表现',
+                    style: { "color": "#000", "fontFamily": "微软雅黑" }
+                },
+                pane: {
+                    size: '80%'
+                },
+                xAxis: {
+                    categories: ['学业成长', '卫生情况', '社会实践', '心理健康',
+                                 '德育评价', '体测体检'],
+                    tickmarkPlacement: 'on',
+                    lineWidth: 0,
+                    labels: {
+                        style: { "color": "#1C83B4" }
+                    }
+                },
+                yAxis: {
+                    gridLineInterpolation: 'circle',
+                    lineWidth: 0,
+                    min: 0,
+                    max: 100,
+                    gridLineColor: "#1C83B4",
+                    gridLineDashStyle: "Solid",
+                    gridLineWidth: 1,
+                    gridZIndex: 1,
+                    minorGridLineColor: "#B2D2E4",
+                    minorGridLineDashStyle: "Solid",
+                    minorTickInterval: 'auto',
+                    minorGridLineWidth: 1
+                },
+                tooltip: {
+                    shared: true,
+                    pointFormat: '<span style="color:{series.color};">{series.name}: <b>{point.y:,.0f}</b><br/>'
+                },
+                legend: {
+                    align: 'right',
+                    verticalAlign: 'top',
+                    y: 10,
+                    layout: 'vertical',
+                    enabled: false
+                },
+                series: [{
+                    name: '得分',
+                    data: [0, 0, 0, 0, 0, 0],
+                    pointPlacement: 'on',
+                    color: "#B2D2E4"
+                }]
+            });
+        }
+    });
+
+</script>
+<script>
+    //图片秀
+    var jssor_slider1;
+    $.ajax({
+        url: "@Url.Content("~/ashx/getallphotos.ashx")",
+        data: { id: "@ViewBag.UserID" },
+        async: false,
+        success: function (data) {
+            var photos = eval("(" + data + ")"); // 
+            if (photos.length > 0) {
+                var i = 0;
+                $.each(photos, function (idx, item) {
+                    if (i > 11) {
+                        return;
+                    }
+                    var childphotos = item.photos;
+                    if (childphotos.length > 0) {
+                        $.each(childphotos, function (cidx, citem) {
+                            if (i > 11) {
+                                return;
+                            }
+                            var photourl = citem.photourl2;//.replace("_thumbnail","");
+                            var photourl2 = photourl.replace("_thumbnail", "");
+                            var obj = "<a target='_blank' href='" + photourl2 + "'><img class='img-thumbnail' src='" + photourl + "' /></a>";
+                            $("#mygallery").append(obj);
+                            i++;
+                        });
+                    }
+                });
+            }
+            $("#mygallery").justifiedGallery();
+        }
+    });
+</script>

@@ -1,0 +1,43 @@
+﻿@using UCModel;
+@model List<studentList>
+@section Head{
+     <style type="text/css">
+        ul, li {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .stulist li {
+            float: left;
+            width: 100px;
+            line-height: 35px;
+            height: 35px;
+            border: solid 1px #ccc;
+            text-align: center;
+            font-size: 14px;
+            font-family: 微软雅黑;
+            margin: 5px;
+        }
+
+            .stulist li:hover {
+                background-color: orangered;
+            }
+
+        .stulist a {
+            text-decoration: none;
+            color: #333;
+        }
+    </style>
+    }
+<body>
+    <div class="stulist">
+        <ul>
+            @{
+                foreach(var stu in Model){
+                     <li><a href="@Url.Action("Chat", new { stuname = stu.studentDisName ,classlist=stu.classList.First(),xsid=(Guid)ViewBag.xsid})">@stu.studentDisName</a></li>
+                }
+                }
+        </ul>
+    </div>
+</body>

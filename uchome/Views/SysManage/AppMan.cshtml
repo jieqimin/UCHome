@@ -1,0 +1,38 @@
+﻿@using UCHome.Model
+@{
+    ViewBag.Title = "系统皮肤管理";
+    Layout = "~/Views/Shared/_LayoutSys.cshtml";
+}
+@section Head{}
+<script src="@Url.Content("~/plugs/usercontrol/jquery-ui-1.10.0.custom.min.js")"></script>
+<link rel="stylesheet" href="@Url.Content("~/plugs/usercontrol/jquery-ui-1.10.0.custom.css")">
+<script src="@Url.Content("~/scripts/jquery.unobtrusive-ajax.js")"></script>
+<script src="@Url.Content("~/scripts/guid.js")"></script>
+
+<div id="body_content" class="panel panel-default">
+    <div class="panel-heading">
+        <ul id="appman-nav" class="nav nav-pills">
+            <li role="presentation" class="active"><a href="#" id="skin-list">皮肤列表</a></li>
+            <li role="presentation"><a href="#" id="skin-add">添加皮肤</a></li>
+        </ul>
+    </div>
+    <div class="panel-body">
+        <div class="showapp">
+        </div>
+        @*<div class="showapp2">
+            <div ng-include="'@Url.Action("Addapp")'"></div>
+        </div>*@
+    </div>
+    <script>
+        $(function () {
+            $(".showapp").load("@Url.Action("Appmanage")")
+            $("#skin-list").click(function () {
+                $(".showapp").load("@Url.Action("Appmanage")")
+            });
+            $("#skin-add").click(function () {
+                $(".showapp").load("@Url.Action("Addapp")")
+            });
+        })
+    </script>
+</div>
+

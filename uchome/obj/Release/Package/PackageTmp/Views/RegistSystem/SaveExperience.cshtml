@@ -1,0 +1,54 @@
+﻿@{
+    Layout = null;
+}
+@model TeacherAwards.Model.Entity.RegistTable
+<style type="text/css">
+    .pd {
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+
+    .h {
+        line-height: 34px;
+    }
+
+    .lic {
+        float: left;
+        margin-right: 10px;
+        height: 33px;
+        line-height: 33px;
+    }
+
+    .w {
+        width: 450px;
+    }
+</style>
+
+<input id="hidActiveId" type="hidden" value="@Model.ActiveID" />
+<div id="noticeSend" class="form-horizontal form-position pagew " style="margin-bottom: 0px; margin-top: 0px;">
+    <div class="form-group">
+        <label for="Time" class="col-sm-2 control-label">心得体会：</label>
+        <div class="col-sm-7 pd h">
+            <div id="divexperience">  
+                @Html.Raw(Model.ResgistXDTH)
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="Time" class="col-sm-2 control-label"></label>
+        <div class="col-sm-7 pd h">
+            <button id="btnSign" style="float: left;" onclick="SubmitExperience();" type="button" class="btn btn-info dropdown-toggle"
+                    data-toggle="button" aria-haspopup="true" aria-expanded="false">
+                保存
+            </button>
+            <div id="loadsaveexp"></div>
+        </div>
+    </div>
+</div>
+<script>
+    $('#divexperience').summernote({
+        height: 200,
+        focus: true
+    });
+</script>
+

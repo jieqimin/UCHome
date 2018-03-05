@@ -1,0 +1,104 @@
+﻿@{
+    Layout = null;
+}
+
+@using System.Web.Mvc
+@using M = OA.Model;
+@model M.View_Repair
+<link rel="stylesheet" href="@Url.Content("~/Content/css/msg.css")">
+<script src="@Url.Content("~/plugs/usercontrol/selectuser.js")"></script>
+<link rel="stylesheet" href="@Url.Content("~/plugs/webuploader/css/webuploader.css")">
+<link rel="stylesheet" href="@Url.Content("~/plugs/webuploader/css/demo.css")">
+<link rel="stylesheet" href="@Url.Content("~/plugs/datetimepicker/css/bootstrap-datetimepicker.css")">
+<link rel="stylesheet" href="@Url.Content("~/content/css/homework.css")">
+<style type="text/css">
+    .sel-notice {
+        width: 120px !important;
+        margin-right: 10px;
+    }
+</style>
+@Html.Hidden("id")
+<div id="auditLeave" class="form-horizontal form-position pagew " style="margin-bottom: 0px; margin-top: 0px;">
+
+    <div class="form-group">
+      
+    </div>
+
+    @{
+        if (Model.RepairFk != null)
+        {
+            @Html.TextArea("RepairFk", Model.RepairFk, new { @class = "form-control", rows = "5", placeholder = "请输入报修内容并且在100字以内" })
+        }
+        else
+        {
+            <div class="form-group">
+                <label for="RepaiFk" class="col-sm-2 control-label">维修后反馈：</label>
+                <div class="col-sm-9">
+                    <textarea class="form-control" id="RepaiFk" name="RepaiFk" rows="5" placeholder="请输入报修内容并且在100字以内" />
+                </div>
+            </div>
+        }
+    }
+
+
+
+    <div class="form-group">
+        <div class="btn-group center-block" style="width: 200px;">
+            <button id="btnSend" type="button" class="btn btn-info dropdown-toggle" data-toggle="button" aria-haspopup="true" aria-expanded="false">
+                保存
+            </button>
+            <button style="margin-left:10px" id="btnClose" type="button" class="btn btn-info dropdown-toggle" data-toggle="button" aria-haspopup="true" aria-expanded="false">
+                关闭
+            </button>
+        </div>
+    </div>
+</div>
+
+<script src="@Url.Content("~/plugs/webuploader/js/webuploader.js")"></script>
+<script src="@Url.Content("~/plugs/webuploader/js/upfile.js")"></script>
+<script>
+    $(document).ready(function () {
+
+
+        $("#btnClose").click(function () {
+            var loadurl = "@Url.Action("IndexAudit")";
+            redirecturl(loadurl);
+        });
+
+        $("#btnSend").click(function () {
+            var id = $("#id").val();
+            var fk = $("#RepaiFk").val();
+            $.post('@Url.Action("EditBackRepairSend")', { Id: id, fk: fk }, function (data) {
+                if (data.Data.statuscode == 1) {
+                    alert("保存成功");
+                    $(".modal-backdrop").remove();
+                    var loadurl = "@Url.Action("Index")";
+                    redirecturl(loadurl);
+
+                }
+                else {
+                    alert("保存失败");
+                }
+
+            });
+
+        });
+    });
+
+
+</script>
+<script src="@Url.Content("~/plugs/datetimepicker/js/bootstrap-datetimepicker.min.js")"></script>
+<script src="@Url.Content("~/plugs/datetimepicker/js/bootstrap-datetimepicker.zh-CN.js")"></script>
+<script>
+    $('.form_datetime').datetimepicker({
+        language: 'zh-CN',
+        weekStart: 1,
+        todayBtn: 1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 2,
+        minView: 2,
+        forceParse: 0
+    });
+</script>
+

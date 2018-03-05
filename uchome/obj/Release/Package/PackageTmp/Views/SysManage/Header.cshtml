@@ -1,0 +1,37 @@
+﻿@*<div class="top">
+    <div class="top_content">
+        <ul id="portal" class="portal">
+            <li class="logo">泰安市教育云空间</li>
+        </ul>
+        <ul class="login">
+            <li><a class="returntop" href="#top">返回顶部</a></li>
+            <li><a class="loginout" href="http://www.taedu.gov.cn/Authentication.Web/SignOut.aspx?ApplicationID=f3aae122-0ca7-44c9-a485-ef30b161ee62&ReturnUrl=http://jp.taedu.gov.cn:84/UCHomeNew/Home/Index">【退出】</a></li>
+        </ul>
+        <span></span>
+    </div>
+</div>*@
+@model UCHome.Model.UserInfo
+<ul class="portal">
+    <li class="logo">泰安市教育云空间</li>
+     <li><span class="glyphicon glyphicon-home"></span><a href="@Url.Action("Index", "Home")">个人主页</a></li>
+    @if (Model.usertype.ToUpper() == "T")
+    {
+        <li class="selected "><span class="glyphicon glyphicon-user"></span><a href="@Url.Action("Index", "TeacherCenter")">个人中心</a></li>
+        <li><span class="glyphicon glyphicon-th-large"></span><a href="@Url.Action("Index", "AppCenter")">应用中心</a></li>
+        <li><span class="glyphicon glyphicon-th-list"></span><a href="@Url.Action("Index", "MyResource")">资源中心</a></li>
+    }
+    else
+    {
+        <li class="selected "><span class="glyphicon glyphicon-user"></span><a href="@Url.Action("Index", "StudentCenter")">个人中心</a></li>
+        <li><span class="glyphicon glyphicon-th-large"></span><a href="@Url.Action("Index", "AppCenter")">应用中心</a></li>
+    }
+    <li><span class="glyphicon glyphicon-heart"></span><a href="@Url.Action("HailFellow", "FollowUserCenter")">好友</a></li>
+</ul>
+<ul class="login">
+    <li><span class="glyphicon glyphicon-arrow-up"></span><a href="#top">返回顶部</a></li>
+    <li><span class="glyphicon glyphicon-log-out"></span><a href="@Url.Action("Logout", "AppCenter", new { returnurl = Request.Url })">【退出】</a></li>
+   @* <li><span class="glyphicon glyphicon-tree-deciduous"></span>@Html.Action("UserSkinSet")</li>*@
+</ul>
+
+
+

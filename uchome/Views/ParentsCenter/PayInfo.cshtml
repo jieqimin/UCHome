@@ -1,0 +1,39 @@
+﻿@model Guid
+<div class="dtitle">帐户明细</div>
+<div class="dinfo2">
+    <ul id="paydetails">
+       @* <li><span>2014年9月23 12:15</span>
+            <br />
+            缴费记录：代扣学杂费1000元</li>
+        <li><span>2014年2月23 12:40</span>
+            <br />
+            缴费记录：代扣学杂费1000元</li>
+        <li><span>2013年9月22 12:20</span>
+            <br />
+            缴费记录：代扣学杂费1000元</li>*@
+    </ul>
+</div>
+<script>
+    $.ajax({
+        url: "@Url.Content("~/ashx/paymentServer.ashx")",
+        data: { "Method": "getDealByCount", "UserID": "@Model", "count": "5" },
+        success:function(data) {
+            var paylist = eval("(" + data + ")"); //
+            if (paylist.length > 0) {
+                $.each(paylist, function (idx, item) {
+                    var rname = item.deal_name;                    
+                    var rdate = item.deal_date;
+                    var rfee = item.deal_fee;
+                    var rid = item.rid;
+                    var obj = "<li><span>"+rdate+"</span><br />"+rname+":"+rfee+"</li>";
+                    $("#paydetails").append($(obj));
+                });
+            }
+            else {
+                $("#paydetails").append("<div  class=\"loading\">暂时还没有发现任何缴费记录！</div>");
+            }
+
+        }
+
+    })
+</script>

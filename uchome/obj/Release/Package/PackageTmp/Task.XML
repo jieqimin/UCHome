@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Task>
+  <Url key="AddTask" value="http://localhost:84/Task.Api/api/Task/AddTask"/>
+  <Url key="ModifyTask" value="http://localhost:84/Task.Api/api/Task/ModifyTask"/>
+  <Url key="DeleteTask" value="http://localhost:84/Task.Api/api/Task/DeleteTask"/>
+  <Url key="GetAllTask" value="http://localhost:84/Task.Api/api/Task/GetAllTask"/>
+  <Url key="GetTask" value="http://localhost:84/Task.Api/api/Task/GetTask"/>
+  <Url key="AddTaskCondition" value="http://localhost:84/Task.Api/api/TaskCondition/AddTaskCondition"/>
+  <Url key="ModifyTaskCondition" value="http://localhost:84/Task.Api/api/TaskCondition/ModifyTaskCondition"/>
+  <Url key="DeleteTaskCondition" value="http://localhost:84/Task.Api/api/TaskCondition/DeleteTaskCondition"/>
+  <Url key="GetTaskConditionByTask" value="http://localhost:84/Task.Api/api/TaskCondition/GetTaskConditionByTask"/>
+  <Url key="GetTaskCondition" value="http://localhost:84/Task.Api/api/TaskCondition/GetTaskConditionByKey"/>
+  <Url key="AddTaskTrigger" value="http://localhost:84/Task.Api/api/TaskTrigger/AddTaskTrigger"/>
+  <Url key="ModifyTaskTrigger" value="http://localhost:84/Task.Api/api/TaskTrigger/ModifyTaskTrigger"/>
+  <Url key="DeleteTaskTrigger" value="http://localhost:84/Task.Api/api/TaskTrigger/DeleteTaskTrigger"/>
+  <Url key="GetTaskTriggersByTask" value="http://localhost:84/Task.Api/api/TaskTrigger/GetTaskTriggersByTask"/>
+  <Url key="GetTaskTriggerByKey" value="http://localhost:84/Task.Api/api/TaskTrigger/GetTaskTriggerByKey"/>
+  <Url key="AddTaskTarget" value="http://localhost:84/Task.Api/api/TaskTarget/AddTaskTarget"/>
+  <Url key="ModifyTaskTarget" value="http://localhost:84/Task.Api/api/TaskTarget/ModifyTaskTarget"/>
+  <Url key="DeleteTaskTarget" value="http://localhost:84/Task.Api/api/TaskTarget/DeleteTaskTarget"/>
+  <Url key="GetTaskTargetsByTask" value="http://localhost:84/Task.Api/api/TaskTarget/GetTaskTargetsByTask"/>
+  <Url key="GetTaskTarget" value="http://localhost:84/Task.Api/api/TaskTarget/GetTaskTargetByKey"/>
+  <Url key="AddTaskReward" value="http://localhost:84/Task.Api/api/TaskReward/AddTaskReward"/>
+  <Url key="ModifyTaskReward" value="http://localhost:84/Task.Api/api/TaskReward/ModifyTaskReward"/>
+  <Url key="DeleteTaskReward" value="http://localhost:84/Task.Api/api/TaskReward/DeleteTaskReward"/>
+  <Url key="GetTaskRewardsByTask" value="http://localhost:84/Task.Api/api/TaskReward/GetTaskRewardsByTask"/>
+  <Url key="GetTaskReward" value="http://localhost:84/Task.Api/api/TaskReward/GetTaskRewardByKey"/>
+  <Url key="AddUserTarget" value="http://localhost:84/Task.Api/api/TaskUserTarget/AddTaskUserTarget" />
+  <Url key="AddUserReward" value="http://localhost:84/Task.Api/api/TaskUserTarget/AddTaskUserReward" />
+  <Url key="AddUserIntergral" value="http://localhost:84/Task.Api/api/TaskUserTarget/AddUserIntergral" />
+</Task>

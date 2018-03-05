@@ -1,0 +1,224 @@
+﻿<div class="bc_content0">
+    <textarea id="txtcontent" placeholder="晒一下我今天的心情吧！" class="txtcontent"></textarea>
+    <div class="sendc" id="sendc">发 表 </div>
+    <input id="hidLoginId" type="hidden" value="@ViewBag.LoginId"/>
+    <input id="hidCurPage" type="hidden" value="0" />
+</div>
+<div id="divcontent">
+    
+</div>
+<div style="margin-bottom: 10px;">
+    <div class="loadbtn2"><a onclick="loadContent();">查看更多动态</a></div>
+</div>
+<link href="@Url.Content("~/Content/css/reset.css")" rel="stylesheet"/>
+<link href="@Url.Content("~/Content/css/style.css")" rel="stylesheet"/>
+<link href="@Url.Content("~/Content/css/nanogallery.css")" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="@Url.Content("~/Content/js/jquery.nanogallery.js")"></script>
+<script>
+    function viewloglnk(url) {
+        $("#body_content").load(url);
+    }
+
+    function Delete(id, index) {
+        if (confirm("确认删除该动态吗？")) {
+            $.post("@Url.Action("DeleteCirle", "TeacherCenter")", { fid: id }, function (data) {
+                $("#" + index).remove();
+            });
+        }
+    }
+
+    function DeleteParent(fid, id) {
+        if (confirm("确认删除该评论吗？")) {
+            $.post("@Url.Action("DeleteComments", "TeacherCenter")", { fid: fid, cid: id }, function (data) {
+                if (data === true) {
+                    $("#" + id).remove();
+                }
+            });
+        }
+    }
+
+    function DeleteChild(fid, id) {
+        if (confirm("确认删除该评论吗？")) {
+            $.post("@Url.Action("DeleteComments", "TeacherCenter")", { fid: fid, cid: id }, function (data) {
+                if (data === true) {
+                    $("#" + id).parent().parent().parent().remove();
+                }
+            });
+        }
+    }
+
+    function showPingLun(count) {
+        $("#" + count).hide();
+        $("#send" + count).show();
+        $("#text" + count).focus();
+    }
+
+    function showParentPingLun(count, id, name) {
+        $("#" + count).show();
+        $("#send" + count).hide();
+
+        $("#div" + id).show();
+        $("#textparent" + id).val("回复 " + name + "：");
+        $("#textparent" + id).focus();
+    }
+
+    function hidPingLun(count) {
+        $("#text" + count).val("");
+        $("#" + count).show();
+        $("#send" + count).hide();
+    }
+
+    function hidParentPingLun(count, id) {
+        $("#text" + count).val("");
+        $("#" + count).show();
+        $("#send" + count).hide();
+
+        $("#textparent" + id).val("");
+        $("#div" + id).hide();
+    }
+
+    function like(fid, count) {
+        var likestyle = "praist" + count;
+
+        $.post("@Url.Action("PostLike", "TeacherCenter")", { fid: fid }, function (data) {
+            var likeval = $("#likeval" + count).html();
+            var likecount = parseInt($("#likecount" + count).html());
+            var likeuserid = count + "div" + data.UID;
+
+            if (likeval === "赞") {
+
+                if ($("#someID")) {
+                    $("#someID").text("hi");
+                }
+                var lens = $("#like" + count).children('div').length;
+
+                if (lens === 0) {
+                    $("#like" + count).height("33");
+                    $("#like" + count).append("<div class=\"praise\" id=\"" + likestyle + "\" style=\"cursor: pointer;\" onclick=\"like('" + fid + "', '" + count + "')\"><img src=\"@Url.Content("~/Content/images/zf-like2.png")\"/></div>");
+                }
+
+                $("#likeval" + count).html("取消赞");
+                $("#likecount" + count).html(likecount + 1);
+
+                var likeuser = "<div class=\"praise-img\" id=\"" + likeuserid + "\" title=\"" + data.UName + "\">" +
+                    "<a href=\"#\"><img width=\"30px\" height=\"30px\" src=\"/UCHomeNew/upload/headimages/" + data.UID + ".jpg\"/></a></div>";
+
+                $("#like" + count).append(likeuser);
+
+            } else {
+                $("#likeval" + count).html("赞");
+                $("#likecount" + count).html(likecount - 1);
+
+                $("#" + likeuserid).remove();
+
+                var len = $("#like" + count).children('div').length;
+
+                if (len === 1) {
+                    $("#like" + count).height("0");
+                    $("#like" + count).html("");
+                }
+            }
+        });
+    }
+
+    function pinglun(count, fid) {
+        var content = $("#text" + count).val();
+
+        if (content != null && content !== "") {
+
+            $.post("@Url.Action("PostParentComment", "TeacherCenter")", { fid: fid, content: content }, function (data) {
+                var textParentID = "textparent" + data.CId;
+                var divparentId = "div" + data.CId;
+                var pl = "<div class=\"com-box\" id=\"" + data.CId + "\"><div class=\"com-item\">" +
+                    "<div class=\"com-item-img\"><img width=\"30px\" height=\"30px\" src=\"/UCHomeNew/upload/headimages/" + data.UID + ".jpg\"/>" +
+                    "</div><div class=\"com-item-p\"><p><a href=\"##\">" + data.UName + "</a>：" + content +
+                    " &nbsp;<a onclick=\"DeleteParent('" + fid + "','" + data.CId + "');\">删除</a></p>" +
+                    "<span class=\"time\">" + data.FId + "</span><a onclick=\"showParentPingLun('" + count +
+                    "','" + data.CId + "','" + data.UName + "');\"><img class=\"hui\" " +
+                    " src=\"@Url.Content("~/Content/images/zf-talk3.png")\"/></a></div></div></div>" +
+                    "<div class=\"import2\" id=\"" + divparentId + "\" ><textarea id=" + textParentID + "></textarea>" +
+                    "<input class=\"send\" type=\"button\" onclick=\"parentpinglun('" + count + "','" +
+                    fid + "','" + data.CId + "')\" value=\"发送\"/></div>";
+                $("#outdiv" + count).append(pl);
+                hidPingLun(count);
+
+                var olcount = parseInt($("#plcount" + count).html());
+                $("#plcount" + count).html(olcount + 1);
+            });
+        } else {
+            //alert("")
+        }
+    }
+
+    function parentpinglun(count, fid, pid) {
+        var content = $("#textparent" + pid).val();
+
+        if (content != null && content !== "") {
+
+            $.post("@Url.Action("PostComment", "TeacherCenter")", { fid: fid, content: content, parentId: pid }, function (data) {
+                var pl = "<div class=\"com-item  com-item2\">" +
+                    "<div class=\"com-item-img\"><img width=\"30px\" height=\"30px\" src=\"/UCHomeNew/upload/headimages/" + data.UID + ".jpg\"/>" +
+                    "</div><div class=\"com-item-p\"><p><a href=\"##\">" + data.UName + "</a>：" + content +
+                    " &nbsp;<a onclick=\"DeleteChild('" + fid + "','" + data.CId + "');\" id=\"" + data.CId + "\">删除</a></p>" +
+                    "<span class=\"time\">" + data.FId + "</span><a onclick=\"showParentPingLun('" + count +
+                    "','" + pid + "','" + data.UName + "');\"><img class=\"hui\" " +
+                    " src=\"@Url.Content("~/Content/images/zf-talk3.png")\"/></a></div></div>";
+                $("#" + pid).append(pl);
+                hidParentPingLun(count, pid);
+                var olcount = parseInt($("#plcount" + count).html());
+                $("#plcount" + count).html(olcount + 1);
+            });
+        } else {
+            //alert("")
+        }
+    }
+
+    function loadContent() {
+        var curPage = $("#hidCurPage").val();
+
+        var loadurl = "@Url.Action("Circle")?curPage=" + curPage;
+
+        var adddiv = "add" + curPage;
+
+        var html = "<div id=\"" + adddiv + "\"><img style=\"margin-left: 45%;\" src=\"@Url.Content("~/Content/images/loading.gif")\"/><br/>" +
+    "<span style=\"margin-left: 40%; font-size: 12px;\">正在加载数据，请稍候...</span></div>";
+
+        $("#divcontent").append(html);
+
+        $("#" + adddiv).load(loadurl);
+
+        $("#hidCurPage").val(parseInt(curPage) + 1);
+    }
+
+    $(function () {
+        loadContent();
+
+        $("#sendc").click(function () {
+            var tc = $("#txtcontent").val();
+            if (tc == "") {
+                tipfailmsg("内容不能为空！");
+                hidefailmsg(2000);
+            } else {
+                var loginId = $("#hidLoginId").val();
+
+                $.ajax({
+                    url: "@Url.Content("~/ashx/AddStaticNews.ashx")",
+                    data: { id: loginId, content: escape(tc) },
+                    success: function (data) {
+                        var result = eval("(" + data + ")"); //
+                        if (result[0].result) {
+                            alert("发表成功！");
+                            //$("#staticnews").load("@Url.Action("staticnews", "TeacherCenter", new { id = ViewBag.LoginId })");
+
+                            $("#hidCurPage").val("0");
+                            $("#divcontent").html();
+                            loadContent();
+                        } else {
+                            alert(result[0].result);
+                        }
+                    }
+                });
+            }
+        });
+    })
+</script>

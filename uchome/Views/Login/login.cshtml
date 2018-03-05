@@ -1,0 +1,113 @@
+﻿@{
+    ViewBag.Title = "智慧校园";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section Head
+{
+    <title>泰安教育云平台</title>
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/login/login.css")">
+    <link href="@Url.Content("~/plugs/validcode/css/slide-unlock.css")" rel="stylesheet" type="text/css">
+    <script src="@Url.Content("~/plugs/validcode/js/jquery.slideunlock.js")" type="text/javascript"></script>
+}
+<body>
+    @Html.Partial("_Header")
+    <section class="section-login">
+        <div class="login">
+            <div class="login-tab">
+                <ul class="nav nav-tabs nav-justified">
+                    <li class="active"><span class="glyphicon glyphicon-log-in"></span>登录帐号</li>
+                    <li onclick="tipwarningmsg('暂未开放注册功能')"><span class="glyphicon glyphicon-edit"></span>注册帐号</li>
+                </ul>
+            </div>
+            <div class="login-main">
+                <form id="form-userlogin" class="form-vertical" method="post" action="@Url.Action("CheckLogin")">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1"><span class="glyphicon glyphicon-user"></span>帐号</label>
+                        <input type="text" class="form-control" id="UserName" name="UserName" placeholder="帐号\邮箱\手机号">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1"><span class="glyphicon glyphicon-lock"></span>密码</label>
+                        <input type="password" class="form-control" id="UserPwd" name="UserPwd" placeholder="请输入密码">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1"><span class="glyphicon glyphicon-check"></span>验证</label>
+
+                        <div id="slider">
+                            <div id="slider_bg"></div>
+                            <span id="label" class="glyphicon glyphicon-hand-right"></span> <span id="labelTip" inittext="请将滑块拖动到最右端">请将滑块拖动到最右端</span>
+                        </div>
+                        <input type="text" style="height:0px;width:0px;padding:0;border:0;" id="ValidCode" name="ValidCode" />
+                        <script>
+                            var slider = new SliderUnlock("#slider", {
+                                successLabelTip: "验证成功"
+                            }, function () {
+                                $("#ValidCode").val("ok");
+                                $("#ValidCode").focus();
+                                $("#ValidCode").blur();
+                            });
+                            slider.init();
+                        </script>
+                    </div>
+                    <button type="submit" class="btn btn-info login-btn"><span class="glyphicon glyphicon-hand-up"></span>登录</button>
+                    <div class="form-group">
+                        <ul id="validmsg"></ul>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+    @Html.Partial("_Footer")
+</body>
+<script>
+    $(document).ready(function () {
+        var validator= $("#form-userlogin").validate({
+            rules: {
+                UserName: "required",
+                UserPwd: "required",
+                ValidCode:"required"
+            },
+            ignore:"hidden",
+            messages: {
+                UserName: "登录帐号不能为空",
+                UserPwd: "登录密码不能为空",
+                ValidCode: "验证码错误"
+            },
+            errorClass: "validate-error", //设置错误样式
+            errorElement: "label", //设置显示错误提示的控件,默认为<label>
+            errorLabelContainer: "#validmsg", //指定错误信息放置容器
+            wrapper: "li",
+            //errorPlacement: function (error,element) { //指定错误信息放置位置
+            //    error.appendTo($("#validmsg"));
+            //},
+            //debug: true,//进行调试模式（表单不提交）
+            submitHandler: function () {
+                $(".login-btn").text("正在登录，请稍候…");
+                //$(".login-btn").toggleClass("btn-success", "btn-info");
+                $(".login-btn").attr("disabled", "disabled");
+                $("#form-userlogin").ajaxSubmit({
+                    success: function (data) {
+                        if (data.Data.StatusCode==200) {
+                            tipsuccessmsg("登录成功,3秒后将自动跳转！");
+                            setTimeout(function () {
+                                document.location.href = "@(ViewBag.ReturnUrl)&UserID="+data.Data.UserID;
+                            }, 3000);
+
+                        } else {
+                            tipfailmsg("登录失败，请输入正确的帐号或密码！")
+                            validator.resetForm(); //重置表单
+                            slider.init();
+                        }
+                        $(".login-btn").text("登录");
+                        $(".login-btn").removeAttr("disabled");
+                        //$("#btnsend").toggleClass("btn-success", "btn-info");
+                    }
+                });
+            }
+            //onsubmit: false,//是否提交时验证，默认为True,用于设置某一个不需要验证的控件
+            //onfocusin: false,//是否获取焦点时验证，默认为True
+            //onkeyup: false,//是否在敲击键盘时验证，默认为True
+            //onclick: false//是否在鼠标点击时验证，默认为True
+        });
+    })
+
+</script>

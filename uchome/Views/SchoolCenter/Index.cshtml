@@ -1,0 +1,648 @@
+﻿@using UCHome.Models
+@model Guid
+@{
+    ViewBag.Title = ViewBag.xxmc + " -- 学校空间";
+    Layout = "~/Views/Shared/_NewLayout.cshtml";
+}
+@section Head
+{
+    <link href="@Url.Content("~/Content/NewFile/css/school.css")" rel="stylesheet" />
+
+
+    @*图片滚动的js*@
+    <script src="@Url.Content("~/Content/js/jquery.kxbdmarquee.js")"></script>
+
+    <script>
+        $(function () {
+            $("#NewArticle").load("@Html.Raw(Url.Action("NewArticle", new { xxid = Model, pageSize = 5 }))");
+            $("#teacherRooms").load("@Html.Raw(Url.Action("RoomsList", new { xxid = Model, userType = "t", pageSize = 11 }))");
+            $("#studentRooms").load("@Html.Raw(Url.Action("RoomsList", new { xxid = Model, userType = "s", pageSize = 11 }))");
+            $("#articleHitsRank").load("@Html.Raw(Url.Action("ArticleHitsRank", new { xxid = Model, pageSize = 5 }))");
+            $("#classList").load("@Html.Raw(Url.Action("ClassList", new { xxid = Model, pageSize = 18 }))");
+            $("#SchoolMessage").load("@Html.Raw(Url.Action("SchoolMessage", new { xxid = Model, pageSize = 7 }))");
+        });
+    </script>
+}
+
+<style>
+    /*通知公告的样式*/
+    .district-header {
+        /*background: url("~/Content/images/red.jpg") no-repeat;*/
+        line-height: 31px;
+        height: 31px;
+    }
+
+    .tomore {
+        font-size: 13px;
+        line-height: 31px;
+        float: left;
+    }
+
+    .title-right li a {
+        font-size: 12px;
+        font-family: "Microsoft YaHei";
+        color: #ffffff;
+    }
+
+    .title-right img {
+        vertical-align: middle;
+    }
+
+    .title-right {
+        float: right;
+        position: relative;
+    }
+
+        .title-right ul {
+            display: inline;
+        }
+
+        .title-right li {
+            float: left;
+            line-height: 31px;
+            width: 58px;
+            text-align: center;
+        }
+
+            .title-right li a {
+                color: #000000;
+            }
+
+    .yellow-check {
+        background: #d98818 !important;
+    }
+
+    .yellow-jiao {
+        width: 58px;
+        height: 8px;
+        background: url("~/Content/images/yellow-jiao.png") no-repeat white;
+        position: relative;
+        left: 0;
+        top: 0;
+    }
+
+    .more {
+        vertical-align: middle;
+        font-size: 12px;
+        font-family: "Microsoft YaHei";
+        line-height: 33px;
+        color: #000000;
+        padding: 0 20px 0 10px;
+    }
+
+    .detial-title {
+        font-size: 12px;
+        font-family: "Microsoft YaHei";
+        color: #868686;
+        padding-top: 14px;
+        padding-left: 30px;
+    }
+
+        .detial-title li {
+            float: left;
+            padding-right: 15px;
+        }
+
+    body .selected > a {
+        color: #8b4513;
+    }
+
+    /*图片轮播的样式*/
+    .dr4 {
+        width: 980px;
+        height: 195px;
+        margin-bottom: 10px;
+        overflow: hidden;
+    }
+
+
+    .dtitle {
+        margin-top: 25px;
+        height: 35px;
+        line-height: 35px;
+        font-size: 14px;
+        background-color: #48b7ee;
+        color: #FFF;
+    }
+
+        .dtitle span {
+            width: 100px;
+            display: inline;
+            padding: 0 10px;
+            height: 25px;
+            vertical-align: middle;
+            float: left;
+        }
+
+    .fl {
+        float: left;
+    }
+
+    .maqueeimg {
+        width: 980px;
+        height: 150px;
+        overflow: hidden;
+        margin-top: 10px;
+    }
+
+    ul, li {
+        list-style-type: none;
+    }
+
+    body, ul, li, ol, p {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        font-family: 微软雅黑;
+    }
+
+    .ul, menu, dir {
+        display: block;
+        -webkit-margin-before: 1em;
+        -webkit-margin-after: 1em;
+        -webkit-margin-start: 0;
+        -webkit-margin-end: 0;
+        -webkit-padding-start: 40px;
+    }
+
+    .maqueeimg li {
+        float: left;
+        margin-left: 20px;
+    }
+
+    ul, li {
+        list-style-type: none;
+    }
+
+    .maqueeimg li img {
+        width: 180px;
+        height: 120px;
+        border: 0;
+    }
+
+    .dr4 .pictitle {
+        line-height: 30px;
+    }
+
+    .dr4 .pictitle {
+        width: 120px;
+        overflow: hidden;
+        font-size: 14px;
+        text-align: center;
+        color: #333;
+        font-family: 微软雅黑;
+        height: 150px;
+        vertical-align: middle;
+    }
+
+    div {
+        display: block;
+    }
+
+    .picinfo ul li .pictitle {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        -ms-opacity: 0.5;
+        opacity: 0.5;
+        filter: alpha(opacity=50);
+        background-color: #fff;
+        color: #000;
+        width: 100%;
+        height: 25px;
+        font-size: 16px;
+    }
+
+
+    .maqueeimg ul li {
+        float: left;
+        line-height: 25px;
+        height: 131px;
+        /*width: 142px;*/
+        overflow: hidden;
+    }
+
+    .active span {
+        display: block;
+    }
+
+
+    /*资源图片的样式*/
+    .pichotList-imge {
+        border: 1px solid #dcdcdc;
+    }
+
+    .pichotList-span {
+        position: relative;
+        width: 120px;
+        text-align: center;
+        /*float: left;*/
+        -moz-text-overflow: ellipsis;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+        font-size: 12px;
+        display: block;
+    }
+
+    .pichotList-li a {
+        margin-left: 10px;
+    }
+</style>
+
+
+@* ReSharper disable once UsageOfPossiblyUnassignedValue *@
+<script>
+    $(function () {
+        //先加载5个资源预览
+        GetHighSchoolHot();
+
+        //空间统计
+        var obj0 = $("#countResources");
+        //var obj = $("#countResources ul");
+        GetSumResource(obj0);
+
+        //学校封面
+        var obj2 = $("#schooltheme");
+        GetDivslide(obj2);
+        //学校风采
+        var obj1 = $("#getmaqueedtite");
+        GetMarquee_x(obj1);
+
+        //类型样式
+        $(".detial-title>ul>li").click(function () {
+            debugger;
+            $(".detial-title>ul>li").siblings().removeClass("selected");
+            $(this).addClass("selected");
+            //调用资源
+            var type1 = $(".detial-title>ul>.selected").attr("title");
+            var obj3 = $("#highSchoolHotList");
+            getHotResource(type1, obj3);
+        });
+
+    });
+    //一开始加载资源的时候
+    function GetHighSchoolHot() {
+        var type1 = "5802854B-CD6D-4358-986E-53C3CAC9E84D";
+        var obj4 = $("#highSchoolHotList");
+        getHotResource(type1, obj4);
+    }
+    function GetSumResource(obj) {
+        var html = "<span class=\"news-dot\">·</span>";
+        $.ajax({
+            type: "GET",
+            url: "@Url.Action("SumschoolResources", "SchoolCenter", new { xxid = Model })",
+            success: function (results) {
+                var count = results.split(':')[1].split('}')[0];
+                debugger;
+                html += "学校资源总计：";
+                html += count;
+                // html += "</li>";
+
+                obj.html(html);
+            }
+        });
+
+
+    }
+    //前5个资源的拼接       
+    //http://192.168.99.137/RedisCache.Api/api/resource/toplist/6B915392-B695-4026-9526-2F6DBCD7D7DE/xxid/35913791-f7b5-40c5-a2f7-0071b18ecd5f/type
+    function getHotResource(type1, obj) {
+        var html = "<ul class='pichotList-ul'>";
+        $.ajax({
+            type: "GET",
+            url: "@Url.Action("schoolResources", "SchoolCenter")",
+            data: { type: type1, xxid: "@Model" },
+            success: function (results) {
+                results = eval("(" + results + ")");
+                if (results != null) {
+                    for (var i = 0; i < results.length; i++) {
+                        // debugger;
+                        if (results[i].CoverUrl == "" || results[i].CoverUrl == null) {
+                            results[i].CoverUrl = "@Url.Content("~/Content/images/default_res.jpg")";
+                            html += "<li class='pichotList-li' style=\"overflow:hidden;float:left\">";
+                            html += "<a href='" + results[i].LinkUrl + "' target='_blank' title='" + results[i].ResourceName + "' >";
+                            html += "<img class='pichotList-imge' src=\"" + results[i].CoverUrl + "\" width=\"110px\" height=\"130px\" >";
+                            html += "<span class='pichotList-span' >" + results[i].ResourceName + "</span>";
+                            html += "</a></li>";
+                        }
+                        else {
+                            html += "<li class='pichotList-li' style=\"overflow:hidden;float:left\">";
+                            html += "<a href='" + results[i].LinkUrl + "' target='_blank' title='" + results[i].ResourceName + "'>";
+                            html += "<img class='pichotList-imge' src=\"" + results[i].CoverUrl + "\"  width=\"110px\" height=\"130px\" >";
+                            html += "<span class='pichotList-span'>" + results[i].ResourceName + "</span>";
+                            html += "</a></li>";
+                        }
+                    }
+                }
+                html += "</ul>";
+                obj.html(html);
+            }
+        });
+
+    }
+    //学校主题拼接
+    function GetDivslide(obj) {
+        $.ajax({
+            type: 'get',
+            url: "@Url.Action("GetDiviamges", "SchoolCenter", new { xxid = Model })",
+            success: function (data) {
+                if (data != "" && data != null) {
+                    var str = "";
+                    var html = " <div class='slide'  >";
+                    html += '<a target="_blank" href="#">';
+                    html += '<img src="' + data + '" style="width:980px; height:250px;" />';
+                    html += '</a>';
+                    html += "</div>";
+                    str += html;
+                    obj.html(str);
+                }
+                else {
+                    obj.html("<img src='@Url.Content("~/Content/NewFile/image/school/banner3.jpg")' />");
+                }
+            }
+        });
+    }
+    //学校风采拼接
+    function GetMarquee_x(obj) {
+        obj.html("");
+        $.ajax({
+            type: 'get',
+            url: "@Url.Action("GetMarquee_x", "SchoolCenter", new { xxid = Model })",
+            success: function (item) {
+                if (item.data != null && item.data.length > 0) {
+                    var strhtml = "";
+                    for (var i = 0; i < item.data.length; i++) {
+                        strhtml += " <li class='active' style='left: 0; z-index: 11;'><div><a href\"#\"><img src=\"" + item.data[i] + "\" ></a><div class='pictitle'>" + item.nameurl[i] + "</div></div></li>";
+                    }
+                }
+                obj.html(strhtml);
+                //图片滚动
+                $(".dr4 .maqueeimg").kxbdMarquee({
+                    direction: "left"
+                });
+
+            }
+        });
+    }
+</script>
+
+
+
+
+<div class="header">
+    @Html.Partial("HeadMenu", UCHome.Model.UCHomeBasePage.IsLogin)
+</div>
+<div class="container">
+    <div class="content">
+        <!--title-->
+        <div class="title">
+            <img src="@Url.Content("~/Content/NewFile/image/public/logo.png")">
+
+            <span>
+                <a href="@Url.Action("Index", "DistrictCenter", new { id = ViewBag.xzqhm })" style="font-size: 32px;
+    color: #5c9ea3;">@ViewBag.schoolarea</a>—@ViewBag.xxmc
+            </span>
+
+
+        </div>
+        <!--silder-->
+        @*学校主题*@
+
+        <div id="schooltheme" class="slider-wrapper">
+        </div>
+
+
+        <!--学校通知和资源-->
+        <div class="list-space">
+            <div class="list-district">
+                <div class="district-header">
+
+                    <div class="district-title situation-span">学校通知</div>
+                    <a class="more title-right" href="@Url.Action("MessageMores", "SchoolCenter", new { xxid = Model })">更多</a>
+                    <div class="clear"></div>
+
+                </div>
+
+
+                <div class="content-app" id="SchoolMessage">
+                    @*<a target="_blank" href="@Url.Action("SchoolMessage", "SchoolCenter", new { xxid = ViewBag.xxid })">more</a>*@
+
+                </div>
+            </div>
+            <!--学校资源-->
+            <div class="list-class">
+                <div class="district-header">
+
+                    <div class="district-title situation-span">资源</div>
+                    @*<a class="tomore" href="#">更多</a>*@
+                    <div class="title-right">
+                        @*<ul>
+                            <li class="yellow-check" id="">
+                                <a href="javascript:void(0)">语文</a>
+                                <div class="yellow-jiao"></div>
+                            </li>
+                            <li id="">
+                                <a href="javascript:void(0)">数学</a>
+                            </li>
+                            <li id="">
+                                <a href="javascript:void(0)">英语</a>
+                            </li>
+                        </ul>
+                        <img src="@Url.Content("~/Content/images/shu.png")">*@
+                        <a class="more" href="http://jx.taedu.gov.cn:83/Resource.Portal.Web/AreaMap/RedirectToArea?areacode=@ViewBag.xxid">更多</a>
+                    </div>
+
+                    <div class="clear"></div>
+                </div>
+
+
+                <div class="detial-title">
+                    <ul>
+                        <li class="selected" title="5802854B-CD6D-4358-986E-53C3CAC9E84D">
+                            <a href="javascript:void(0)">教学设计</a>
+                        </li>
+                        <li title="68CE7CF1-F7C6-4D13-95B9-2DE3B39B94DD">
+                            <a href="javascript:void(0)">课堂实录</a>
+                        </li>
+                        <li title="DED65366-CCE1-4A42-AB1A-95F103FF97AD">
+                            <a href="javascript:void(0)">教学课件</a>
+                        </li>
+                        <li title="E3502C3D-FE97-4DC0-A573-D6CF91988B0C">
+                            <a href="javascript:void(0)">试题试卷</a>
+                        </li>
+                        <li title="35913791-F7B5-40C5-A2F7-0071B18ECD5F">
+                            <a href="javascript:void(0)">微课程</a>
+                        </li>
+                        <li title="5544F4E0-E0F9-454A-9C2E-044CC9A2961E">
+                            <a href="javascript:void(0)">教学素材</a>
+                        </li>
+                        <li title="5655F9AC-7CA4-449B-A457-9FA159BFC739">
+                            <a href="javascript:void(0)">实验设计</a>
+                        </li>
+                        <li title="6E7DA764-375F-43EA-A232-CC6C238BAC75">
+                            <a href="javascript:void(0)">其他综合</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div id="highSchoolHotList" style="margin-top: 30px">
+
+                    @*放资源的地方*@
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="dr4">
+            <div class="dtitle"><span>学校风采</span></div>
+            <div class="maqueeimg fl">
+                <ul style="width: 2400px;" id="getmaqueedtite">
+                </ul>
+            </div>
+            <div id="dr55"></div>
+        </div>
+
+        <div class="message">
+            <div class="news-template situation">
+                <div class="news-header">
+                    <img class="situation-img" src="@Url.Content("~/Content/NewFile/image/public/news.png")" />
+                    <span class="news-title situation-span">最新文章</span>
+                    <a target="_blank" href="@Url.Action("MoreArticle", "Query", new { ViewBag.xzqhm, ViewBag.schoolType, ViewBag.xxid, newtitle = "泰安市“教育云”空间—" + ViewBag.xxmc, dataType = (int)EnumConvert.DataType.文章 })" class="more"></a>
+                </div>
+
+                <div class="news-content" id="NewArticle">
+                </div>
+            </div>
+            <div class="news-template news">
+                <div class="news-header">
+                    <img src="@Url.Content("~/Content/NewFile/image/public/earth.png")">
+                    <span class="news-title">文章点击数排行</span>
+                </div>
+                <div class="news-content" id="articleHitsRank">
+                </div>
+            </div>
+            <div class="comment">
+                <div class="news-header">
+                    <span class="comment-title">空间统计</span>
+                </div>
+                <div class="news-content">
+                    <ul>
+                        <li>
+                            <span class="news-dot">·</span>
+                            全校空间数：@ViewBag.zoom
+                        </li>
+                        <li>
+                            <span class="news-dot">·</span>
+                            全校文章数：@ViewBag.article
+                        </li>
+                        <li>
+                            <span class="news-dot">·</span>
+                            校访问总计：@ViewBag.total
+                        </li>
+                        <li>
+                            <span class="news-dot">·</span>
+                            学校教案总计：1000
+                        </li>
+
+                        <li id="countResources">
+                            @*<span class="news-dot">·</span>
+            学校资源总计：*@
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+
+        <!--第四模块-->
+        <div class="list-space">
+            <div class="list-district">
+                <div class="district-header">
+                    <div class="district-title">应用中心</div>
+                    <div class="clear"></div>
+                </div>
+                <div class="content-app">
+                    <div class="list-app">
+                        <a target="_blank" href="http://xy.taedu.gov.cn:81/workcenter">
+                            <img src="@Url.Content("~/Content/NewFile/image/school/app2.png")">
+                        </a>
+                        <div class="name-app">数字校园</div>
+                    </div>
+                    <div class="list-app">
+                        <a target="_blank" href="http://jx.taedu.gov.cn:83/teacherindex">
+                            <img src="@Url.Content("~/Content/NewFile/image/school/app6.png")">
+                        </a>
+                        <div class="name-app">课程教学</div>
+                    </div>
+                    <div class="list-app">
+                        <a target="_blank" href="http://www.taedu.gov.cn/WebSite.JCJY/">
+                            <img src="@Url.Content("~/Content/NewFile/image/school/app3.png")">
+                        </a>
+                        <div class="name-app">基础教研</div>
+                    </div>
+                    <div class="list-app">
+                        <a target="_blank" href="http://www.taedu.gov.cn/WebSite.SXK/">
+                            <img src="@Url.Content("~/Content/NewFile/image/school/app5.png")">
+                        </a>
+                        <div class="name-app">教师培训</div>
+                    </div>
+                    <div class="list-app">
+                        <a target="_blank" href="http://jx.taedu.gov.cn:83/Resource.Portal.Web">
+                            <img src="@Url.Content("~/Content/NewFile/image/school/app1.png")">
+                        </a>
+                        <div class="name-app">资源中心</div>
+                    </div>
+                    <div class="list-app">
+                        <a target="_blank" href="http://www.taedu.gov.cn/Authentication.Web/Test/SignIn.aspx?logintype=single&ApplicationID=a649f0a0-6e5d-4432-9ece-8735335bc563">
+                            <img src="@Url.Content("~/Content/NewFile/image/school/app4.png")">
+                        </a>
+                        <div class="name-app">OA办公</div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+            <div class="list-class">
+                <div class="district-header">
+                    <div class="district-title">班级列表</div>
+                    <a target="_blank" href="@Url.Action("MoreClass", "Query", new { ViewBag.xzqhm, ViewBag.schoolType, ViewBag.xxid, newtitle = "泰安市“教育云”空间—" + ViewBag.xxmc, dataType = (int)EnumConvert.DataType.班级 })" class="more-class"></a>
+                    <div class="clear"></div>
+                </div>
+                <div class="district-content">
+                    <ul class="ul-class" id="classList">
+                        @*@{ Html.RenderAction("ClassList", new { xxid = Request.RequestContext.RouteData.Values["id"].ToString(), pageSize = 18 }); }*@
+                    </ul>
+                    <div class="clear"></div>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="photo-space">
+            <div class="photo-space-header">
+                <div class="photo-space-title">
+                    优秀教师空间
+                    <a target="_blank" href="@Url.Action("MoreTeacher", "Query", new { ViewBag.xzqhm, ViewBag.schoolType, ViewBag.xxid, newtitle = "泰安市“教育云”空间—" + ViewBag.xxmc, dataType = (int)EnumConvert.DataType.教师 })" class="more"></a>
+                </div>
+
+            </div>
+            <div class="photo-space-content" id="teacherRooms">
+                @*@{ Html.RenderAction("RoomsList", new { xxid = Request.RequestContext.RouteData.Values["id"].ToString(), userType = "t", pageSize = 11 }); }*@
+            </div>
+            <div class="photo-space-header photo-space-margin">
+                <div class="photo-space-title">
+                    优秀学生空间
+                    <a target="_blank" href="@Url.Action("MoreStudent", "Query", new { ViewBag.xzqhm, ViewBag.schoolType, ViewBag.xxid, newtitle = "泰安市“教育云”空间—" + ViewBag.xxmc, dataType = (int)EnumConvert.DataType.学生 })" class="more"></a>
+                </div>
+            </div>
+            <div class="photo-space-content" id="studentRooms">
+                @*@{ Html.RenderAction("RoomsList", new { xxid = Request.RequestContext.RouteData.Values["id"].ToString(), userType = "s", pageSize = 11 }); }*@
+            </div>
+        </div>
+    </div>
+</div>
+<div class="footer">
+    <div class="footer_content">
+        版权信息：CopyRight©2010-2015
+    </div>
+</div>

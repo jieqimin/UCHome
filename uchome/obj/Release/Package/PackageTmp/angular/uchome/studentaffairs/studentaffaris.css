@@ -1,0 +1,209 @@
+﻿.select-lable {
+    width: 120px;
+}
+
+.select-input {
+    width: 150px;
+    padding: 0;
+}
+
+.div-body {
+    padding: 10px;
+}
+
+.ml10 {
+    margin-left: 10px;
+}
+
+.red {
+    color: red;
+}
+
+#form {
+    padding: 33px 10px;
+}
+
+#edui1_iframeholder {
+    height: 270px !important;
+}
+
+#myModal .form-group {
+    margin-bottom: 10px;
+}
+
+    #myModal .form-group > div {
+        line-height: 27px;
+    }
+
+#Contents {
+    display: block;
+}
+
+    #Contents img {
+        max-width: 100%;
+    }
+
+.text-overflow {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.evaluation-container {
+
+    margin: 5px;
+    padding: 5px;
+    max-height: 680px;
+}
+
+.evaluation-left {
+    float: left;
+    border-right: 1px silver dashed;
+    width: 55%;
+    overflow: auto;
+        padding: 5px;
+}
+
+.evaluation-right {
+    float: left;
+    width: 45%;
+    
+    
+    min-height: 400px;
+    max-height: 660px;
+}
+.evaluation-right>div {
+    margin: 10px
+}
+.evaluation-right *:not(button) {
+    padding-left: 5px;
+    margin-bottom: 5px
+}
+.float-right {
+    float: right
+}
+#treeDemo {
+    border: 1px silver solid;
+    box-shadow: aquamarine; overflow: auto
+}
+.form-line-height {
+    line-height: 31px
+}
+
+.list-label {
+    line-height: 28px;
+    font-size: 14px;
+    margin-right: 5px;
+    font-weight: normal;
+    padding: 1px 10px;
+    background-color: #6DB4D4;
+    border-radius: 15px;
+    color: #fff;;
+    cursor: pointer;
+}
+.titleShow {
+    width: 0px;
+    height: 0px;
+    float: left;
+    position: relative;
+        top: 2px;
+    left: -5px;
+}
+.titleShow>span {
+    display: none;
+    text-align: center;
+    border: 1px RGB(118,118,118) solid;
+    color: RGB(87,87,87);
+    background: white;
+    width: 105px;
+    font-size: 8px;
+    line-height: 19px;
+    
+}
+.list-label:hover>.titleShow>span {
+    display:block
+}
+.warn-area li{
+    color: red
+}
+.label-middle {
+    position: relative;
+    top: 5px;
+    margin-right:5px
+}
+
+.td-text-li {
+    vertical-align: MIDDLE !important;
+    WIDTH: 30px;
+    text-align: center;
+    font-weight: bolder
+}
+.input {
+    display: inline-block;
+    padding: 4px;
+    font-size: 13px;
+    line-height: 18px;
+    color: #808080;
+    border: 1px solid #ccc;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+.nameItem{
+    display: inline-block;
+    padding: 2px 5px;
+    cursor: pointer;
+    margin: 0px 3px;
+    min-width: 56px;
+    text-align: center;
+}
+.form-margin {
+        border: 1px solid silver;
+    margin: 8px 23px;
+    border-radius: 15px;
+    padding: 8px 23px;
+}
+.li-selected{
+         background-color: #C13;
+    border-radius: 14px;
+ }
+.li-selected>a{color: white}
+tr.selected {
+    background-color: #B0BED9 !important
+}
+
+.div-float {
+    height: 0px;
+    width: 0px;
+    float: right;
+    position: relative;
+    top: 35px;
+    left: -53px
+}
+.div-float .body {
+    width: 267px;
+    padding: 10px;
+    background: white;
+    border: 1px solid #ccc;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+.div-float .body input {
+    width: 50px
+}
+.div-float .body ul {
+    margin-left: 23px
+}
+.div-float .body ul>li button {
+    display: none
+}
+.div-float .body ul>li:hover button {
+    display: inline-block
+}
+.div-float .body .form-group {
+    margin: 0
+}
+.div-float .body hr {
+   margin-top: 10px; margin-bottom: 10px
+}

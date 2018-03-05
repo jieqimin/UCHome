@@ -1,0 +1,58 @@
+﻿@{
+    Layout = null;
+}
+
+<link href="@Url.Content("~/plugs/zTree/zTreeStyle/taskMain.css")" rel="stylesheet" />
+<div ng-controller="Integral">
+    <table class="table table-hover" style="width: 80%; margin: auto">
+        <thead class="tabhead">
+        <tr>
+            <td>#</td>
+            <td>等级名称</td>
+            <td>等级图标</td>
+            <td>积分</td>
+            <td>操作</td>
+        </tr>
+        </thead>
+        <tbody class="tab-content">
+        <tr ng-repeat="item in Data | orderBy:'Scores'">
+            <td>{{$index+1}}</td>
+            <td>{{item.LevelName}}</td>
+            <td><img ng-src="{{item.LevelIcon==null?'http://jx.taedu.gov.cn:83/Storages/%E7%AE%A1%E7%90%86%E5%91%98/2016/8/31/image/level_152200/png/level.png':item.LevelIcon}}" width="30" height="30"/></td>
+            <td>{{item.Scores}}</td>
+            <td><button class="btn btn-sm btn-warning" ng-click="Remove(item)">删除</button></td>
+        </tr>
+        </tbody>
+    </table>
+    <hr/>
+    <form name="integralForm" class="form-horizontal" style="width: 80%; margin-top: 20px; padding-bottom: 5px;display: block">
+        <div class="form-group">
+            <label for="LevelName" class="control-label col-sm-3">等级名称：</label>
+            <div class="col-sm-8">
+                <input type="text" required minlength="1" class="form-control" id="LevelName" name="LevelName" ng-model="model.LevelName" />
+                <span ng-class="{true:'glyphicon-ok',false:''}[integralForm.LevelName.$valid ]" class="glyphicon form-control-feedback"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="LevelIcon" class="control-label col-sm-3">等级图标：</label>
+            <div class="col-sm-8">
+                <input type="url" class="form-control" id="LevelIcon" name="LevelIcon" ng-model="model.LevelIcon"/>
+                <span ng-class="{true:'glyphicon-ok',false:''}[integralForm.LevelIcon.$valid ]" class="glyphicon form-control-feedback"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="Scores" class="control-label col-sm-3">积分：</label>
+            <div class="col-sm-8">
+                <input type="number" min="0" required class="form-control" id="Scores" name="LevelScore" ng-model="model.Scores" style="width: 80px" />
+                <span ng-class="{true:'glyphicon-ok',false:''}[integralForm.Scores.$valid ]" class="glyphicon form-control-feedback"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-lg-10" style="text-align: center">
+                <button class="btn btn btn-success" ng-click="Add(integralForm.$valid)" style="margin-right: 30px">添加</button>
+                <button type="reset" ng-click="model={LevelIcon:''}" class="btn btn btn-warning">重置</button>
+            </div>
+        </div>
+    </form>
+</div>
+

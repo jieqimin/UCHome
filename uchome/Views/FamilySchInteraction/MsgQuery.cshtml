@@ -1,0 +1,106 @@
+﻿@using M = UCHome.Model;
+@model List<M.View_UCHome_Msg>
+@*<link rel="stylesheet" href="@Url.Content("~/plugs/timeline/css/bootstrap-glyphicons.css")">
+<link rel="stylesheet" href="@Url.Content("~/plugs/timeline/css/styles.css")">
+<link rel="stylesheet" href="@Url.Content("~/Content/css/msg.css")">
+<link rel="stylesheet" href="@Url.Content("~/plugs/datatables/css/jquery.dataTables.css")">
+<link rel="stylesheet" href="@Url.Content("~/plugs/datatables/css/dataTables.bootstrap.css")">
+<script src="@Url.Content("~/plugs/datatables/js/jquery.datatables.js")"></script>
+<script src="@Url.Content("~/plugs/datatables/js/dataTables.bootstrap.js")"></script>*@
+
+@using (Ajax.BeginForm(
+    new AjaxOptions()
+    {
+        HttpMethod = "post",
+        Url = Url.Action("MsgQuery"),
+        UpdateTargetId = "#msgQuery",
+        LoadingElementId = "loding",
+        LoadingElementDuration = 2000
+    }))
+{
+    <div id="msgQuery" class="form-position pagew">
+        <table class="table table-striped table-bordered table-hover datatable" id="msgTable">
+            <thead>
+                <tr>
+                    <th>序号</th>
+                    <th>最近留言对象</th>
+                    <th>留言时间</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+    int i = 0;
+                }
+                @foreach (M.View_UCHome_Msg item in Model)
+                {
+                    i++;
+                    
+                    <tr>
+                        <td>@i</td>
+                        <td>@item.ReceiveUserName</td>
+                        <td>@item.MsgDate.Value.ToString("yyyy-MM-dd HH:mm")</td>
+                        <td>
+                            <a class="label label-info" onclick="openform('@item.ReceiveUserID','@item.ReceiveUserName')" >查询全部留言</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>     
+    <div id="dialog-msglist" class="modal fade in" style="overflow: hidden;" title="留言详情（温馨提示：留言板中只显示最近三个月的留言记录）">
+    </div>
+}
+<script>
+    @*    function openform(id) {
+        $('#modal-msglist').modal('show');
+
+        var loadurl = "@Url.Action("MsgList")?receiveUserId=" + id;
+        $("#modal-msglist .modal-body").load(loadurl);
+    }*@
+    function openform(id, username) {
+        $("#dialog-msglist").load("@Url.Action("MsgList")?receiveUserId=" + id);
+        $("#dialog-msglist").dialog({
+            autoOpen: true,
+            modal: true,
+            width: 600,
+            height: 560,
+            create: function () {
+                if ($("div[aria-describedby='dialog-msglist']").length > 1) {
+                    $("div[aria-describedby='dialog-msglist']:first").remove();
+                }
+            },
+            buttons: {
+                "发送留言": function () {
+                    var msgcontent = $("#fammsgcontent").val();
+                    $.ajax({
+                        url: "@Url.Action("FamMsgSend")",
+                        data: { receiveUserId: id, receiveUsername: escape(username), fammsgcontent: escape(msgcontent) },
+                        type: "POST",
+                        title: "和" + username + "的留言",
+                        success: function (data) {
+                            console.log(data);
+                            if (data.Data.statuscode == "200") {
+                                tipsuccessmsg("留言成功");
+                                $("#dialog-msglist").load("@Url.Action("MsgList")?receiveUserId=" + id);
+                            }
+                        }
+                    });
+                },
+                "取消": function () {
+                    $(this).dialog("close");
+                }
+            }
+        });
+    }
+
+    $(function () {
+        $("#msgTable").DataTable({
+            //"ajax":'severurl',//通过ajax请求数据源，其数据格式为{"data":[],[]}
+            "oLanguage": {
+                "sUrl": "@Url.Content("~/plugs/datatables/language/zh_cn.json")"
+            }
+        });
+    });
+
+</script>

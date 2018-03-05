@@ -1,0 +1,178 @@
+﻿@{
+    Layout = null;
+}
+@using System.Web.Mvc
+@using UCHome.Model
+@model UCHome_App_My
+<link rel="stylesheet" href="@Url.Content("~/plugs/webuploader/css/demo.css")">
+<link rel="stylesheet" href="@Url.Content("~/content/css/homework.css")">
+<style>
+    .red {
+        color: red;
+    }
+
+    #ul_appicon {
+    }
+
+        #ul_appicon > li {
+            position: relative;
+        }
+
+            #ul_appicon > li input[type=checkbox] {
+                position: absolute;
+                right: 0;
+                bottom: 0;
+                border: solid 1px #ccc !important;
+            }
+
+    #app_menu_add_modal {
+        overflow-x: hidden;
+    }
+</style>
+@using (Ajax.BeginForm("Addapp", null,
+    new AjaxOptions()
+    {
+        HttpMethod = "post",
+        Url = @Url.Action("Addapp", "AppCenter"),
+        UpdateTargetId = "#app_add",
+        LoadingElementId = "loding",
+        LoadingElementDuration = 2000
+    }, new { id = "form_appadd", name = "form_appadd" }))
+{
+    @Html.HiddenFor(model => model.PKID)
+    <div id="app_add" class="form-horizontal form-position pagew ">
+        <div class="form-group">
+            <label for="AppName" class="col-sm-2 control-label">应用名称：</label>
+            <div class="col-sm-6">
+                <input type="text" class="form-control" id="AppName" name="AppName" placeholder="请输入应用名称" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="AppUrl" class="col-sm-2 control-label">应用路径：</label>
+            <div class="col-sm-6">
+                <input type="text" class="form-control" id="AppUrl" name="AppUrl" placeholder="请输入应用路径" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="AppIcon" class="col-sm-2 control-label">应用图标：</label>
+            <div class="col-sm-9">
+                <button type="button" class="btn btn-warning pull-left" id="selbtn">请选择图标</button>
+                <div id="app_icons" style="clear: both; width: 400px; padding-top: 5px; height: 150px; overflow-y: auto; overflow-x: hidden; display: none;">
+                    <ul class="list-group" id="ul_appicon">
+                        @for (int i = 1; i <= 174; i++)
+                        {
+                            <li class="pull-left list-group-item">
+                                <img style="width:40px; height:40px;" src="@Url.Content("~/Content/icon/fr" + i + "12.png")" />
+                                <input type="checkbox" name="sel" value="@i" />
+                            </li> 
+                        }
+
+                    </ul>
+                </div>
+                <input type="hidden" name="AppIcon" id="AppIcon" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="AppTarget" class="col-sm-2 control-label">链接方式：</label>
+            <div class="col-sm-6">
+                <select class="form-control" id="AppTarget" name="AppTarget">
+                    <option value="_blank" selected>新页面</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="memo" class="col-sm-2 control-label">功能描述：</label>
+            <div class="col-sm-6">
+                <textarea class="form-control" id="memo" name="memo" rows="2" placeholder="20字数以内" />
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="center-block" style="width: 300px;">
+
+                <button type="submit" class="btn btn-success">
+                    保存确认
+                </button>
+                <button type="button" id="btnapp_menuadd" class="btn btn-info" disabled>
+                    添加子功能
+                </button>
+            </div>
+        </div>
+        <div class="form-group">
+            <ul class="col-sm-8" id="app_add_errormsg"></ul>
+        </div>
+    </div>
+    <div id="app_menu_add_modal" title="添加子功能">
+        <div id="app_menu_add_panel"></div>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            var validator = $("#form_appadd").validate({
+                rules: {
+                    AppName: "required",
+                    AppUrl: "required",
+                    AppIcon: "required"
+                },
+                messages: {
+                    AppName: "请输入应用名称",
+                    AppUrl: "请输入作业内容",
+                    AppIcon: "请选择应用图标"
+                },
+                errorClass: "red",//设置错误样式
+                errorElement: "label",//设置显示错误提示的控件,默认为<label>
+                errorLabelContainer: "#app_add_errormsg",//指定错误信息放置容器
+                wrapper: "li",
+                //errorPlacement: function (error,element) { //指定错误信息放置位置
+                //    error.appendTo($("#validmsg"));
+                //},
+                //debug: true//进行调试模式（表单不提交）
+                submitHandler: function (form) {
+                    $(form).ajaxSubmit({
+                        success: function (data) {
+                            if (data.Data.statuscode == 200) {
+                                opersuccesstip($("#form_appadd"), "添加成功！", null);
+                                validator.resetForm();//重置表单   
+                                var pkid = $("#form_appadd #PKID").val();
+                                hidesuccesstip(1000);
+                                $("#btnapp_menuadd").removeAttr("disabled");
+                                $("#btnapp_menuadd").on("click", function () {
+                                    $("#app_menu_add_panel").load("@Url.Action("Addappmenu", "AppCenter")?parentAppId=" + pkid);
+                                    $("#app_menu_add_modal").dialog({
+                                        modal: true,
+                                        width: 560
+                                    });
+                                });
+                                var newguid = Guid.NewGuid().ToString();
+                                $("#form_appadd #PKID").val(newguid);//动态生成newid
+                            } else {
+                                operfailtip($("#form_appadd"), "发布失败,请重试！", null);
+                                hidefailtip(1000);
+                            }
+                        }
+                    })
+                }
+                //onsubmit: false,//是否提交时验证，默认为True,用于设置某一个不需要验证的控件
+                //onfocusin: false,//是否获取焦点时验证，默认为True
+                //onkeyup: false,//是否在敲击键盘时验证，默认为True
+                //onclick: false//是否在鼠标点击时验证，默认为True
+            })
+        })
+    </script>
+    <script type="text/javascript">
+        $(function () {
+            $(":checkbox").click(function () {
+                if ($(this).prop("checked") != undefined) {
+                    $(":checkbox").prop("checked", false);
+                    $(this).prop("checked", true);
+                    $("#AppIcon").val($(this).val());
+                }
+            });
+            $("#selbtn").on("click", function () {
+                $("#app_icons").toggle();
+            });
+
+
+
+        });
+    </script>
+}

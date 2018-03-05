@@ -1,0 +1,54 @@
+﻿@model UCHome.Model.UserInfo
+<link rel="stylesheet" href="@Url.Content("~/plugs/scrollbar/css/sui.css")">
+<ul id="myapp" class="ul-shortcut list-group list-group-noborder margin-left-15 kjtd" style="height:400px;overflow-y:auto;">
+    @*    <li id="myperson"><i class="li-icon li-icon-mark"></i><span>个人信息</span></li>
+        <li id="myleave"><i class="li-icon li-icon-home"></i><span>请假管理</span></li>
+        <li id="mymail"><i class="li-icon li-icon-log"></i><span>私人邮件</span></li>
+        <li id="mynotice"><i class="li-icon li-icon-photo"></i><span>通知公告</span></li>*@
+    @if (Model.usertype.ToUpper() == "S") {
+        <li id="mykscj"><i class="li-icon li-icon-log"></i><span>学业成长</span></li>
+    }
+    @*<li id="myenergy"><i class="li-icon li-icon-log"></i><span>绿色节能</span></li>*@
+</ul>
+<script>
+    $(function () {
+        //获取个人应用
+        $.ajax({
+            url: "@Url.Content("~/ashx/GetMyApp.ashx")",
+            data: { pagesize: 30, curpage: 1, id: "@Model.userid" },
+            success: function (data) {
+                $("#myapp").html("");
+                var infos = eval("(" + data + ")"); //
+                if (infos.length > 0) {
+                    $.each(infos, function (idx, item) {
+                        var iconsrc = "@Url.Content("~/Content/icon")" + "/f" + item.appicon + "11.png";
+                        var ismy = item.ismy;
+                        var appurl = ismy == "true" ? "@Url.Action("MyAppRedirectPage")?id=" + item.pkid : "@Url.Action("systemAppRedirectPage")?id=" + item.appfrom;
+                        var str = "<li class='list-group-item'><i class=\"app-my-icon\"><img width='15' height='15' src=\"" + iconsrc + "\"></i><a onclick=\"loadContent('"+appurl+"')\" href=\"#\" target=\"" + item.apptarget + "\">" + item.appname + "</a></li>";
+                        var obj = str;
+                        $("#myapp").append($(obj));
+                    });
+
+                } else {
+                    var obj = "<li class=\"noinfo\"><p class=\"person\"><span class=\"newscontent\">没有发现任何应用！</span></p></li>";
+                    $("#myapp").append($(obj));
+
+                }
+            }
+        });
+        $("#myenergy").click(function () {
+            loaddata($("#body_content"));
+            $("#body_content").load("@Url.Action("Index", "Energy")");
+        });
+        $("#mykscj").click(function () {
+            loaddata($("#body_content"));
+            $("#body_content").load("@Url.Action("ScoreInfo", "ParentsCenter", new { id = Model.userid })");
+        });
+
+    })
+    function loadContent(url)
+    {
+         loaddata($("#body_content"));
+         $("#body_content").load(url);
+    }
+</script>

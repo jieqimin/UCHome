@@ -1,0 +1,185 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <link href="@Url.Content("~/Content/css/mui.min.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/css/mui.picker.min.css")" rel="stylesheet" />
+    <script src="@Url.Content("~/Content/js/mui.min.js")"></script>
+    <script src="@Url.Content("~/Content/js/mui.picker.min.js")"></script>
+    <script src="@Url.Content("~/Content/js/jquery-1.11.1.min.js")"></script>
+    <script src="@Url.Content("~/Content/js/bootstrap.js")"></script>
+    <title>考勤轨迹</title>
+    <style type="text/css">
+        #attendanceTable tr td {
+            border-top: 0px !important;
+            text-align: center;
+        }
+
+        .mui-content {
+            overflow: scroll;
+            /*height: 510px;*/
+        }
+
+
+        .mui-content-padded {
+            padding-left: 23px;
+        }
+
+        #result {
+            padding-left: 10px;
+            color: blue;
+        }
+
+        body {
+            font-family: "微软雅黑";
+            font-size: 14px;
+            padding: 0 3%;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .top1 {
+            height: 50px;
+            width: 94%;
+            background-color: transparent;
+            position: absolute;
+            z-index: 5;
+            top: 0;
+        }
+
+        .mid1 {
+            min-height: calc(100vh - 120px);
+            width: 94%;
+            overflow: auto;
+            top: 60px;
+            position: absolute;
+            z-index: 10;
+            bottom: 60px;
+        }
+
+        .bot1 {
+            height: 50px;
+            width: 94%;
+            background-color: transparent;
+            position: absolute;
+            z-index: 200;
+            bottom: 0;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    @*        <header class="mui-bar mui-bar-nav top">
+            <h1 class="mui-title" style="color: white">考勤轨迹</h1>
+        </header>*@
+    <div class="top1">
+        <div class="mui-content-padded">
+            <a id="demo4" data-options='{"type":"date"}' class="btn mui-btn mui-btn-block">选择日期</a>
+            <span id='result' class="ui-alert"></span>
+        </div>
+        <hr style="border: 1px solid #DEDBDB; margin-top: 0px; margin-bottom: 0px" />
+    </div>
+    <div class="mid1">
+        <div class="mui-content">
+            <table class="table table-hover" id="attendanceTable"></table>
+        </div>
+    </div>
+    <div class="bot1">
+        <div class="mui-card-footer"><span>更多详细报表请下载泰安教育APP,<a href="http://app.izhihuidao.com/tajy">马上下载</a></span></div>
+    </div>
+
+</body>
+</html>
+<script type="text/javascript">
+    var openId = getQueryString("OpenID");
+    var sceneId = getQueryString("SceneID");
+    (function ($) {
+        $.init();
+        var result = $('#result')[0];
+        var btns = $('.btn');
+        btns.each(function (i, btn) {
+            btn.addEventListener('tap', function () {
+                var optionsJson = this.getAttribute('data-options') || '{}';
+                var options = JSON.parse(optionsJson);
+                var id = this.getAttribute('id'); /*
+                 * 首次显示时实例化组件
+                 * 示例为了简洁，将 options 放在了按钮的 dom 上
+                 * 也可以直接通过代码声明 optinos 用于实例化 DtPicker
+                 */
+                var picker = new $.DtPicker(options);
+                picker.show(function (rs) { /*
+                     * rs.value 拼合后的 value
+                     * rs.text 拼合后的 text
+                     * rs.y 年，可以通过 rs.y.vaue 和 rs.y.text 获取值和文本
+                     * rs.m 月，用法同年
+                     * rs.d 日，用法同年
+                     * rs.h 时，用法同年
+                     * rs.i 分（minutes 的第二个字母），用法同年
+                     */
+                    var html = "";
+                    result.innerText = rs.text + " >>";
+                    var d = new Date(rs.text);
+                    d.setTime(d.getTime() + 24 * 60 * 60 * 1000);
+                    var endtime = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
+                    var apiUrl = "http://wechat.izhihuidao.com/Api/api/user/GetOpenIdBinder?id=" + openId + "&sceneId=" + sceneId;
+                    if ("@(Model == null)" === "True") {
+                        jQuery.get(apiUrl, function (response) {
+                            //获取到用户id
+                            var jzid = response[0].WechatUser.Id;
+                            jQuery.post("@Url.Action("GetStudentRecordsByParentId", "Attendence")", { startTime: rs.text, endTime: endtime, jzid: jzid }, function (attendenceResult) {
+                                $(attendenceResult).each(function (i, result) {
+                                    var date = result.Date;
+                                    var comment = result.Comment;
+                                    //var uName = result.UName;
+                                    date = parseInt(date.replace(/\D/igm, ""));
+                                    date = new Date(date);
+                                    date = date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+                                    html += "<tr><td>" + date + "</td><td>" + comment + "</td></tr>";
+                                });
+                                jQuery("#attendanceTable").html(html);
+                            });
+
+                        });
+                    } else {
+                        var jzid = "@Model";
+                        jQuery.post("@Url.Action("GetStudentRecordsByParentId", "Attendence")", { startTime: rs.text, endTime: endtime, jzid: jzid }, function (attendenceResult) {
+                            $(attendenceResult).each(function (i, result) {
+                                var date = result.Date;
+                                var comment = result.Comment;
+                                //var uName = result.UName;
+                                date = parseInt(date.replace(/\D/igm, ""));
+                                date = new Date(date);
+                                date = date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+                                html += "<tr><td>" + date + "</td><td>" + comment + "</td></tr>";
+                            });
+                            jQuery("#attendanceTable").html(html);
+                        });
+                    }
+                    /*
+                     * 返回 false 可以阻止选择框的关闭
+                     * return false;
+                     */
+                    /*
+                     * 释放组件资源，释放后将将不能再操作组件
+                     * 通常情况下，不需要示放组件，new DtPicker(options) 后，可以一直使用。
+                     * 当前示例，因为内容较多，如不进行资原释放，在某些设备上会较慢。
+                     * 所以每次用完便立即调用 dispose 进行释放，下次用时再创建新实例。
+                     */
+                    picker.dispose();
+                });
+            }, false);
+        });
+    })(mui);
+    function getQueryString(name) {
+        var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) {
+            return unescape(r[2]);
+        }
+        return "";
+    }
+</script>

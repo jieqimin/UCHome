@@ -1,0 +1,59 @@
+﻿@using UCHome.Controllers
+@using UCHome.Model;
+@{
+    int i = 0;
+}
+@model AppCollection
+@{
+    AppCenterController controll = new AppCenterController();
+    string menus = controll.entitytojson(Model.appmenu);
+}
+<script>
+    var menucount = parseInt("@Model.appmenu.Count()");
+    var appid = "@Model.app.PKID";
+    var menulists = @Html.Raw(menus);
+</script>
+<ul class="app-funcpath">
+    <li><a href="@Url.Action("Index","AppCenter")"><span><img src="~/Content/icon/fr11712.png" /></span><span></span></a>应用中心</li>
+    @*<li><a onclick="OpenAppUrl('@Url.Action("Index","AppCenter")')"><span><img src="~/Content/icon/fr16012.png" /></span><span></span></a>@ViewBag.TypeName</li>*@
+    <li><a onclick="OpenAppUrl('@Url.Action("SystemAppRedirectPage")?id=@Model.app.PKID&typename=@ViewBag.TypeName')"><span><img src="~/Content/icon/fr@(Model.app.AppIcon+Model.app.AppColor)2.png" /></span><span></span></a>@Model.app.AppName</li>
+</ul>
+<div class="info-content" style="background-color: #fff; min-height: 610px;">
+    <div id="id-app-info" class="dappinfo">
+        <img id="id-app-logo" src="@Url.Content("~/Content/icon/fr" + Model.app.AppIcon + "12.png")" class="app-logo img-rounded" />
+        <div id="id-app-name" class="app-name">@Model.app.AppName</div>
+        <div id="id-app-descripe" class="app-descripe">@Model.app.memo &nbsp;</div>
+    </div>
+    <div id="id-app-menu" class="dappmenu">
+        <ul>
+            @foreach (UCHome_App_Menu item in Model.appmenu)
+            {
+                if ((ViewBag.SelMenuID != null && item.PKID == ViewBag.SelMenuID) || (ViewBag.SelMenuID == null && i == 0))
+                {
+                <li class="on" href="@item.Menuhref" ui-sref="@item.controllername">@item.MenuName</li>
+                }
+                else
+                {
+                <li href="@item.Menuhref" ui-sref="@item.controllername">@item.MenuName</li>
+                }
+                i++;
+            }
+            <li ui-sref-active="active" ui-sref="help" href="@Model.app.helpchmurl">帮助说明</li>
+        </ul>
+    </div>
+    <div id="id-app-content" ui-view>
+        <div id="pageinclude">
+            <div class="loading">正在加载应用，请稍候…</div>
+        </div>
+    </div>
+</div>
+<script>
+    $("#id-app-menu ul li").click(function () {
+        $("#id-app-menu ul li").removeClass("on");
+        $(this).addClass("on");
+        var src = $(this).attr("href");
+        $("#id-app-content").load(src);
+    });
+    $("#id-app-menu ul li:first").click();
+</script>
+

@@ -1,0 +1,20 @@
+﻿@{
+    Layout = null;
+}
+@model List<UCHome.Model.UCHome_Top_Data>
+<ul>
+    @foreach (var item in Model)
+    {
+        <li>
+            <span class="news-dot">·</span>
+            <a target="_blank"  class="text-cut" style="width:250px;" href="@Url.Action("ArticleInfo", "Query", new { id = item.PKID })">@item.Title</a>
+            @if (item.DeployTime.Value.AddDays(3) > DateTime.Now)
+            {
+                <span class="news-icon">
+                    <img src="@Url.Content("~/Content/NewFile/image/public/new.png")">
+                </span>
+            }
+            <span class="news-date">@item.DeployTime.Value.ToString("yyyy/MM/dd")</span>
+        </li>
+    }
+</ul>

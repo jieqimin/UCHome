@@ -1,0 +1,74 @@
+﻿<div class="bc_content0">
+    <textarea id="txtcontent" placeholder="晒一下我今天的心情吧！" class="txtcontent"></textarea>
+    <div class="sendc" id="sendc">发 表 </div>
+</div>
+<div class="bc_content1">
+    <div class="dtitle">
+        最新动态 @*<span class="down">
+            <img src="@Url.Content("~/Content/images/down.png")"/></span>*@
+    </div>
+    <div id="staticnews">
+        <div class="loading">正在加载中，请稍候……</div>
+    </div>
+</div>
+<div class="bc_content4">
+    <div class="dmenu">
+        <ul class="tab">
+            <li id="tab-li-myarticle" class="selected">个人文章</li>
+            <li id="tab-li-mylog">私人日志</li>
+        </ul>
+    </div>
+    <div class="dinfo" id="article">
+        <div class="loading">正在加载中，请稍候……</div>
+    </div>
+</div>
+<div class="bc_content3">
+    <div class="dtitle">我的课表</div>
+    <div class="dinfo" id="kb">
+        <div class="loading">正在加载中，请稍候……</div>
+    </div>
+</div>
+<script>
+    $(function () {
+        $("#staticnews").load("@Url.Action("staticnews", "TeacherCenter",new{id=Model})");
+        $("#article").load("@Url.Action("LogList", "PublicShare", new { id = Model, uctype = "article" })");
+        if ("@ViewData["usertype"]" == "T")
+            $("#kb").load("@Url.Action("PersonKB", "TeacherCenter",new{id=Model})");
+        else if ("@ViewData["usertype"]" == "S")
+            $("#kb").load("@Url.Action("ClassKB", "StudentCenter",new{id=Model})");
+        $("#sendc").click(function () {
+            var tc = $("#txtcontent").val();
+            if (tc == "") {
+                tipfailmsg("内容不能为空！");
+                hidefailmsg(2000);
+            } else {
+                $.ajax({
+                    url: "@Url.Content("~/ashx/AddStaticNews.ashx")",
+                    data: { id: "@(Model)", content: escape(tc) },
+                    success: function (data) {
+                        var result = eval("(" + data + ")"); //
+                        if (result[0].result) {
+                            alert("发表成功！");
+                            $("#staticnews").load("@Url.Action("staticnews", "TeacherCenter", new { id = Model })");
+                        } else {
+                            alert(result[0].result);
+                        }
+                    }
+                });
+            }
+        });
+        $("#txtcontent").focus(function () {
+            if ($(this).val() == this.defaultValue)
+                $("#txtcontent").val("");
+        }).blur(function () {
+            if ($("#txtcontent").val() == "")
+                $("#txtcontent").val(this.defaultValue);
+        });
+        $("#tab-li-myarticle").click(function () {
+            $("#article").load("@Url.Action("LogList", "PublicShare", new { id = Model, uctype = "article" })");
+        });
+        $("#tab-li-mylog").click(function () {
+            $("#article").load("@Url.Action("LogList", "PublicShare", new { id = Model, uctype = "log" })");
+        });
+    })
+</script>

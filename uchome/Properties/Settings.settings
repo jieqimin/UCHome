@@ -1,0 +1,12 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="UCHome.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="UCHome_qingdao_OrganizationService" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">http://qingdao.istudy.sh.cn/SEP.Wef/WebServices/OrganizationService.asmx</Value>
+    </Setting>
+    <Setting Name="UCHome_PayService_EcloudSevice" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">http://111.17.215.232:100/axis2/services/EcloudSevice.EcloudSeviceHttpSoap11Endpoint/</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

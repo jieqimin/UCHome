@@ -1,0 +1,91 @@
+﻿@{
+    Layout = null;
+}
+@using System.Web.Mvc
+@using M = TeacherAwards.Model;
+@model M.Entity.Teacher_ZZJG05
+<style type="text/css">
+    .pd {
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+
+    .h {
+        height: 34px;
+        line-height: 34px;
+    }
+
+    .lic {
+        float: left;
+        margin-right: 10px;
+        height: 33px;
+        line-height: 33px;
+    }
+
+    .w {
+        width: 450px;
+    }
+</style>
+
+<link href="@Url.Content("~/Content/css/nanogallery.css")" rel="stylesheet" type="text/css">
+<!-- nanoGALLERY js -->
+<script type="text/javascript" src="@Url.Content("~/Content/js/jquery.nanogallery.js")"></script>
+
+<div id="noticeSend" class="form-horizontal form-position pagew " style="margin-bottom: 0px; margin-top: 0px;">
+    <div class="form-group">
+        <label for="GZQSRQ" class="col-sm-3 control-label">工作起始日期：</label>
+        <div class="col-sm-9 pd h">
+            @Model.GZQSRQ
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="GZZZRQ" class="col-sm-3 control-label">工作终止日期：</label>
+        <div class="col-sm-9 pd h">
+            @Model.GZZZRQ
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="GZDW" class="col-sm-3 control-label">工作单位：</label>
+        <div class="col-sm-9 pd">
+            @Model.GZDW
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="GZNR" class="col-sm-3 control-label">工作内容：</label>
+        <div class="col-sm-9 pd h">
+            @Model.GZNR
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="CRDZZW" class="col-sm-3 control-label">曾任党政职务：</label>
+        <div class="col-sm-9 pd h">
+            @Model.CRDZZW
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="CRZYJSZWM" class="col-sm-3 control-label">曾任专业技术职务：</label>
+        <div class="col-sm-9 pd h">
+            @Model.CRZYJSZWM
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="YDDH" class="col-sm-3 control-label">工作证明人：</label>
+        <div class="col-sm-9 pd h">
+            @Model.GZZMR
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="YDDH" class="col-sm-3 control-label">工作简历备注：</label>
+        <div class="col-sm-9 pd h">
+            @Model.GZJLBZ
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+
+       
+    });
+
+</script>

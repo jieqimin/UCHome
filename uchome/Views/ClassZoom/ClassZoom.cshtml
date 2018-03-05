@@ -1,0 +1,116 @@
+﻿@{
+    ViewBag.Title = "班级空间";
+}
+@model UCHome.Model.View_Simple_SchoolClass
+@{
+    if (Model == null)
+    {
+    @Html.Raw("传入非法字符，系统禁止访问！")
+        return;
+    }
+        
+}
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+@section Head{
+    <link href="@Url.Content("~/Content/css/class.css")" rel="stylesheet" />
+    <script src="@Url.Content("~/Content/js/alert.js")"></script>
+    <script >
+        $(function () {
+            //数据绑定 BindData
+            $("#kb").load("@Url.Action("ClassKB", new { Model.bjid })");
+            $("#ClassInfo").load("@Url.Action("ClassInfo", new { Model.bjid })");
+            $("#Studentlist").load("@Url.Action("Studentlist", "TeacherCenter", new { Model.bjid })");
+            $("#Parentlist").load("@Url.Action("Parentlist", "TeacherCenter", new { Model.bjid })");
+            $("#content1_tab11").load("@Url.Action("ClassNews", new { Model.bjid })");
+            var actdefaulturl = "@Url.Action("ShowResource", "TeacherCenter")" + "?learntype=" + escape("教学");
+            $("#resourcecontent").load(actdefaulturl);
+            $("#resourcetab li").each(function (i, item) {
+                $(item).click(function () {
+                    var learntype = $(this).attr("title");
+                    var acturl = "@Url.Action("ShowResource", "TeacherCenter")" + "?learntype=" + escape(learntype);
+                    $("#resourcecontent").load(acturl);
+                    $("#resourcetab li").removeClass("selected");
+                    $(this).addClass("selected");
+                });
+            });
+
+        })
+    </script>
+}
+<body>
+    <div class="top">
+        <div class="top_content">
+            <span class="title">班级空间</span>
+            <span></span>
+            <a href="" class="loginout">退出</a>
+        </div>
+    </div>
+    <div class="content">
+        <div class="concent_body">
+            <div class="body_left">
+                <div class="message">
+                    <ul>
+                        <li onclick="openwindow('http://xy.taedu.gov.cn:81/Messages.Web/Msg/receivelist.aspx',1000,500,'我的邮件')"></li>
+                        <li onclick="openwindow('http://xy.taedu.gov.cn:81/Messages.Web/Affiche/receivelist.aspx',1000,500,'我的消息')"></li>
+                    </ul>
+                </div>
+
+                <hr style="border-bottom: solid 1px #8FC2DF; border-top: solid 1px #739BB4; height: 0; position: absolute; width: 149px; left: 0;" />
+
+                <div class="shortcut">
+                    @Html.Partial("ShortCut")
+                </div>
+                <hr style="border-bottom: solid 1px #8FC2DF; border-top: solid 1px #739BB4; height: 0; position: absolute; width: 149px; left: 0;" />
+            </div>
+            <div class="body_center">
+
+                <div class="bc_content2">
+                    <div class="dmenu">
+                        <ul>
+                            <li id="tab11" class="tab1 selected">班级动态</li>
+
+                        </ul>
+                    </div>
+                    <div class="news">
+                        <ul id="content1_tab11" class="content1_tab1 ">
+                        </ul>
+
+                    </div>
+                </div>
+                <div class="bc_content3">
+                    <div class="dtitle">班级课表</div>
+                    <div class="dinfo" id="kb">
+                    </div>
+                </div>
+                <div class="bc_content4">
+                    <div class="dmenu">
+                        <ul id="resourcetab" class="tab">
+                            <li class="selected" tabid="content4_1" title="学科资源">学科资源</li>
+                            <li tabid="content4_2" title="名师课程">名师课程</li>
+                            <li tabid="content4_3" title="精品试题">精品试题</li>
+                            <li tabid="content4_4" title="图片视频">图片视频</li>
+                        </ul>
+                    </div>
+                    <div class="dinfo" id="resourcecontent">
+                        <div class="loading">正在加载中，请稍候……</div>
+                    </div>
+                </div>
+            </div>
+            <div class="body_right">
+                <div class="br_content1" id="ClassInfo">
+                    <div style="margin-top: 80px;" class="loading">正在加载中，请稍候……</div>
+                </div>
+                <div class="br_content2" id="Studentlist">
+                    <div class="loading">正在加载中，请稍候……</div>
+                </div>
+                <div class="br_content3" id="Parentlist">
+                    <div class="loading">正在加载中，请稍候……</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="bottom"></div>
+</body>
+</html>
+

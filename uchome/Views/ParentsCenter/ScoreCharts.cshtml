@@ -1,0 +1,91 @@
+﻿@model string
+<script src="@Url.Content("~/Content/js/jquery-1.7.1.min.js")" ></script>
+<script src="@Url.Content("~/Content/js/highcharts.js")" ></script>
+<div id="container"></div>
+<script>
+    var chart1 = null;
+    $(function () {
+        var options = {
+            chart: {
+                renderTo: 'container',
+                type: "column",
+                height: 600
+            },
+            title: {
+                text: '个人成绩变化曲线图',
+                x: -20 //center
+            },
+            subtitle: {
+                text: '个人所有统考成绩',
+                x: -20
+            },
+            xAxis: {
+                categories: []
+            },
+            yAxis: {
+                title: {
+                    text: '分数 (分)'
+                },
+                plotLines: [{
+                    value: 0.00,
+                    width: 1,
+                    color: '#808080'
+                }]
+            },
+            tooltip: {
+                valueSuffix: '分'
+            },
+            legend: {
+                layout: 'vertical',
+                align: 'right',
+                verticalAlign: 'middle',
+                borderWidth: 0
+            },
+            series: []
+        };
+        options.series = new Array();
+        //装载数据
+        var jdata = eval("(" + "@Html.Raw(Model)" + ")");
+        var examnames = new Array();
+        var kcmcs = new Array();
+        //数据整理
+        $.each(jdata, function (index, item) {
+            if (examnames.indexOf(item.examname) < 0) {
+                examnames.push(item.examname);
+                options.xAxis.categories.push(item.examname);
+                console.log(examnames);
+            }
+            if (kcmcs.indexOf(item.kcmc) < 0) {
+                kcmcs.push(item.kcmc);
+                console.log(kcmcs);
+            }
+          
+            
+        });
+        //重新填充数据
+        $.each(examnames, function (index, item) {
+            $.each(kcmcs, function (index2, item2) {
+                if (index == 0) {
+                    options.series[index2] = new Object();
+                    options.series[index2].name = item2;
+                    options.series[index2].data = new Array();
+                }
+                var isexist = false;
+                $.each(jdata, function (index3, item3) {
+                    if (item3.examname == item && item3.kcmc == item2) {
+                        options.series[index2].data.push(parseFloat(item3.score));
+                        isexist = true;
+                        //jdata.pop(item3);
+                        return false;
+                    }
+                });
+
+                if (!isexist) {
+                    options.series[index2].data.push(0);
+                }
+            });
+        });
+        chart1 = new Highcharts.Chart(options);
+    });
+
+</script>

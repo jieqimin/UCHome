@@ -1,0 +1,164 @@
+﻿@{
+    Layout = null;
+    ViewBag.Title = "泰安教育云学生成绩查询平台";
+    var usertype = ViewBag.UserType;
+    if (usertype == "t")
+    {
+        Response.Write("抱歉，此功能仅供录学生或者家长查询成绩，如您需了解详情，请登录教育云平台查询！");
+        return;
+    }
+}
+@using Student.Model
+@using UCHome.Controllers
+@model List<StuScores>
+@{
+    List<StuScores> Exams = Model; 
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>学生成绩查询</title>
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/css/h5/reset.css")" />
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/css/h5/public.css")" />
+    <script src="@Url.Content("~/Content/js/jquery.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/public.js")"></script>
+    <style>
+        </style>
+</head>
+<body>
+    <header>
+        <p>学生成绩查询</p>
+    </header>
+    <section>
+        <ul class="List">
+            @if (Exams == null || !Exams.Any())
+            {
+                <li>暂时还没有发现有考试记录！
+                </li>
+            }
+            else
+            {
+                foreach (StuScores exam2 in Exams.OrderByDescending(e => e.stuscore.ExamStartTime))
+                {
+                    StudentInformation.StudentScores exam = exam2.stuscore;
+                <li>
+                    <a href="@Url.Action("ScoreDetails", new { id = exam.ExamID })">
+                        <p class="Title">考试名称：<span>@exam.ExamName</span></p>
+                        <p class="SubTitle">
+                            <span>时间：@exam.ExamStartTime.Value.ToShortDateString()-@exam.ExamEndTime.Value.ToShortDateString()</span>
+                            <span>类型：@exam.ExamType</span>
+                        </p>
+                    </a>
+                </li>  
+                }
+            }
+        </ul>
+    </section>
+</body>
+</html>
+@*@using Student.Model
+@using UCHome.Controllers
+@model IList<StudentInformation.StudentScores>
+@{
+    IList<StudentInformation.StudentScores> scorelist = Model;
+    List<StudentInformation.StudentScores> Exams = scorelist != null ? scorelist.GroupBy(s => new { s.ExamID, s.ExamName }).Select(s => s.First()).OrderByDescending(s => s.SchYear).ThenByDescending(s => s.SchTerm).ThenByDescending(s => s.ExamTypeCode).ToList() : new List<StudentInformation.StudentScores>();
+}
+<h1 style="width: 100%; text-align: center;">泰安教育云学生成绩查询平台</h1>
+<h3>学生姓名:@ViewBag.XM</h3>
+<table>
+    @if (scorelist == null || !scorelist.Any())
+    {
+        <tr>
+            <td class="text-center">暂时还没有发现有成绩记录！</td>
+        </tr>
+    }
+    else
+    {
+        foreach (StudentInformation.StudentScores exam in Exams.OrderByDescending(e => e.ExamStartTime))
+        { 
+        <tr>
+            @if (!string.IsNullOrEmpty(exam.ExamID.ToString()))
+            {
+                string subs = string.Empty;
+                string subscores = string.Empty;
+                decimal totalscore = 0;
+                List<StuScores> stuscorelist = new List<StuScores>();
+                <td>
+
+                    <div><b>考试名称：</b>@exam.ExamName <b>考试时间：</b>@exam.ExamStartTime.Value.ToShortDateString()-@exam.ExamEndTime.Value.ToShortDateString() <b>考试类型：</b>@exam.ExamType</div>
+                    @foreach (StudentInformation.StudentScores items in scorelist.Where(s => s.ExamID == exam.ExamID))
+                    {
+                        //重置学科顺序
+                        StuScores stuscores = new StuScores();
+                        switch (items.KCMC)
+                        {
+                            case "语文":
+                                stuscores.stuscore = items;
+                                stuscores.KCIndex = 1;
+                                break;
+                            case "数学":
+                                stuscores.stuscore = items;
+                                stuscores.KCIndex = 2;
+                                break;
+                            case "英语":
+                                stuscores.stuscore = items;
+                                stuscores.KCIndex = 3;
+                                break;
+                            case "物理":
+                                stuscores.stuscore = items;
+                                stuscores.KCIndex = 4;
+                                break;
+                            case "化学":
+                                stuscores.stuscore = items;
+                                stuscores.KCIndex = 5;
+                                break;
+                            case "生物":
+                                stuscores.stuscore = items;
+                                stuscores.KCIndex = 6;
+                                break;
+                            case "历史":
+                                stuscores.stuscore = items;
+                                stuscores.KCIndex = 7;
+                                break;
+                            case "政治":
+                                stuscores.stuscore = items;
+                                stuscores.KCIndex = 8;
+                                break;
+                            case "地理":
+                                stuscores.stuscore = items;
+                                stuscores.KCIndex = 9;
+                                break;
+                            default:
+                                stuscores.stuscore = items;
+                                stuscores.KCIndex = 10;
+                                break;
+                        }
+                        stuscorelist.Add(stuscores);
+                    }
+                    @foreach (StuScores items in stuscorelist.OrderBy(s => s.KCIndex))
+                    {
+                        subs += string.Format("<td>{0}</td>", items.stuscore.KCMC);
+                        subscores += string.Format("<td>{0}</td>", items.stuscore.Score);
+                        totalscore += items.stuscore.Score;
+                    }
+                    @if (!string.IsNullOrEmpty(subs))
+                    {
+                        <table class="table table-bordered">
+                            <tr>@Html.Raw(subs)<td>总分</td>
+                            </tr>
+                            <tr>@Html.Raw(subscores)<td>@totalscore</td>
+                            </tr>
+                        </table>
+                    }
+                </td>
+            }
+            else
+            {
+                <td class="text-center">暂时还没有发现有成绩记录！</td>
+            }
+        </tr>  
+        }
+    }
+</table>*@

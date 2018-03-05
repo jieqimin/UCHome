@@ -1,0 +1,25 @@
+﻿<link href="@Url.Content("~/angular/uchome/studentaffairs/studentaffaris.css")" rel="stylesheet"/>
+<script src="@Url.Content("~/plugs/usercontrol/selectuser.js")"></script>
+
+<div class="form-horizontal div-body">
+    <div class="form-group">
+        <label class="col-sm-3 control-label" for="project">选择项目:</label>
+        <div class="col-sm-7">
+            <select ng-model="Project" class="form-control" id="project" ng-options="Project.Name for Project in ProjectList" ng-change="ChangeColomn()"></select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label">被评价对象:</label>
+        <div class="col-sm-7">
+            <div ng-show="evalutatedType=='teacher'">
+                <div class="col-xs-8" style="padding-left: 0">
+                    <textarea rows="3" id="EvaluatedorNames" ng-model="EvaluatedorNames" class="form-control"></textarea>
+                    <input type="hidden" ng-model="Evaluatedor" id="EvaluatedorIds"/>
+                </div>
+                <div class="col-xm-4">
+                    <button class="btn btn-sm btn-primary" id="selectUser3">选择教师</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

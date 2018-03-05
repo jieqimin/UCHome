@@ -1,0 +1,19 @@
+﻿@{
+    Layout = null;
+    int index = 1;
+}
+@*@Url.Action("ClassZoom","ClassZoom",new {bjid = item.classid})*@
+@model List<UCHome.Model.SClass>
+    @foreach (var item in Model)
+    {
+        if (Math.Ceiling(@index*1.0/3)%2==0)
+        {
+            <li style="float: left; width: 190px;"><span class="news-dot">·&nbsp;&nbsp;</span><a target="_blank" href="@Url.Action("ClassIndex","ClassCenterInfo")?bjid=@item.classid&bjmc=@item.classname">@item.classname</a></li>
+        }
+        else
+        {
+            <li class="li-class-cyan" style="float: left; width: 190px;"><span class="news-dot">·&nbsp;&nbsp;</span><a target="_blank" href="@Url.Action("ClassIndex","ClassCenterInfo")?bjid=@item.classid&bjmc=@item.classname">@item.classname</a></li>
+        }
+
+        index++;
+    }

@@ -1,0 +1,60 @@
+﻿@using UCHome.Controllers
+@model List<PublicShareController.UserInfo>
+@section Head{
+    <style>
+        body {
+            background-color: #fff;
+        }
+
+        ul, li {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .stulist {
+            overflow: auto;
+        }
+
+            .stulist li {
+                float: left;
+                width: 98px;
+                line-height: 35px;
+                height: 35px;
+                border: solid 1px #ccc;
+                text-align: center;
+                font-size: 14px;
+                font-family: 微软雅黑;
+                margin: 5px;
+            }
+
+                .stulist li:hover {
+                    background-color: orangered;
+                    color: #fff;
+                }
+
+                    .stulist li:hover a, .stulist li:hover a:hover {
+                        color: #fff;
+                    }
+
+            .stulist a {
+                text-decoration: none;
+                color: #333;
+            }
+    </style>
+}
+<ul class="stulist">
+    @{
+        foreach (PublicShareController.UserInfo item in Model)
+        {
+            if (item.usertype.ToLower() == "t")
+            {
+        <li><a target="_parent" href="@Url.Action("Index", "TeacherCenter", new { id = item.userid })">@item.username</a></li>
+            }
+            else
+            {
+        <li><a target="_parent" href="@Url.Action("Index", "StudentCenter", new { id = item.userid })">@item.username</a></li>
+            }
+        }
+    }
+</ul>

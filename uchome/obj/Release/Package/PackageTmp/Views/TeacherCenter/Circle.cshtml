@@ -1,0 +1,265 @@
+﻿@using ServiceModel
+@model List<SNSFeedEntryDto>
+@if (Model != null)
+    {
+     var resList = Model as List<SNSFeedEntryDto>;
+
+        if (resList.Count > 0)
+        {
+
+            var rowCount = Convert.ToInt32(resList[0].School);
+            var sendId = "";
+            var textId = "";
+            var outdivId = "";
+            var commentCount = 0;
+            var likeId = "";
+            var likeCount = "";
+            var plCount = "";
+            var likeval = "";
+            var index = "";
+            var likestyle = "";
+            
+            foreach (var res in resList)
+            {
+                commentCount = 0;
+                rowCount++;
+                sendId = "send" + rowCount;
+                textId = "text" + rowCount;
+                outdivId = "outdiv" + rowCount;
+                likeId = "like" + rowCount;
+                likeCount = "likecount" + rowCount;
+                plCount = "plcount" + rowCount; 
+                likeval = "likeval" + rowCount;
+                index = "con-box" + rowCount;
+                likestyle = "praise" + rowCount;
+
+                var t = res.Date.Month + "月" + res.Date.Day + "日 " + res.Date.ToShortTimeString();
+
+                if (res.Comments != null)
+                {
+                    commentCount = res.Comments.Count;
+                }
+                
+                var title = "";
+            <div class="con-box" id="@index">
+                <div class="item-box">
+                   
+                    @if (res.ObjectType == "更新相册")
+                    {
+                        title += res.UName + "更新了相册";
+                    }
+                    else if (res.ObjectType == "文章日志")
+                    {
+                        title += res.UName + "发表了文章《" + res.Title + "》";
+                    }
+                    else if (res.ObjectType == "资源")
+                    {
+                        title += res.UName + "上传了资源《" + res.Title + "》"+"<a target='_blank' href='"+res.URL+"'>【查看】</a>";
+                    }
+                    else
+                    {
+                        title += res.UName + "更新了说说";
+                    }
+                    <div class="item-title">@Html.Raw(title)</div>
+                    <div class="item-con">
+                        @if (res.ObjectType == "更新相册")
+                        {
+                            var imageUrl = "http://jp.taedu.gov.cn:84" + res.Summary;
+
+                            <div class="uploadedImages" style="margin-left: -426px;">
+                                <a id="" href="@imageUrl" data-ngthumb="@imageUrl" data-ngdesc="@imageUrl"></a>
+                            </div>
+                        }
+                        else if (res.ObjectType == "文章日志")
+                        {
+                            var content = res.Summary;
+
+                            if (content.Length > 145)
+                            {
+                                content = content.Substring(0, 145) + "...";
+                            }
+try{
+                            res.URL = res.URL.Substring(res.URL.IndexOf("pid=")+4, 36);
+}catch{}
+                            
+                            @Html.Raw("<p>" + content + "<a target='_blank' href='Query/ArticleInfo?id=" + res.URL + "'>【点击查看全文】</a></p>");
+                        }
+                        else
+                        {
+                            @Html.Raw("<p>" + res.Summary + "</p>")
+                        }
+                    </div>
+                    <div class="review">
+                        <p>
+                            <a>@t</a>
+                            <a onclick="showPingLun('@rowCount');">
+                                <img src="@Url.Content("~/Content/images/zf-talk2.png")"/>评论
+                                <span>（</span>
+                                <span id="@plCount">@commentCount</span>
+                                <span>）</span>
+                            </a>
+                            <label>|</label>
+                            <a onclick="like('@res.Id', '@rowCount')">
+                                <img src="@Url.Content("~/Content/images/zf-like2.png")"/>
+
+                                @if (res.Like > 0)
+                                {
+                                    var likeList = res.Likes.Select(s => s.Key).ToList();
+
+                                    if (likeList.Contains(res.ObjectID))
+                                    {
+                                        <span id="@likeval">取消赞</span>
+                                    }
+                                    else
+                                    {
+                                        <span id="@likeval">赞</span>
+                                    }
+                                }
+                                else
+                                {
+                                    <span id="@likeval">赞</span>
+                                }
+                                <span>（</span>
+                                <span id="@likeCount">@res.Like</span>
+                                <span>）</span>
+                            </a>
+                            @if (res.ObjectID == res.UID)
+                            {
+                                <label>|</label>
+                                <a onclick="Delete('@res.Id', '@index');"><img src="@Url.Content("~/Content/images/zf-dustbin.png")"/>删除</a>
+                            }
+                        </p>
+                        @if (res.Like > 0)
+                        {
+                            <div class="praise-box" id="@likeId">
+                                @if (res.Like > 0)
+                                {
+                                    <div class="praise" id="@likestyle" style="cursor: pointer;" onclick="like('@res.Id', '@rowCount')">
+                                        <img src="@Url.Content("~/Content/images/zf-like2.png")"/>
+                                    </div>
+                                    foreach (var like in res.Likes)
+                                    {
+                                        var likeuserid = rowCount + "div" + like.Key;
+                                        var imageurl = "~/upload/headimages/" + like.Key + ".jpg";
+
+                                        <div class="praise-img" id="@likeuserid" title="@like.Value">
+                                            <a href="#"><img width="30px" height="30px" src="@Url.Content(imageurl)"/></a>
+                                        </div>
+                                    }
+                                }
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="praise-box" id="@likeId" style="height:0px;"></div>
+                        }
+                        <div id="@outdivId">
+                            @{
+                                if (res.Comments != null)
+                                {
+                                    var commentList = res.Comments;
+
+                                    var parentCommentList = commentList.Where(w => w.PId == null);
+
+                                    if (parentCommentList != null && parentCommentList.Any())
+                                    {
+                                        foreach (var parentComment in parentCommentList.OrderBy(o => o.Date))
+                                        {
+                                            var textParentID = "textparent" + parentComment.CId;
+                                            var divparentId = "div" + parentComment.CId;
+
+                                            var date = parentComment.Date;
+                                            var time = date.Month + "月" + date.Day + "日";  
+
+                                            var cid = new Guid(parentComment.CId);
+
+                                            var childCommentList = commentList.Where(w => w.PId == cid);
+
+                                            <div class="com-box" id="@parentComment.CId">
+                                                <div class="com-item">
+                                                    <div class="com-item-img">
+                                                        <img width="30px" height="30px" src="@Url.Content("~/upload/headimages/" + parentComment.UID + ".jpg")" />
+                                                    </div>
+                                                    <div class="com-item-p">
+                                                        <p>
+                                                            <a href="##">@parentComment.UName</a>：@parentComment.Content &nbsp;
+                                                            @if (childCommentList == null || !childCommentList.Any())
+{
+    if (res.ObjectID == parentComment.UID)
+    {
+        <a onclick="DeleteParent('@res.Id','@parentComment.CId');">删除</a>
+    }
+}
+                                                        </p>
+                                                        <span class="time">@time @date.Hour:@date.Minute</span>
+                                                        <a onclick="showParentPingLun('@rowCount', '@parentComment.CId', '@parentComment.UName');">
+                                                            <img class="hui" src="@Url.Content("~/Content/images/zf-talk3.png")"/>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                                @if (childCommentList.Any())
+                                                {
+                                                    foreach (var comment in childCommentList.OrderBy(o => o.Date))
+                                                    {
+                                                        var date1 = comment.Date;
+                                                        var time1 = date1.Month + "月" + date1.Day + "日";  
+
+                                                        <div class="com-item com-item2">
+                                                            <div class="com-item-img">
+                                                                <img width="30px" height="30px" src="@Url.Content("~/upload/headimages/" + comment.UID + ".jpg")" />
+                                                            </div>
+                                                            <div class="com-item-p">
+                                                                <p>
+                                                                    <a href="##">@comment.UName</a>：@comment.Content &nbsp;
+                                                                    @if (res.ObjectID == comment.UID)
+{
+    <a onclick="DeleteChild('@res.Id','@comment.CId');" id="@comment.CId">删除</a>
+}
+                                                                </p>
+                                                                <span class="time">@time1 @date1.Hour:@date1.Minute</span>
+                                                                <a onclick="showParentPingLun('@rowCount', '@parentComment.CId', '@comment.UName');">
+                                                                    <img class="hui" src="@Url.Content("~/Content/images/zf-talk3.png")" />
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                }
+                                            </div>
+                                            <div class="import2" id="@divparentId">
+                                                <textarea id="@textParentID"></textarea>
+                                                <input class="send" onclick="parentpinglun('@rowCount', '@res.Id', '@parentComment.CId')"
+                                                       type="button" value="发送"/>
+                                            </div>
+                                        }
+                                    }
+                                }
+                            }
+                        </div>
+
+                        <div class="review-font" id="@rowCount">
+                            <a onclick="showPingLun('@rowCount');">我也说一句</a>
+                        </div>
+                        <div class="import" id="@sendId">
+                            <textarea id="@textId"></textarea>
+                            <input class="send" type="button" value="发送" onclick="pinglun('@rowCount','@res.Id');" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            }
+        }
+    }
+
+<script>
+    $(function() {
+        $(".uploadedImages").nanoGallery({
+            thumbnailWidth: 160,
+            thumbnailHeight: 160,
+            itemsBaseURL: '',
+            displayCaption: true,
+            //thumbnailHoverEffect:[{'name':'imageRotateCornerBL','duration':300},{'name':'borderLighter'}],
+            thumbnailHoverEffect: [{ 'name': 'overScale', 'duration': 300 }, { 'name': 'borderLighter' }],
+            colorScheme: 'light'
+        });
+    });
+</script>

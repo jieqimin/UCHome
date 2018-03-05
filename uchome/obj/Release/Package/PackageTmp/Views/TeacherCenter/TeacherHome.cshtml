@@ -1,0 +1,250 @@
+﻿@using UCHome.Controllers
+@using UCHome.Model
+@model UserInfo
+@{
+    ViewBag.Title = "个人主页";
+}
+
+<script src="@Url.Content("~/plugs/highcharts/js/highcharts.js")"></script>
+<script src="@Url.Content("~/plugs/justifiedGallery/jquery.justifiedGallery.min.js")"></script>
+<link href="@Url.Content("~/plugs/justifiedGallery/justifiedGallery.min.css")" rel="stylesheet"/>
+<link href="@Url.Content("~/Content/css/homepage.css")" rel="stylesheet" />
+<script  src="@Url.Content("~/scripts/Base64-80.js")"></script>
+
+
+<div class="rwjf row">
+</div>
+<div class="row">
+    <div class="col-lg-12" id="jftip"></div>
+</div>
+<div class="sjtj row margin-top-15">
+    <div class="col-lg-4">
+        <div class="jf stats-list row">
+            <div class="col-lg-5">
+                <img src="@Url.Content("~/Content/images/resource.png")" width="80" height="80" />
+            </div>
+            <div class="col-lg-7">
+                <p class="stats-type">资源数</p>
+                <p class="stats-type"><span id="resourcecount">0</span></p>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="jf stats-list row">
+            <div class="col-lg-5">
+                <img src="@Url.Content("~/Content/images/ebook.png")" width="80" height="80" />
+            </div>
+            <div class="col-lg-7">
+                <p class="stats-type">教案数</p>
+                <p class="stats-type"><span id="ebookcount">0</span></p>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="jf stats-list row">
+            <div class="col-lg-5">
+                <img src="@Url.Content("~/Content/images/article.png")" width="80" height="80" />
+            </div>
+            <div class="col-lg-7">
+                <p class="stats-type">文章数</p>
+                <p class="stats-type"><span id="articlecount">0</span></p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="tjtb row margin-top-30">
+    <div class="task col-lg-6">
+        <p class="task-title">今日动态</p>
+        <hr class="task-hr" />
+        <ul id="tasklist" class="list-group list-group-noborder">
+        </ul>
+    </div>
+    <div class="hchart col-lg-6" id="personhchart">
+        <img src="" height="220" width="100%" />
+    </div>
+</div>
+<div class="grx row margin-top-15">
+    <div id="mygallery" class="col-lg-12 margin-left-15" id="mygallery">
+        <img src="@Url.Content("~/Content/images/personshow-default.png")" height="400" width="98%" />
+    </div>
+</div>
+
+<script>
+    //积分
+    $.ajax({
+        url: "@Url.Action("IntegralInfo2", "Home")",
+        data: { teacherid: "@Model.userid", xzqid: "@Model.areacode", schoolid: "@Model.xxid" },
+        success: function (data) {
+            console.log(data);
+            var Level = data.Data.Level;
+            var LLevel = data.Data.LLevel;
+            var TotalScore = data.Data.TotalScore;
+            var Score = data.Data.Score;
+            var diffscore = Score - TotalScore;
+            var curper = TotalScore * 100 / Score;
+            var percent = curper + "%";
+            var CityNum = data.Data.CityNum;
+            var AreaNum = data.Data.AreaNum;
+            var SchoolNum = data.Data.SchoolNum;
+            var obj = "<div class='col-lg-12'><span class='pull-left'>LV" + Level + " &nbsp;&nbsp;</span>";
+            obj += "";
+            obj += "<div class='progress pull-left jfs'>";
+            obj += "<div class='progress-bar progress-bar-warning' role='progressbar' aria-valuenow='" + curper + "' aria-valuemin='0' aria-valuemax='100' style='width: " + percent + ";'>";
+            obj += TotalScore + "分";
+            obj += "</div>";
+            obj += "</div>";
+            obj += "";
+            obj += "<span class='pull-left'>&nbsp;&nbsp;LV" + LLevel + "&nbsp;&nbsp;</span>";
+            obj += "<a  class='pull-left' target='_blank' href='@Url.Action("Integral", "Home")'> 查看积分等级规则</a></div>";
+            $(".rwjf").html(obj);
+            if (TotalScore > 0) {
+                $("#jftip").text("恭喜您，你的积分排名全市第" + CityNum + "位，本区县第" + AreaNum + "位，本校第" + SchoolNum + "位，离下一等级还需" + diffscore + "分！");
+            } else {
+                $("#jftip").text("他还没有获取得任何积分，让我们一起期待他的精彩表现！");
+            }
+        }
+    });
+    $.ajax({
+        url: "@Url.Action("GetArticleCount", "Home")",
+        data: { userid: "@Model.userid" },
+        success: function (data) {
+            var result = eval("(" + data + ")");
+            $("#articlecount").html(result.Data.Count);
+        }
+    });
+    $.ajax({
+        url: "@Url.Action("GetResourceCount", "Home")",
+        data: { userid: "@Model.userid" },
+        success: function (data) {
+            var result = eval("(" + data + ")");
+            $("#resourcecount").html(result.TotalNum);
+        }
+    });
+    $.ajax({
+        url: "@Url.Action("GetEbookCount", "Home")",
+        data: { userid: "@Model.userid" },
+        success: function (data) {
+            console.log(data);
+            var result = eval("(" + data + ")");
+            $("#ebookcount").html(result.Result.TotalRecords);
+        }
+    });
+    $.ajax({
+        url: "@Url.Content("~/ashx/GetStaticnews.ashx")",
+        data: { id: "@Model.userid", topcount: 5, newstype: "self" },
+        success: function (data) {
+            var schclass = eval("(" + data + ")"); // 
+            var obj = "";
+            if (schclass.length > 0) {
+                $.each(schclass, function (idx, item) {
+                    var newsc = utf8to16(decode64(item.newscontent));
+                    var newsd =item.newsdate;
+                    var writefrom = item.writefrom;
+                    var pid = item.pid;
+                    if (writefrom == "article") {
+                        obj = "<li class=\"list-group-item\"><p class=\"person text-cut\"><span class=\"newscontent\"><a onclick=\"viewloglnk('@Url.Action("logview2", "PublicShare")?pid=" + pid + "&uctype=" + writefrom + "&userid=@Model.userid')\">" + newsc + "</a></span></p></li>";
+                        $("#tasklist").append($(obj));
+                    } else {
+                        obj = "<li class=\"list-group-item\"><p class=\"person text-cut\"><span class=\"newscontent\">" + newsc + "</span></p></li>";
+                        $("#tasklist").append($(obj));
+                    }
+                });
+            } else {
+                obj = "<li class=\"noinfo list-group-item\"><p class=\"person\"><span class=\"newscontent\">还没有任何动态信息！</span></p></li>";
+                $("#tasklist").append($(obj));
+            }
+        }
+    });
+    $.ajax({
+        url: "@Url.Action("StatData2", "Home")",
+        data: { teacherid: "@Model.userid", xzqid: "@Model.areacode", schoolid: "@Model.xxid" },
+        success: function (result) {
+            console.log(result.Data);
+            var options = {
+                chart: {
+                    renderTo: 'personhchart',
+                    type: 'column'
+                },
+                title: {
+                    text: '个人数据排名',
+                    style: {
+                        fontFamily: "微软雅黑",
+                        fontSize: "16px"
+                    }
+                },
+                xAxis: {
+                    categories: ["资源", "教案", "文章"]
+                },
+                yAxis: {
+                    min: 0,
+                    title: {
+                        text: '排名(名)'
+                    }
+                },
+                tooltip: {
+                    headerFormat: '<span style="font-size:10px">{point.key}</span>',
+                    pointFormat: '<table><tbody><tr><td style="color:{series.color};padding:0">{series.name}: </td><td style="padding:0"><b>{point.y}名</b></td></tr></tbody>',
+                    footerFormat: '</table>',
+                    shared: true,
+                    useHTML: true
+                },
+                plotOptions: {
+                    column: {
+                        pointPadding: 0.2,
+                        borderWidth: 0
+                    }
+                },
+                series: [{
+                    name: "全市排名",
+                    data: [result.Data.CityResNum, 400, result.Data.CityNum]
+                }, {
+                    name: "区县排名",
+                    data: [result.Data.AreaResNum, 300, result.Data.AreaNum]
+                }, {
+                    name: "学校排名",
+                    data: [result.Data.SchoolResNum, 40, result.Data.SchoolNum]
+                }]
+            };
+            var chart1 = new Highcharts.Chart(options);
+        }
+    });
+    function viewloglnk(url) {
+        loaddata($("#teacherhome"));
+        $("#teacherhome").load(url);
+    }
+</script>
+<script>
+    //图片秀
+    var jssor_slider1;
+    $.ajax({
+        url: "@Url.Content("~/ashx/getallphotos.ashx")",
+        data: { id: "@Model.userid" },
+        async: false,
+        success: function (data) {
+            var photos = eval("(" + data + ")"); // 
+            console.log(photos);
+            if (photos.length > 0) {
+                var i = 0;
+                $.each(photos, function (idx, item) {
+                    if (i > 11) {
+                        return;
+                    }
+                    var childphotos = item.photos;
+                    if (childphotos.length > 0) {
+                        $.each(childphotos, function (cidx, citem) {
+                            if (i > 11) {
+                                return;
+                            }
+                            var photourl = citem.photourl2;//.replace("_thumbnail","");
+                            var photourl2 = photourl.replace("_thumbnail", "");
+                            var obj = "<a target='_blank' href='" + photourl2 + "'><img class='img-thumbnail' src='" + photourl + "' /></a>";
+                            $("#mygallery").append(obj);
+                            i++;
+                        });
+                    }
+                });
+            }
+            $("#mygallery").justifiedGallery();
+        }
+    });
+</script>

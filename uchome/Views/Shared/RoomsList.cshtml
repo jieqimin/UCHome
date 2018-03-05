@@ -1,0 +1,31 @@
+﻿@{
+    Layout = null;
+}
+@model List<UCHome.Model.UCHome_Top_Data>
+@foreach (var item in Model)
+{
+    var hp = !String.IsNullOrEmpty(item.Title) ? item.Title : "/Content/NewFile/image/city/default.jpg";
+
+    if (ViewBag.UserType == "t")
+    {
+    <div class="photo-items">
+        <div class="photo-pic">
+            <a target="_blank" href="@Url.Action("Query", "TeacherCenter", new { id = item.AddUser })">
+                <img width="60" height="60" src="@Url.Content("~" + hp)" />
+            </a>
+        </div>
+        <div class="photo-name"><a target="_blank" href="@Url.Action("Query", "TeacherCenter", new { id = item.AddUser })">@item.Author</a></div>
+    </div>
+    }
+    else
+    {
+    <div class="photo-items">
+        <div class="photo-pic">
+            <a target="_blank" href="@Url.Action("Query", "StudentCenter", new { id = item.AddUser })">
+                <img width="60" height="60" src="@Url.Content("~" + hp)" />
+            </a>
+        </div>
+        <div class="photo-name"><a target="_blank" href="@Url.Action("Query", "StudentCenter", new { id = item.AddUser })">@item.Author</a></div>
+    </div>
+    }
+}

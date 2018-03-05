@@ -1,0 +1,33 @@
+﻿<div class="dtitle">我的同学</div>
+<div class="dpicture">
+    <ul>
+        @{
+            foreach (var stu in Model.classlist)
+            {
+            <li>
+                <dl>
+                    <dd class="photo">
+                        @{
+                            if(stu.studentSex=="2"){
+                                <img src="@Url.Content("~/Content/images/male.png")" border="0" />
+                            }
+                            else{
+                                 <img src="@Url.Content("~/Content/images/man.png")" border="0" />
+                            }
+                            }
+                        </dd>
+                    <dd class="info">@stu.studentDisName</dd>
+                    @*<dd class="msgcount">1</dd>*@
+                </dl>
+            </li>
+            }
+        }
+    </ul>
+</div>
+@{
+    if (Model.classlist.Count()>0)
+    {
+        <div class="more" onclick="openwindow('@Url.Action("MoreStudentlist", new { classlist = Model.classlist.First().classList.First(),xsid=Model.userId })',1000,500,'我的同学')">查看更多</div>
+
+    }
+    }

@@ -1,0 +1,123 @@
+﻿@{
+    Layout = null;
+}
+@using M = Evaluation.Model.Models;
+@model M.EvaluationInfo
+<link rel="stylesheet" href="@Url.Content("~/Content/css/msg.css")">
+<link rel="stylesheet" href="@Url.Content("~/Content/css/eval.css")">
+<script src="@Url.Content("~/plugs/echarts/echarts-3.1.10/echarts.min.js")"></script>
+
+<script>
+    var scoreObj = '@Model.jsonScoreInfo';
+    var scoreStr = scoreObj.replace(/&quot;/g, '\"');
+    var scoreInfo = eval("(" + scoreStr + ")");
+
+    var bzrScoreObj = '@Model.jsonBZRGuageGuideScoreInfo';
+    var bzrScoreStr = bzrScoreObj.replace(/&quot;/g, '\"');
+    var bzrScoreInfo = eval("(" + bzrScoreStr + ")");
+    var arrayName = "";
+    var arrayScore = "";
+    $.each(bzrScoreInfo, function (i, item) {
+        arrayName += "{ text: '" + item.GuageGuideName + "', max: 100 },";
+        arrayScore += item.TotalScore + ",";
+    });
+    if (arrayName.length > 0) {
+        arrayName = arrayName.substring(0, arrayName.length - 1);
+        arrayScore = arrayScore.substring(0, arrayScore.length - 1);
+    }
+    arrayName = "[" + arrayName + "]";
+    arrayScore = "[" + arrayScore + "]";
+    arrayName = eval("(" + arrayName + ")");
+    arrayScore = eval("(" + arrayScore + ")");
+
+    var option = {
+        title: {
+            text: ''
+        },
+        tooltip: {
+            trigger: 'axis'
+        },
+        legend: {
+            x: 'center',
+            data: ['']
+        },
+        radar: [
+            {
+                indicator: [
+                    { text: '自评', max: 100 },
+                    { text: '互评', max: 100 },
+                    { text: '班主任评', max: 100 }
+                ],
+                center: ['20%', '45%'],
+                radius: 80
+            },
+            {
+                indicator: arrayName,
+                radius: 80,
+                center: ['70%', '45%'],
+            }
+        ],
+        series: [
+            {
+                type: 'radar',
+                tooltip: {
+                    trigger: 'item'
+                },
+                itemStyle: { normal: { areaStyle: { type: 'default' } } },
+                data: [
+                    {
+                        value: [scoreInfo.selfScore, scoreInfo.hupingScore, scoreInfo.bzrScore],
+                        name: '学生评价'
+                    }
+                ]
+            },
+            {
+                type: 'radar',
+                tooltip: {
+                    trigger: 'item'
+                },
+                itemStyle: { normal: { areaStyle: { type: 'default' } } },
+                radarIndex: 1,
+                data: [
+                    {
+                        value: arrayScore,
+                        name: '学生评价'
+                    }
+                ]
+            }
+        ]
+    };
+
+    var myChart = echarts.init(document.getElementById("myecharts"));
+    myChart.setOption(option);
+
+</script>
+
+<div class="form-position pagew">
+    <div class="panel panel-default">
+        <div class="panel-body panel-bg">
+            <div class="p_l">
+                我的总评得分：<span>@Model.EvalTotalScore</span>分
+                <a href="javascript:void(0);">转到学生数据中心</a>
+            </div>
+            <div class="p_r">
+                <a class="btn btn-info" href="@Url.Action("MyAppRedirectPage", "AppCenter", new { id = "3730CA48-EA7A-499D-8EE0-178C1DFE476C", menuid = "EC9531ED-5F79-4014-BC18-CF61C0DF7C6C" })">我要自评</a>
+                <a class="btn btn-info" href="@Url.Action("MyAppRedirectPage", "AppCenter", new { id = "3730CA48-EA7A-499D-8EE0-178C1DFE476C", menuid = "D0E66586-BD35-464B-BF3F-CB5BB4DA8E97" })">我要互评</a>
+            </div>
+        </div>
+    </div>
+    <div class="middle">本学年学期总评</div>
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div id="myecharts" style="height: 240px"></div>
+            <div class="left-content">
+                <span>班主任评语：</span>
+                <div>@Model.BZREvalContent</div>
+                <span>家长的建议：</span>
+                <div>@Model.ParentEvalContent</div>
+                <span>自己的目标：</span>
+                <div>@Model.SelfEvalContent</div>
+            </div>
+        </div>
+    </div>
+</div>

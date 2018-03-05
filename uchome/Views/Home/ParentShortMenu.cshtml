@@ -1,0 +1,46 @@
+﻿@using UCHome.Model
+@model UserInfo
+<div class="row center-align">
+    <ul id="sysman" class="list-group list-group-noborder kjtd ">
+        <li class="list-group-item {{selvalue1}}">
+            <span class="glyphicon glyphicon-blackboard" aria-hidden="true"></span><a  href="@Url.Action("ClassIndex", "ClassCenterInfo", new { bjid = Model.childinfo.childbjid })" target="_self">亲子班级</a>
+        </li>
+        <li class="list-group-item {{selvalue2}}">
+            <span class="glyphicon glyphicon-home"></span><a href="@Url.Action("Index", "SchoolCenter", new { id = Model.childinfo.childxxid })" target="_self">亲子学校</a>
+        </li>
+        <li class="list-group-item {{selvalue3}}">
+            <span class="glyphicon glyphicon-open"></span><a target="_blank" href="#" target="_self">亲子作业</a>
+        </li>
+        <li class="list-group-item {{selvalue4}}">
+            <span class="glyphicon glyphicon-pencil"></span><a target="_blank" href="http://111.17.215.232:96/TaiXue/Teacher/Course" target="_self">亲子学案</a>
+        </li>
+        <li class="list-group-item {{selvalue5}}">
+            <span class="glyphicon glyphicon-ok"></span><a href="@Url.Action("SystemAppRedirectPage", "AppCenter", new { id = "89a59133-3e4e-5006-e40e-64ec33c7860c" })" target="_self">亲子学业</a>
+        </li>
+        <li class="list-group-item {{selvalue6}}">
+            <span class="glyphicon glyphicon-earphone"></span><a href="@Url.Action("SystemAppRedirectPage", "AppCenter", new { id = "6fedce94-75d7-4e48-8281-0ed4a8425363" })" target="_self">学校通知</a>
+        </li>
+        <li class="list-group-item {{selvalue7}}">
+            <span class="glyphicon glyphicon-volume-up"></span><a href="@Url.Action("SystemAppRedirectPage", "AppCenter", new { id = "a0fcd905-5498-467a-87dd-687566186323" })" target="_self">在线咨询</a>
+        </li>
+    </ul>
+</div>
+<script>
+    $.ajax({
+        url: "@Url.Content("~/ashx/GetTeaTechInfo.ashx")",
+        data: { id: "@ViewBag.UserID", xnxqid: "@((new UCHomeBasePage()).CurrentSchTerm)" },
+        success: function (data) {
+            var kb = eval("(" + data + ")"); //
+            var bjlist = new Array();
+            var curobj;
+            $.each(kb, function (idx, item) {
+                var bjmc = item.bjmc;
+                var bjid = item.bjid;
+                if (bjlist.indexOf(bjid) < 0) {
+                    bjlist.push(bjid);
+                    $("#TechBj").append($("<li bjid=\"" + bjid + "\"><a class=\"bjmenu\" href=\"@Url.Action("ClassIndex", "ClassCenterInfo")?bjid=" + bjid + "&bjmc=" + bjmc + "\">" + bjmc + "</a></li>"));
+                }
+            });
+        }
+    });
+</script>

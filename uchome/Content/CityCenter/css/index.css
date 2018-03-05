@@ -1,0 +1,982 @@
+﻿.Header {
+    width: 100%;
+    height: 60px;
+    background: url(../images/header-bg.png) top center no-repeat;
+}
+
+.Content {
+    width: 1000px;
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.HeaderNav {
+    display: inline-block;
+    height: 33px;
+    width: auto;
+    padding-top: 18px;
+    padding-bottom: 2px;
+}
+
+    .HeaderNav > li {
+        float: left;
+        width: 107px;
+        height: 33px;
+        line-height: 33px;
+        text-align: center;
+    }
+
+        .HeaderNav > li > a {
+            display: inline-block;
+            width: 107px;
+            height: 33px;
+            color: #fff;
+            font-size: 16px;
+        }
+
+            .HeaderNav > li > a:hover, .HeaderNav > li > a.active {
+                background-color: #61c746;
+            }
+
+.HeaderBtn {
+    float: right;
+    margin-top: 17px;
+}
+
+    .HeaderBtn > dt {
+        position: relative;
+        width: 80px;
+        height: 29px;
+        line-height: 29px;
+        font-family: "宋体";
+        font-weight: normal;
+        font-size: 12px;
+        color: #fff;
+        text-indent: 40px;
+        cursor: pointer;
+        background-color: #6783e7;
+        float: left;
+        margin-right: 10px;
+        border: 1px solid #758fea;
+        color: #fff;
+    }
+
+    .HeaderBtn .Enter {
+        background: #6783e7 url(../images/icon-1.png) no-repeat 12px center;
+    }
+
+        .HeaderBtn .Enter:hover {
+            background: #61c746 url(../images/icon-1）.png) no-repeat 12px center;
+        }
+
+    .HeaderBtn .Login {
+        background: #6783e7 url(../images/icon-2.png) no-repeat 12px center;
+    }
+
+        .HeaderBtn .Login:hover {
+            background: #61c746 url(../images/icon-2）.png) no-repeat 12px center;
+        }
+
+    .HeaderBtn .Help {
+        background: #6783e7 url(../images/icon-3.png) no-repeat 12px center;
+    }
+
+        .HeaderBtn .Help:hover {
+            background: #61c746 url(../images/icon-3）.png) no-repeat 12px center;
+        }
+
+    .HeaderBtn > dt:hover {
+        background-color: #61c746;
+        border: 1px solid #61c746;
+        color: #a4f98e;
+    }
+
+        .HeaderBtn > dt:hover:before {
+            color: #a4f98e;
+        }
+
+    .HeaderBtn > dt:nth-child(2) {
+        margin-right: 21px;
+    }
+
+    .HeaderBtn > dt:nth-child(3) {
+        margin-right: 12px;
+    }
+
+.Banner {
+    height: 225px;
+    width: 100%;
+    background: url(../images/banner.png) no-repeat center center;
+}
+
+.ExcellentSchool {
+    height: 235px;
+    width: 100%;
+    margin-top: 30px;
+}
+
+.SchoolTitle {
+    position: relative;
+    text-indent: 27px;
+    width: 100%;
+    height: 25px;
+    background: url(../images/SchoolTitlebg.png) left center no-repeat;
+    font-size: 18px;
+    color: #696969;
+    line-height: 22px;
+}
+
+    .SchoolTitle > a {
+        position: absolute;
+        top: 2px;
+        right: 0px;
+        display: inline-block;
+        width: 61px;
+        height: 20px;
+        text-align: center;
+        text-indent: 0px;
+        color: #fff;
+        font-size: 16px;
+        font-family: "宋体";
+        background: url(../images/more.bg.png) no-repeat;
+        line-height: 18px;
+    }
+
+.SchoolPic {
+    width: 1000px;
+    height: 200px;
+    background-color: #eff3ff;
+    margin: 10px auto;
+}
+
+#schoolList {
+    width: 970px;
+    height: 200px;
+    overflow: hidden;
+}
+
+.schpic {
+    width: 2145px;
+    height: 200px;
+    margin: 0 auto;
+    padding-top: 22px;
+}
+
+    .schpic li {
+        width: 180px;
+        height: 200px;
+        margin: 0 7px;
+        float: left;
+        text-align: center;
+    }
+
+    .schpic > li > a {
+        display: inline-block;
+        height: 135px;
+        width: 180px;
+    }
+
+    .schpic > li > h4 {
+        font-size: 14px;
+        text-align: center;
+        color: #696969;
+        line-height: 35px;
+        width: 195px;
+    }
+
+
+.ExcellentArticle {
+    height: 455px;
+    width: 100%;
+    margin-top: 35px;
+}
+
+.ArticlelTitle {
+    position: relative;
+    width: 100%;
+    height: 25px;
+    background: url(../images/title-bg.png) center center repeat-x;
+}
+
+    .ArticlelTitle h3 {
+        position: absolute;
+        top: 0px;
+        right: 403px;
+        display: inline-block;
+        width: 189px;
+        height: 25px;
+        text-indent: 58px;
+        color: #696969;
+        font-size: 18px;
+        background: #fff url(../images/Article-icon.png) no-repeat 19px;
+    }
+
+.ArticlelStatistics {
+    height: 38px;
+    width: 998px;
+    border: 1px solid #e2e2e2;
+    margin-top: 15px;
+}
+
+    .ArticlelStatistics li {
+        float: left;
+        width: 199px;
+        height: 38px;
+        background-color: #f2f2f2;
+        border-right: 1px solid #e2e2e2;
+        text-align: center;
+        color: #6783e7;
+        font-size: 14px;
+        letter-spacing: 1px;
+        line-height: 38px;
+    }
+
+        .ArticlelStatistics li span {
+            color: #838383;
+            margin-left: 8px;
+        }
+
+        .ArticlelStatistics li:last-child {
+            width: 198px;
+            border-right: none;
+        }
+
+.ArticlelList {
+    width: 100%;
+    height: 355px;
+    margin-top: 20px;
+}
+
+.TitleList {
+    width: 100%;
+    height: 20px;
+    margin-bottom: 15px;
+}
+
+    .TitleList > li {
+        width: 490px;
+        height: 20px;
+        color: #696969;
+        font-size: 16px;
+    }
+
+        .TitleList > li > span {
+            font-size: 22px;
+        }
+
+.NewestArticlel {
+    position: relative;
+    text-indent: 20px;
+    background: url(../images/NewestArticlel.png) left center no-repeat;
+    line-height: 20px;
+}
+
+    .NewestArticlel span {
+        color: #6783e7;
+    }
+
+    .NewestArticlel > a {
+        position: absolute;
+        top: 2px;
+        right: 0px;
+        display: inline-block;
+        width: 50px;
+        height: 17px;
+        background: url(../images/more-img.png) no-repeat;
+    }
+
+.HottestArticlel {
+    position: relative;
+    text-indent: 21px;
+    background: url(../images/HottestArticlel.png) left center no-repeat;
+    line-height: 20px;
+}
+
+    .HottestArticlel span {
+        color: #cb1c1c;
+    }
+
+    .HottestArticlel > a {
+        position: absolute;
+        top: 2px;
+        right: 0px;
+        display: inline-block;
+        width: 50px;
+        height: 17px;
+        background: url(../images/more-img.png) no-repeat;
+    }
+
+.ArticleDetail {
+    width: 998px;
+    height: 318px;
+    border: 1px solid #e2e2e2;
+}
+
+    .ArticleDetail dd {
+        float: left;
+        width: 499px;
+        height: 318px;
+        border-right: 1px solid #e2e2e2;
+    }
+
+        .ArticleDetail dd:last-child {
+            width: 498px;
+            border-right: none;
+        }
+
+.NewestList,
+.HottestList {
+    width: 475px;
+    height: 290px;
+    margin: 15px;
+}
+
+    .NewestList li,
+    .HottestList li {
+        width: 475px;
+        height: 25px;
+        line-height: 2em;
+        font-size: 14px;
+        background: url(../images/dot.png) no-repeat left center;
+        margin: 5px 0;
+        color: #767676;
+    }
+
+        .NewestList li a,
+        .HottestList li a {
+            display: inline-block;
+            /*width: 380px;*/ /*lyq update*/
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+            padding-left: 20px;
+            color: #767676;
+        }
+
+            .NewestList li a:hover {
+                color: #6783e7;
+            }
+
+            .HottestList li a:hover {
+                color: #cb1c1c;
+            }
+
+        .NewestList li span,
+        .HottestList li span {
+            float: right;
+            height: 25px;
+            line-height: 2em;
+            display: inline-block;
+            margin-right: 10px;
+        }
+
+
+.ExcellentResource {
+    height: 280px;
+    width: 100%;
+    margin-top: 35px;
+}
+
+.ResourceTitle {
+    position: relative;
+    width: 100%;
+    height: 25px;
+    background: url(../images/title-bg.png) center center repeat-x;
+}
+
+    .ResourceTitle h3 {
+        position: absolute;
+        top: 0px;
+        right: 403px;
+        display: inline-block;
+        width: 189px;
+        height: 25px;
+        text-indent: 58px;
+        color: #696969;
+        font-size: 18px;
+        background: #fff url(../images/ResourceTitle.png) no-repeat 19px;
+    }
+
+    .ResourceTitle h4 {
+        display: inline-block;
+        position: absolute;
+        top: 2px;
+        right: 0px;
+        width: 61px;
+        height: 25px;
+        background: #fff;
+    }
+
+        .ResourceTitle h4 a {
+            display: inline-block;
+            height: 17px;
+            width: 50px;
+            background: url(../images/more-img.png) no-repeat;
+            float: right;
+            margin-top: 2px;
+        }
+
+.ResourceTab {
+    display: inline-block;
+    width: 810px;
+    height: 240px;
+    margin-top: 15px;
+    float: left;
+}
+
+.TabMenu {
+    display: inline-block;
+    height: 238px;
+    width: 111px;
+    float: left;
+    border: 1px solid #eaeaea;
+    border-right: none;
+    background: #f6f6f6;
+}
+
+    .TabMenu li {
+        width: 111px;
+        height: 49px;
+        line-height: 49px;
+        border-bottom: 1px solid #eaeaea;
+    }
+
+        .TabMenu li a {
+            width: 110px;
+            height: 49px;
+            display: block;
+            font-size: 14px;
+            color: #696969;
+            border-right: 1px solid #eaeaea;
+            outline: none;
+            text-align: center;
+        }
+
+        .TabMenu li:last-child {
+            height: 88px;
+            width: 110px;
+            border-bottom: none;
+            border-right: 1px solid #eaeaea;
+        }
+
+        .TabMenu li.active, .TabMenu li.active a {
+            background: #fff url(../images/angle.png) no-repeat left top;
+            border-right: none;
+            color: #7891ea;
+        }
+
+.TabList {
+    display: inline-block;
+    height: 238px;
+    width: 697px;
+    float: left;
+    border: 1px solid #eaeaea;
+    border-left: none;
+    float: left;
+    background: #fff;
+}
+
+    .TabList ul {
+        width: 675px;
+        height: 195px;
+        margin: 22px 0 0 19px;
+    }
+
+        .TabList ul li {
+            width: 120px;
+            height: 195px;
+            margin-right: 15px;
+            float: left;
+        }
+
+            .TabList ul li a {
+                display: inline-block;
+                height: 168px;
+                width: 118px;
+                border: 1px solid #eaeaea;
+            }
+
+            .TabList ul li h4 {
+                line-height: 25px;
+                font-size: 14px;
+                color: #696969;
+                text-align: center;
+            }
+
+.Subject {
+    display: inline-block;
+    width: 190px;
+    height: 240px;
+    float: left;
+    margin-top: 15px;
+}
+
+    .Subject table tr {
+        height: 100%;
+        width: 100%;
+        border-bottom: 1px solid #9bacea;
+    }
+
+        .Subject table tr:last-child {
+            border-bottom: none;
+        }
+
+        .Subject table tr td {
+            height: 45px;
+            width: 95px;
+            border-right: 1px solid #9bacea;
+            background: #7891ea;
+            color: #fff;
+            font-size: 16px;
+            text-align: center;
+            line-height: 45px;
+        }
+
+            .Subject table tr td:hover {
+                background: #5f7bdf;
+            }
+
+.ExcellentSpace {
+    height: 450px;
+    width: 1000px;
+    margin: 0 auto;
+    background: #fff;
+}
+
+.SpaceTitle {
+    position: relative;
+    width: 100%;
+    height: 25px;
+    background: url(../images/title-bg.png) center center repeat-x;
+    top: 35px;
+}
+
+    .SpaceTitle h3 {
+        position: absolute;
+        top: 0px;
+        right: 403px;
+        display: inline-block;
+        width: 189px;
+        height: 25px;
+        text-indent: 58px;
+        color: #696969;
+        font-size: 18px;
+        background: #eff3ff url(../images/Article-icon.png) no-repeat 19px;
+    }
+
+.SpaceArea {
+    width: 998px;
+    height: 38px;
+    border: 1px solid #509ac8;
+    margin-top: 15px;
+}
+
+    .SpaceArea li {
+        width: 110px;
+        height: 38px;
+        float: left;
+        border-right: 1px solid #509ac8;
+        background-color: #75b8e2;
+    }
+
+        .SpaceArea li:nth-child(5) {
+            width: 110px;
+        }
+
+        .SpaceArea li:nth-child(9) {
+            border-right: none;
+        }
+
+        .SpaceArea li a {
+            display: inline-block;
+            height: 100%;
+            width: 100%;
+            color: #fff;
+            font-size: 14px;
+            text-align: center;
+            line-height: 38px;
+        }
+
+.SpaceMain {
+    width: 998px;
+    height: 372px;
+    border: 1px solid #dce2f6;
+    background-color: #fff;
+    margin-top: 50px;
+}
+
+    .SpaceMain .Space {
+        width: 970px;
+        height: 155px;
+        margin: 0 auto 24px;
+        padding-top: 10px;
+    }
+
+    .SpaceMain .Title {
+        position: relative;
+        background: url(../images/SpaceTitlebg.png) 111px 6px no-repeat;
+        font-size: 14px;
+        height: 28px;
+        border-bottom: 1px solid #eaeaea;
+        letter-spacing: 1px;
+    }
+
+        .SpaceMain .Title:after {
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            content: "";
+            width: 90px;
+            height: 3px;
+            background: #7891ea;
+        }
+
+        .SpaceMain .Title > a {
+            position: absolute;
+            top: 2px;
+            right: 0px;
+            display: inline-block;
+            width: 50px;
+            height: 17px;
+            background: url(../images/more-img.png) no-repeat;
+        }
+
+    .SpaceMain .List {
+        width: 950px;
+        height: 100px;
+        margin: 10px auto;
+    }
+
+        .SpaceMain .List dl {
+            width: 105px;
+            height: 100px;
+            float: left;
+            text-align: center;
+        }
+
+            .SpaceMain .List dl dd {
+                height: 100px;
+                width: 105px;
+            }
+
+                .SpaceMain .List dl dd h4 {
+                    width: 105px;
+                    text-overflow: ellipsis;
+                    overflow: hidden;
+                    white-space: nowrap;
+                    color: #707070;
+                    font-family: "微软雅黑";
+                    font-size: 12px;
+                    line-height: 20px;
+                }
+
+                .SpaceMain .List dl dd h5 {
+                    width: 140px;
+                    text-overflow: ellipsis;
+                    overflow: hidden;
+                    white-space: nowrap;
+                    color: #707070;
+                    line-height: 2em;
+                    font-family: "宋体";
+                    font-size: 14px;
+                    padding-bottom: 10px;
+                }
+
+                .SpaceMain .List dl dd a {
+                    display: inline-block;
+                    width: 95px;
+                    height: 25px;
+                    line-height: 25px;
+                    background: #6783e7 url(../images/into.png) no-repeat 9px center;
+                    text-indent: 29px;
+                    color: #fff;
+                    font-size: 12px;
+                }
+
+.ExcellentCase {
+    height: 280px;
+    width: 100%;
+    margin-top: 35px;
+}
+
+.CaseTitle {
+    position: relative;
+    width: 100%;
+    height: 25px;
+    background: url(../images/title-bg.png) center center repeat-x;
+}
+
+    .CaseTitle h3 {
+        position: absolute;
+        top: 0px;
+        right: 403px;
+        display: inline-block;
+        width: 189px;
+        height: 25px;
+        text-indent: 58px;
+        color: #696969;
+        font-size: 18px;
+        background: #fff url(../images/teaching-plan.jpg) no-repeat 19px;
+    }
+
+    .CaseTitle h4 {
+        display: inline-block;
+        position: absolute;
+        top: 2px;
+        right: 0px;
+        width: 61px;
+        height: 25px;
+        background: #fff;
+    }
+
+        .CaseTitle h4 a, .StatisticsTitle h4 a {
+            display: inline-block;
+            height: 17px;
+            width: 50px;
+            background: url(../images/more-img.png) no-repeat;
+            float: right;
+            margin-top: 2px;
+        }
+
+.CaseTab {
+    display: inline-block;
+    width: 810px;
+    height: 240px;
+    margin-top: 15px;
+    float: left;
+}
+
+.CaseMenu {
+    display: inline-block;
+    height: 238px;
+    width: 111px;
+    float: left;
+    border: 1px solid #eaeaea;
+    border-right: none;
+    background: #f6f6f6;
+}
+
+    .CaseMenu li {
+        width: 111px;
+        height: 49px;
+        line-height: 49px;
+        border-bottom: 1px solid #eaeaea;
+    }
+
+        .CaseMenu li a {
+            width: 110px;
+            height: 49px;
+            display: block;
+            font-size: 14px;
+            color: #696969;
+            border-right: 1px solid #eaeaea;
+            outline: none;
+            text-align: center;
+        }
+
+        .CaseMenu li:last-child {
+            height: 88px;
+            width: 110px;
+            border-bottom: none;
+            border-right: 1px solid #eaeaea;
+        }
+
+        .CaseMenu li.active, .TabCaseMenu li.active a {
+            background: #fff url(../images/angle.png) no-repeat left top;
+            border-right: none;
+            color: #7891ea;
+        }
+
+.CaseList {
+    display: inline-block;
+    height: 238px;
+    width: 697px;
+    float: left;
+    border: 1px solid #eaeaea;
+    border-left: none;
+    float: left;
+    background: #fff;
+}
+
+    .CaseList ul {
+        width: 675px;
+        height: 195px;
+        margin: 22px 0 0 19px;
+    }
+
+        .CaseList ul li {
+            width: 120px;
+            height: 195px;
+            margin-right: 15px;
+            float: left;
+        }
+
+            .CaseList ul li a {
+                display: inline-block;
+                height: 168px;
+                width: 118px;
+                border: 1px solid #eaeaea;
+            }
+
+            .CaseList ul li h4 {
+                line-height: 25px;
+                font-size: 14px;
+                color: #696969;
+                text-align: center;
+            }
+
+.ExcellentStatistics {
+    height: 325px;
+    width: 100%;
+    margin-top: 15px;
+    margin-bottom: 80px;
+}
+
+.StatisticsTitle {
+    position: relative;
+    width: 100%;
+    height: 25px;
+    background: url(../images/title-bg.png) center center repeat-x;
+    top: 35px;
+}
+
+    .StatisticsTitle h3 {
+        position: absolute;
+        top: 0px;
+        right: 403px;
+        display: inline-block;
+        width: 189px;
+        height: 25px;
+        text-indent: 58px;
+        color: #696969;
+        font-size: 18px;
+        background: #fff url(../images/statistics.jpg) no-repeat 19px;
+    }
+
+.StatisticsTab {
+    height: 245px;
+    width: 1000px;
+    margin-top: 55px;
+}
+
+.StatisticsMenu {
+    height: 50px;
+    width: 100%;
+    float: left;
+}
+
+    .StatisticsMenu li {
+        float: left;
+        width: 167px;
+        height: 50px;
+        line-height: 50px;
+        background: #7891ea;
+        overflow: hidden;
+        position: relative;
+    }
+
+        .StatisticsMenu li:last-child,
+        .StatisticsMenu li:first-child {
+            width: 166px;
+        }
+
+        .StatisticsMenu li a {
+            color: #fff;
+            display: block;
+            font-size: 16px;
+            text-align: center;
+            outline: none;
+        }
+
+            .StatisticsMenu li a:hover {
+                background: #5f7bdf url(../images/angle-w.png) no-repeat bottom center;
+            }
+
+        .StatisticsMenu li.active, .StatisticsMenu li.active a:hover {
+            background: #5f7bdf url(../images/angle-w.png) no-repeat bottom center;
+        }
+
+.StatisticsList {
+    width: 998px;
+    height: 194px;
+    border: 1px solid #bee2f8;
+    border-top: none;
+    clear: both;
+    float: left;
+    background: #fff;
+}
+
+.StatisticsMain {
+    width: 955px;
+    height: 166px;
+    margin: 15px;
+    border: 1px solid #75b8e2;
+}
+
+    .StatisticsMain dt {
+        height: 166px;
+        width: 100px;
+        float: left;
+    }
+
+        .StatisticsMain dt h3 {
+            display: inline-block;
+            height: 82px; /*lyq update old 54px*/
+            width: 100%;
+            background-color: #75b8e2;
+            color: #fff;
+            font-size: 14px;
+            line-height: 81px; /*lyq update old 54px*/
+            text-align: center;
+            border-bottom: solid 1px #fff;
+        }
+
+    .StatisticsMain dd {
+        height: 166px;
+        width: 855px;
+        float: left;
+    }
+
+        .StatisticsMain dd table {
+            height: 166px;
+            width: 855px;
+        }
+
+            .StatisticsMain dd table tr {
+                height: 100%;
+                width: 100%;
+                border-top: 1px solid #bee2f8;
+            }
+
+                .StatisticsMain dd table tr td {
+                    height: 80px; /*lyq update old 52px*/
+                    width: 95px;
+                    font-size: 15px;
+                    text-align: center;
+                    line-height: 80px; /*lyq update old 52px*/
+                    background-color: #fff;
+                    color: #696969;
+                }
+
+                    .StatisticsMain dd table tr td:nth-child(2n+1) {
+                        background-color: #eff6fb;
+                        color: #6b6b6b;
+                    }
+
+.Footer {
+    height: 100px;
+    width: 100%;
+    background-color: #6783e7;
+}
+
+    .Footer p {
+        color: #fff;
+        line-height: 2em;
+        font-family: "宋体";
+        text-align: center;
+    }
+
+        .Footer p:first-child {
+            padding-top: 22px;
+        }

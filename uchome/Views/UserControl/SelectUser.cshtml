@@ -1,0 +1,161 @@
+﻿@{
+    Layout = null;
+}
+
+@using M = UCHome.Model;
+@model M.SelectUserInfo
+<link rel="stylesheet" href="@Url.Content("~/plugs/usercontrol/usercontrol.css")">
+<script src="@Url.Content("~/plugs/usercontrol/usercontrol.js")"></script>
+<link rel="stylesheet" href="@Url.Content("~/plugs/scrollbar/css/sui.css")">
+
+<script>
+    var attentionUrl = "@Url.Action("GetAttentionUserList")";
+    var studentUrl = "@Url.Action("GetStudentList")";
+    var stuParentUrl = "@Url.Action("GetStuParentList")";
+    var queryUrl = "@Url.Action("QueryUser")";
+    var teadeptUrl = "@Url.Action("GetDeptUserList")";
+
+</script>
+@Html.Hidden("selRole")
+@Html.Hidden("selType")
+@Html.Hidden("selArea")
+<div id="selectBox">
+    <div style="overflow:hidden;">
+        <div id="user_org" style="width:160px;height:296px;overflow:hidden;float:left;">
+            <div style="border-bottom:solid 1px #ddd;margin-bottom:2px;">
+                <span class="glyphicon glyphicon-search" style="position:absolute;top:6px;left:2px;color:#ccc;"></span><input class="user-search query" type="text" placeholder="请输入姓名查询" />
+            </div>
+            <div>
+                <ul class="list-group" style="height:268px;overflow-y:auto;" id="ulGroup">
+                    @{
+                        var selarea = ViewBag.selArea as string;
+                        var array = selarea.Split(',');                        
+                        foreach (var item in array)
+                        {
+                            if (item == "friend")
+                            {
+                                int friendCount = Model.attentionUserList.Count;
+                                <li>
+                                    <a title="双击全选" href="#" class="list-group-item list-group-item-info a-department-item" data-type="su_friend"><span class="badge">@friendCount</span>我的好友</a>
+                                </li>
+                            }
+                            else if (item == "student")
+                            {
+                                int studentCount = 0;
+                                Model.studentList.ForEach(t => { studentCount += t.stuList.Count; });
+                                <li>
+                                    <a href="#" class="list-group-item list-group-item-info" onclick="dotoggle('su_student')">
+                                        <span class="badge">@studentCount</span>学校学生<span class="caret"></span>
+                                    </a>
+                                    @if (Model.studentList.Count > 0)
+                                    {
+                                        <div id="su_student" class="list-group listboxc">
+                                            @foreach (var it in Model.studentList)
+                                            {
+                                                int index = Model.studentList.IndexOf(it);
+                                                string defaultclass = index == 0 ? "active" : "";
+                                                <a title="双击全选" href="#" class="list-group-item a-department-item @defaultclass" data-type="su_student" id="@it.bjid">
+                                                    <span class="badge">@it.stuList.Count</span>@it.bjmc
+                                                </a>
+                                            }
+                                        </div>
+                                    }
+                                </li>
+                            }
+                            else if (item == "stuparent")
+                            {
+                                int stuParentCount = 0;
+                                Model.studentParentList.ForEach(t => { stuParentCount += t.stuList.Count; });
+                                <a>
+                                    <span onclick="dotoggle('su_@(item)')">学生家长[@stuParentCount]</span>
+                                    @if (Model.studentParentList.Count > 0)
+                                    {
+                                        <ul id="su_@(item)" class="listbox-item listboxc">
+                                            @foreach (var it in Model.studentParentList)
+                                            {
+                                                var str = it.bjmc + "[" + it.stuList.Count + "]";
+                                                <li data-type="su_@(item)" id="@it.bjid"><span>@str </span></li>
+                                            }
+                                        </ul>
+                                    }
+                                </a>
+                            }
+                            else if (item == "department")
+                            {
+                                int deptCount = 0;
+                                Model.teacherdptList.ForEach(t => { deptCount += t.teadeptList.Count; });
+                                <li>
+                                    <a href="#" class="list-group-item list-group-item-info" onclick="dotoggle('su_department')">
+                                        <span class="badge">@deptCount</span>学校部门<span class="caret"></span>
+                                    </a>
+                                    @if (Model.teacherdptList.Count > 0)
+                                    {
+                                        <div id="su_department" class="list-group listboxc">
+                                            @foreach (var it in Model.teacherdptList)
+                                            {
+                                                int index = Model.teacherdptList.IndexOf(it);
+                                                string defaultclass = index == 0 ? "active" : "";
+                                                <a title="双击全选" href="#" class="list-group-item a-department-item @defaultclass" data-type="su_department" id="@it.dept">
+                                                    <span class="badge">@it.teadeptList.Count</span>@it.deptname
+                                                </a>
+                                            }
+                                        </div>
+                                    }
+
+                                </li>
+                            }
+                        }
+                    }
+                </ul>
+            </div>
+        </div>
+        <div id="user_item" style="width:160px;float:left;height:296px;overflow:hidden;">
+            <div class="list-group" style="height:296px;overflow-y:auto;" id="ulUserList">
+                @if (array.Length > 0)
+            {
+                if (array[0] == "friend")
+                {
+                    foreach (var item in Model.attentionUserList)
+                    {
+                            <a href="#" class="list-group-item" onclick="select(this)" id="@item.AttenUser" displayname=">@item.AttenName"><span class="glyphicon glyphicon-arrow-right" style="left:80px;color:#ddd;"></span>@item.AttenName</a>
+                        }
+                    }
+                    else if (array[0] == "student")
+                    {
+                        var firstModel = Model.studentList.Take(1).FirstOrDefault();
+                        if (firstModel != null)
+                        {
+                            foreach (M.UCHome_User item in firstModel.stuList)
+                            {
+                                <a href="#" class="list-group-item" onclick="select(this)" id="@item.PKID" displayname="@item.XM"><span class="glyphicon glyphicon-arrow-right" style="left:80px;color:#ddd;"></span>@item.XM</a>
+                            }
+                        }
+                    }
+                    else if (array[0] == "stuparent")
+                    {
+                        var firstModel = Model.studentParentList.Take(1).FirstOrDefault();
+                        if (firstModel != null)
+                        {
+                            foreach (M.View_Class_StuParentInfo item in firstModel.stuList)
+                            {
+                                <li onclick="select(this)" id="@item.JZID">@item.XM</li>
+                            }
+                        }
+                    }
+                    else if (array[0] == "department")
+                    {
+                        var firstModel = Model.teacherdptList.Take(1).FirstOrDefault();
+                        if (firstModel != null)
+                        {
+                            foreach (M.View_Simple_TeaInfo item in firstModel.teadeptList)
+                            {
+                                <a href="#" class="list-group-item" onclick="select(this)" id="@item.jsid" displayname="@item.XM"><span class="glyphicon glyphicon-arrow-right" style="left:80px;color:#ddd;"></span>@item.XM</a>
+                            }
+                        }
+                    }
+                }
+            </div>
+        </div>
+        <div id="user_selitem" style="width:316px;float:left;"></div>
+    </div>
+</div>

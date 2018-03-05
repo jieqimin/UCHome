@@ -1,0 +1,156 @@
+﻿<style type="text/css">
+    .md {
+        float: left;
+        display: inline-block;
+        width: 75px;
+        line-height: 25px;
+        text-align: center;
+    }
+</style>
+@model string
+<div style="float: left; width: 320px;">
+    <table class="table table-striped table-bordered table-hover datatable" id="rolelisttable"></table>
+</div>
+<div style="float: left; width: 360px; margin-left: 10px;">
+    <div id="myTabContent1" name="myTabContent1" style="border: 0">
+        <div class="fade" id="seeNameList" role="tabpanel">
+            <fieldset class="EditList" style="width: 350px">
+                <legend id="LroleName"></legend>
+                <button type="button" class="btn btn-info dropdown-toggle selUsers" data-toggle="button" aria-haspopup="true" aria-expanded="false">
+                    选择人员
+                </button>
+                <div id="showSelectUserName" style="overflow-y: auto; height: 300px">
+                </div>
+                <input id="oldselectUserID" name="oldselectUserID" type="hidden" value="" />
+                <input id="selectUserID" name="selectUserID" type="hidden" value="" />
+                <p id="selectUserName" name="selectUserName" class="spclose" style="display: none;"></p>
+            </fieldset>
+        </div>
+        <div class="fade" id="setper" role="tabpanel">
+            <fieldset class="EditField" style="width: 360px"></fieldset>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    var rid = "";
+    var selarea = "";
+    var roletype = "@Model";
+    switch (roletype) {
+    case "TP":
+            selarea = "department";
+        break;
+    case "SP":
+        selarea = "student";
+        break;
+    case "PP":
+        selarea = "stuparent";
+        break;
+    case "XP":
+            selarea = "department";
+        break;
+    }
+    getRoleList("@Model");
+
+    //设置权限
+    function setPromission(roleId, roleName) {
+        $("#seeNameList").hide();
+        getAppAndChild(roleId, roleName);
+    }
+
+    function getAppAndChild(roleId, roleName) {
+        $.ajaxSettings.async = false;
+        $.ajax({
+            url: "@Url.Action("GetAppAndChild")",
+            data: { "roleId": roleId },
+            success: function (response) {
+                var html = "<legend>" + roleName + "应用权限" + "</legend>";
+                $.each(response, function (i, item) {
+                    html += "<fieldset class=\"EditField\" style=\"width: 340px\"><legend>" + item["pName"] + "</legend><div class=\"administration\" value=\"" + item["pId"] + "\">";
+                    $.each(item["childList"], function (j, list) {
+                        if (list["selected"]) {
+                            html += "<span style='margin-left:10px;display: inline-block;' class='adq_major'>" +
+                                "<input onclick=\"chooseApp('" + list["appId"] + "','" + roleId + "')\" name='adq_major' appId='" + list["appId"] + "' " +
+                                "type='checkbox' checked='checked' AppName='" + list["appName"] + "' value='true'>" + list["appName"] +
+                                "</input></span>";
+                        } else {
+                            html += "<span style='margin-left:10px;display: inline-block;' class='adq_major'>" +
+                                "<input onclick=\"chooseApp('" + list["appId"] + "','" + roleId + "')\" name='adq_major' appId='" + list["appId"] + "' " +
+                                "type='checkbox' AppName='" + list["appName"] + "' value='true'>" + list["appName"] +
+                                "</input></span>";
+                        }
+                    });
+                    html += "</div></fieldset>";
+                });
+                $(".EditField").html(html);
+            }
+        });
+    }
+
+    function chooseApp(appId, roleId) {
+        debugger;
+        $.ajax({
+            url: "@Url.Action("ChooseApp")",
+            data: { "appId": appId, "roleId": roleId }
+        });
+    }
+
+    //查看名单
+
+    function roleId(roleId, roleName) {
+        rid = roleId;
+        $("#seeNameList").show();
+        $("#selectUserID").val("");
+        $("#selectUserName").text("");
+        var userIds = "";
+        var userNames = "";
+        var temp = "";
+        $("#showSelectUserName").html("<img style=\"margin-left:45%;\" src=\"@Url.Content("~/Content/images/loading_blue.gif")\" /><br/>" +
+            "<span style=\"margin-left:34%;font-size: 12px;\">信息加载中，请稍候...</span>");
+        $("#LroleName").val("");
+        $("#LroleName").text(roleName + "名单");
+        $.ajax({
+            url: "@Url.Action("GetRoleListbyRId")",
+            data: { roleId: roleId },
+            success: function (response) {
+                if (response != null && response.length > 0) {
+                    $("#showSelectUserName").empty();
+                    var html = "";
+                    $.each(response, function (i, item) {
+                        userIds += temp + item.Value;
+                        userNames += temp + item.Text;
+                        temp = ",";
+                        html = "<p class='md'>" + item.Text + "</p>";
+                        $("#showSelectUserName").append(html);
+                    });
+                    $("#selectUserID").val(userIds);
+                    $("#oldselectUserID").val(userIds);
+                    $("#selectUserName").text(userNames);
+                } else {
+                    $("#showSelectUserName").empty();
+                }
+            }
+        });
+    }
+    $(".selUsers").click(function () {
+         $(this).SelUser({
+        selRole: "tea", //tea,stu,fam
+        selType: "muti", //多选：muti,单选:single
+        selArea: selarea, //friend:我的好友,student:我的学生,stuparent:学生家长,colleague:我的同事,myclassmate:我的同学,teacher:我的老师,classmateparent:同学家长,department:学校部门
+        selValue: $("#selectUserID").val(),
+        selText: $("#selectUserName").text(),
+        callBackfn: function (ids, names) {
+            //将先中的结果进行处理
+            $("#selectUserID").val(ids);
+            $("#showSelectUserName").text(names);
+            var oldids = $("#oldselectUserID").val();
+            $.post("@Url.Action("AddUseToRole")", { oldIds:oldids, Ids: ids, roleId: rid, names: names }, function (data) {
+                $("#selectUserName").text(names);
+            });
+        }
+        })
+    });
+//页面加载
+
+</script>
+

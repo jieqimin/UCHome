@@ -1,0 +1,89 @@
+﻿@using System.Web.UI.WebControls
+@{
+    Layout = null;
+}
+
+<div class="part2">
+    <span class="span">[学校]</span>
+    <div class="list-search">
+        <div class="list-div">
+            <label>
+                <input id="txtKey" type="text" class="list-input" />
+            </label>
+        </div>
+        <div id="div-search" class="input-search" style="cursor:pointer" onclick="searchClick()"></div>
+    </div>
+
+
+    <ul>
+        @for (int i = 0; i < ViewBag.schoolList.Count; i++)
+        {
+            if (string.IsNullOrWhiteSpace(ViewBag.xxid))
+            {
+                if (i == 0)
+                {
+                    <li>
+                        <span title="@ViewBag.schoolList[i].XXMC" class="xz" onclick="selectSchool('@ViewBag.schoolList[i].XXID',this)">@ViewBag.schoolList[i].NewMC</span>
+                    </li>
+                }
+                else
+                {
+                    <li>
+                        <span title="@ViewBag.schoolList[i].XXMC" class="noxz" onclick="selectSchool('@ViewBag.schoolList[i].XXID',this)">@ViewBag.schoolList[i].NewMC</span>
+                    </li>
+                }
+            }
+            else
+            {
+                if (ViewBag.schoolList[i].XXID.ToString() == ViewBag.xxid)
+                {
+                    <li>
+                        <span title="@ViewBag.schoolList[i].XXMC" class="xz" onclick="selectSchool('@ViewBag.schoolList[i].XXID',this)">@ViewBag.schoolList[i].NewMC</span>
+                    </li>
+                }
+                else
+                {
+                    <li>
+                        <span title="@ViewBag.schoolList[i].XXMC" class="noxz" onclick="selectSchool('@ViewBag.schoolList[i].XXID',this)">@ViewBag.schoolList[i].NewMC</span>
+                    </li>
+                }
+            }
+
+        }
+    </ul>
+</div>
+<script type="text/javascript">
+    function selectSchool(xxid, e) {
+        $(e).closest("ul").find("span").removeClass("xz");
+        $(e).closest("ul").find("span").addClass("noxz");
+        $(e)[0].className = "xz";
+        $("#xxid").val(xxid);
+        initPage();
+    }
+
+    var searchClick = function () {
+        $("#schoolList").load("@Url.Action("Part2", "Query")?key=" + escape($("#txtKey").val()) + "&xzqhm=" + $("#xzqhm").val() + "&schoolType=" + $("#schoolType").val() + "&xxid=" + "&dataType=" + $("#dataType").val());
+    }
+    $(function () {
+        $("#txtKey").val("@ViewBag.key");
+        $(".part2").find("span[class='xz']").click();
+        initPage();
+        if ($("#dataType").val()==5) {
+            $(".part2").css("height", "735px");
+        }
+    });
+    function initPage() {
+            if ("@ViewBag.schoolList.Count" <= 0) {
+                $("#xxid").val("7E4C35CD-E1FD-15B0-9122-92AF8EA74ECF");
+            }
+            if ($("#dataType").val() == 1) {
+                $("#dataContent").load("@Url.Action("PageArticle","Query")?xxid=" + $("#xxid").val());
+            } else if ($("#dataType").val() == 2) {
+                $("#dataContent").load("@Url.Action("PageTeacher","Query")?xxid=" + $("#xxid").val());
+            } else if ($("#dataType").val() == 3) {
+                $("#dataContent").load("@Url.Action("PageClass","Query")?xxid=" + $("#xxid").val());
+            } else if ($("#dataType").val() == 5) {
+                $("#moreSelect").load("@Url.Action("PartStudent","Query")?xxid=" + $("#xxid").val() + "&njid=");
+            }
+        }
+</script>

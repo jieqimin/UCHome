@@ -1,0 +1,360 @@
+﻿@{
+    Layout = null;
+}
+
+<input id="hidCurPage" type="hidden" value="0" />
+    <div class="content">
+        <div class="con-left">
+            <div class="new new2">
+                <div class="new-title">
+                    <img src="@Url.Content("~/Content/ClassCenter/images/public/note2.png")" /><span>最热班级文章</span>
+                </div>
+                <div class="new-con">
+                    <ul id="xxxx">
+                        <div class="spinner">
+                            <div class="spinner-container container1">
+                                <div class="circle1"></div>
+                                <div class="circle2"></div>
+                                <div class="circle3"></div>
+                                <div class="circle4"></div>
+                            </div>
+                            <div class="spinner-container container2">
+                                <div class="circle1"></div>
+                                <div class="circle2"></div>
+                                <div class="circle3"></div>
+                                <div class="circle4"></div>
+                            </div>
+                            <div class="spinner-container container3">
+                                <div class="circle1"></div>
+                                <div class="circle2"></div>
+                                <div class="circle3"></div>
+                                <div class="circle4"></div>
+                            </div>
+                        </div>
+                    </ul>
+                </div>
+            </div>
+            <div class="new new3">
+                <div class="new-title">
+                      <img src="@Url.Content("~/Content/ClassCenter/images/public/note3.png")" /><span>最热班级文章</span>
+                </div>
+                <div class="new-con">
+                    <ul id="yyyy">
+                        <div class="spinner">
+                            <div class="spinner-container container1">
+                                <div class="circle1"></div>
+                                <div class="circle2"></div>
+                                <div class="circle3"></div>
+                                <div class="circle4"></div>
+                            </div>
+                            <div class="spinner-container container2">
+                                <div class="circle1"></div>
+                                <div class="circle2"></div>
+                                <div class="circle3"></div>
+                                <div class="circle4"></div>
+                            </div>
+                            <div class="spinner-container container3">
+                                <div class="circle1"></div>
+                                <div class="circle2"></div>
+                                <div class="circle3"></div>
+                                <div class="circle4"></div>
+                            </div>
+                        </div>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="con-middle">
+            <div class="contentdynamic"></div>
+            <div class="guide" onclick="loadContent()">点击查看更多动态</div>
+        </div>
+
+        <div class="con-right">
+            <div class="right-title">
+                <span>近期访问</span>
+                <input id="hidVisPage" type="hidden" value="0" />
+            </div>
+
+            <div class="visitor-box">
+                <ul id="visitorid">
+                    
+                </ul>
+                <div class="look">
+                    <a onclick="GetAction(2)" class="lookmore">查看更多</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<script>
+    $(function() {
+        $("#xxxx").html("");
+        $.ajax({
+            url: "@Url.Content("~/ashx/GetStaticnews.ashx")",
+              data: { id: $("#BJID").val(), topcount: 10, NewType: "classes" },
+              success: function (data) {
+                  var schclass = eval("(" + data + ")"); // 
+                  var obj = "";
+                  if (schclass.length > 0) {
+                      $.each(schclass, function (idx, item) {
+
+                          var newsc = item.title;
+                          if (newsc.length > 19) {
+                              newsc = newsc.substring(0, 19) + "...";
+                          }
+                          //var newsc = item.newscontent;
+                          var newsd = item.newsdate;
+                          var writefrom = item.writefrom;
+                          var pid = item.pid;
+                          obj = "<li title=\"" + item.title + "\"><a  target=\"_blank\" href=\"@Url.Action("ArticleInfo","Query")?id=" + pid + "\">" + newsc + "</a></li>"
+                        $("#xxxx").append($(obj));
+
+                    });
+                }
+            }
+          });
+
+        $("#yyyy").html("");
+        $.ajax({
+            url: "@Url.Content("~/ashx/GetStaticnews.ashx")",
+            data: { id: $("#BJID").val(), topcount: 10, NewType: "hotclasses" },
+            success: function (data) {
+                var schclass = eval("(" + data + ")"); // 
+                var obj = "";
+                if (schclass.length > 0) {
+                    $.each(schclass, function (idx, item) {
+
+                        var newsc = item.title;
+                        if (newsc.length > 19) {
+                            newsc = newsc.substring(0, 19) + "...";
+                        }
+                        //var newsc = item.newscontent;
+                        var newsd = item.newsdate;
+                        var writefrom = item.writefrom;
+                        var pid = item.pid;
+                        obj = "<li title=\"" + item.title + "\"><a  target=\"_blank\" href=\"@Url.Action("ArticleInfo","Query")?id=" + pid + "\">" + newsc + "</a></li>"
+                        $("#yyyy").append($(obj));
+
+                    });
+                }
+            }
+        });
+
+        var html = "<div class=\"spinner\"><div class=\"spinner-container container1\"><div class=\"circle1\"></div><div class=\"circle2\"></div><div class=\"circle3\"></div><div class=\"circle4\"></div></div><div class=\"spinner-container container2\"><div class=\"circle1\"></div><div class=\"circle2\"></div><div class=\"circle3\"></div><div class=\"circle4\"></div></div><div class=\"spinner-container container3\"><div class=\"circle1\"></div><div class=\"circle2\"></div><div class=\"circle3\"></div><div class=\"circle4\"></div></div></div>";
+
+        $("#visitorid").html(html);
+        GetAction(1);
+        loadContent();
+    });
+
+    function GetAction(num) {
+
+        if (num === 1) {
+            $("#visitorid").html("");
+        }
+
+        var page = parseInt($("#hidVisPage").val());
+
+        $.post("@Url.Action("GetUserAction")", { bjid: $("#BJID").val(), curPage: page, pageSize: 8 }, function (data) {
+            if (data != null && data.length > 0) {
+                var html = "";
+
+                for (var i = 0; i < data.length; i++) {
+
+                    var date1 = data[i].Date;
+                    //var time1 = date1.Year + "." + date1.Month + "." + date1.Day + " " + date1.Hour + ":" + date1.Minute;
+
+                    var imageurl = "../../../upload/headimages/" + data[i].UID + ".jpg";
+
+                    html += "<li class=\"visitor\"><img src=\"" + imageurl + "\" onerror=\"javascript:this.src='@Url.Content("~/Content/images/noimg_min.jpg")'\" />" +
+                        "<div class=\"visitor-font\"><p>" + data[i].UName + "</p><span>时间：" + data[i].UserHostAddress + "</span></div></li>";
+                }
+
+                $("#visitorid").append(html);
+
+                $("#hidVisPage").val(parseInt($("#hidVisPage").val()) + 1);
+            }
+        });
+    }
+
+    function Delete(id, index) {
+        if (confirm("确认删除该动态吗？")) {
+            $.post("@Url.Action("DeleteCirle", "TeacherCenter")", { fid: id }, function (data) {
+                $("#" + index).remove();
+            });
+    }
+    }
+
+    function DeleteParent(fid, id,pid) {
+        if (confirm("确认删除该评论吗？")) {
+            $.post("@Url.Action("DeleteComments", "TeacherCenter")", { fid: fid, cid: id }, function (data) {
+                if (data === true) {
+                    $("#" + id).remove();
+
+                    var olcount = parseInt($("#" + pid).html());
+                    $("#" + pid).html(olcount - 1);
+                }
+            });
+    }
+    }
+
+    function DeleteChild(fid, id,pid) {
+        if (confirm("确认删除该评论吗？")) {
+            $.post("@Url.Action("DeleteComments", "TeacherCenter")", { fid: fid, cid: id }, function (data) {
+                if (data === true) {
+                    $("#" + id).parent().parent().parent().remove();
+                    var olcount = parseInt($("#" + pid).html());
+                    $("#" + pid).html(olcount - 1);
+                }
+            });
+    }
+    }
+
+    function showPingLun(count) {
+        $("#staic" + count).hide();
+        $("#send" + count).show();
+        $("#text" + count).focus();
+    }
+
+    function showParentPingLun(count, id, name) {
+        $("#staic" + count).show();
+        $("#send" + count).hide();
+
+        $("#div" + id).show();
+        $("#textparent" + id).val("回复 " + name + "：");
+        $("#textparent" + id).focus();
+    }
+
+    function hidPingLun(count) {
+        $("#text" + count).val("");
+        $("#staic" + count).show();
+        $("#send" + count).hide();
+    }
+
+    function hidParentPingLun(count, id) {
+        $("#text" + count).val("");
+        $("#staic" + count).show();
+        $("#send" + count).hide();
+
+        $("#textparent" + id).val("");
+        $("#div" + id).hide();
+    }
+
+    function like(fid, count) {
+        var likestyle = "praist" + count;
+
+        $.post("@Url.Action("PostLike", "TeacherCenter")", { fid: fid }, function (data) {
+        var likeval = $("#likeval" + count).html();
+        var likecount = parseInt($("#likecount" + count).html());
+        var likeuserid = count + "div" + data.UID;
+
+        if (likeval === "赞") {
+
+            if ($("#someID")) {
+                $("#someID").text("hi");
+            }
+            var lens = $("#like" + count).children('div').length;
+
+            if (lens === 0) {
+                $("#like" + count).height("33");
+                $("#like" + count).append("<div class=\"praise\" id=\"" + likestyle + "\" style=\"cursor: pointer;\" onclick=\"like('" + fid + "', '" + count + "')\"><img src=\"@Url.Content("~/Content/images/zf-like2.png")\"/></div>");
+            }
+
+            $("#likeval" + count).html("取消赞");
+            $("#likecount" + count).html(likecount + 1);
+
+            var likeuser = "<div class=\"praise-img\" id=\"" + likeuserid + "\" title=\"" + data.UName + "\">" +
+                "<a href=\"#\"><img width=\"30px\" height=\"30px\" src=\"/UCHomeNew/upload/headimages/" + data.UID + ".jpg\"/></a></div>";
+
+            $("#like" + count).append(likeuser);
+
+        } else {
+            $("#likeval" + count).html("赞");
+            $("#likecount" + count).html(likecount - 1);
+
+            $("#" + likeuserid).remove();
+
+            var len = $("#like" + count).children('div').length;
+
+            if (len === 1) {
+                $("#like" + count).height("0");
+                $("#like" + count).html("");
+            }
+        }
+    });
+    }
+
+    function pinglun(count, fid) {
+        var content = $("#text" + count).val();
+
+        if (content != null && content !== "") {
+            var plCount = "plcount" + count;
+
+            $.post("@Url.Action("PostParentComment", "TeacherCenter")", { fid: fid, content: content }, function (data) {
+                var textParentID = "textparent" + data.CId;
+                var divparentId = "div" + data.CId;
+                var pl = "<div class=\"com-box\" id=\"" + data.CId + "\"><div class=\"com-item\">" +
+                    "<div class=\"com-item-img\"><img width=\"30px\" height=\"30px\" src=\"/UCHomeNew/upload/headimages/" + data.UID + ".jpg\"/>" +
+                    "</div><div class=\"com-item-p\"><p><a href=\"##\">" + data.UName + "</a>：" + content +
+                    " &nbsp;<a onclick=\"DeleteParent('" + fid + "','" + data.CId + "','" + plCount + "');\">删除</a></p>" +
+                    "<span class=\"time\">" + data.FId + "</span><a onclick=\"showParentPingLun('" + count +
+                    "','" + data.CId + "','" + data.UName + "');\"><img class=\"hui\" " +
+                    " src=\"@Url.Content("~/Content/images/zf-talk3.png")\"/></a></div></div></div>" +
+                    "<div class=\"import2\" id=\"" + divparentId + "\" ><textarea id=" + textParentID + "></textarea>" +
+                    "<input class=\"send\" type=\"button\" onclick=\"parentpinglun('" + count + "','" +
+                    fid + "','" + data.CId + "')\" value=\"发送\"/></div>";
+                $("#outdiv" + count).append(pl);
+                hidPingLun(count);
+
+                var olcount = parseInt($("#plcount" + count).html());
+                $("#plcount" + count).html(olcount + 1);
+            });
+    } else {
+    //alert("")
+    }
+    }
+
+    function parentpinglun(count, fid, pid) {
+        var content = $("#textparent" + pid).val();
+
+        if (content != null && content !== "") {
+            var plCount = "plcount" + count;
+            $.post("@Url.Action("PostComment", "TeacherCenter")", { fid: fid, content: content, parentId: pid }, function (data) {
+                var pl = "<div class=\"com-item  com-item2\">" +
+                    "<div class=\"com-item-img\"><img width=\"30px\" height=\"30px\" src=\"/UCHomeNew/upload/headimages/" + data.UID + ".jpg\"/>" +
+                    "</div><div class=\"com-item-p\"><p><a href=\"##\">" + data.UName + "</a>：" + content +
+                    " &nbsp;<a onclick=\"DeleteChild('" + fid + "','" + data.CId + "','" + plCount + "');\" id=\"" + data.CId + "\">删除</a></p>" +
+                    "<span class=\"time\">" + data.FId + "</span><a onclick=\"showParentPingLun('" + count +
+                    "','" + pid + "','" + data.UName + "');\"><img class=\"hui\" " +
+                    " src=\"@Url.Content("~/Content/images/zf-talk3.png")\"/></a></div></div>";
+                $("#" + pid).append(pl);
+                hidParentPingLun(count, pid);
+                var olcount = parseInt($("#plcount" + count).html());
+                $("#plcount" + count).html(olcount + 1);
+            });
+    } else {
+    //alert("")
+    }
+    }
+
+    
+    function loadContent() {
+        var curPage = $("#hidCurPage").val();
+
+        var loadurl = "@Url.Action("Circle")?curPage=" + curPage + "&BJID=" + $("#BJID").val();
+
+        var adddiv = "add" + curPage;
+
+        @*var html = "<div id=\"" + adddiv + "\"><img style=\"margin-left: 45%;\" src=\"@Url.Content("~/Content/images/loading.gif")\"/><br/>" +
+    "<span style=\"margin-left: 40%; font-size: 12px;\">正在加载数据，请稍候...</span></div>";*@
+
+        var html = "<div id=\"" + adddiv + "\"><div class=\"spinner\"><div class=\"spinner-container container1\"><div class=\"circle1\"></div><div class=\"circle2\"></div><div class=\"circle3\"></div><div class=\"circle4\"></div></div><div class=\"spinner-container container2\"><div class=\"circle1\"></div><div class=\"circle2\"></div><div class=\"circle3\"></div><div class=\"circle4\"></div></div><div class=\"spinner-container container3\"><div class=\"circle1\"></div><div class=\"circle2\"></div><div class=\"circle3\"></div><div class=\"circle4\"></div></div></div></div>";
+
+        $(".contentdynamic").append(html);
+
+        $("#" + adddiv).load(loadurl);
+
+        $("#hidCurPage").val(parseInt(curPage) + 1);
+    }
+</script>

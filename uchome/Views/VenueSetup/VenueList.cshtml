@@ -1,0 +1,79 @@
+﻿@{
+    Layout = null;
+}
+<link rel="stylesheet" href="@Url.Content("~/plugs/datatables/css/jquery.dataTables.css")">
+<link rel="stylesheet" href="@Url.Content("~/plugs/datatables/css/dataTables.bootstrap.css")">
+<script src="@Url.Content("~/plugs/datatables/js/jquery.datatables.js")"></script>
+<script src="@Url.Content("~/plugs/datatables/js/dataTables.bootstrap.js")"></script>
+@using (Ajax.BeginForm(
+    new AjaxOptions()
+    {
+        HttpMethod = "post",
+        Url = @Url.Action("VenueList"),
+        UpdateTargetId = "#VenueList",
+        LoadingElementId = "loding",
+        LoadingElementDuration = 2000
+    }))
+{
+    <div id="VenueList" class="form-position pagew">
+        <table class="table table-striped table-bordered table-hover datatable" id="Vetable">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>场馆名称</th>
+                    <th>场馆地址</th>
+                    <th>可容纳人数</th>
+                    <th>状态</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                  int i = 0;
+                }
+                @foreach (VenueSetup.Model.MeetingRoom item in Model)
+                {
+                    i++;
+                    <tr>
+                        <td>@i</td>
+                        <td>@item.MeetingRoomName</td>
+                        <td>@item.RoomAddress</td>
+                        <td>@item.NumberOfContainPeople</td>
+                        <td>@item.Memo</td>
+                        @if (item.Memo == "禁用")
+                        {
+                            <td>
+                                <a class="btn btn-success btn-xs" onclick="changeStatusbyId('@item.Memo', '@item.ID')">启用</a>
+                            </td>
+                        }
+                        else
+                        {
+                            <td>
+                                <a class="btn btn-danger btn-xs" onclick="changeStatusbyId('@item.Memo', '@item.ID')">禁用</a>
+                            </td>
+                        }
+                        
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+<script type="text/javascript">
+    $(function() {
+        $("#Vetable").DataTable({
+            "oLanguage": {
+                "sUrl": "@Url.Content("~/plugs/datatables/language/zh_cn.json")"
+            }
+        });
+    });
+    function changeStatusbyId(Status, Id) {
+        $.post("@Url.Action("ChangeMemoById")", { "status": Status, "id": Id }, function(data) {
+            if (data)
+            {
+                var ahref = "@Url.Action("VenueList")";
+                $("#VenueList").load(ahref);
+            }
+        });
+    }
+</script>

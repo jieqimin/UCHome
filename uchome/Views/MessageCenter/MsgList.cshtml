@@ -1,0 +1,46 @@
+﻿@{
+    Layout = null;
+}
+@using M = UCHome.Model;
+@model List<M.View_UCHome_Msg_Receive>
+<link rel="stylesheet" href="@Url.Content("~/plugs/timeline/css/bootstrap-glyphicons.css")">
+<link rel="stylesheet" href="@Url.Content("~/plugs/timeline/css/styles.css")">
+
+<div class="container" style="width: 560px; padding-left: 0px; padding-right: 0px;">
+    <ul class="timeline">
+        @{int i = 0;}
+        @foreach (M.View_UCHome_Msg_Receive item in Model)
+        {
+            i++;
+            if (i % 2 == 1)
+            {
+            <li>
+                <div class="tl-circ"></div>
+                <div class="timeline-panel">
+                    <div class="tl-heading">
+                        <h4><i class="glyphicon glyphicon-time"></i>@item.MsgDate.Value.ToString("yyyy-MM-dd HH:mm")</h4>
+                    </div>
+                    <div class="tl-body">
+                        <p>@item.MsgContent</p>
+                    </div>
+                </div>
+            </li>
+            }
+            else
+            {
+            <li class="timeline-inverted">
+                <div class="tl-circ"></div>
+                <div class="timeline-panel">
+                    <div class="tl-heading">
+                        <h4><i class="glyphicon glyphicon-time"></i>@item.MsgDate.Value.ToString("yyyy-MM-dd HH:mm")</h4>
+                    </div>
+                    <div class="tl-body">
+                        <p>@item.MsgContent</p>
+                    </div>
+                </div>
+            </li>
+            }
+        }
+    </ul>
+</div>
+

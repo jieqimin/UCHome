@@ -1,0 +1,56 @@
+﻿@model IEnumerable<StuInfo.Model.StuInfo>
+
+@{
+}
+<link rel="stylesheet" href="@Url.Content("~/plugs/datatables/css/jquery.dataTables.css")">
+<link rel="stylesheet" href="@Url.Content("~/plugs/datatables/css/dataTables.bootstrap.css")">
+<link rel="stylesheet" href="@Url.Content("~/plugs/scrollbar/css/sui.css")">
+<script src="@Url.Content("~/plugs/datatables/js/jquery.datatables.js")"></script>
+<script src="@Url.Content("~/plugs/datatables/js/dataTables.bootstrap.js")"></script>
+<script src="@Url.Content("~/plugs/datatables/js/Jquery.dataTableSetting.js")"></script>
+<div class="pagew form-position">
+    <div class="searchbar form-inline">
+        <button type="button" class="btn btn-info pull-right" onclick="RedircetUrl('@Url.Action("Create","StuInfo")')">添加新学生</button>
+    </div>
+    <table class="table  table-striped table-bordered table-hover datatable" id="table_siground">
+        <thead>
+            <tr>
+                <th>
+                    年级
+                </th>
+                <th>
+                    班级
+                </th>
+                <th>
+                    姓名
+                </th>
+                <th>
+                    学籍号
+                </th>
+                <th>
+                    学号
+                </th>
+                <th>
+                    身份证号
+                </th>
+                <th>
+                    状态
+                </th>
+                <th>
+                    操作
+                </th>
+            </tr>
+        </thead>
+        <tfoot>
+            <tr><th colspan="8">共<label id="records"></label> 项，当前显示前100项记录，如未找到你想要的结果，可以将筛选条件调整更精确！</th></tr>
+        </tfoot>
+    </table>
+</div>
+<script>
+    var initlisturl = "@Url.Action("GetStuList")";
+    var operurl_delete = "@Url.Action("DeleteStu")";
+        var operurl_edit = "@Url.Action("StuEdit")";
+        var operurl_recovery = "@Url.Action("RescoverStu")";
+    var groundtypegeturl="@Url.Action("GetGroundTypes")";
+</script>
+<script src="@Url.Content("~/Data/StuInfo/stuinfo.js")"></script>

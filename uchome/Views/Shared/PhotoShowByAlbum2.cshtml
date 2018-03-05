@@ -1,0 +1,77 @@
+﻿@model UCHome.Model.UCHome_Album
+<script  src="@Url.Content("~/Scripts/jquery.form.js")"></script>
+<link rel="stylesheet"  href="@Url.Content("~/plugs/webuploader/css/webuploader.css")">
+<link rel="stylesheet"  href="@Url.Content("~/plugs/webuploader/css/demo.css")">
+
+<style>
+    .myphoto_menu {
+        margin: 0 20px;
+        border-bottom: solid 1px #add8e6;
+        height: 49px;
+    }
+
+        .myphoto_menu .myphoto_menu_list {
+            height: 50px;
+            float: left;
+            position: relative;
+            zoom: 1;
+            z-index: 200;
+        }
+
+    .myphoto_menu_list ul {
+        position: relative;
+    }
+
+        .myphoto_menu_list ul li {
+            float: left;
+            line-height: 50px;
+            color: #000;
+            margin: 0 20px;
+            display: inline-block;
+            font-size: 15px;
+            cursor: pointer;
+        }
+
+    .myphoto_menu li.foucs {
+        height: 47px;
+        border-bottom: solid 3px #2595b7;
+        font-weight: bold;
+    }
+
+    .myphoto_menu .myphoto_menu_other {
+        float: right;
+    }
+
+    .myphoto_menu_other .myphoto_menu_other_item {
+        float: left;
+        line-height: 50px;
+        color: #2595b7;
+        margin: 0 10px;
+        display: inline-block;
+        font-size: 14px;
+        cursor: pointer;
+    }
+  
+    .myphoto_menu_other_item .recyclephoto {
+        background: url("@Url.Content("~/Content/images/Recycle.png")") no-repeat center center;
+        display: inline-block;
+        width: 28px;
+        height: 18px;
+    }
+     .myphoto_content {
+        padding-bottom: 10px;
+    
+    }
+   
+</style>
+@{
+    var albumid = new ViewDataDictionary();
+    albumid.Add("albumid", Model.PKID);
+}
+@Html.Partial("PhotoAbstract2", Model.AddUser, albumid)
+<script>
+    $("#myphoto_menu_li_album").click(function () {
+        $("#body_content").load("@Url.Action("PersonPhoto2", "PublicShare", new { id = Model.AddUser })");
+    });
+
+</script>

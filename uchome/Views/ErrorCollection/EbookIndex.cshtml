@@ -1,0 +1,264 @@
+﻿<style>
+    .red {
+        color: red;
+    }
+
+    #ul_appicon {
+    }
+
+        #ul_appicon > li {
+            position: relative;
+        }
+
+            #ul_appicon > li input[type=checkbox] {
+                position: absolute;
+                right: 0;
+                bottom: 0;
+                border: solid 1px #ccc !important;
+            }
+</style>
+<link href="@Url.Content("~/angular/uchome/errorcollection/errorcollection.css")" rel="stylesheet/less" type="text/css"/>
+<div style="width: 100%;padding-left: 15px">
+    <div class="bs-example" data-example-id="single-button-dropdown" style="padding: 10px;">
+        <div class="btn-group">
+            <button id="btnSubject"
+                    ng-click="toggleDrop('subjects')"
+                    class="btn btn-success dropdown-toggle"
+                    aria-expanded="false" aria-haspopup="true"
+                    type="button" data-toggle="dropdown"
+                    ng-init="subjectName='选择学科'">
+                {{subjectName}}
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" id="subjects">
+                <li ng-repeat="subject in subjectLists">
+                    <a href="javascript:void(0)" val="subject.Id" ng-click="GetVersion(subject.Id,subject.Name)">{{subject.Name}}</a>
+                </li>
+            </ul>
+        </div>
+        <div class="btn-group">
+            <button id="btnVersion"
+                    ng-click="toggleDrop('versions')"
+                    class="btn btn-info dropdown-toggle"
+                    aria-expanded="false" aria-haspopup="true"
+                    type="button" data-toggle="dropdown"
+                    ng-init="versionName='选择版本'">
+                {{versionName}}
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" id="versions">
+                <li ng-repeat="version in versionList">
+                    <a href="javascript:void(0)" val="version.Id" ng-click="GetGrade(version.Id,version.Name)">{{version.Name}}</a>
+                </li>
+            </ul>
+        </div>
+        <div class="btn-group">
+            <button id="btnGrade"
+                    ng-click="toggleDrop('grades')"
+                    class="btn btn-warning dropdown-toggle"
+                    aria-expanded="false" aria-haspopup="true"
+                    type="button" data-toggle="dropdown"
+                    ng-init="gradeName='选择年级'">
+                {{gradeName}}
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" id="grades">
+                <li ng-repeat="grade in gradeList">
+                    <a href="javascript:void(0)" val="grade.Id" ng-click="GetTextBook(grade.Id,grade.Name)">{{grade.Name}}</a>
+                </li>
+            </ul>
+        </div>
+        <div class="btn-group">
+            <button id="btntext" ng-click="toggleDrop('texts')" class="btn btn-danger dropdown-toggle" aria-expanded="false" aria-haspopup="true" type="button" data-toggle="dropdown" ng-init="textName='选择章节'">{{textName}} <span class="caret"></span></button>
+            <div id="texts" class="dropdown-menu customtree" style="width: 250px; height: 300px; overflow: auto;">
+                <ul>
+                    <li ng-repeat="text in textList">
+                        <div>
+                            <span val="text.Id" style="color: #337ab7; cursor: pointer" ng-click="SelectText(text.Id,text.Name)">{{text.Name}}</span>
+                            <ul ng-if="text.ChildNodeBookModel.length">
+                                <li ng-repeat="text2 in text.ChildNodeBookModel">
+                                    <div>
+                                        <span val="text2.Id" style="color: #337ab7; cursor: pointer" ng-click="SelectText(text2.Id,text2.Name)">{{text2.Name}}</span>
+                                        <ul ng-if="text2.ChildNodeBookModel.length">
+                                            <li ng-repeat="text3 in text2.ChildNodeBookModel">
+                                                <div href="javascript:void(0)">
+                                                    <span val="text3.Id" style="color: #337ab7; cursor: pointer" ng-click="SelectText(text3.Id,text3.Name)">{{text3.Name}}</span>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+        <div class="btn-group">
+            <button id="btnType"
+                    ng-click="toggleDrop('types')"
+                    class="btn btn-warning dropdown-toggle"
+                    aria-expanded="false" aria-haspopup="true"
+                    type="button" data-toggle="dropdown"
+                    ng-init="type='选择题型'">
+                {{type=='选择题型'?"选择题型":QuestionType[type]}}
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" id="types">
+                <li ng-repeat="type in QuestionType">
+                    <a href="javascript:void(0)" val="$index" ng-click="SelectType($index,type)">{{type}}</a>
+                </li>
+            </ul>
+        </div>
+        <button  class="btn btn-default" ng-click="GetEBookList()">查询</button>
+    </div>
+</div>
+
+<div id="myapplist" class="form-position pagew" ng-if="true" style="margin-top: 5px">
+    @*{{checkboxes.items}}*@
+    <form >
+        @* <sel-knowledge></sel-knowledge>*@
+
+        <table  class="table table-striped table-bordered table-hover datatable" id="table_myapp">
+            <tr ng-repeat="eitem in errorcollections">
+                <td>
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <div class="col-sm-11">
+                                <span class="control-label"><b>知识学科：</b></span>
+                                <span class="control-label">{{eitem.QKnowledge}}</span>
+                                |<span class="control-label"><i><strong>题型</strong>：{{QuestionType[eitem.QuestionType]}}</i></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-11">
+                                <span class="control-label"><b>错题名称：</b></span>
+                                <span class="control-label">{{eitem.QName}}</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-11">
+                                <span class="control-label"><b>结果详情：</b></span>
+                                <span class="control-label"><i>难易程度：{{QuestionHardLevel[eitem.QDifficulty]}}</i></span>
+                                ｜<span class="control-label"><i>正确答案：{{eitem.RightAnwer}}</i></span>
+                                ｜<span class="control-label"><i>我的答案：{{eitem.WrongAnwer}}</i></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-11">
+                                <span class="control-label">
+                                    <a href="" class="btn btn-info btn-xs" ng-click="showErrorModal(eitem);">详情</a>
+                                    <a href="" ng-if="eitem.Status==0" class="btn btn-warning btn-xs" ng-click="EditError(eitem)">标识</a>
+                                    <a href="" ng-if="eitem.Status>0"ng-class="btn btn-success btn-xs">已标识</a>
+                                </span>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <div id="page" style="text-align: center;"></div>
+        <script type="text/ng-template" id="ng-table/headers/checkbox.html">
+            <input type="checkbox" ng-model="checkboxes.checked" id="select_all" name="filter-checkbox" value="" />
+        </script>
+    </form>
+</div>
+<div class="modal fade" id="modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">{{showModal.QName}}</h4>
+            </div>
+            <div class="modal-body">
+                <p><span ng-bind-html="showModal.QMemo|htmlContent"></span></p>
+                <div class="panel-footer">
+                    我的答案：<span class="MineAnswer ng-binding" >{{showModal.WrongAnwer}}</span>
+                    <br>
+                    正确答案：<span class="CorrectAnswer ng-binding" >{{showModal.RightAnwer}}</span>
+                </div>
+                <div class="form-group clearfix" style="margin-top: 15px" ng-if="showModal.Insert">
+                    <div class="col-sm-12" style="padding-left:0" id="questionType">
+                        <span class="control-label">问题分类:</span>
+                        <label ng-repeat="item in TypeList">
+                            <input value="{{item.PKID}}" type="checkbox" />{{item.TypeName}}
+                        </label>
+                    </div>
+                    <div class="col-sm-12" style="padding-left:0" id="questionError">
+                        <span class="control-label">出错原因:</span>
+                        <label ng-repeat="item in ReasonList">
+                            <input type="checkbox" value="{{item.PKID}}" />{{item.ReasonName}}
+                        </label>
+                    </div>
+                    <div class="col-sm-12" style="padding-left:0">
+                        <span class="control-label">原因说明:</span>
+                        <input type="text" ng-model="showModal.QEMemo" ng-maxlength="200"  style=" width: 80%; display: inline-block;" />
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" ng-if="showModal.Insert" ng-click="SaveModal(this)">保存</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+            <div></div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<style>
+    .glyphicon {
+        font-weight: bold;
+        margin-left: 5px;
+        position: relative;
+        display: inline-block;
+        width: 20px;
+    }
+
+    .glyphicon2:before {
+        content: "";
+        border-width: 4px;
+        border-style: solid;
+        left: 8px;
+        top: 50%;
+        position: absolute;
+        margin-top: -2px;
+    }
+
+    .lg {
+        font-size: 16px;
+    }
+
+    .glyphicon.lg {
+        font-size: 32px;
+    }
+
+    .glyphicon-ok, .green {
+        color: green;
+    }
+
+    .plus:before {
+        border-color: green;
+        border-top: none;
+        border-left: 4px solid transparent;
+        border-right: 4px solid transparent;
+    }
+
+    .glyphicon-remove, .red {
+        color: red;
+    }
+
+    .minus:before {
+        border-color: red;
+        border-bottom: none;
+        border-left: 4px solid transparent;
+        border-right: 4px solid transparent;
+    }
+</style>
+<script src="@Url.Content("~/Scripts/jquery.pager.js")"></script>
+<script type="text/javascript">
+    var rsc_bs_pag = { go_to_page_title: "转到", rows_per_page_title: "第几页", current_page_label: "页", current_page_abbr_label: "", total_pages_label: "/", total_pages_abbr_label: "/", total_rows_label: "/", rows_info_records: "记录", go_top_text: "&laquo;", go_prev_text: "&larr;", go_next_text: "&rarr;", go_last_text: "&raquo;" };
+
+   
+</script>

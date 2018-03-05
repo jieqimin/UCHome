@@ -1,0 +1,5645 @@
+{
+  " 社会实践类型": [
+    {
+      "DMID": "9fa1453c-e2b5-4941-8535-6d49c37125d1",
+      "DMCode": "1",
+      "DMName": "科研技术开发 ",
+      "DMOrder": 1,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": " 社会实践类型"
+    },
+    {
+      "DMID": "8d44e4da-79b3-4308-af68-ac4354872770",
+      "DMCode": "2",
+      "DMName": "信息技术 ",
+      "DMOrder": 2,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": " 社会实践类型"
+    },
+    {
+      "DMID": "42e63661-1830-45ba-b7ff-1322a09b2851",
+      "DMCode": "3",
+      "DMName": "技术改造 ",
+      "DMOrder": 3,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": " 社会实践类型"
+    },
+    {
+      "DMID": "e3bd5fef-6512-49ab-875b-0d88399f843d",
+      "DMCode": "4",
+      "DMName": "规划设计 ",
+      "DMOrder": 4,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": " 社会实践类型"
+    },
+    {
+      "DMID": "a10024c2-35a3-4449-8ede-395306347a0d",
+      "DMCode": "5",
+      "DMName": "工艺美术设计与研究 ",
+      "DMOrder": 5,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": " 社会实践类型"
+    },
+    {
+      "DMID": "54f3cfc9-fe78-43b9-9bd4-61d28a85e0b7",
+      "DMCode": "6",
+      "DMName": "技术、管理及各类专业业务培训 ",
+      "DMOrder": 6,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": " 社会实践类型"
+    },
+    {
+      "DMID": "af7c1ebd-94b0-4971-8481-ba0d0849385c",
+      "DMCode": "7",
+      "DMName": "地区或单位发展研究或规划 ",
+      "DMOrder": 7,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": " 社会实践类型"
+    },
+    {
+      "DMID": "c8e6419e-263b-4326-8ace-72f097e2ef21",
+      "DMCode": "8",
+      "DMName": "地方党政部门的管理及研究 ",
+      "DMOrder": 8,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": " 社会实践类型"
+    },
+    {
+      "DMID": "938019dc-de33-4942-9984-e6ad8d704ad5",
+      "DMCode": "9",
+      "DMName": "政策咨询 ",
+      "DMOrder": 9,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": " 社会实践类型"
+    },
+    {
+      "DMID": "bd080a21-2aef-4f49-a63f-dc67bd29efc7",
+      "DMCode": "10",
+      "DMName": "中外文资料翻译、文字整理 ",
+      "DMOrder": 10,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": " 社会实践类型"
+    },
+    {
+      "DMID": "441b242a-ec6e-4e34-b023-963d71558118",
+      "DMCode": "11",
+      "DMName": "接受单位大型活动的组织策划 ",
+      "DMOrder": 11,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": " 社会实践类型"
+    },
+    {
+      "DMID": "c66f0eee-29a6-4e3b-8cf7-8373b7067073",
+      "DMCode": "12",
+      "DMName": "行政事务性工作 ",
+      "DMOrder": 12,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": " 社会实践类型"
+    },
+    {
+      "DMID": "fd16c120-1cb0-48ed-a65c-8e65463e7133",
+      "DMCode": "13",
+      "DMName": "文艺演出 ",
+      "DMOrder": 13,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": " 社会实践类型"
+    },
+    {
+      "DMID": "a1450f2d-b80c-47dc-b079-1ee6fa432b3c",
+      "DMCode": "14",
+      "DMName": "随队医疗或医药咨询 ",
+      "DMOrder": 14,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": " 社会实践类型"
+    },
+    {
+      "DMID": "96dbd181-e7c8-4506-a8c9-5cb26b98ffb0",
+      "DMCode": "15",
+      "DMName": "中小学兼职教师 ",
+      "DMOrder": 15,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": " 社会实践类型"
+    },
+    {
+      "DMID": "779181f4-9a9b-4c45-a915-3386efd0b49e",
+      "DMCode": "21",
+      "DMName": "就业实践 ",
+      "DMOrder": 21,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": " 社会实践类型"
+    },
+    {
+      "DMID": "bd7d01cc-4df6-411a-b296-d9e0ccb7aecd",
+      "DMCode": "22",
+      "DMName": "短期挂职 ",
+      "DMOrder": 22,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": " 社会实践类型"
+    },
+    {
+      "DMID": "e00e0126-9fbc-44af-88db-dc9f1db56e6f",
+      "DMCode": "23",
+      "DMName": "认知考察 ",
+      "DMOrder": 23,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": " 社会实践类型"
+    },
+    {
+      "DMID": "a7cfc379-c6e6-4207-bdde-8ac6ca3396a0",
+      "DMCode": "24",
+      "DMName": "博士后实践服务团 ",
+      "DMOrder": 24,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": " 社会实践类型"
+    },
+    {
+      "DMID": "500cbab7-a295-497c-8cab-3bbc4c667b46",
+      "DMCode": "25",
+      "DMName": "志愿者工作 ",
+      "DMOrder": 25,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": " 社会实践类型"
+    },
+    {
+      "DMID": "fbc37b89-0e75-4c91-ba3c-ad7e9000c769",
+      "DMCode": "99",
+      "DMName": "其他相应工作 ",
+      "DMOrder": 99,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": " 社会实践类型"
+    }
+  ],
+  " 体检项目类别": [
+    {
+      "DMID": "19391cda-9d54-4d22-bf2b-2f2917f32de2",
+      "DMCode": "1",
+      "DMName": "内科 ",
+      "DMOrder": 1,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": " 体检项目类别"
+    },
+    {
+      "DMID": "53dd3941-a122-42ba-aaa7-33db79d9a7a9",
+      "DMCode": "2",
+      "DMName": "外科 ",
+      "DMOrder": 2,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": " 体检项目类别"
+    },
+    {
+      "DMID": "3637b756-17ff-450c-867b-1fca9ea2127d",
+      "DMCode": "3",
+      "DMName": "眼科 ",
+      "DMOrder": 3,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": " 体检项目类别"
+    },
+    {
+      "DMID": "3b5512ed-4c63-48f0-baef-0e6c1c654291",
+      "DMCode": "4",
+      "DMName": "耳鼻喉科 ",
+      "DMOrder": 4,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": " 体检项目类别"
+    },
+    {
+      "DMID": "1afdc018-67db-4d6a-8068-93ddf04e5179",
+      "DMCode": "5",
+      "DMName": "口腔科 ",
+      "DMOrder": 5,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": " 体检项目类别"
+    },
+    {
+      "DMID": "b09d9622-edc1-482d-9ce4-5eedb0ec8b3e",
+      "DMCode": "6",
+      "DMName": "妇科 ",
+      "DMOrder": 6,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": " 体检项目类别"
+    },
+    {
+      "DMID": "f6c206cc-a1c5-4f2d-b206-f986445ff7f1",
+      "DMCode": "7",
+      "DMName": "血压 ",
+      "DMOrder": 7,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": " 体检项目类别"
+    },
+    {
+      "DMID": "b089f014-9442-4b7d-bb4b-91f95cf4265a",
+      "DMCode": "8",
+      "DMName": "胸透 ",
+      "DMOrder": 8,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": " 体检项目类别"
+    },
+    {
+      "DMID": "1d1c40b5-dac1-4b2d-94e5-9bf6005e670b",
+      "DMCode": "9",
+      "DMName": "生化检查 ",
+      "DMOrder": 9,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": " 体检项目类别"
+    },
+    {
+      "DMID": "529b5677-1576-4d38-93a8-7f5d8c3448eb",
+      "DMCode": "10",
+      "DMName": "心电图 ",
+      "DMOrder": 10,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": " 体检项目类别"
+    },
+    {
+      "DMID": "1bccee40-75e4-46ad-a445-1c931d3f2c92",
+      "DMCode": "11",
+      "DMName": "B超 ",
+      "DMOrder": 11,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": " 体检项目类别"
+    },
+    {
+      "DMID": "cd330395-f37a-474c-84ec-35564b70efb6",
+      "DMCode": "12",
+      "DMName": "身高 ",
+      "DMOrder": 12,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": " 体检项目类别"
+    },
+    {
+      "DMID": "2c8610a2-47e9-4a54-8b37-fdd2bfc58f32",
+      "DMCode": "13",
+      "DMName": "体重 ",
+      "DMOrder": 13,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": " 体检项目类别"
+    },
+    {
+      "DMID": "2c12215a-7782-4d68-a06b-90c977a98d81",
+      "DMCode": "14",
+      "DMName": "体能、形态 ",
+      "DMOrder": 14,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": " 体检项目类别"
+    },
+    {
+      "DMID": "c03feedc-cde4-42c7-b69d-6eecc2c4a86a",
+      "DMCode": "99",
+      "DMName": "其他 ",
+      "DMOrder": 99,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": " 体检项目类别"
+    }
+  ],
+  " 学籍异动类别": [
+    {
+      "DMID": "a1c2dd39-a8bd-41e4-9d32-d868c3cc8a61",
+      "DMCode": "1",
+      "DMName": "公派留学 ",
+      "DMOrder": 1,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": " 学籍异动类别"
+    },
+    {
+      "DMID": "5840b3d6-ac04-44b0-aa4e-21ab95a90819",
+      "DMCode": "2",
+      "DMName": "留级 ",
+      "DMOrder": 2,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": " 学籍异动类别"
+    },
+    {
+      "DMID": "69b7b8a1-5f89-4fb9-ab37-453c21db1ba5",
+      "DMCode": "3",
+      "DMName": "降级 ",
+      "DMOrder": 3,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": " 学籍异动类别"
+    },
+    {
+      "DMID": "1c86b040-6960-4c7d-9ea6-0a7d1ae7a02a",
+      "DMCode": "4",
+      "DMName": "跳级 ",
+      "DMOrder": 4,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": " 学籍异动类别"
+    },
+    {
+      "DMID": "e19adb00-3dee-4f8a-87c3-02dc95a8cffe",
+      "DMCode": "5",
+      "DMName": "试读 ",
+      "DMOrder": 5,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": " 学籍异动类别"
+    },
+    {
+      "DMID": "38b68d69-bd69-40fd-9a2a-0b4643824510",
+      "DMCode": "6",
+      "DMName": "延长年限 ",
+      "DMOrder": 6,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": " 学籍异动类别"
+    },
+    {
+      "DMID": "cd7f2cc1-e4c0-4718-a11e-a5f62d7b9332",
+      "DMCode": "7",
+      "DMName": "试读通过 ",
+      "DMOrder": 7,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": " 学籍异动类别"
+    },
+    {
+      "DMID": "1eddb5f7-dc22-4457-bd3e-fce644bee32a",
+      "DMCode": "8",
+      "DMName": "回国复学 ",
+      "DMOrder": 8,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": " 学籍异动类别"
+    },
+    {
+      "DMID": "caeb2748-ddbf-4513-8caf-417fb27643d2",
+      "DMCode": "11",
+      "DMName": "休学 ",
+      "DMOrder": 11,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": " 学籍异动类别"
+    },
+    {
+      "DMID": "a6774176-9a3e-438a-bf5a-6366ff773775",
+      "DMCode": "12",
+      "DMName": "复学 ",
+      "DMOrder": 12,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": " 学籍异动类别"
+    },
+    {
+      "DMID": "0ec6a1c3-e98f-4d11-b376-116583cd7e5d",
+      "DMCode": "13",
+      "DMName": "停学 ",
+      "DMOrder": 13,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": " 学籍异动类别"
+    },
+    {
+      "DMID": "7e134dc7-72d6-48ba-86ba-a15ca0dddd6e",
+      "DMCode": "14",
+      "DMName": "保留入学资格 ",
+      "DMOrder": 14,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": " 学籍异动类别"
+    },
+    {
+      "DMID": "f95bf293-4c2c-4f32-a5c0-1c60de4c7be3",
+      "DMCode": "15",
+      "DMName": "恢复入学资格 ",
+      "DMOrder": 15,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": " 学籍异动类别"
+    },
+    {
+      "DMID": "ced14425-cf88-42b5-bdb5-f31691678d7a",
+      "DMCode": "16",
+      "DMName": "取消入学资格 ",
+      "DMOrder": 16,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": " 学籍异动类别"
+    },
+    {
+      "DMID": "96e41766-2104-4bc9-8e9c-584a5ae34426",
+      "DMCode": "17",
+      "DMName": "恢复学籍 ",
+      "DMOrder": 17,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": " 学籍异动类别"
+    },
+    {
+      "DMID": "23b6550e-73bf-4826-b734-73f8c8daec59",
+      "DMCode": "18",
+      "DMName": "取消学籍 ",
+      "DMOrder": 18,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": " 学籍异动类别"
+    },
+    {
+      "DMID": "fa67fbb2-0698-4168-b4c1-0a1984de7cc5",
+      "DMCode": "19",
+      "DMName": "保留学籍 ",
+      "DMOrder": 19,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": " 学籍异动类别"
+    },
+    {
+      "DMID": "f220cb82-0f9e-4b04-95d9-d066bfb20dd5",
+      "DMCode": "21",
+      "DMName": "转学（转出） ",
+      "DMOrder": 21,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": " 学籍异动类别"
+    },
+    {
+      "DMID": "5134c41f-e672-4d12-be80-8e5e49866fcb",
+      "DMCode": "22",
+      "DMName": "转学（转入） ",
+      "DMOrder": 22,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": " 学籍异动类别"
+    },
+    {
+      "DMID": "c3e16e12-7237-4c28-8d47-6756d3f1c358",
+      "DMCode": "23",
+      "DMName": "转专业 ",
+      "DMOrder": 23,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": " 学籍异动类别"
+    },
+    {
+      "DMID": "65a4ecfa-9be6-4531-9570-9b451607f41c",
+      "DMCode": "24",
+      "DMName": "专升本 ",
+      "DMOrder": 24,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": " 学籍异动类别"
+    },
+    {
+      "DMID": "1ae29b13-af34-4d3a-8670-32bd29141ce9",
+      "DMCode": "25",
+      "DMName": "本转专 ",
+      "DMOrder": 25,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": " 学籍异动类别"
+    },
+    {
+      "DMID": "d271898a-f3c2-4788-bc52-77d773f19b06",
+      "DMCode": "26",
+      "DMName": "转系 ",
+      "DMOrder": 26,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": " 学籍异动类别"
+    },
+    {
+      "DMID": "e9a52627-0db7-45c8-b7c4-aab9d13cee66",
+      "DMCode": "27",
+      "DMName": "硕转博 ",
+      "DMOrder": 27,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": " 学籍异动类别"
+    },
+    {
+      "DMID": "7448d8bc-a9c6-42e9-ad34-eb1220044878",
+      "DMCode": "28",
+      "DMName": "博转硕 ",
+      "DMOrder": 28,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": " 学籍异动类别"
+    },
+    {
+      "DMID": "018e9cef-c566-422d-8c18-f3527fb74336",
+      "DMCode": "29",
+      "DMName": "转班级 ",
+      "DMOrder": 29,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": " 学籍异动类别"
+    },
+    {
+      "DMID": "7ce5bd44-477c-4ee5-a213-cd94e326ba72",
+      "DMCode": "31",
+      "DMName": "退学 ",
+      "DMOrder": 31,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": " 学籍异动类别"
+    },
+    {
+      "DMID": "676a314d-7895-4530-a0fe-886d0f9265e3",
+      "DMCode": "42",
+      "DMName": "开除学籍 ",
+      "DMOrder": 42,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": " 学籍异动类别"
+    },
+    {
+      "DMID": "45cca5ef-ad0f-4102-b09f-5ac3a0decfc3",
+      "DMCode": "51",
+      "DMName": "死亡 ",
+      "DMOrder": 51,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": " 学籍异动类别"
+    },
+    {
+      "DMID": "2436dec2-1b35-4f87-b46a-9d16affe4f14",
+      "DMCode": "61",
+      "DMName": "提前毕业 ",
+      "DMOrder": 61,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": " 学籍异动类别"
+    },
+    {
+      "DMID": "fec22548-3aa3-4ae4-829c-2d187d6ee6f6",
+      "DMCode": "62",
+      "DMName": "结业 ",
+      "DMOrder": 62,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": " 学籍异动类别"
+    },
+    {
+      "DMID": "261b9df8-4fe3-492c-803e-2d76ffa27ceb",
+      "DMCode": "63",
+      "DMName": "肄业 ",
+      "DMOrder": 63,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": " 学籍异动类别"
+    },
+    {
+      "DMID": "d8a7e54b-af99-4c4f-b548-8a999cc83fe8",
+      "DMCode": "64",
+      "DMName": "国内访学 ",
+      "DMOrder": 64,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": " 学籍异动类别"
+    },
+    {
+      "DMID": "160d8d23-044f-44b1-84bc-9ebf90a668dc",
+      "DMCode": "65",
+      "DMName": "国内访学后返校 ",
+      "DMOrder": 65,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": " 学籍异动类别"
+    },
+    {
+      "DMID": "ab6e930a-52b5-4fab-8d10-636dc2ad47ed",
+      "DMCode": "99",
+      "DMName": "其他 ",
+      "DMOrder": 99,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": " 学籍异动类别"
+    }
+  ],
+  " 严重不良行为": [
+    {
+      "DMID": "1c29a0a6-6e53-4e83-8076-2ad933f2d9e0",
+      "DMCode": "1",
+      "DMName": "纠集他人结伙滋事，扰乱治安 ",
+      "DMOrder": 1,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": " 严重不良行为"
+    },
+    {
+      "DMID": "abf4dc70-ac00-4632-bd1a-874ee15c0fb9",
+      "DMCode": "2",
+      "DMName": "携带管制具，屡教不改 ",
+      "DMOrder": 2,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": " 严重不良行为"
+    },
+    {
+      "DMID": "1ff15468-bfba-4d77-bca6-74385ece5f2d",
+      "DMCode": "3",
+      "DMName": "多次拦截殴打他人或者强行索要他人财物 ",
+      "DMOrder": 3,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": " 严重不良行为"
+    },
+    {
+      "DMID": "ae9dddc6-ad2d-4d8c-b209-99dfc3e7ef82",
+      "DMCode": "4",
+      "DMName": "传播淫秽的读物或者音像制品等 ",
+      "DMOrder": 4,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": " 严重不良行为"
+    },
+    {
+      "DMID": "6b6e3668-56fb-407d-985d-a932cf5acb79",
+      "DMCode": "5",
+      "DMName": "进行淫乱或者色情、卖淫活动 ",
+      "DMOrder": 5,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": " 严重不良行为"
+    },
+    {
+      "DMID": "1f70b5d9-53cb-4566-9e4d-4175c084eedf",
+      "DMCode": "6",
+      "DMName": "多次偷窃 ",
+      "DMOrder": 6,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": " 严重不良行为"
+    },
+    {
+      "DMID": "4fdc6232-b0e3-44d8-9c34-8c7762b4ef08",
+      "DMCode": "7",
+      "DMName": "参与赌博，屡教不改 ",
+      "DMOrder": 7,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": " 严重不良行为"
+    },
+    {
+      "DMID": "6af1119f-7122-4f3d-bf95-a86c6149f4f4",
+      "DMCode": "8",
+      "DMName": "吸食、注射毒品 ",
+      "DMOrder": 8,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": " 严重不良行为"
+    },
+    {
+      "DMID": "aa0ee8aa-d334-497c-90c6-497e8f4a0639",
+      "DMCode": "9",
+      "DMName": "其他严重危害社会的行为 ",
+      "DMOrder": 9,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": " 严重不良行为"
+    }
+  ],
+  "毕业去向": [
+    {
+      "DMID": "2de175a5-d2fd-4bcc-b5be-2934f8856b30",
+      "DMCode": "10",
+      "DMName": "升学 ",
+      "DMOrder": 10,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "毕业去向"
+    },
+    {
+      "DMID": "528f562e-263b-432d-9e49-4af3a4257b06",
+      "DMCode": "20",
+      "DMName": "就业 ",
+      "DMOrder": 20,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "毕业去向"
+    },
+    {
+      "DMID": "ba2b84b9-2ea0-4ca8-97da-113de683faee",
+      "DMCode": "30",
+      "DMName": "参军 ",
+      "DMOrder": 30,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "毕业去向"
+    },
+    {
+      "DMID": "f60fe9a8-a50a-4bf8-b2d3-1ffdf39d7c11",
+      "DMCode": "40",
+      "DMName": "出国 ",
+      "DMOrder": 40,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "毕业去向"
+    },
+    {
+      "DMID": "1ac36170-d191-4b28-b671-a6ce47c6b002",
+      "DMCode": "50",
+      "DMName": "赴港澳台 ",
+      "DMOrder": 50,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "毕业去向"
+    },
+    {
+      "DMID": "bdda0371-0479-483e-8d7a-7b7cbe5c4268",
+      "DMCode": "60",
+      "DMName": "待就业 ",
+      "DMOrder": 60,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "毕业去向"
+    },
+    {
+      "DMID": "8706b15d-951e-443e-9c78-48c5d0f2b850",
+      "DMCode": "99",
+      "DMName": "其他 ",
+      "DMOrder": 99,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "毕业去向"
+    }
+  ],
+  "残疾人类型": [
+    {
+      "DMID": "e9b72ab2-e1f4-42fb-9e89-1155fe4c098b",
+      "DMCode": "1",
+      "DMName": "视力残疾 ",
+      "DMOrder": 1,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "残疾人类型"
+    },
+    {
+      "DMID": "d807e836-ec5c-420a-a2bc-569ee13c6b5e",
+      "DMCode": "2",
+      "DMName": "听力残疾 ",
+      "DMOrder": 2,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "残疾人类型"
+    },
+    {
+      "DMID": "81b8645a-e821-4952-9fa4-49e95d9e9d4c",
+      "DMCode": "3",
+      "DMName": "智力残疾 ",
+      "DMOrder": 3,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "残疾人类型"
+    },
+    {
+      "DMID": "1173c813-df76-4b6f-8da3-efb793e32eed",
+      "DMCode": "9",
+      "DMName": "其他残疾 ",
+      "DMOrder": 9,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "残疾人类型"
+    }
+  ],
+  "处分名称": [
+    {
+      "DMID": "3ded143a-3b49-4fe8-85c0-1b71c1d9f7c3",
+      "DMCode": "1",
+      "DMName": "警告 ",
+      "DMOrder": 1,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "处分名称"
+    },
+    {
+      "DMID": "08d59aef-51b2-4340-a57e-988c84bcfb12",
+      "DMCode": "2",
+      "DMName": "严重警告 ",
+      "DMOrder": 2,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "处分名称"
+    },
+    {
+      "DMID": "064554b7-a2c2-4a3a-a3f4-28882a10d1c7",
+      "DMCode": "3",
+      "DMName": "记过 ",
+      "DMOrder": 3,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "处分名称"
+    },
+    {
+      "DMID": "fd803c94-e466-446b-8f68-fad9707d301a",
+      "DMCode": "4",
+      "DMName": "留校察看 ",
+      "DMOrder": 4,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "处分名称"
+    },
+    {
+      "DMID": "a0d4d2de-1d09-4a07-8ca3-cffafc21ec8a",
+      "DMCode": "6",
+      "DMName": "开除学籍 ",
+      "DMOrder": 6,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "处分名称"
+    },
+    {
+      "DMID": "4df976e2-1a42-4708-a943-d6e68062a5b6",
+      "DMCode": "9",
+      "DMName": "其他 ",
+      "DMOrder": 9,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "处分名称"
+    }
+  ],
+  "附加分类别": [
+    {
+      "DMID": "6769ff8c-5060-454f-af45-be85753ba30c",
+      "DMCode": "1",
+      "DMName": "少数民族 ",
+      "DMOrder": 1,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "附加分类别"
+    },
+    {
+      "DMID": "3835661a-a74b-4f37-89cb-34134bd223f3",
+      "DMCode": "2",
+      "DMName": "竞赛获奖 ",
+      "DMOrder": 2,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "附加分类别"
+    },
+    {
+      "DMID": "ea221c77-f234-4b79-a6bc-56f2f8a6039f",
+      "DMCode": "3",
+      "DMName": "文艺特长 ",
+      "DMOrder": 3,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "附加分类别"
+    },
+    {
+      "DMID": "ac9956cf-1560-4834-b5c0-891feee1c9e2",
+      "DMCode": "4",
+      "DMName": "美术特长 ",
+      "DMOrder": 4,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "附加分类别"
+    },
+    {
+      "DMID": "0bd115f9-8628-4e9c-a0e0-ef11d3dd3c54",
+      "DMCode": "5",
+      "DMName": "体育特长 ",
+      "DMOrder": 5,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "附加分类别"
+    },
+    {
+      "DMID": "7f11b33b-38bd-4dfa-8800-7a8fe4cbf69f",
+      "DMCode": "6",
+      "DMName": "品学兼优 ",
+      "DMOrder": 6,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "附加分类别"
+    },
+    {
+      "DMID": "2f18fbba-6702-42a3-8877-b2d7d685c553",
+      "DMCode": "9",
+      "DMName": "其他自主认定 ",
+      "DMOrder": 9,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "附加分类别"
+    }
+  ],
+  "户口类别": [
+    {
+      "DMID": "47a951ed-8ef3-4209-af9e-023c8161fee9",
+      "DMCode": "0",
+      "DMName": "未落常住户口",
+      "DMOrder": 0,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "户口类别"
+    },
+    {
+      "DMID": "7ca636cd-6966-45eb-a220-eb930af6bee3",
+      "DMCode": "1",
+      "DMName": "非农业家庭户口",
+      "DMOrder": 1,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "户口类别"
+    },
+    {
+      "DMID": "9abad1e5-4014-4673-95b4-825146305e1c",
+      "DMCode": "2",
+      "DMName": "农业家庭户口",
+      "DMOrder": 2,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "户口类别"
+    },
+    {
+      "DMID": "25a537f7-cc18-4835-8b29-ebbc6cdf2282",
+      "DMCode": "3",
+      "DMName": "非农业集体户口",
+      "DMOrder": 3,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "户口类别"
+    },
+    {
+      "DMID": "3200e279-e1db-4a43-b468-ced1b2ffe358",
+      "DMCode": "4",
+      "DMName": "农业集体户口",
+      "DMOrder": 4,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "户口类别"
+    },
+    {
+      "DMID": "1cdba2a7-aaa7-4b8b-805d-a428216659ef",
+      "DMCode": "5",
+      "DMName": "自理口粮户口",
+      "DMOrder": 5,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "户口类别"
+    },
+    {
+      "DMID": "b6a288b9-71f3-449e-a2ba-a08986f8fbe2",
+      "DMCode": "6",
+      "DMName": "寄住户口",
+      "DMOrder": 6,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "户口类别"
+    },
+    {
+      "DMID": "155c1a71-5719-491d-9435-e836caa38e5a",
+      "DMCode": "7",
+      "DMName": "暂住户口",
+      "DMOrder": 7,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "户口类别"
+    },
+    {
+      "DMID": "60204334-9e88-44a2-bc7b-1313e4f9f9df",
+      "DMCode": "8",
+      "DMName": "其他户口",
+      "DMOrder": 8,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "户口类别"
+    }
+  ],
+  "婚姻状况": [
+    {
+      "DMID": "f1da8320-5c5a-4b4b-b7ac-2ad2b49bcbf9",
+      "DMCode": "10",
+      "DMName": "未婚",
+      "DMOrder": 10,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "婚姻状况"
+    },
+    {
+      "DMID": "9aa8fdcf-a786-41db-b8e6-aa2ac902c809",
+      "DMCode": "20",
+      "DMName": "已婚",
+      "DMOrder": 20,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "婚姻状况"
+    },
+    {
+      "DMID": "62e10c10-1498-4f5f-b82e-721d368e6885",
+      "DMCode": "21",
+      "DMName": "初婚",
+      "DMOrder": 21,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "婚姻状况"
+    },
+    {
+      "DMID": "5b45d008-4f7a-4a79-a0dd-66886858c93c",
+      "DMCode": "22",
+      "DMName": "再婚",
+      "DMOrder": 22,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "婚姻状况"
+    },
+    {
+      "DMID": "1b3d7bc5-41b2-4f6a-b41d-dde189057169",
+      "DMCode": "23",
+      "DMName": "复婚",
+      "DMOrder": 23,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "婚姻状况"
+    },
+    {
+      "DMID": "a85ed0fd-5011-4000-88ec-723a50c8738d",
+      "DMCode": "30",
+      "DMName": "丧偶",
+      "DMOrder": 30,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "婚姻状况"
+    },
+    {
+      "DMID": "bb8d3301-d93e-4a77-8aa4-bdfa1462c3b5",
+      "DMCode": "40",
+      "DMName": "离婚",
+      "DMOrder": 40,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "婚姻状况"
+    },
+    {
+      "DMID": "ce90ae17-4dc4-4a31-be57-e29a956573e3",
+      "DMCode": "90",
+      "DMName": "未说明的婚姻状况",
+      "DMOrder": 90,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "婚姻状况"
+    }
+  ],
+  "获奖类型": [
+    {
+      "DMID": "077fe81c-f773-4fcd-b9ab-c73cb3ca84d4",
+      "DMCode": "1",
+      "DMName": "集体 ",
+      "DMOrder": 1,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "获奖类型"
+    },
+    {
+      "DMID": "4d6728a0-06f0-4d7c-b159-4b15baf9761e",
+      "DMCode": "2",
+      "DMName": "个人综合 ",
+      "DMOrder": 2,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "获奖类型"
+    },
+    {
+      "DMID": "3d1029f4-ee23-449b-9fa6-778a3c2c90f0",
+      "DMCode": "3",
+      "DMName": "个人单项 ",
+      "DMOrder": 3,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "获奖类型"
+    }
+  ],
+  "家庭关系": [
+    {
+      "DMID": "7f7c501a-3aa2-4ed0-a541-abd4f7300419",
+      "DMCode": "1",
+      "DMName": "本人",
+      "DMOrder": 1,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "家庭关系"
+    },
+    {
+      "DMID": "ad037d21-e1d5-4155-bc0a-214ee7745874",
+      "DMCode": "10",
+      "DMName": "配偶",
+      "DMOrder": 10,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "家庭关系"
+    },
+    {
+      "DMID": "1c44c7b7-3042-49c0-be14-d132346acc7c",
+      "DMCode": "20",
+      "DMName": "子",
+      "DMOrder": 20,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "家庭关系"
+    },
+    {
+      "DMID": "38ef45e4-fc28-407c-aadc-b93733acd2f0",
+      "DMCode": "30",
+      "DMName": "女",
+      "DMOrder": 30,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "家庭关系"
+    },
+    {
+      "DMID": "3d1bc201-184c-4c63-b9ba-9d338b737826",
+      "DMCode": "51",
+      "DMName": "父亲",
+      "DMOrder": 51,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "家庭关系"
+    },
+    {
+      "DMID": "b23aa68a-0620-4a2c-a934-2722a02bc26a",
+      "DMCode": "52",
+      "DMName": "母亲",
+      "DMOrder": 52,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "家庭关系"
+    },
+    {
+      "DMID": "3d66d977-49e8-4830-8a8a-a2f348070dd1",
+      "DMCode": "70",
+      "DMName": "兄弟姐妹",
+      "DMOrder": 70,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "家庭关系"
+    },
+    {
+      "DMID": "f6cf3564-5c76-4e97-94eb-f69830855f81",
+      "DMCode": "97",
+      "DMName": "其他亲戚",
+      "DMOrder": 97,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "家庭关系"
+    },
+    {
+      "DMID": "2b45112a-6630-4f2d-8e93-48075ca52213",
+      "DMCode": "99",
+      "DMName": "无任何关系",
+      "DMOrder": 99,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "家庭关系"
+    }
+  ],
+  "家庭类别": [
+    {
+      "DMID": "66f9d72d-d8fb-4c21-b221-2ed7b2a45741",
+      "DMCode": "1",
+      "DMName": "双亲健全 ",
+      "DMOrder": 1,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "家庭类别"
+    },
+    {
+      "DMID": "e57e3a39-1673-40f3-9ce6-f2b21db091cd",
+      "DMCode": "2",
+      "DMName": "孤儿 ",
+      "DMOrder": 2,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "家庭类别"
+    },
+    {
+      "DMID": "ac496218-aa08-4448-b215-250d97694332",
+      "DMCode": "3",
+      "DMName": "单亲（父母一方去世） ",
+      "DMOrder": 3,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "家庭类别"
+    },
+    {
+      "DMID": "5db4ff46-b7ca-408b-8e79-0d0d8678d45c",
+      "DMCode": "4",
+      "DMName": "父母离异 ",
+      "DMOrder": 4,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "家庭类别"
+    },
+    {
+      "DMID": "6f579207-cd1d-4181-9381-e65c17495772",
+      "DMCode": "5",
+      "DMName": "双亲有残疾 ",
+      "DMOrder": 5,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "家庭类别"
+    },
+    {
+      "DMID": "dd423a79-03a9-4aa7-b9de-eb0dbb96f466",
+      "DMCode": "6",
+      "DMName": "本人残疾 ",
+      "DMOrder": 6,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "家庭类别"
+    },
+    {
+      "DMID": "9bf79518-a09c-415b-8949-bddd8ffcbaf4",
+      "DMCode": "7",
+      "DMName": "军烈属或优抚对象 ",
+      "DMOrder": 7,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "家庭类别"
+    },
+    {
+      "DMID": "31943fba-1c80-46ec-ac25-77db85d9a1f5",
+      "DMCode": "8",
+      "DMName": "重病 ",
+      "DMOrder": 8,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "家庭类别"
+    },
+    {
+      "DMID": "da6c4584-8045-495f-ac74-45e3bc69804f",
+      "DMCode": "9",
+      "DMName": "五保户 ",
+      "DMOrder": 9,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "家庭类别"
+    }
+  ],
+  "监考人类别": [
+    {
+      "DMID": "c23f875a-f6e0-4481-9937-7e19b66b74e6",
+      "DMCode": "1",
+      "DMName": "主考",
+      "DMOrder": 1,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "监考人类别"
+    },
+    {
+      "DMID": "4a621ddb-fec2-42e8-8369-01aad7684ff4",
+      "DMCode": "2",
+      "DMName": "副主考",
+      "DMOrder": 2,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "监考人类别"
+    },
+    {
+      "DMID": "ea4adef4-9f30-47fc-b875-21b8c9c16e4b",
+      "DMCode": "3",
+      "DMName": "一般监考人员",
+      "DMOrder": 3,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "监考人类别"
+    },
+    {
+      "DMID": "5ce1d240-fceb-4218-a8c3-9d1c5cb261ac",
+      "DMCode": "4",
+      "DMName": "巡考人员",
+      "DMOrder": 4,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "监考人类别"
+    },
+    {
+      "DMID": "ace0ed7e-b381-4890-9472-26b75935f4b6",
+      "DMCode": "9",
+      "DMName": "其他",
+      "DMOrder": 9,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "监考人类别"
+    }
+  ],
+  "健康状况": [
+    {
+      "DMID": "4f06d888-69bb-49cd-b7fc-962f86cda0f4",
+      "DMCode": "1",
+      "DMName": "健康或良好",
+      "DMOrder": 1,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "健康状况"
+    },
+    {
+      "DMID": "0f1e5533-aa97-437a-a285-982e1ab8f04a",
+      "DMCode": "2",
+      "DMName": "一般或较弱",
+      "DMOrder": 2,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "健康状况"
+    },
+    {
+      "DMID": "561b75c7-b2a8-449b-8725-e31e779c33b4",
+      "DMCode": "3",
+      "DMName": "有慢性病",
+      "DMOrder": 3,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "健康状况"
+    },
+    {
+      "DMID": "ecbf9f20-6479-41e1-8375-615c505b8dc7",
+      "DMCode": "6",
+      "DMName": "残疾",
+      "DMOrder": 6,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "健康状况"
+    }
+  ],
+  "奖励等级": [
+    {
+      "DMID": "f8c1577f-be74-44a5-8332-9d69a18ffb23",
+      "DMCode": "1",
+      "DMName": "特等",
+      "DMOrder": 1,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "奖励等级"
+    },
+    {
+      "DMID": "97bd6012-4c1e-47ff-b923-f7040f2744e7",
+      "DMCode": "2",
+      "DMName": "一等",
+      "DMOrder": 2,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "奖励等级"
+    },
+    {
+      "DMID": "12ab7c47-733e-45f9-83be-2c14680c783f",
+      "DMCode": "3",
+      "DMName": "二等",
+      "DMOrder": 3,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "奖励等级"
+    },
+    {
+      "DMID": "cea5a618-92f3-4af5-a9e0-a8547dce785c",
+      "DMCode": "4",
+      "DMName": "三等",
+      "DMOrder": 4,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "奖励等级"
+    },
+    {
+      "DMID": "1f8d5576-d7c5-4f74-8f20-a34d42defd5e",
+      "DMCode": "5",
+      "DMName": "四等",
+      "DMOrder": 5,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "奖励等级"
+    },
+    {
+      "DMID": "c6cca123-4dc7-434e-b044-251f81501156",
+      "DMCode": "6",
+      "DMName": "未评等级",
+      "DMOrder": 6,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "奖励等级"
+    },
+    {
+      "DMID": "3e337b4b-7b0f-4019-b27b-dbd8d8a0c900",
+      "DMCode": "9",
+      "DMName": "其他",
+      "DMOrder": 9,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "奖励等级"
+    }
+  ],
+  "奖励方式": [
+    {
+      "DMID": "49effcd0-986c-4fc1-8e5b-58ec8920183b",
+      "DMCode": "1",
+      "DMName": "奖状 ",
+      "DMOrder": 1,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "奖励方式"
+    },
+    {
+      "DMID": "13463c5a-1e0e-4c35-a335-42912fcbb685",
+      "DMCode": "2",
+      "DMName": "荣誉称号 ",
+      "DMOrder": 2,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "奖励方式"
+    },
+    {
+      "DMID": "ef4203cf-a857-4bea-9902-bb26479a0540",
+      "DMCode": "3",
+      "DMName": "奖金 ",
+      "DMOrder": 3,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "奖励方式"
+    },
+    {
+      "DMID": "c34b8a45-6446-4914-8dc9-ddbb3948be47",
+      "DMCode": "4",
+      "DMName": "实物 ",
+      "DMOrder": 4,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "奖励方式"
+    },
+    {
+      "DMID": "6e824543-82a2-426d-9a64-63fb456d3300",
+      "DMCode": "9",
+      "DMName": "其他 ",
+      "DMOrder": 9,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "奖励方式"
+    }
+  ],
+  "奖励资助资金来源": [
+    {
+      "DMID": "9353a358-9043-4c3d-8c12-f4d9fb26272e",
+      "DMCode": "1",
+      "DMName": "中央财政 ",
+      "DMOrder": 1,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "奖励资助资金来源"
+    },
+    {
+      "DMID": "3120a9b5-7712-45d4-aff1-de83a1284e9c",
+      "DMCode": "2",
+      "DMName": "省级财政 ",
+      "DMOrder": 2,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "奖励资助资金来源"
+    },
+    {
+      "DMID": "97b87edf-c12a-46dd-bda9-321db61e89c8",
+      "DMCode": "3",
+      "DMName": "市级财政 ",
+      "DMOrder": 3,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "奖励资助资金来源"
+    },
+    {
+      "DMID": "6e56f24b-dd19-4e6d-bf50-ca3c027645c8",
+      "DMCode": "4",
+      "DMName": "县级财政 ",
+      "DMOrder": 4,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "奖励资助资金来源"
+    },
+    {
+      "DMID": "e50b271a-b7d1-4ccb-842d-c68f36f5d49f",
+      "DMCode": "5",
+      "DMName": "学校事业收入提取 ",
+      "DMOrder": 5,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "奖励资助资金来源"
+    },
+    {
+      "DMID": "65d2603c-d2c0-436d-874c-4d6633cc6cb0",
+      "DMCode": "6",
+      "DMName": "企事业单位、社会或个人捐赠 ",
+      "DMOrder": 6,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "奖励资助资金来源"
+    },
+    {
+      "DMID": "b3d12779-a417-42d8-b75e-a9966548c89c",
+      "DMCode": "7",
+      "DMName": "金融机构 ",
+      "DMOrder": 7,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "奖励资助资金来源"
+    },
+    {
+      "DMID": "862abdc0-5aff-4cd7-bae0-521a260750fa",
+      "DMCode": "9",
+      "DMName": "其他 ",
+      "DMOrder": 9,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "奖励资助资金来源"
+    }
+  ],
+  "奖学金类型": [
+    {
+      "DMID": "8c1c6c8e-ac31-42b8-b2d4-e96c448fc0e1",
+      "DMCode": "1",
+      "DMName": "国家奖助类 ",
+      "DMOrder": 1,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "奖学金类型"
+    },
+    {
+      "DMID": "3f5a139b-3872-4ec9-8281-07a4e67da3b2",
+      "DMCode": "2",
+      "DMName": "综合优秀类 ",
+      "DMOrder": 2,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "奖学金类型"
+    },
+    {
+      "DMID": "56bdd4a4-dea4-40a1-b79a-c1da32266b6e",
+      "DMCode": "3",
+      "DMName": "学业优秀类 ",
+      "DMOrder": 3,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "奖学金类型"
+    },
+    {
+      "DMID": "b66fc66f-157c-41c9-b5a9-3d5a8daeb20e",
+      "DMCode": "4",
+      "DMName": "科技创新类 ",
+      "DMOrder": 4,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "奖学金类型"
+    },
+    {
+      "DMID": "bf8b8ce7-c5d0-4ff9-95c3-c9501d828932",
+      "DMCode": "5",
+      "DMName": "学术竞赛优胜类 ",
+      "DMOrder": 5,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "奖学金类型"
+    },
+    {
+      "DMID": "12d11191-f187-47e1-8389-10d061b5844d",
+      "DMCode": "6",
+      "DMName": "艺术杰出类 ",
+      "DMOrder": 6,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "奖学金类型"
+    },
+    {
+      "DMID": "3fde10fe-7431-44c4-a63a-759c26f6212c",
+      "DMCode": "7",
+      "DMName": "体育优胜类 ",
+      "DMOrder": 7,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "奖学金类型"
+    },
+    {
+      "DMID": "4822f84d-5e4d-427a-acf4-488ea6f19d9c",
+      "DMCode": "8",
+      "DMName": "社会实践优秀类 ",
+      "DMOrder": 8,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "奖学金类型"
+    },
+    {
+      "DMID": "95836dff-8258-424e-8f6f-91ae11da40fc",
+      "DMCode": "9",
+      "DMName": "社会工作优秀类 ",
+      "DMOrder": 9,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "奖学金类型"
+    },
+    {
+      "DMID": "32b7c8cc-0ec3-48b1-a014-17a3b3bea6e2",
+      "DMCode": "10",
+      "DMName": "自立自强逆境成才类 ",
+      "DMOrder": 10,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "奖学金类型"
+    },
+    {
+      "DMID": "dea1dd7e-88b8-4692-8c59-8b8b6fc1b45b",
+      "DMCode": "11",
+      "DMName": "杰出志愿者类 ",
+      "DMOrder": 11,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "奖学金类型"
+    },
+    {
+      "DMID": "9fa3d436-ea70-4fac-a91d-54bf029a10c0",
+      "DMCode": "12",
+      "DMName": "学习进步突出类 ",
+      "DMOrder": 12,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "奖学金类型"
+    },
+    {
+      "DMID": "cc99b377-4776-4b1d-b0a7-eecbcfde0eb6",
+      "DMCode": "13",
+      "DMName": "少数民族优秀学生类 ",
+      "DMOrder": 13,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "奖学金类型"
+    },
+    {
+      "DMID": "5f1eac4e-02ae-4991-8e64-3e5293c6edc0",
+      "DMCode": "14",
+      "DMName": "港澳台侨优秀学生类 ",
+      "DMOrder": 14,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "奖学金类型"
+    },
+    {
+      "DMID": "8bdc3054-4c91-41c9-a538-95f4982575af",
+      "DMCode": "15",
+      "DMName": "优秀新生类 ",
+      "DMOrder": 15,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "奖学金类型"
+    },
+    {
+      "DMID": "0795ee0a-b03b-4831-9a14-d1006c6cf2fa",
+      "DMCode": "30",
+      "DMName": "来华留学生奖学金 ",
+      "DMOrder": 30,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "奖学金类型"
+    },
+    {
+      "DMID": "351bc93c-e62f-458b-9573-176e26ceefa1",
+      "DMCode": "31",
+      "DMName": "中国政府奖学金 ",
+      "DMOrder": 31,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "奖学金类型"
+    },
+    {
+      "DMID": "9d3f5c0a-c5d5-470c-9a51-3d7b92de058f",
+      "DMCode": "32",
+      "DMName": "外国汉语教师短期研修奖学金 ",
+      "DMOrder": 32,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "奖学金类型"
+    },
+    {
+      "DMID": "f991a9f9-98cb-44f3-9583-f0d871461e80",
+      "DMCode": "33",
+      "DMName": "HSK 优胜者奖学金 ",
+      "DMOrder": 33,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "奖学金类型"
+    },
+    {
+      "DMID": "e0c08708-63d8-4320-84d2-22be3e1adc09",
+      "DMCode": "34",
+      "DMName": "中华文化研究奖学金 ",
+      "DMOrder": 34,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "奖学金类型"
+    },
+    {
+      "DMID": "be826b4e-360f-43aa-b1cb-3885feaf438b",
+      "DMCode": "35",
+      "DMName": "长城奖学金 ",
+      "DMOrder": 35,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "奖学金类型"
+    },
+    {
+      "DMID": "cc439ebc-eb25-44fb-896a-354c85c5e1e3",
+      "DMCode": "36",
+      "DMName": "优秀生奖学金 ",
+      "DMOrder": 36,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "奖学金类型"
+    },
+    {
+      "DMID": "ef29668f-431d-44e4-aa9b-7445c752fa3f",
+      "DMCode": "99",
+      "DMName": "其他 ",
+      "DMOrder": 99,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "奖学金类型"
+    }
+  ],
+  "缴纳学费状况": [
+    {
+      "DMID": "0a7d2537-a8c7-401e-aa61-2dc92f9762f7",
+      "DMCode": "1",
+      "DMName": "未缴 ",
+      "DMOrder": 1,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "缴纳学费状况"
+    },
+    {
+      "DMID": "c8bff257-5a8c-47b4-9100-97a9da948ce9",
+      "DMCode": "2",
+      "DMName": "已缴清 ",
+      "DMOrder": 2,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "缴纳学费状况"
+    },
+    {
+      "DMID": "a3570445-e10b-45f8-9d46-09dd3923515a",
+      "DMCode": "3",
+      "DMName": "免缴 ",
+      "DMOrder": 3,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "缴纳学费状况"
+    },
+    {
+      "DMID": "2f666eea-8be5-4dd0-a36e-8bcf4891c740",
+      "DMCode": "4",
+      "DMName": "部分缴纳 ",
+      "DMOrder": 4,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "缴纳学费状况"
+    }
+  ],
+  "教室类型": [
+    {
+      "DMID": "f749df21-d6d5-4e0b-b353-d995beb8a9ab",
+      "DMCode": "1",
+      "DMName": "多媒体教室",
+      "DMOrder": 1,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "教室类型"
+    },
+    {
+      "DMID": "6ebd4b72-fa6f-4aee-849c-90389f5b5b80",
+      "DMCode": "2",
+      "DMName": "语音室",
+      "DMOrder": 2,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "教室类型"
+    },
+    {
+      "DMID": "718e5df0-dda3-480c-b73c-3e0186698607",
+      "DMCode": "3",
+      "DMName": "实验室",
+      "DMOrder": 3,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "教室类型"
+    },
+    {
+      "DMID": "79404982-ac77-4ab8-81e4-2f7e70fb08a9",
+      "DMCode": "4",
+      "DMName": "计算机房",
+      "DMOrder": 4,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "教室类型"
+    },
+    {
+      "DMID": "d8038279-335a-4b78-8cd3-976c227d25e5",
+      "DMCode": "5",
+      "DMName": "普通教室",
+      "DMOrder": 5,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "教室类型"
+    },
+    {
+      "DMID": "44c54f81-9914-4164-9954-269624d85850",
+      "DMCode": "6",
+      "DMName": "专用教室",
+      "DMOrder": 6,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "教室类型"
+    },
+    {
+      "DMID": "e6c8605a-cbc4-461f-be2f-a2b8328b3eb4",
+      "DMCode": "9",
+      "DMName": "其他",
+      "DMOrder": 9,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "教室类型"
+    }
+  ],
+  "教学用房性质": [
+    {
+      "DMID": "8d13eca1-9195-4b45-a29f-6c88ef1ef46b",
+      "DMCode": "1",
+      "DMName": "教室",
+      "DMOrder": 1,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "教学用房性质"
+    },
+    {
+      "DMID": "acaf698d-d79d-45e6-9a04-0629c602221e",
+      "DMCode": "10",
+      "DMName": "实验室",
+      "DMOrder": 10,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "教学用房性质"
+    },
+    {
+      "DMID": "15c982eb-042b-451c-afb3-3496ff68a71b",
+      "DMCode": "11",
+      "DMName": "物理实验室",
+      "DMOrder": 11,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "教学用房性质"
+    },
+    {
+      "DMID": "a94a3a8c-f616-4175-be5c-e52e243cb15d",
+      "DMCode": "12",
+      "DMName": "化学实验室",
+      "DMOrder": 12,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "教学用房性质"
+    },
+    {
+      "DMID": "46df24f3-d7c2-4eae-ac76-a991efce7488",
+      "DMCode": "13",
+      "DMName": "生物实验室",
+      "DMOrder": 13,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "教学用房性质"
+    },
+    {
+      "DMID": "1ec97277-d874-41a0-9fd1-e65ae240a8b6",
+      "DMCode": "14",
+      "DMName": "其他实验室",
+      "DMOrder": 14,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "教学用房性质"
+    },
+    {
+      "DMID": "7aca6ba8-e877-456f-8b46-7e57730e2535",
+      "DMCode": "20",
+      "DMName": "音乐室",
+      "DMOrder": 20,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "教学用房性质"
+    },
+    {
+      "DMID": "23d35319-90ee-4f07-bf6c-db936e46b33d",
+      "DMCode": "30",
+      "DMName": "语音室",
+      "DMOrder": 30,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "教学用房性质"
+    },
+    {
+      "DMID": "38c12f00-1b13-41d9-b6fd-14c0846e048d",
+      "DMCode": "31",
+      "DMName": "英语",
+      "DMOrder": 31,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "教学用房性质"
+    },
+    {
+      "DMID": "c41a2551-c82e-4a5c-b424-7a185f1386dd",
+      "DMCode": "39",
+      "DMName": "其他语言",
+      "DMOrder": 39,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "教学用房性质"
+    },
+    {
+      "DMID": "3edc7ebb-1cee-4eba-8200-0941f9b25ebb",
+      "DMCode": "40",
+      "DMName": "计算机房",
+      "DMOrder": 40,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "教学用房性质"
+    },
+    {
+      "DMID": "041991b4-f84a-4f4d-b3aa-29b393fdd9a9",
+      "DMCode": "99",
+      "DMName": "其他",
+      "DMOrder": 99,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "教学用房性质"
+    }
+  ],
+  "教育层次行业分类": [
+    {
+      "DMID": "e7618da2-f3a9-43d1-99d6-f156b0015d15",
+      "DMCode": "1",
+      "DMName": "学前教育 ",
+      "DMOrder": 1,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "教育层次行业分类"
+    },
+    {
+      "DMID": "6da44bdb-f6bb-4d27-9c6e-869526847cb1",
+      "DMCode": "2",
+      "DMName": "初等教育 ",
+      "DMOrder": 2,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "教育层次行业分类"
+    },
+    {
+      "DMID": "7a3748c3-efcc-436c-81fe-788fcc7b813e",
+      "DMCode": "3",
+      "DMName": "中等教育 ",
+      "DMOrder": 3,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "教育层次行业分类"
+    },
+    {
+      "DMID": "b7fe8a00-db22-40f2-b410-25aa5df269ec",
+      "DMCode": "4",
+      "DMName": "高等教育 ",
+      "DMOrder": 4,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "教育层次行业分类"
+    },
+    {
+      "DMID": "f7227333-1fc5-4da4-9ab7-c22880253f85",
+      "DMCode": "5",
+      "DMName": "特殊教育 ",
+      "DMOrder": 5,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "教育层次行业分类"
+    },
+    {
+      "DMID": "189464e4-2e98-4815-9cee-d5bcdc5e9089",
+      "DMCode": "9",
+      "DMName": "其他教育 ",
+      "DMOrder": 9,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "教育层次行业分类"
+    }
+  ],
+  "教职工当前状态": [
+    {
+      "DMID": "b511542e-1a74-4d72-bcec-f089e3d25e5f",
+      "DMCode": "01",
+      "DMName": "退休",
+      "DMOrder": 1,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "教职工当前状态"
+    },
+    {
+      "DMID": "755a7ab0-03b3-4c46-a5d7-40842349b0b2",
+      "DMCode": "02",
+      "DMName": "离休",
+      "DMOrder": 2,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "教职工当前状态"
+    },
+    {
+      "DMID": "aeb00ba0-f935-4a64-bcbf-50f465f22551",
+      "DMCode": "03",
+      "DMName": "死亡",
+      "DMOrder": 3,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "教职工当前状态"
+    },
+    {
+      "DMID": "f8f00ea0-73d8-4614-94d1-59afede95bcd",
+      "DMCode": "04",
+      "DMName": "返聘",
+      "DMOrder": 4,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "教职工当前状态"
+    },
+    {
+      "DMID": "3979eefa-c212-4bb6-add5-fb7344caddef",
+      "DMCode": "05",
+      "DMName": "调出",
+      "DMOrder": 5,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "教职工当前状态"
+    },
+    {
+      "DMID": "0fa52936-0f40-4e80-acbf-75f90bc66903",
+      "DMCode": "06",
+      "DMName": "辞职",
+      "DMOrder": 6,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "教职工当前状态"
+    },
+    {
+      "DMID": "e8416794-9144-4752-8184-eee47b193c21",
+      "DMCode": "07",
+      "DMName": "离职",
+      "DMOrder": 7,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "教职工当前状态"
+    },
+    {
+      "DMID": "f32b930e-ce60-4ba1-a21b-95c684e63b57",
+      "DMCode": "08",
+      "DMName": "开除",
+      "DMOrder": 8,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "教职工当前状态"
+    },
+    {
+      "DMID": "4016e35f-d580-4e33-80dd-6b47eb8982c6",
+      "DMCode": "09",
+      "DMName": "下落不明",
+      "DMOrder": 9,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "教职工当前状态"
+    },
+    {
+      "DMID": "963e54ab-110c-4fd3-a899-5255e84a4326",
+      "DMCode": "11",
+      "DMName": "在职",
+      "DMOrder": 11,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "教职工当前状态"
+    },
+    {
+      "DMID": "62fcb4f1-20e9-488f-a0a5-b6344c1e4dae",
+      "DMCode": "12",
+      "DMName": "延聘",
+      "DMOrder": 12,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "教职工当前状态"
+    },
+    {
+      "DMID": "de6d9bb4-13ff-4758-95e9-bd831e3d9840",
+      "DMCode": "13",
+      "DMName": "待退休",
+      "DMOrder": 13,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "教职工当前状态"
+    }
+  ],
+  "竞赛级别": [
+    {
+      "DMID": "b1cc0dd7-d06a-4477-ad39-efe4ea099ecc",
+      "DMCode": "1",
+      "DMName": "国际级 ",
+      "DMOrder": 1,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "竞赛级别"
+    },
+    {
+      "DMID": "54be9ffc-2589-4ce9-addc-780611962383",
+      "DMCode": "2",
+      "DMName": "国家级 ",
+      "DMOrder": 2,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "竞赛级别"
+    },
+    {
+      "DMID": "9d4344b2-d2a9-4259-b9ce-ee20d9483552",
+      "DMCode": "3",
+      "DMName": "省（区、市）部级 ",
+      "DMOrder": 3,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "竞赛级别"
+    },
+    {
+      "DMID": "801e5f95-38a3-4bc3-ae5d-d82d9e32421d",
+      "DMCode": "4",
+      "DMName": "校级 ",
+      "DMOrder": 4,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "竞赛级别"
+    },
+    {
+      "DMID": "44c18e54-4aad-4161-a5e0-8f78284e3ec1",
+      "DMCode": "5",
+      "DMName": "行业或企业级 ",
+      "DMOrder": 5,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "竞赛级别"
+    },
+    {
+      "DMID": "4515fcbb-7df1-46ae-8640-d887d64a92ee",
+      "DMCode": "9",
+      "DMName": "其他 ",
+      "DMOrder": 9,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "竞赛级别"
+    }
+  ],
+  "就读方式": [
+    {
+      "DMID": "99967394-0b33-47c1-9fa9-c03642a242c9",
+      "DMCode": "1",
+      "DMName": "走读 ",
+      "DMOrder": 1,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "就读方式"
+    },
+    {
+      "DMID": "aa563438-b20f-4b47-b0fe-0176047df719",
+      "DMCode": "2",
+      "DMName": "住校 ",
+      "DMOrder": 2,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "就读方式"
+    },
+    {
+      "DMID": "f7c47aa8-0fed-43b2-aac3-e98820f95960",
+      "DMCode": "3",
+      "DMName": "借宿 ",
+      "DMOrder": 3,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "就读方式"
+    },
+    {
+      "DMID": "9d2fca41-c05b-4322-a2fa-dd5294f88eac",
+      "DMCode": "9",
+      "DMName": "其他 ",
+      "DMOrder": 9,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "就读方式"
+    }
+  ],
+  "考试方式": [
+    {
+      "DMID": "c6efbca8-a25d-4794-9dcb-3d666db68c8e",
+      "DMCode": "1",
+      "DMName": "笔试",
+      "DMOrder": 1,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "考试方式"
+    },
+    {
+      "DMID": "ce8d42f6-0e55-4e5f-a3aa-a9e1913dc3bc",
+      "DMCode": "2",
+      "DMName": "口试",
+      "DMOrder": 2,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "考试方式"
+    },
+    {
+      "DMID": "036d0539-377e-4f40-b2b4-1eaddc12ccd6",
+      "DMCode": "3",
+      "DMName": "面试",
+      "DMOrder": 3,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "考试方式"
+    },
+    {
+      "DMID": "c52f251c-98c6-401b-a512-4bd0c09a9db5",
+      "DMCode": "4",
+      "DMName": "操作",
+      "DMOrder": 4,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "考试方式"
+    },
+    {
+      "DMID": "5f4813cc-9855-486d-97a3-4e356850813b",
+      "DMCode": "5",
+      "DMName": "机考",
+      "DMOrder": 5,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "考试方式"
+    },
+    {
+      "DMID": "b61192bc-a6b7-4181-b4af-b3dde58ad814",
+      "DMCode": "6",
+      "DMName": "大作业",
+      "DMOrder": 6,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "考试方式"
+    },
+    {
+      "DMID": "c70a62db-c296-49b6-baab-3dd259fc58b4",
+      "DMCode": "7",
+      "DMName": "实验报告",
+      "DMOrder": 7,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "考试方式"
+    },
+    {
+      "DMID": "3437f1bb-617d-4f3b-bb89-60f8abdf7717",
+      "DMCode": "9",
+      "DMName": "其他",
+      "DMOrder": 9,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "考试方式"
+    }
+  ],
+  "考试形式": [
+    {
+      "DMID": "189c1fba-706b-4037-8177-2ea5a064a6b1",
+      "DMCode": "1",
+      "DMName": "考试",
+      "DMOrder": 1,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "考试形式"
+    },
+    {
+      "DMID": "52b1d21a-c745-486c-bd17-00c54a7484a4",
+      "DMCode": "2",
+      "DMName": "考查",
+      "DMOrder": 2,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "考试形式"
+    }
+  ],
+  "考试性质": [
+    {
+      "DMID": "5e6b4799-f560-43a1-92ee-15a93584ef2d",
+      "DMCode": "1",
+      "DMName": "正常考试",
+      "DMOrder": 1,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "考试性质"
+    },
+    {
+      "DMID": "0613794e-0db3-41da-953d-ed6f0ef0321b",
+      "DMCode": "2",
+      "DMName": "缓考",
+      "DMOrder": 2,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "考试性质"
+    },
+    {
+      "DMID": "c0abf8d0-9e82-4244-9cb1-f05eb83ba3f6",
+      "DMCode": "3",
+      "DMName": "旷考",
+      "DMOrder": 3,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "考试性质"
+    },
+    {
+      "DMID": "d0a67930-7b1e-4770-8529-1ff7e1038255",
+      "DMCode": "11",
+      "DMName": "补考一",
+      "DMOrder": 11,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "考试性质"
+    },
+    {
+      "DMID": "dc103415-f0d4-4479-80b7-6a189798f829",
+      "DMCode": "12",
+      "DMName": "补考二",
+      "DMOrder": 12,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "考试性质"
+    },
+    {
+      "DMID": "f6043d55-3cf3-4b9f-b91c-0aad66bbdbde",
+      "DMCode": "13",
+      "DMName": "重修",
+      "DMOrder": 13,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "考试性质"
+    },
+    {
+      "DMID": "07420ace-c51e-4ca1-a07d-0c066e1f9f9d",
+      "DMCode": "14",
+      "DMName": "免修",
+      "DMOrder": 14,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "考试性质"
+    },
+    {
+      "DMID": "e2027eb3-50f6-453f-bd6b-7c9244edff70",
+      "DMCode": "21",
+      "DMName": "结业后回校补考",
+      "DMOrder": 21,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "考试性质"
+    },
+    {
+      "DMID": "5b6f570d-78a1-4132-9edb-fd0079fde1d9",
+      "DMCode": "41",
+      "DMName": "国家级考试",
+      "DMOrder": 41,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "考试性质"
+    },
+    {
+      "DMID": "ded78264-bc2d-4c0f-a73f-25bf09d8c804",
+      "DMCode": "99",
+      "DMName": "其他",
+      "DMOrder": 99,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "考试性质"
+    }
+  ],
+  "课程等级": [
+    {
+      "DMID": "cbb36d2b-da1d-40a0-b14e-23e38ebb4706",
+      "DMCode": "1",
+      "DMName": "国家课程",
+      "DMOrder": 1,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "课程等级"
+    },
+    {
+      "DMID": "e3c17b49-37cf-4a82-ab54-a071c563faf6",
+      "DMCode": "2",
+      "DMName": "地方课程",
+      "DMOrder": 2,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "课程等级"
+    },
+    {
+      "DMID": "a7663c1b-8186-4a62-b119-d0098d88981a",
+      "DMCode": "3",
+      "DMName": "校本课程",
+      "DMOrder": 3,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "课程等级"
+    },
+    {
+      "DMID": "d5508966-6d31-4a6c-8747-f67e7d842e4a",
+      "DMCode": "9",
+      "DMName": "其他",
+      "DMOrder": 9,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "课程等级"
+    }
+  ],
+  "课程级别": [
+    {
+      "DMID": "b5aaf7a6-bdc7-4383-b7ff-251d462a8291",
+      "DMCode": "1",
+      "DMName": "国家级精品课程",
+      "DMOrder": 1,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "课程级别"
+    },
+    {
+      "DMID": "cd206051-fa91-43a0-ab4f-036870e63f99",
+      "DMCode": "2",
+      "DMName": "省级精品课程",
+      "DMOrder": 2,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "课程级别"
+    },
+    {
+      "DMID": "0f5c7c56-60bd-446a-a911-011df1d90bac",
+      "DMCode": "3",
+      "DMName": "校级精品课程",
+      "DMOrder": 3,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "课程级别"
+    },
+    {
+      "DMID": "e608b16e-40b3-4858-ac40-01c26324e5b0",
+      "DMCode": "4",
+      "DMName": "校级重点课程",
+      "DMOrder": 4,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "课程级别"
+    },
+    {
+      "DMID": "b24e51d7-10fe-4167-ba0e-292c94094a03",
+      "DMCode": "9",
+      "DMName": "其他",
+      "DMOrder": 9,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "课程级别"
+    }
+  ],
+  "课程性质": [
+    {
+      "DMID": "a0c29cd8-01fb-409e-8660-7c9088b83ecd",
+      "DMCode": "1",
+      "DMName": "公共基础课",
+      "DMOrder": 1,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "课程性质"
+    },
+    {
+      "DMID": "2bfd5e76-46e8-457b-92dc-421641ee6b28",
+      "DMCode": "2",
+      "DMName": "学科基础课",
+      "DMOrder": 2,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "课程性质"
+    },
+    {
+      "DMID": "4bb7a489-a4e5-4706-b53b-262ba97b6936",
+      "DMCode": "3",
+      "DMName": "专业课",
+      "DMOrder": 3,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "课程性质"
+    }
+  ],
+  "课程属性": [
+    {
+      "DMID": "d8fe7132-478f-4123-8ec8-08d16dbf44a4",
+      "DMCode": "1",
+      "DMName": "必修",
+      "DMOrder": 1,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "课程属性"
+    },
+    {
+      "DMID": "5ddeed1c-9148-4cee-a745-6456e1fa15e3",
+      "DMCode": "2",
+      "DMName": "限选",
+      "DMOrder": 2,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "课程属性"
+    },
+    {
+      "DMID": "9abb9776-c547-473d-84e4-6e2bc4309a6a",
+      "DMCode": "3",
+      "DMName": "任选",
+      "DMOrder": 3,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "课程属性"
+    },
+    {
+      "DMID": "cca1bcf4-59ae-493b-8aba-03c329ccea29",
+      "DMCode": "4",
+      "DMName": "辅修",
+      "DMOrder": 4,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "课程属性"
+    },
+    {
+      "DMID": "f3212b38-571d-450a-ab98-994523495271",
+      "DMCode": "5",
+      "DMName": "实践",
+      "DMOrder": 5,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "课程属性"
+    },
+    {
+      "DMID": "16fc8a08-b9cd-4059-a87c-dae2ba47c3e3",
+      "DMCode": "6",
+      "DMName": "双必",
+      "DMOrder": 6,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "课程属性"
+    },
+    {
+      "DMID": "a52ee21e-0ca3-42c2-8d11-8d960705aff4",
+      "DMCode": "7",
+      "DMName": "双选",
+      "DMOrder": 7,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "课程属性"
+    },
+    {
+      "DMID": "0a4bea82-6f2c-4e9c-bb1d-5933556959fb",
+      "DMCode": "8",
+      "DMName": "通选",
+      "DMOrder": 8,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "课程属性"
+    },
+    {
+      "DMID": "8543898d-7fd1-4dec-91e7-4099c9aa37c7",
+      "DMCode": "9",
+      "DMName": "其他",
+      "DMOrder": 9,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "课程属性"
+    }
+  ],
+  "困难程度": [
+    {
+      "DMID": "66eb3b7f-6850-411d-9130-645b2bb83525",
+      "DMCode": "1",
+      "DMName": "特别困难 ",
+      "DMOrder": 1,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "困难程度"
+    },
+    {
+      "DMID": "fae96bbf-bc1e-4af3-946a-0f577f82e109",
+      "DMCode": "2",
+      "DMName": "一般困难 ",
+      "DMOrder": 2,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "困难程度"
+    },
+    {
+      "DMID": "eedfbc45-394d-4dd9-980d-5236d40b863b",
+      "DMCode": "3",
+      "DMName": "不困难 ",
+      "DMOrder": 3,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "困难程度"
+    }
+  ],
+  "困难原因": [
+    {
+      "DMID": "b502a689-5691-4421-9bff-0388d56ab713",
+      "DMCode": "1",
+      "DMName": "自然灾害 ",
+      "DMOrder": 1,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "困难原因"
+    },
+    {
+      "DMID": "8cc81390-56e5-4ff2-b515-8b3590d76db9",
+      "DMCode": "2",
+      "DMName": "突发意外 ",
+      "DMOrder": 2,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "困难原因"
+    },
+    {
+      "DMID": "94fccf1c-cc49-48c6-a5cb-dabda94ce276",
+      "DMCode": "3",
+      "DMName": "家庭成员病残 ",
+      "DMOrder": 3,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "困难原因"
+    },
+    {
+      "DMID": "01d10554-665d-4837-8387-3eb2dd9bc990",
+      "DMCode": "4",
+      "DMName": "家长失业 ",
+      "DMOrder": 4,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "困难原因"
+    },
+    {
+      "DMID": "c9d96ac4-b367-4bab-b045-64537a26b489",
+      "DMCode": "9",
+      "DMName": "其他 ",
+      "DMOrder": 9,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "困难原因"
+    }
+  ],
+  "离校离职原因": [
+    {
+      "DMID": "456fa6a0-62bf-46b0-9287-669446ff9d79",
+      "DMCode": "11",
+      "DMName": "离休",
+      "DMOrder": 11,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "离校离职原因"
+    },
+    {
+      "DMID": "eccbe5d7-24a1-4be0-a904-4e892dd0efb8",
+      "DMCode": "12",
+      "DMName": "退休",
+      "DMOrder": 12,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "离校离职原因"
+    },
+    {
+      "DMID": "907fa628-e3f6-48e1-a0f0-240a4c199d6b",
+      "DMCode": "21",
+      "DMName": "系统内调出/调至其他高校",
+      "DMOrder": 21,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "离校离职原因"
+    },
+    {
+      "DMID": "cf356d7f-d818-442d-8d96-3efc419efc04",
+      "DMCode": "22",
+      "DMName": "调出至系统外",
+      "DMOrder": 22,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "离校离职原因"
+    },
+    {
+      "DMID": "88f42539-8594-4593-ab15-9fbc4538c31b",
+      "DMCode": "23",
+      "DMName": "调至系统内其他单位",
+      "DMOrder": 23,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "离校离职原因"
+    },
+    {
+      "DMID": "9ffa5537-4f54-4ddf-8c43-0c9ec35c61c1",
+      "DMCode": "31",
+      "DMName": "参军",
+      "DMOrder": 31,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "离校离职原因"
+    },
+    {
+      "DMID": "3737fe10-e1d2-4960-bfa3-b5455d74b13c",
+      "DMCode": "32",
+      "DMName": "进修学习",
+      "DMOrder": 32,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "离校离职原因"
+    },
+    {
+      "DMID": "2c81085e-3971-4c78-bbdf-be22929efe0d",
+      "DMCode": "41",
+      "DMName": "辞职",
+      "DMOrder": 41,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "离校离职原因"
+    },
+    {
+      "DMID": "d7b77722-0a08-481e-9713-46feefa6a4ac",
+      "DMCode": "42",
+      "DMName": "辞退",
+      "DMOrder": 42,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "离校离职原因"
+    },
+    {
+      "DMID": "d0730eee-2ccf-4d9b-8f37-9ffd5bc2af24",
+      "DMCode": "43",
+      "DMName": "合同期满",
+      "DMOrder": 43,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "离校离职原因"
+    },
+    {
+      "DMID": "628fb8d9-1e81-4a13-9a7f-49e92ba51061",
+      "DMCode": "51",
+      "DMName": "除名",
+      "DMOrder": 51,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "离校离职原因"
+    },
+    {
+      "DMID": "0c9124bf-42a5-48b3-a872-0a4a6c1c58e4",
+      "DMCode": "52",
+      "DMName": "开除",
+      "DMOrder": 52,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "离校离职原因"
+    },
+    {
+      "DMID": "f1d0172d-2b97-4aba-bb5c-64dcd35dad31",
+      "DMCode": "53",
+      "DMName": "死亡",
+      "DMOrder": 53,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "离校离职原因"
+    },
+    {
+      "DMID": "d1325796-f749-4c96-82eb-6e24d8561e7c",
+      "DMCode": "54",
+      "DMName": "失踪",
+      "DMOrder": 54,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "离校离职原因"
+    },
+    {
+      "DMID": "4ce1cf8d-673d-488e-abff-03fa05adb14f",
+      "DMCode": "55",
+      "DMName": "借调期满",
+      "DMOrder": 55,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "离校离职原因"
+    },
+    {
+      "DMID": "19f98577-99fb-4e1d-8538-b3ca0b1d9378",
+      "DMCode": "56",
+      "DMName": "借调外出",
+      "DMOrder": 56,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "离校离职原因"
+    },
+    {
+      "DMID": "153a5f79-0b62-4a69-8c46-49b2ecb41153",
+      "DMCode": "99",
+      "DMName": "其他",
+      "DMOrder": 99,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "离校离职原因"
+    }
+  ],
+  "录取类别": [
+    {
+      "DMID": "bf82437b-47d9-46e0-8a70-ea09515104d6",
+      "DMCode": "1",
+      "DMName": "统一招生考试 ",
+      "DMOrder": 1,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "录取类别"
+    },
+    {
+      "DMID": "4f6803a1-257e-4e7e-8aeb-301bbc6aaae7",
+      "DMCode": "2",
+      "DMName": "保送（或免试） ",
+      "DMOrder": 2,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "录取类别"
+    },
+    {
+      "DMID": "75b80a76-7b71-4a88-851a-f922362fd240",
+      "DMCode": "3",
+      "DMName": "学生干部保送 ",
+      "DMOrder": 3,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "录取类别"
+    },
+    {
+      "DMID": "4cf3d757-c9bd-4be0-a919-5448559aacd9",
+      "DMCode": "4",
+      "DMName": "考试推荐 ",
+      "DMOrder": 4,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "录取类别"
+    },
+    {
+      "DMID": "f559d9b7-f3a3-45b0-afeb-7ec8052a5097",
+      "DMCode": "5",
+      "DMName": "国防定向培养 ",
+      "DMOrder": 5,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "录取类别"
+    },
+    {
+      "DMID": "65cff63a-e606-4838-96b5-be7d0da5ebad",
+      "DMCode": "6",
+      "DMName": "其他定向培养 ",
+      "DMOrder": 6,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "录取类别"
+    },
+    {
+      "DMID": "d9f7683e-8d84-4485-8b28-af752dfb0dd6",
+      "DMCode": "7",
+      "DMName": "代培 ",
+      "DMOrder": 7,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "录取类别"
+    },
+    {
+      "DMID": "ec6c02da-b297-4fd8-8306-6f10b6282b89",
+      "DMCode": "8",
+      "DMName": "第二学位 ",
+      "DMOrder": 8,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "录取类别"
+    },
+    {
+      "DMID": "22372c31-8f06-4de4-b242-149666f114f1",
+      "DMCode": "9",
+      "DMName": "港澳 ",
+      "DMOrder": 9,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "录取类别"
+    },
+    {
+      "DMID": "7184fa11-c6f5-4222-8017-6cbc46b3d2bc",
+      "DMCode": "10",
+      "DMName": "港澳代培 ",
+      "DMOrder": 10,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "录取类别"
+    },
+    {
+      "DMID": "848d5d6c-6819-4b94-8069-6cbff884ed96",
+      "DMCode": "11",
+      "DMName": "台湾 ",
+      "DMOrder": 11,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "录取类别"
+    },
+    {
+      "DMID": "cfaa72f3-2091-4151-965a-366bd8949988",
+      "DMCode": "12",
+      "DMName": "内地班 ",
+      "DMOrder": 12,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "录取类别"
+    },
+    {
+      "DMID": "c4e3b1a7-882c-4986-8b84-0a2c069b69c9",
+      "DMCode": "13",
+      "DMName": "民族班 ",
+      "DMOrder": 13,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "录取类别"
+    },
+    {
+      "DMID": "cbb4b2c4-b18c-4178-b6a5-e8b024689e29",
+      "DMCode": "14",
+      "DMName": "体育特招 ",
+      "DMOrder": 14,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "录取类别"
+    },
+    {
+      "DMID": "80c7ae73-1f22-4d78-846b-76c9f7ae1240",
+      "DMCode": "15",
+      "DMName": "文艺特招 ",
+      "DMOrder": 15,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "录取类别"
+    },
+    {
+      "DMID": "d704bc5a-4b30-4f49-a255-2d68f5f64151",
+      "DMCode": "16",
+      "DMName": "预科班 ",
+      "DMOrder": 16,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "录取类别"
+    },
+    {
+      "DMID": "f8057c11-6094-4e09-a1b1-6b2365ff51dd",
+      "DMCode": "17",
+      "DMName": "恢复入学资格 ",
+      "DMOrder": 17,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "录取类别"
+    },
+    {
+      "DMID": "88e5e1f3-c4e0-4177-bdf1-d315527b1e67",
+      "DMCode": "18",
+      "DMName": "外校转入 ",
+      "DMOrder": 18,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "录取类别"
+    },
+    {
+      "DMID": "d1a39f04-f498-4e08-98a0-65e035f51068",
+      "DMCode": "19",
+      "DMName": "自主招生 ",
+      "DMOrder": 19,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "录取类别"
+    },
+    {
+      "DMID": "4fee982d-530b-43a8-91e9-f6e29345014c",
+      "DMCode": "20",
+      "DMName": "国内交换生 ",
+      "DMOrder": 20,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "录取类别"
+    },
+    {
+      "DMID": "48a721c7-0e51-4303-ae31-9f50fbdb912b",
+      "DMCode": "21",
+      "DMName": "境外交换生 ",
+      "DMOrder": 21,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "录取类别"
+    },
+    {
+      "DMID": "3d9a8e27-be89-4e4c-afc2-c12c0e053cba",
+      "DMCode": "22",
+      "DMName": "来华留学 ",
+      "DMOrder": 22,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "录取类别"
+    },
+    {
+      "DMID": "895cf096-924f-467e-80a6-6b97e74a82ad",
+      "DMCode": "99",
+      "DMName": "其他 ",
+      "DMOrder": 99,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "录取类别"
+    }
+  ],
+  "民族": [
+    {
+      "DMID": "2ec81abf-75f9-4bc2-8c63-7fae787ab8c7",
+      "DMCode": "1",
+      "DMName": "汉族",
+      "DMOrder": 1,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "民族"
+    },
+    {
+      "DMID": "5d41b67b-fdb5-4926-8a5c-6936befc070c",
+      "DMCode": "2",
+      "DMName": "蒙古族",
+      "DMOrder": 2,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "民族"
+    },
+    {
+      "DMID": "6cdf14fe-e4e7-4783-a935-d9766b37b9e7",
+      "DMCode": "3",
+      "DMName": "回族",
+      "DMOrder": 3,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "民族"
+    },
+    {
+      "DMID": "d312d518-e012-48cf-a6b0-369952ecc103",
+      "DMCode": "4",
+      "DMName": "藏族",
+      "DMOrder": 4,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "民族"
+    },
+    {
+      "DMID": "77816289-24b7-4b2e-8207-0bfb6c6974aa",
+      "DMCode": "5",
+      "DMName": "维吾尔族",
+      "DMOrder": 5,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "民族"
+    },
+    {
+      "DMID": "b711962b-840e-4a8f-8f88-dddabda3b35a",
+      "DMCode": "6",
+      "DMName": "苗族",
+      "DMOrder": 6,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "民族"
+    },
+    {
+      "DMID": "bb49b768-62dd-4beb-baba-2f28444e1f9d",
+      "DMCode": "7",
+      "DMName": "彝族",
+      "DMOrder": 7,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "民族"
+    },
+    {
+      "DMID": "0b30c11e-70d2-44e7-b4b4-81f76a352f85",
+      "DMCode": "8",
+      "DMName": "壮族",
+      "DMOrder": 8,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "民族"
+    },
+    {
+      "DMID": "c827fd18-b0c1-41be-8a5b-2c1d0879040c",
+      "DMCode": "9",
+      "DMName": "布依族",
+      "DMOrder": 9,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "民族"
+    },
+    {
+      "DMID": "8c33abcc-2491-40e5-8e8d-5931e4daf9d4",
+      "DMCode": "10",
+      "DMName": "朝鲜族",
+      "DMOrder": 10,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "民族"
+    },
+    {
+      "DMID": "b47b8f1a-e1b7-4ace-b952-8cf8ec458615",
+      "DMCode": "11",
+      "DMName": "满族",
+      "DMOrder": 11,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "民族"
+    },
+    {
+      "DMID": "17e822dc-e0fe-45bc-b62c-df0ec631639f",
+      "DMCode": "12",
+      "DMName": "侗族",
+      "DMOrder": 12,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "民族"
+    },
+    {
+      "DMID": "4be68e72-184f-41de-b822-1b16fd8fb27e",
+      "DMCode": "13",
+      "DMName": "瑶族",
+      "DMOrder": 13,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "民族"
+    },
+    {
+      "DMID": "ea60f93b-d657-4aad-b2d6-59d6c00ec10a",
+      "DMCode": "14",
+      "DMName": "白族",
+      "DMOrder": 14,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "民族"
+    },
+    {
+      "DMID": "643956c6-82fb-416c-a4af-39ab6b1ffe15",
+      "DMCode": "15",
+      "DMName": "土家族",
+      "DMOrder": 15,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "民族"
+    },
+    {
+      "DMID": "ea9c1dda-6b7f-42bb-8985-1fe71afb8275",
+      "DMCode": "16",
+      "DMName": "哈尼族",
+      "DMOrder": 16,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "民族"
+    },
+    {
+      "DMID": "a0a19ca5-f745-430f-a644-0d02a0d89c3e",
+      "DMCode": "17",
+      "DMName": "哈萨克族",
+      "DMOrder": 17,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "民族"
+    },
+    {
+      "DMID": "d5b325e4-0c01-4036-aa2d-f3a670bec73e",
+      "DMCode": "18",
+      "DMName": "傣族",
+      "DMOrder": 18,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "民族"
+    },
+    {
+      "DMID": "b48edbd5-d260-41d5-a526-a5ea09409513",
+      "DMCode": "19",
+      "DMName": "黎族",
+      "DMOrder": 19,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "民族"
+    },
+    {
+      "DMID": "f66055cb-44cd-4347-bc17-37cb641d9ecd",
+      "DMCode": "20",
+      "DMName": "傈僳族",
+      "DMOrder": 20,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "民族"
+    },
+    {
+      "DMID": "400ec706-808b-4e85-bcff-7735d07629fa",
+      "DMCode": "21",
+      "DMName": "佤族",
+      "DMOrder": 21,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "民族"
+    },
+    {
+      "DMID": "ac53f344-e12b-41a8-9ea6-2c11caea1f2b",
+      "DMCode": "22",
+      "DMName": "畲族",
+      "DMOrder": 22,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "民族"
+    },
+    {
+      "DMID": "07395044-3f85-4ebe-8358-2998ec5cd57c",
+      "DMCode": "23",
+      "DMName": "高山族",
+      "DMOrder": 23,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "民族"
+    },
+    {
+      "DMID": "05b5964b-3dc2-47ac-9ead-f1a0b29e8e4a",
+      "DMCode": "24",
+      "DMName": "拉祜族",
+      "DMOrder": 24,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "民族"
+    },
+    {
+      "DMID": "f7ac3310-03b7-4751-b789-26610eb42052",
+      "DMCode": "25",
+      "DMName": "水族",
+      "DMOrder": 25,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "民族"
+    },
+    {
+      "DMID": "8e640b09-5b4e-4f24-83d2-16add7e0146c",
+      "DMCode": "26",
+      "DMName": "东乡族",
+      "DMOrder": 26,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "民族"
+    },
+    {
+      "DMID": "bee37675-30bb-4b25-95bb-84b074a336f2",
+      "DMCode": "27",
+      "DMName": "纳西族",
+      "DMOrder": 27,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "民族"
+    },
+    {
+      "DMID": "a15d9ea6-caf2-4590-b1bf-adbc943861a9",
+      "DMCode": "28",
+      "DMName": "景颇族",
+      "DMOrder": 28,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "民族"
+    },
+    {
+      "DMID": "fcda791b-c73b-4e3e-9e3b-bd7fc6db3134",
+      "DMCode": "29",
+      "DMName": "柯尔克孜族",
+      "DMOrder": 29,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "民族"
+    },
+    {
+      "DMID": "d4595ff2-0c3e-4af6-9089-b8f3256de00e",
+      "DMCode": "30",
+      "DMName": "土族",
+      "DMOrder": 30,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "民族"
+    },
+    {
+      "DMID": "23e708d0-2ce2-49f7-bef5-e04eb44ff827",
+      "DMCode": "31",
+      "DMName": "达斡尔族",
+      "DMOrder": 31,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "民族"
+    },
+    {
+      "DMID": "466ee91b-23f4-4d35-adc7-2871a5e4578b",
+      "DMCode": "32",
+      "DMName": "仫佬族",
+      "DMOrder": 32,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "民族"
+    },
+    {
+      "DMID": "ac9211e0-b3e0-4dce-8b9a-63e95621dce2",
+      "DMCode": "33",
+      "DMName": "羌族",
+      "DMOrder": 33,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "民族"
+    },
+    {
+      "DMID": "4a7dc687-3c62-4d5e-bf45-9ff4ca661df0",
+      "DMCode": "34",
+      "DMName": "布朗族",
+      "DMOrder": 34,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "民族"
+    },
+    {
+      "DMID": "6a7f72d9-61ba-4432-93fd-66cbb34c2564",
+      "DMCode": "35",
+      "DMName": "撒拉族",
+      "DMOrder": 35,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "民族"
+    },
+    {
+      "DMID": "ec033f30-5e47-46ee-8cbf-494cbbe72d19",
+      "DMCode": "36",
+      "DMName": "毛难族",
+      "DMOrder": 36,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "民族"
+    },
+    {
+      "DMID": "6891e09b-bc48-4f7a-b5a2-d8777b4049b6",
+      "DMCode": "37",
+      "DMName": "仡佬族",
+      "DMOrder": 37,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "民族"
+    },
+    {
+      "DMID": "46492921-90d5-42b5-ab0c-8daa6e809393",
+      "DMCode": "38",
+      "DMName": "锡伯族",
+      "DMOrder": 38,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "民族"
+    },
+    {
+      "DMID": "583870d2-9de9-4b8b-a0d3-749afa24a81b",
+      "DMCode": "39",
+      "DMName": "阿昌族",
+      "DMOrder": 39,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "民族"
+    },
+    {
+      "DMID": "d04a5e15-f653-4a30-a4a3-212c5ef0dc3e",
+      "DMCode": "40",
+      "DMName": "普米族",
+      "DMOrder": 40,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "民族"
+    },
+    {
+      "DMID": "830ac951-a314-4623-a771-d2a943d5738c",
+      "DMCode": "41",
+      "DMName": "塔吉克族",
+      "DMOrder": 41,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "民族"
+    },
+    {
+      "DMID": "96297ceb-c2af-4822-90fe-05d9150d9fbf",
+      "DMCode": "42",
+      "DMName": "怒族",
+      "DMOrder": 42,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "民族"
+    },
+    {
+      "DMID": "3add41f9-97fc-4a83-8583-6e5fbb05e2f2",
+      "DMCode": "43",
+      "DMName": "乌孜别克族",
+      "DMOrder": 43,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "民族"
+    },
+    {
+      "DMID": "d1255c98-7508-42af-a122-75167e07b423",
+      "DMCode": "44",
+      "DMName": "俄罗斯族",
+      "DMOrder": 44,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "民族"
+    },
+    {
+      "DMID": "6e72b6f8-c3f1-497a-8555-a54f9c9f1c36",
+      "DMCode": "45",
+      "DMName": "鄂温克族",
+      "DMOrder": 45,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "民族"
+    },
+    {
+      "DMID": "bb3d80b5-49c9-4811-a1c6-86f2ec549c66",
+      "DMCode": "46",
+      "DMName": "德昂族",
+      "DMOrder": 46,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "民族"
+    },
+    {
+      "DMID": "8fb5b42e-b406-4d8c-a77c-be3ec28b5171",
+      "DMCode": "47",
+      "DMName": "保安族",
+      "DMOrder": 47,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "民族"
+    },
+    {
+      "DMID": "d12ea183-2d5b-43fa-b45a-89899fd71b7e",
+      "DMCode": "48",
+      "DMName": "裕固族",
+      "DMOrder": 48,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "民族"
+    },
+    {
+      "DMID": "77f726c1-ecb4-47cb-b7d8-9de67ea6f0b9",
+      "DMCode": "49",
+      "DMName": "京族",
+      "DMOrder": 49,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "民族"
+    },
+    {
+      "DMID": "b8593d6c-86aa-4412-977b-c88b8a7713aa",
+      "DMCode": "50",
+      "DMName": "塔塔尔族",
+      "DMOrder": 50,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "民族"
+    },
+    {
+      "DMID": "ca0b34e4-47ff-4942-9c63-6717300fa570",
+      "DMCode": "51",
+      "DMName": "独龙族",
+      "DMOrder": 51,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "民族"
+    },
+    {
+      "DMID": "c8b27a2f-b8c7-42b3-877d-53e48d5b5d61",
+      "DMCode": "52",
+      "DMName": "鄂伦春族",
+      "DMOrder": 52,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "民族"
+    },
+    {
+      "DMID": "d3c0e8f0-0a3e-459d-9b8b-8c58f8c82691",
+      "DMCode": "53",
+      "DMName": "赫哲族",
+      "DMOrder": 53,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "民族"
+    },
+    {
+      "DMID": "266532c7-3f64-4b7f-a218-43314890eb06",
+      "DMCode": "54",
+      "DMName": "门巴族",
+      "DMOrder": 54,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "民族"
+    },
+    {
+      "DMID": "6e9acdd3-189b-4b87-95d6-de9174b97b03",
+      "DMCode": "55",
+      "DMName": "珞巴族",
+      "DMOrder": 55,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "民族"
+    },
+    {
+      "DMID": "9cb86321-aedd-4ed7-940b-0359bfac9af7",
+      "DMCode": "56",
+      "DMName": "基诺族",
+      "DMOrder": 56,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "民族"
+    },
+    {
+      "DMID": "ef6d72d5-5b7e-470a-b765-8f89f23fc4b8",
+      "DMCode": "81",
+      "DMName": "穿青人族",
+      "DMOrder": 81,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "民族"
+    },
+    {
+      "DMID": "59b5dad1-7c14-4ace-9628-3193afbcf936",
+      "DMCode": "97",
+      "DMName": "其他",
+      "DMOrder": 97,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "民族"
+    },
+    {
+      "DMID": "7f61f6ea-1d8c-40a8-ae9f-25e9c82bce70",
+      "DMCode": "98",
+      "DMName": "外国血统中国籍人士",
+      "DMOrder": 98,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "民族"
+    }
+  ],
+  "勤工类别": [
+    {
+      "DMID": "2cf904e2-2b66-45ad-be65-98fc419f99c6",
+      "DMCode": "1",
+      "DMName": "辅助教学 ",
+      "DMOrder": 1,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "勤工类别"
+    },
+    {
+      "DMID": "169c98d5-365d-422e-b026-aafff0c7d00e",
+      "DMCode": "2",
+      "DMName": "辅助科研 ",
+      "DMOrder": 2,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "勤工类别"
+    },
+    {
+      "DMID": "fcfc8fec-248d-49b7-92ca-134f51e3ac87",
+      "DMCode": "3",
+      "DMName": "辅助管理 ",
+      "DMOrder": 3,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "勤工类别"
+    },
+    {
+      "DMID": "2c0f6503-f7f4-4b11-8cdd-39e28ed2aff6",
+      "DMCode": "4",
+      "DMName": "卫生清洁 ",
+      "DMOrder": 4,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "勤工类别"
+    },
+    {
+      "DMID": "726c02db-b3a9-4262-828a-053caf9b97b8",
+      "DMCode": "5",
+      "DMName": "校园保安 ",
+      "DMOrder": 5,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "勤工类别"
+    },
+    {
+      "DMID": "7b8d5c12-fef3-4563-8371-c851942dd242",
+      "DMCode": "6",
+      "DMName": "校园修缮 ",
+      "DMOrder": 6,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "勤工类别"
+    },
+    {
+      "DMID": "98afa292-d7f0-404f-8644-17efff3a35d0",
+      "DMCode": "7",
+      "DMName": "家教 ",
+      "DMOrder": 7,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "勤工类别"
+    },
+    {
+      "DMID": "67faec61-0585-4695-9071-86edec93dfa4",
+      "DMCode": "9",
+      "DMName": "其他 ",
+      "DMOrder": 9,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "勤工类别"
+    }
+  ],
+  "缺考舞弊": [
+    {
+      "DMID": "4b0655a7-ab33-4350-a971-04cd9409b7a0",
+      "DMCode": "1",
+      "DMName": "缺考",
+      "DMOrder": 1,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "缺考舞弊"
+    },
+    {
+      "DMID": "e735aaa0-9807-411e-8522-cf95cf5aa26c",
+      "DMCode": "2",
+      "DMName": "舞弊",
+      "DMOrder": 2,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "缺考舞弊"
+    }
+  ],
+  "入学方式": [
+    {
+      "DMID": "39157342-3268-40da-a16a-680c5ff86db2",
+      "DMCode": "1",
+      "DMName": "统一招生考试/普通入学 ",
+      "DMOrder": 1,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "入学方式"
+    },
+    {
+      "DMID": "71395211-2d74-46f8-af57-cc301bde02f0",
+      "DMCode": "2",
+      "DMName": "保送 ",
+      "DMOrder": 2,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "入学方式"
+    },
+    {
+      "DMID": "6fbddabb-e034-4248-9a5c-5691e84c88f1",
+      "DMCode": "3",
+      "DMName": "民族班 ",
+      "DMOrder": 3,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "入学方式"
+    },
+    {
+      "DMID": "20360f5c-2f3f-4d99-88f9-f73a307c9b15",
+      "DMCode": "4",
+      "DMName": "定向培养 ",
+      "DMOrder": 4,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "入学方式"
+    },
+    {
+      "DMID": "c9ede151-0566-4ea2-b0ec-2a086e99e388",
+      "DMCode": "5",
+      "DMName": "体育特招 ",
+      "DMOrder": 5,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "入学方式"
+    },
+    {
+      "DMID": "773f2f0c-1394-4b35-b579-79681903ae19",
+      "DMCode": "6",
+      "DMName": "文艺特招 ",
+      "DMOrder": 6,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "入学方式"
+    },
+    {
+      "DMID": "78f5484e-bd81-4ccf-871b-0108ecf298b1",
+      "DMCode": "7",
+      "DMName": "学生干部保送 ",
+      "DMOrder": 7,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "入学方式"
+    },
+    {
+      "DMID": "65cb134e-6fde-4551-beb5-d7c7623c9f02",
+      "DMCode": "8",
+      "DMName": "考试推荐 ",
+      "DMOrder": 8,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "入学方式"
+    },
+    {
+      "DMID": "8c629337-a2a3-4dba-b288-1e87b6711a86",
+      "DMCode": "9",
+      "DMName": "外校转入 ",
+      "DMOrder": 9,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "入学方式"
+    },
+    {
+      "DMID": "361aae16-50a1-4e36-b9c2-c64e4aed70c9",
+      "DMCode": "10",
+      "DMName": "恢复入学资格 ",
+      "DMOrder": 10,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "入学方式"
+    },
+    {
+      "DMID": "e8f1a4e3-0554-466e-9ab0-1e2f5f370f94",
+      "DMCode": "11",
+      "DMName": "预科班 ",
+      "DMOrder": 11,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "入学方式"
+    },
+    {
+      "DMID": "f774e555-6cc8-4987-b7a9-ba226eb82bd0",
+      "DMCode": "12",
+      "DMName": "来华留学 ",
+      "DMOrder": 12,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "入学方式"
+    },
+    {
+      "DMID": "0750bc72-34f6-4271-bc5e-f4fe68e1290b",
+      "DMCode": "99",
+      "DMName": "其他 ",
+      "DMOrder": 99,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "入学方式"
+    }
+  ],
+  "三助类别": [
+    {
+      "DMID": "cf3ba08d-4447-42ce-b583-b4b04d8a13f4",
+      "DMCode": "1",
+      "DMName": "助教 ",
+      "DMOrder": 1,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "三助类别"
+    },
+    {
+      "DMID": "3488739a-8510-4c63-b76f-69e635fe33df",
+      "DMCode": "2",
+      "DMName": "助研 ",
+      "DMOrder": 2,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "三助类别"
+    },
+    {
+      "DMID": "7c9942c8-e999-4463-b40a-9efcca2b111b",
+      "DMCode": "3",
+      "DMName": "助管 ",
+      "DMOrder": 3,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "三助类别"
+    }
+  ],
+  "身份类型": [
+    {
+      "DMID": "9770f6fa-3b8d-4be7-89f7-33b82b4b573c",
+      "DMCode": "1",
+      "DMName": "居民身份证",
+      "DMOrder": 1,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "身份类型"
+    },
+    {
+      "DMID": "4f00271d-7b3d-48cb-9820-eab6a62baacf",
+      "DMCode": "6",
+      "DMName": "香港特区护照",
+      "DMOrder": 6,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "身份类型"
+    },
+    {
+      "DMID": "d1713d54-a315-4774-ab40-655af47f1bfe",
+      "DMCode": "7",
+      "DMName": "澳门特区护照",
+      "DMOrder": 7,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "身份类型"
+    },
+    {
+      "DMID": "779d908d-0d0e-443b-8c4b-858dfed46ae2",
+      "DMCode": "8",
+      "DMName": "台湾居民来往大陆通行证",
+      "DMOrder": 8,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "身份类型"
+    },
+    {
+      "DMID": "35ab9b50-492c-4e05-9601-ba06d7a8dce5",
+      "DMCode": "9",
+      "DMName": "境外永久居住证",
+      "DMOrder": 9,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "身份类型"
+    },
+    {
+      "DMID": "b8be1e0a-1469-48f5-bf5a-8ab4ae62b130",
+      "DMCode": "A",
+      "DMName": "护照",
+      "DMOrder": 10,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "身份类型"
+    },
+    {
+      "DMID": "80b94d39-1b1c-4c1c-a2ed-5b158e3add46",
+      "DMCode": "B",
+      "DMName": "户口薄",
+      "DMOrder": 11,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "身份类型"
+    },
+    {
+      "DMID": "5be3409b-6ba4-47d1-b845-fcf9ec5eee61",
+      "DMCode": "Z",
+      "DMName": "其他",
+      "DMOrder": 99,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "身份类型"
+    }
+  ],
+  "授课方式": [
+    {
+      "DMID": "63f6cf02-4efc-4c57-9a23-3def4040d328",
+      "DMCode": "1",
+      "DMName": "面授讲课",
+      "DMOrder": 1,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "授课方式"
+    },
+    {
+      "DMID": "1633684c-785f-429c-b614-bc811800bf27",
+      "DMCode": "2",
+      "DMName": "辅导",
+      "DMOrder": 2,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "授课方式"
+    },
+    {
+      "DMID": "5e1d5e73-5f95-4096-bde7-e9253cc94022",
+      "DMCode": "3",
+      "DMName": "录像讲课",
+      "DMOrder": 3,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "授课方式"
+    },
+    {
+      "DMID": "2132720a-ae29-41ed-ab04-5096b7393fb9",
+      "DMCode": "4",
+      "DMName": "网络教学",
+      "DMOrder": 4,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "授课方式"
+    },
+    {
+      "DMID": "c9b85fdd-b678-422b-8b2c-3b249589a182",
+      "DMCode": "5",
+      "DMName": "实验",
+      "DMOrder": 5,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "授课方式"
+    },
+    {
+      "DMID": "322d4bfd-6644-4b48-a814-7bee07f25b27",
+      "DMCode": "6",
+      "DMName": "实习",
+      "DMOrder": 6,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "授课方式"
+    },
+    {
+      "DMID": "d383c826-ad93-4635-b514-06b195eace42",
+      "DMCode": "9",
+      "DMName": "其他",
+      "DMOrder": 9,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "授课方式"
+    }
+  ],
+  "违纪类别": [
+    {
+      "DMID": "b1308f6c-69c4-48ff-9461-07b893a75fd4",
+      "DMCode": "1",
+      "DMName": "触犯刑法 ",
+      "DMOrder": 1,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "违纪类别"
+    },
+    {
+      "DMID": "6ce84701-8b2d-4842-a45a-e319c3d8308d",
+      "DMCode": "2",
+      "DMName": "违反治安管理条例 ",
+      "DMOrder": 2,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "违纪类别"
+    },
+    {
+      "DMID": "ec11d834-ae79-4bbe-a14f-8e4d76a289c1",
+      "DMCode": "3",
+      "DMName": "学业违纪（考试作弊、旷课） ",
+      "DMOrder": 3,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "违纪类别"
+    },
+    {
+      "DMID": "c456f07e-9ff4-4d4f-b262-b673de01d6ca",
+      "DMCode": "4",
+      "DMName": "涂改、伪造证件或证明 ",
+      "DMOrder": 4,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "违纪类别"
+    },
+    {
+      "DMID": "f938da0d-1cfd-4221-a047-f93616bdd155",
+      "DMCode": "5",
+      "DMName": "侵犯他人人身权利 ",
+      "DMOrder": 5,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "违纪类别"
+    },
+    {
+      "DMID": "589d6d4e-89c5-4141-89b8-2ba054f94b15",
+      "DMCode": "6",
+      "DMName": "侵犯公私财物 ",
+      "DMOrder": 6,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "违纪类别"
+    },
+    {
+      "DMID": "c9443133-0119-4a87-aace-88ca4c5a9a40",
+      "DMCode": "7",
+      "DMName": "侵犯学校权益 ",
+      "DMOrder": 7,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "违纪类别"
+    },
+    {
+      "DMID": "658806d7-c965-480b-840f-0ca2cd16bbc1",
+      "DMCode": "8",
+      "DMName": "危害公共安全 ",
+      "DMOrder": 8,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "违纪类别"
+    },
+    {
+      "DMID": "8512f5c4-35f3-44fe-8883-02fab68782cf",
+      "DMCode": "9",
+      "DMName": "扰乱公共场所秩序 ",
+      "DMOrder": 9,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "违纪类别"
+    },
+    {
+      "DMID": "48ba49be-556c-411b-8d24-46e1598c52ac",
+      "DMCode": "10",
+      "DMName": "违反社团管理规定 ",
+      "DMOrder": 10,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "违纪类别"
+    },
+    {
+      "DMID": "97307113-46c2-4b0e-9ba1-585cf794ca4b",
+      "DMCode": "11",
+      "DMName": "违反课外活动规定 ",
+      "DMOrder": 11,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "违纪类别"
+    },
+    {
+      "DMID": "8c9a83f2-c29d-4f1b-b5da-8dc281caf709",
+      "DMCode": "12",
+      "DMName": "违反宿舍管理规定 ",
+      "DMOrder": 12,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "违纪类别"
+    },
+    {
+      "DMID": "7cba9d3a-7908-4216-b40d-7222919b9fc6",
+      "DMCode": "13",
+      "DMName": "违反网络管理规定 ",
+      "DMOrder": 13,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "违纪类别"
+    },
+    {
+      "DMID": "47af3f18-a6dc-4a69-a305-279f75fa55d1",
+      "DMCode": "99",
+      "DMName": "其他 ",
+      "DMOrder": 99,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "违纪类别"
+    }
+  ],
+  "行政级别": [
+    {
+      "DMID": "1e8f2231-6f0d-4a38-aa08-9c9b8a14c4c1",
+      "DMCode": "10",
+      "DMName": "国家级",
+      "DMOrder": 10,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "行政级别"
+    },
+    {
+      "DMID": "021885bd-36cf-4f3e-a71e-0a81288b6609",
+      "DMCode": "20",
+      "DMName": "省、部委级",
+      "DMOrder": 20,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "行政级别"
+    },
+    {
+      "DMID": "a5c75167-de7f-4b2c-8b61-b57ab79288c6",
+      "DMCode": "30",
+      "DMName": "省部门级、地（市、州）级",
+      "DMOrder": 30,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "行政级别"
+    },
+    {
+      "DMID": "01c3c182-735e-4291-9ec5-181ac7628125",
+      "DMCode": "40",
+      "DMName": "地（市、州）部门级、县（区、旗）级",
+      "DMOrder": 40,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "行政级别"
+    },
+    {
+      "DMID": "6ea7e939-b6a5-4584-b115-8e8c917e6a74",
+      "DMCode": "50",
+      "DMName": "县部门级、乡（镇）级",
+      "DMOrder": 50,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "行政级别"
+    },
+    {
+      "DMID": "35264f26-9d30-4bb6-b356-8314780f6398",
+      "DMCode": "60",
+      "DMName": "学校级",
+      "DMOrder": 60,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "行政级别"
+    },
+    {
+      "DMID": "14c5df0c-613a-4fb9-aa8d-6d9d062fd8b9",
+      "DMCode": "70",
+      "DMName": "国际",
+      "DMOrder": 70,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "行政级别"
+    },
+    {
+      "DMID": "3d211e7e-6bca-4dfd-a43b-3d4ef8d1fee2",
+      "DMCode": "99",
+      "DMName": "其他",
+      "DMOrder": 99,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "行政级别"
+    }
+  ],
+  "性别": [
+    {
+      "DMID": "ee4dd776-6c61-4d75-b77c-2a73e459df58",
+      "DMCode": "0",
+      "DMName": "未知的性别",
+      "DMOrder": 1,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "性别"
+    },
+    {
+      "DMID": "2c21e473-f25a-4c18-9900-2847727b010f",
+      "DMCode": "1",
+      "DMName": "男",
+      "DMOrder": 2,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "性别"
+    },
+    {
+      "DMID": "74b3244e-a532-4b23-beeb-0dd9f85bcb9d",
+      "DMCode": "2",
+      "DMName": "女",
+      "DMOrder": 3,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "性别"
+    },
+    {
+      "DMID": "ace49877-b698-4626-a1f5-3abb1ebd5d94",
+      "DMCode": "9",
+      "DMName": "未说明的性别",
+      "DMOrder": 9,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "性别"
+    }
+  ],
+  "休退学原因": [
+    {
+      "DMID": "b04f0f1e-6d3b-4c74-9dc8-a087bf2c5d80",
+      "DMCode": "1",
+      "DMName": "病患 ",
+      "DMOrder": 1,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "休退学原因"
+    },
+    {
+      "DMID": "a3f471a4-09c4-4f57-b81f-070897035e3e",
+      "DMCode": "2",
+      "DMName": "停学实践（求职） ",
+      "DMOrder": 2,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "休退学原因"
+    },
+    {
+      "DMID": "03fa9121-cca3-4605-9c1b-c4aac7a8f636",
+      "DMCode": "3",
+      "DMName": "贫困 ",
+      "DMOrder": 3,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "休退学原因"
+    },
+    {
+      "DMID": "a5c21398-dd78-42d4-8b75-2940be50a069",
+      "DMCode": "4",
+      "DMName": "学习成绩不好 ",
+      "DMOrder": 4,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "休退学原因"
+    },
+    {
+      "DMID": "f99a20b7-b42d-4f05-980d-e9e976d32acd",
+      "DMCode": "5",
+      "DMName": "出国 ",
+      "DMOrder": 5,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "休退学原因"
+    },
+    {
+      "DMID": "21da6efd-ffa1-4166-a21b-48eefb00ecfa",
+      "DMCode": "6",
+      "DMName": "其他 ",
+      "DMOrder": 6,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "休退学原因"
+    }
+  ],
+  "学科": [
+    {
+      "DMID": "d1eb01ed-2e7f-4588-8250-9cc37183f175",
+      "DMCode": "11",
+      "DMName": "品德与生活（社会）",
+      "DMOrder": 11,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "学科"
+    },
+    {
+      "DMID": "7b64f4a7-9fe3-402b-855e-86a25238eaf0",
+      "DMCode": "12",
+      "DMName": "思想品德（政治）",
+      "DMOrder": 12,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "学科"
+    },
+    {
+      "DMID": "6d62ba87-7ea6-4cee-b8e1-9213fb4ddd8d",
+      "DMCode": "13",
+      "DMName": "语文",
+      "DMOrder": 13,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "学科"
+    },
+    {
+      "DMID": "d0ac436e-b839-4118-8ccc-1bd957a743d4",
+      "DMCode": "14",
+      "DMName": "数学",
+      "DMOrder": 14,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "学科"
+    },
+    {
+      "DMID": "7de9332d-674f-4b31-ba69-c7accaba605c",
+      "DMCode": "15",
+      "DMName": "科学",
+      "DMOrder": 15,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "学科"
+    },
+    {
+      "DMID": "0d661696-1ee1-4e1e-bc37-bb7716ba8c22",
+      "DMCode": "16",
+      "DMName": "物理",
+      "DMOrder": 16,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "学科"
+    },
+    {
+      "DMID": "8f85d0be-bc48-4b0d-8de0-d796d8b13890",
+      "DMCode": "17",
+      "DMName": "化学",
+      "DMOrder": 17,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "学科"
+    },
+    {
+      "DMID": "dbf7e970-1013-4d41-8c62-a1cc002e9e3b",
+      "DMCode": "18",
+      "DMName": "生物",
+      "DMOrder": 18,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "学科"
+    },
+    {
+      "DMID": "096475fe-ec0d-4a1e-9291-014a007e1c6c",
+      "DMCode": "20",
+      "DMName": "地理",
+      "DMOrder": 20,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "学科"
+    },
+    {
+      "DMID": "72a5707b-902c-415c-8633-d9a90cf5ffb2",
+      "DMCode": "21",
+      "DMName": "历史",
+      "DMOrder": 21,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "学科"
+    },
+    {
+      "DMID": "d2665828-2bcb-404e-9c60-031881551e74",
+      "DMCode": "22",
+      "DMName": "体育与健康",
+      "DMOrder": 22,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "学科"
+    },
+    {
+      "DMID": "2874d89b-dcb1-4d9c-88fb-b943eeafb594",
+      "DMCode": "24",
+      "DMName": "音乐",
+      "DMOrder": 24,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "学科"
+    },
+    {
+      "DMID": "4333aa23-cf18-4245-90a1-d94dd0a7601d",
+      "DMCode": "25",
+      "DMName": "美术",
+      "DMOrder": 25,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "学科"
+    },
+    {
+      "DMID": "f030271b-67e5-4f7e-9326-2a2cd5ce8a7b",
+      "DMCode": "26",
+      "DMName": "信息技术",
+      "DMOrder": 26,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "学科"
+    },
+    {
+      "DMID": "5cf9d6e9-9f89-45eb-95f6-1a18de515d7a",
+      "DMCode": "27",
+      "DMName": "通用技术",
+      "DMOrder": 27,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "学科"
+    },
+    {
+      "DMID": "855dec19-4321-430f-8baf-659450458800",
+      "DMCode": "41",
+      "DMName": "英语",
+      "DMOrder": 41,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "学科"
+    },
+    {
+      "DMID": "4e2f124a-8f1f-4263-b99c-7e8f6aeece42",
+      "DMCode": "61",
+      "DMName": "信息技术",
+      "DMOrder": 61,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "学科"
+    },
+    {
+      "DMID": "42c5ccf8-79d0-49cc-b2be-07e0094693d7",
+      "DMCode": "62",
+      "DMName": "劳动与技术",
+      "DMOrder": 62,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "学科"
+    },
+    {
+      "DMID": "f9a97c53-4c8b-43ec-a531-ee1c7acf672f",
+      "DMCode": "99",
+      "DMName": "其他",
+      "DMOrder": 99,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "学科"
+    }
+  ],
+  "学生变动": [
+    {
+      "DMID": "5ef43ca9-f1fa-444a-97a7-f787a0a486a6",
+      "DMCode": "11",
+      "DMName": "招生 ",
+      "DMOrder": 11,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "学生变动"
+    },
+    {
+      "DMID": "6a1ec5e1-a12e-4b4e-98d3-70dc274fbcb5",
+      "DMCode": "12",
+      "DMName": "复学 ",
+      "DMOrder": 12,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "学生变动"
+    },
+    {
+      "DMID": "5c356303-894d-4043-aa98-d6f7de8146f5",
+      "DMCode": "13",
+      "DMName": "转入 ",
+      "DMOrder": 13,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "学生变动"
+    },
+    {
+      "DMID": "9249aa51-3709-47ee-a59a-75396bff7d94",
+      "DMCode": "21",
+      "DMName": "毕业 ",
+      "DMOrder": 21,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "学生变动"
+    },
+    {
+      "DMID": "2254e20b-c23d-40a3-86ed-42632845c3fc",
+      "DMCode": "22",
+      "DMName": "结业 ",
+      "DMOrder": 22,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "学生变动"
+    },
+    {
+      "DMID": "f98d6f60-be06-46b4-8438-b0d613a81cb0",
+      "DMCode": "23",
+      "DMName": "休学 ",
+      "DMOrder": 23,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "学生变动"
+    },
+    {
+      "DMID": "12030170-2c79-4fb0-89d4-e535b2c0add1",
+      "DMCode": "24",
+      "DMName": "退学 ",
+      "DMOrder": 24,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "学生变动"
+    },
+    {
+      "DMID": "868eef4a-030b-46c5-ab4b-66a0278e5b7a",
+      "DMCode": "25",
+      "DMName": "开除 ",
+      "DMOrder": 25,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "学生变动"
+    },
+    {
+      "DMID": "3f027c8b-017c-4548-a0d1-3be2217fa6ee",
+      "DMCode": "26",
+      "DMName": "死亡 ",
+      "DMOrder": 26,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "学生变动"
+    },
+    {
+      "DMID": "331d5624-9cfc-4797-8289-71868681d1d3",
+      "DMCode": "27",
+      "DMName": "转出 ",
+      "DMOrder": 27,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "学生变动"
+    },
+    {
+      "DMID": "680ccbe9-f7bc-4d1c-85ae-56f5ba3a9015",
+      "DMCode": "28",
+      "DMName": "辍学 ",
+      "DMOrder": 28,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "学生变动"
+    }
+  ],
+  "学生当前状态": [
+    {
+      "DMID": "49348ac3-a8b6-4c20-ac8c-d6b5d7f99042",
+      "DMCode": "01",
+      "DMName": "在读 ",
+      "DMOrder": 1,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "学生当前状态"
+    },
+    {
+      "DMID": "46f28873-8069-4d16-97b4-dbcc4ea839b8",
+      "DMCode": "02",
+      "DMName": "休学 ",
+      "DMOrder": 2,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "学生当前状态"
+    },
+    {
+      "DMID": "bb3b8804-31e4-4144-bda3-6c1c3cd9d504",
+      "DMCode": "03",
+      "DMName": "退学 ",
+      "DMOrder": 3,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "学生当前状态"
+    },
+    {
+      "DMID": "3d94f91c-218e-4490-a9e4-b3b6b2f06bd0",
+      "DMCode": "04",
+      "DMName": "停学 ",
+      "DMOrder": 4,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "学生当前状态"
+    },
+    {
+      "DMID": "8a16a24a-b11c-470b-94e7-a97f7b9952a7",
+      "DMCode": "05",
+      "DMName": "复学 ",
+      "DMOrder": 5,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "学生当前状态"
+    },
+    {
+      "DMID": "d81ac16e-a445-468a-83ba-d5f7d874d91f",
+      "DMCode": "06",
+      "DMName": "流失 ",
+      "DMOrder": 6,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "学生当前状态"
+    },
+    {
+      "DMID": "e6c960ff-cb67-4d53-8295-b63a1feef11d",
+      "DMCode": "07",
+      "DMName": "毕业 ",
+      "DMOrder": 7,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "学生当前状态"
+    },
+    {
+      "DMID": "1e30d2c7-ab1f-4316-8728-9a91c28ab7f6",
+      "DMCode": "08",
+      "DMName": "结业 ",
+      "DMOrder": 8,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "学生当前状态"
+    },
+    {
+      "DMID": "ee6f5524-80bf-4512-ae8b-78bd3a13c140",
+      "DMCode": "09",
+      "DMName": "肄业 ",
+      "DMOrder": 9,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "学生当前状态"
+    },
+    {
+      "DMID": "2abff31f-7c4f-4ad9-b658-423fd1257a98",
+      "DMCode": "10",
+      "DMName": "转学（转出） ",
+      "DMOrder": 10,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "学生当前状态"
+    },
+    {
+      "DMID": "232557af-0e11-4db1-ad57-08669d8239fb",
+      "DMCode": "11",
+      "DMName": "死亡 ",
+      "DMOrder": 11,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "学生当前状态"
+    },
+    {
+      "DMID": "1a9555cd-39de-4832-b5f1-b4f4ae264895",
+      "DMCode": "12",
+      "DMName": "保留入学资格 ",
+      "DMOrder": 12,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "学生当前状态"
+    },
+    {
+      "DMID": "2f841e75-c8d5-4190-9492-519d68adaf48",
+      "DMCode": "13",
+      "DMName": "公派出国 ",
+      "DMOrder": 13,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "学生当前状态"
+    },
+    {
+      "DMID": "8006fac5-f1b1-448c-9f65-231d782ce45e",
+      "DMCode": "14",
+      "DMName": "开除 ",
+      "DMOrder": 14,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "学生当前状态"
+    },
+    {
+      "DMID": "b318d5ac-1593-47ce-96b8-d958595baff3",
+      "DMCode": "15",
+      "DMName": "下落不明 ",
+      "DMOrder": 15,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "学生当前状态"
+    },
+    {
+      "DMID": "876df1c3-f782-4738-9da9-317fcc509e25",
+      "DMCode": "99",
+      "DMName": "其他 ",
+      "DMOrder": 99,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "学生当前状态"
+    }
+  ],
+  "学生获奖类别": [
+    {
+      "DMID": "d2c3f8f2-eb98-4a93-b65a-363d7db9eaa5",
+      "DMCode": "1",
+      "DMName": "学科获奖 ",
+      "DMOrder": 1,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "学生获奖类别"
+    },
+    {
+      "DMID": "0b80ffbc-c30d-4030-bdb2-a4e4833961bf",
+      "DMCode": "2",
+      "DMName": "科技获奖 ",
+      "DMOrder": 2,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "学生获奖类别"
+    },
+    {
+      "DMID": "16e04f6b-e552-4cb6-808c-41bc6eb56f0a",
+      "DMCode": "3",
+      "DMName": "文艺获奖 ",
+      "DMOrder": 3,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "学生获奖类别"
+    },
+    {
+      "DMID": "4752c069-2b53-4c40-852b-5278f9d12b51",
+      "DMCode": "4",
+      "DMName": "体育获奖 ",
+      "DMOrder": 4,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "学生获奖类别"
+    },
+    {
+      "DMID": "0d208a3f-5cf2-478f-a8b0-f2c1eaf4d0cf",
+      "DMCode": "5",
+      "DMName": "综合获奖 ",
+      "DMOrder": 5,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "学生获奖类别"
+    },
+    {
+      "DMID": "bf2774f6-2286-4637-873d-e2528d52290a",
+      "DMCode": "6",
+      "DMName": "社会工作获奖 ",
+      "DMOrder": 6,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "学生获奖类别"
+    },
+    {
+      "DMID": "55416fda-ca72-4617-bc05-d4259dadbc6f",
+      "DMCode": "7",
+      "DMName": "公益事业获奖 ",
+      "DMOrder": 7,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "学生获奖类别"
+    },
+    {
+      "DMID": "8764a40b-4d70-4e38-b4b6-b8e597dc903a",
+      "DMCode": "9",
+      "DMName": "其他 ",
+      "DMOrder": 9,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "学生获奖类别"
+    }
+  ],
+  "学生类别": [
+    {
+      "DMID": "1f9b8088-1b3f-4117-98c8-bc75421fbdbe",
+      "DMCode": "11",
+      "DMName": " 幼儿 ",
+      "DMOrder": 11,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "学生类别"
+    },
+    {
+      "DMID": "6c6707a9-5f75-4368-87df-148fad11cb98",
+      "DMCode": "21",
+      "DMName": " 小学生 ",
+      "DMOrder": 21,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "学生类别"
+    },
+    {
+      "DMID": "36195da1-3d13-4605-9646-cd914e80fcfb",
+      "DMCode": "31",
+      "DMName": " 初中生 ",
+      "DMOrder": 31,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "学生类别"
+    },
+    {
+      "DMID": "9b68018a-da37-4d5f-bfa3-125320ac3d3b",
+      "DMCode": "32",
+      "DMName": " 高中生 ",
+      "DMOrder": 32,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "学生类别"
+    },
+    {
+      "DMID": "7268918b-e757-4e0f-8827-3c979e7c1fed",
+      "DMCode": "33",
+      "DMName": " 中职学生 ",
+      "DMOrder": 33,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "学生类别"
+    },
+    {
+      "DMID": "6ebdef05-9f9b-445c-a205-9e32e525d3c4",
+      "DMCode": "34",
+      "DMName": " 工读学生 ",
+      "DMOrder": 34,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "学生类别"
+    },
+    {
+      "DMID": "4b7f50be-5354-421c-83fc-16fb28af9456",
+      "DMCode": "41",
+      "DMName": " 专科生 ",
+      "DMOrder": 41,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "学生类别"
+    },
+    {
+      "DMID": "284ad652-1d7f-41a7-8541-c244b6482e92",
+      "DMCode": "42",
+      "DMName": " 本科生 ",
+      "DMOrder": 42,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "学生类别"
+    },
+    {
+      "DMID": "997947b8-916d-4640-a6df-a0c233029002",
+      "DMCode": "43",
+      "DMName": " 研究生 ",
+      "DMOrder": 43,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "学生类别"
+    },
+    {
+      "DMID": "58e66ea6-94af-4b4d-807e-f848fceaf6f7",
+      "DMCode": "44",
+      "DMName": " 学位学生 ",
+      "DMOrder": 44,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "学生类别"
+    },
+    {
+      "DMID": "c743b7f8-1f91-43d8-b887-6f223bc21fd5",
+      "DMCode": "51",
+      "DMName": " 特殊教育学生 ",
+      "DMOrder": 51,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "学生类别"
+    },
+    {
+      "DMID": "fbf7e50e-9d49-4003-8c03-9b5274e263c1",
+      "DMCode": "91",
+      "DMName": " 自考/预科/研究生课程类 ",
+      "DMOrder": 91,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "学生类别"
+    },
+    {
+      "DMID": "8b0bfadb-6a4f-4bc1-9d48-9238617fed41",
+      "DMCode": "92",
+      "DMName": " 进修及培训类 ",
+      "DMOrder": 92,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "学生类别"
+    },
+    {
+      "DMID": "388c9965-e8fb-4640-b1ca-5ce249b3f124",
+      "DMCode": "93",
+      "DMName": " 职业技术培训类 ",
+      "DMOrder": 93,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "学生类别"
+    }
+  ],
+  "学生收费调整方式": [
+    {
+      "DMID": "a382b611-ee04-43b6-9e19-78294a6c9063",
+      "DMCode": "1",
+      "DMName": "减 ",
+      "DMOrder": 1,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "学生收费调整方式"
+    },
+    {
+      "DMID": "999a09d6-fc64-4c05-95c4-791debbdb894",
+      "DMCode": "2",
+      "DMName": "免 ",
+      "DMOrder": 2,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "学生收费调整方式"
+    },
+    {
+      "DMID": "45a11b50-fa1d-4375-a2c4-cd2329ba4f18",
+      "DMCode": "3",
+      "DMName": "缓 ",
+      "DMOrder": 3,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "学生收费调整方式"
+    },
+    {
+      "DMID": "343b05b5-9df0-4321-8427-7dde6cef596d",
+      "DMCode": "4",
+      "DMName": "贷 ",
+      "DMOrder": 4,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "学生收费调整方式"
+    },
+    {
+      "DMID": "b653687a-a6ef-4d3f-af46-db8443294784",
+      "DMCode": "5",
+      "DMName": "缓+减 ",
+      "DMOrder": 5,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "学生收费调整方式"
+    },
+    {
+      "DMID": "dba37f32-e3d2-467e-9a0b-e47fabc031e2",
+      "DMCode": "6",
+      "DMName": "缓+免 ",
+      "DMOrder": 6,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "学生收费调整方式"
+    },
+    {
+      "DMID": "d10881a7-9da2-4ef2-b1a0-fcd56ea7b708",
+      "DMCode": "7",
+      "DMName": "缓+贷 ",
+      "DMOrder": 7,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "学生收费调整方式"
+    }
+  ],
+  "学生体质达标": [
+    {
+      "DMID": "4518a60d-98ae-46f8-ba2e-0ca364dc0cdb",
+      "DMCode": "1",
+      "DMName": "优秀 ",
+      "DMOrder": 1,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "学生体质达标"
+    },
+    {
+      "DMID": "f7f262a1-6396-4769-afeb-a680463444d5",
+      "DMCode": "2",
+      "DMName": "良好 ",
+      "DMOrder": 2,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "学生体质达标"
+    },
+    {
+      "DMID": "3f26e3cd-68f7-4405-8b44-59709e7f5c9d",
+      "DMCode": "3",
+      "DMName": "及格 ",
+      "DMOrder": 3,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "学生体质达标"
+    },
+    {
+      "DMID": "eb1d2f36-a040-400c-9028-478438650db2",
+      "DMCode": "4",
+      "DMName": "不及格 ",
+      "DMOrder": 4,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "学生体质达标"
+    }
+  ],
+  "学校办别": [
+    {
+      "DMID": "8046260b-b0cd-4e2a-917c-b9118f574a17",
+      "DMCode": "10",
+      "DMName": "普通中小学/职业中学 ",
+      "DMOrder": 10,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "学校办别"
+    },
+    {
+      "DMID": "93dc9b5c-727e-4e43-920b-7184801c1739",
+      "DMCode": "11",
+      "DMName": " 教育部门和集体办 ",
+      "DMOrder": 11,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "学校办别"
+    },
+    {
+      "DMID": "bfe7deb6-e443-4d23-820b-20addf8839dd",
+      "DMCode": "12",
+      "DMName": " 社会力量办 ",
+      "DMOrder": 12,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "学校办别"
+    },
+    {
+      "DMID": "9391b84b-2aa1-490b-aa76-799cc1e52987",
+      "DMCode": "19",
+      "DMName": " 其他部门办 ",
+      "DMOrder": 19,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "学校办别"
+    },
+    {
+      "DMID": "feb8dc7c-89a2-4437-9de8-02ebe48e6833",
+      "DMCode": "20",
+      "DMName": "其他中等职业学校 ",
+      "DMOrder": 20,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "学校办别"
+    },
+    {
+      "DMID": "5531f1d9-b8f9-48cf-b8b1-b9b4751ca7aa",
+      "DMCode": "21",
+      "DMName": " 公办 ",
+      "DMOrder": 21,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "学校办别"
+    },
+    {
+      "DMID": "b4302b46-1c4f-4aa8-a2d0-c147e259f366",
+      "DMCode": "22",
+      "DMName": " 民办 ",
+      "DMOrder": 22,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "学校办别"
+    },
+    {
+      "DMID": "68223b00-cd1b-476a-9488-5e4701be59a1",
+      "DMCode": "23",
+      "DMName": " 民办公助 ",
+      "DMOrder": 23,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "学校办别"
+    },
+    {
+      "DMID": "c5674849-285e-41af-809c-12c42da2128d",
+      "DMCode": "29",
+      "DMName": " 其他 ",
+      "DMOrder": 29,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "学校办别"
+    }
+  ],
+  "学校举办者": [
+    {
+      "DMID": "6343b774-eeec-4148-a12d-36875d86b2a7",
+      "DMCode": "811",
+      "DMName": " 省级教育部门 ",
+      "DMOrder": 811,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "学校举办者"
+    },
+    {
+      "DMID": "584e9f69-87b0-45ca-ae7d-222448291b1b",
+      "DMCode": "812",
+      "DMName": " 省级其他部门（党政机关） ",
+      "DMOrder": 812,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "学校举办者"
+    },
+    {
+      "DMID": "e2cd3d29-e27d-4af9-9c89-d41c3748c5fe",
+      "DMCode": "821",
+      "DMName": " 地级教育部门 ",
+      "DMOrder": 821,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "学校举办者"
+    },
+    {
+      "DMID": "c3a3673b-15cd-4d6b-83f3-a859beae950b",
+      "DMCode": "822",
+      "DMName": " 地级其他部门（党政机关） ",
+      "DMOrder": 822,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "学校举办者"
+    },
+    {
+      "DMID": "c1ee7564-bb9d-4160-9d39-71c2cc4464c5",
+      "DMCode": "831",
+      "DMName": " 县级教育部门 ",
+      "DMOrder": 831,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "学校举办者"
+    },
+    {
+      "DMID": "cf36d039-72f3-4e37-bbc9-cf1b5c13ea48",
+      "DMCode": "832",
+      "DMName": " 县级其他部门（党政机关） ",
+      "DMOrder": 832,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "学校举办者"
+    },
+    {
+      "DMID": "b0bff098-762f-48f9-abb3-807d487a7188",
+      "DMCode": "891",
+      "DMName": " 地方企业 ",
+      "DMOrder": 891,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "学校举办者"
+    },
+    {
+      "DMID": "ac480924-569e-4261-b255-1dc4d65e6d1d",
+      "DMCode": "892",
+      "DMName": " 事业单位 ",
+      "DMOrder": 892,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "学校举办者"
+    },
+    {
+      "DMID": "4c02e931-93b9-4b5d-b364-9e79f8bd6f06",
+      "DMCode": "893",
+      "DMName": " 部队 ",
+      "DMOrder": 893,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "学校举办者"
+    },
+    {
+      "DMID": "7028323d-c313-45c8-bea6-68bced515b51",
+      "DMCode": "894",
+      "DMName": " 集体 ",
+      "DMOrder": 894,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "学校举办者"
+    },
+    {
+      "DMID": "e091e747-dfc8-402d-b37c-d31a7f6db27b",
+      "DMCode": "999",
+      "DMName": " 民办 ",
+      "DMOrder": 999,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "学校举办者"
+    }
+  ],
+  "学校类别": [
+    {
+      "DMID": "5ecf87de-75d0-4d95-8798-cd0ce199496a",
+      "DMCode": "11",
+      "DMName": "幼儿园 ",
+      "DMOrder": 11,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "学校类别"
+    },
+    {
+      "DMID": "217503e2-0812-47c1-bfdd-10295708453e",
+      "DMCode": "21",
+      "DMName": "小学 ",
+      "DMOrder": 21,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "学校类别"
+    },
+    {
+      "DMID": "8414e075-4039-4590-ab0f-330df678dfbc",
+      "DMCode": "31",
+      "DMName": "普通初中 ",
+      "DMOrder": 31,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "学校类别"
+    },
+    {
+      "DMID": "f24dbab0-e761-4d7f-b426-49abf15f27c9",
+      "DMCode": "32",
+      "DMName": "职业初中 ",
+      "DMOrder": 32,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "学校类别"
+    },
+    {
+      "DMID": "df716783-1bb8-4ce9-a7aa-5b4d5811e11a",
+      "DMCode": "34",
+      "DMName": "普通高中 ",
+      "DMOrder": 34,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "学校类别"
+    },
+    {
+      "DMID": "33619468-daf6-4b46-8352-c9e12ce4d93f",
+      "DMCode": "36",
+      "DMName": "中等职业学校 ",
+      "DMOrder": 36,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "学校类别"
+    },
+    {
+      "DMID": "9f24d217-80f3-43af-b388-56382529ab77",
+      "DMCode": "41",
+      "DMName": "普通高等学校 ",
+      "DMOrder": 41,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "学校类别"
+    },
+    {
+      "DMID": "2f16302c-e4d6-42a4-9c07-15c7f523e871",
+      "DMCode": "42",
+      "DMName": "成人高等学校 ",
+      "DMOrder": 42,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "学校类别"
+    },
+    {
+      "DMID": "9b49f745-2b2b-4be6-9798-5b18c4b79296",
+      "DMCode": "51",
+      "DMName": "特殊教育学校 ",
+      "DMOrder": 51,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "学校类别"
+    },
+    {
+      "DMID": "98ef2b55-8550-4598-a892-034117bec212",
+      "DMCode": "99",
+      "DMName": "其他",
+      "DMOrder": 99,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "学校类别"
+    }
+  ],
+  "血型": [
+    {
+      "DMID": "1b772910-2607-4fea-baf5-b4bd61c1c94e",
+      "DMCode": "0",
+      "DMName": "未知血型",
+      "DMOrder": 0,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "血型"
+    },
+    {
+      "DMID": "ac4c28c1-babf-44e7-a4ca-700b4032498a",
+      "DMCode": "1",
+      "DMName": "A 血型",
+      "DMOrder": 1,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "血型"
+    },
+    {
+      "DMID": "bfaa03ec-8042-4e5d-a302-2d070f5afab9",
+      "DMCode": "2",
+      "DMName": "B 血型",
+      "DMOrder": 2,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "血型"
+    },
+    {
+      "DMID": "03cc5fa2-018e-43f1-a423-bd3284fab34f",
+      "DMCode": "3",
+      "DMName": "AB 血型",
+      "DMOrder": 3,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "血型"
+    },
+    {
+      "DMID": "1f6c6425-3305-4f70-94cb-6a731a71d4d2",
+      "DMCode": "4",
+      "DMName": "O 血型",
+      "DMOrder": 4,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "血型"
+    },
+    {
+      "DMID": "71d7c9b1-1cef-43c6-9c39-a71964c64076",
+      "DMCode": "5",
+      "DMName": "RH 阳性血型",
+      "DMOrder": 5,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "血型"
+    },
+    {
+      "DMID": "04afdec4-6370-43b1-9d87-a949909dac80",
+      "DMCode": "6",
+      "DMName": "RH 阴性血型",
+      "DMOrder": 6,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "血型"
+    },
+    {
+      "DMID": "3eff4eef-1a3b-4188-b751-52735e2ac07b",
+      "DMCode": "7",
+      "DMName": "HLA 血型",
+      "DMOrder": 7,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "血型"
+    },
+    {
+      "DMID": "32b47a62-d246-4542-9767-8cb409b53613",
+      "DMCode": "8",
+      "DMName": "未定血型",
+      "DMOrder": 8,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "血型"
+    },
+    {
+      "DMID": "2d5ce350-940d-4aa7-82fb-536e6d4351c0",
+      "DMCode": "9",
+      "DMName": "其他血型",
+      "DMOrder": 9,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "血型"
+    }
+  ],
+  "政治面貌": [
+    {
+      "DMID": "387d3534-5d90-41c7-beee-528e8fcb9edb",
+      "DMCode": "1",
+      "DMName": "中国共产党党员",
+      "DMOrder": 1,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "政治面貌"
+    },
+    {
+      "DMID": "07f089f6-516c-4211-969f-b43478ecdc07",
+      "DMCode": "2",
+      "DMName": "中国共产党预备党员",
+      "DMOrder": 2,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "政治面貌"
+    },
+    {
+      "DMID": "85bb6b21-8d9e-4933-ad03-864f3a1bcefb",
+      "DMCode": "3",
+      "DMName": "中国共产主义青年团团员",
+      "DMOrder": 3,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "政治面貌"
+    },
+    {
+      "DMID": "96a47b1f-c225-4347-80e4-26bc6a176d27",
+      "DMCode": "4",
+      "DMName": "中国国民党革命委员会会员",
+      "DMOrder": 4,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "政治面貌"
+    },
+    {
+      "DMID": "016d2d86-3168-4c28-a273-be9823417abc",
+      "DMCode": "5",
+      "DMName": "中国民主同盟盟员",
+      "DMOrder": 5,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "政治面貌"
+    },
+    {
+      "DMID": "fb944403-f732-4073-b6b6-d97e60b13352",
+      "DMCode": "6",
+      "DMName": "中国民主建国会会员",
+      "DMOrder": 6,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "政治面貌"
+    },
+    {
+      "DMID": "87a25d46-e119-4da5-a273-865ef769aff2",
+      "DMCode": "7",
+      "DMName": "中国民主促进会会员",
+      "DMOrder": 7,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "政治面貌"
+    },
+    {
+      "DMID": "be0216e9-7432-48bf-9724-f1138b12ab04",
+      "DMCode": "8",
+      "DMName": "中国农工民主党党员",
+      "DMOrder": 8,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "政治面貌"
+    },
+    {
+      "DMID": "8ee9bb39-dfdc-4ee4-a1bf-15e3e233b622",
+      "DMCode": "9",
+      "DMName": "中国致公党党员",
+      "DMOrder": 9,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "政治面貌"
+    },
+    {
+      "DMID": "d38586e8-d8cc-4082-89a3-51ed4521e8bd",
+      "DMCode": "10",
+      "DMName": "九三学社社员",
+      "DMOrder": 10,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "政治面貌"
+    },
+    {
+      "DMID": "e00d7d25-0792-45da-a3c1-f581d3c59097",
+      "DMCode": "11",
+      "DMName": "台湾民主自治同盟盟员",
+      "DMOrder": 11,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "政治面貌"
+    },
+    {
+      "DMID": "85f7704b-1ac3-4b21-93ac-05dc815a9dad",
+      "DMCode": "12",
+      "DMName": "无党派民主人士",
+      "DMOrder": 12,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "政治面貌"
+    },
+    {
+      "DMID": "50ab7b46-f9c6-481b-a8f7-4fae67597698",
+      "DMCode": "13",
+      "DMName": "群众",
+      "DMOrder": 13,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "政治面貌"
+    }
+  ],
+  "中小学学生来源": [
+    {
+      "DMID": "f50c08fa-dcca-42f2-9cb9-514b3bf15969",
+      "DMCode": "1",
+      "DMName": "正常入学 ",
+      "DMOrder": 1,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "中小学学生来源"
+    },
+    {
+      "DMID": "9d565db2-d79f-4cf1-aa05-c840a33cd17e",
+      "DMCode": "2",
+      "DMName": "借读",
+      "DMOrder": 2,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "中小学学生来源"
+    },
+    {
+      "DMID": "426d3223-0b0e-4086-b008-d7f29b6259d9",
+      "DMCode": "9",
+      "DMName": "其他",
+      "DMOrder": 9,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "中小学学生来源"
+    }
+  ],
+  "注册状况": [
+    {
+      "DMID": "c88d9656-5341-4d77-90c5-51e95c99127b",
+      "DMCode": "1",
+      "DMName": "注册",
+      "DMOrder": 1,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "注册状况"
+    },
+    {
+      "DMID": "63166075-45dc-427f-8bc2-2dcf9ef979bd",
+      "DMCode": "2",
+      "DMName": "报到",
+      "DMOrder": 2,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "注册状况"
+    },
+    {
+      "DMID": "7877d071-4b0c-4e9d-aeef-2a75b19081dd",
+      "DMCode": "3",
+      "DMName": "未报到",
+      "DMOrder": 3,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "注册状况"
+    }
+  ],
+  "宗教信仰": [
+    {
+      "DMID": "27fb2ccb-de31-4ed8-a3c5-ea8dce391fbd",
+      "DMCode": "0",
+      "DMName": "无宗教信仰",
+      "DMOrder": 0,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "宗教信仰"
+    },
+    {
+      "DMID": "b32c5649-5b18-4c28-a0e7-11f7cbea5b5a",
+      "DMCode": "10",
+      "DMName": "佛教",
+      "DMOrder": 10,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "宗教信仰"
+    },
+    {
+      "DMID": "a83f7c05-298d-4c18-af8a-675378cd682f",
+      "DMCode": "20",
+      "DMName": "喇嘛教",
+      "DMOrder": 20,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "宗教信仰"
+    },
+    {
+      "DMID": "d232dbde-23f5-403f-b352-3075b26c70fa",
+      "DMCode": "30",
+      "DMName": "道教",
+      "DMOrder": 30,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "宗教信仰"
+    },
+    {
+      "DMID": "048efea0-0c40-45e5-a474-c45359ba262e",
+      "DMCode": "40",
+      "DMName": "天主教",
+      "DMOrder": 40,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "宗教信仰"
+    },
+    {
+      "DMID": "4a166c85-87db-4688-9431-808e4d915dc7",
+      "DMCode": "50",
+      "DMName": "基督教",
+      "DMOrder": 50,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "宗教信仰"
+    },
+    {
+      "DMID": "874a35d8-ed40-4f79-b9c2-64c7a3453994",
+      "DMCode": "60",
+      "DMName": "东正教",
+      "DMOrder": 60,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "宗教信仰"
+    },
+    {
+      "DMID": "b2660bd3-a010-4013-a81a-5edcd8ae4aed",
+      "DMCode": "70",
+      "DMName": "伊斯兰教",
+      "DMOrder": 70,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "宗教信仰"
+    },
+    {
+      "DMID": "3126270a-37fa-4383-b360-4f6b0af4b990",
+      "DMCode": "99",
+      "DMName": "其他",
+      "DMOrder": 99,
+      "IsSwitch": 1,
+      "IsState": 1,
+      "DMType": "宗教信仰"
+    }
+  ]
+}

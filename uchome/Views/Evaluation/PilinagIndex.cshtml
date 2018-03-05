@@ -1,0 +1,178 @@
+﻿@{
+    Layout = null;
+}
+@using M = Evaluation.Model.Models;
+@model List<M.Stu>
+<link rel="stylesheet" href="@Url.Content("~/Content/css/msg.css")">
+<link rel="stylesheet" href="@Url.Content("~/Content/css/eval.css")">
+
+@using (Html.BeginForm("SavePiliangHupingScore", "Evaluation", FormMethod.Post, new { id = "fm02" }))
+{
+    <div class="form-position pagew " style="overflow: auto;">
+        <button type="button" class="btn btn-info pull-right btn-exp" onclick="redirecturl('@Url.Action("HupingIndex")');">单个互评</button>
+        @if (Model.Count > 0)
+        {
+            <table class="table table-bordered table-hover pull-left table-m-t">
+                <thead>
+                    <tr>
+                        <th class="cell1">序号</th>
+                        <th class="cell2">姓名</th>
+                        <th>评语</th>
+                        <th class="cell2">评分</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+            int i = 0;
+                    }
+                    @foreach (M.Stu item in Model)
+                    {
+                        i++;
+                        
+                        <tr>
+                            <td class="p-t">@i</td>
+                            <td class="p-t">@item.XM</td>
+                            <td>
+                                <input type="text" class="form-control" id="EvalContent" name="EvalContent" placeholder="请输入评语并且在300字以内" />
+                            </td>
+                            <td>
+                                <input type="hidden" id="StuID" name="StuID" value="@item.XSID" />
+                                <input type="text" class="form-control" id="EvalTotalScore" name="EvalTotalScore" placeholder="请输入评分" />
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <button type="button" id="btnSaveScore" class="btn btn-info pull-right clear-both btn-mb">保存评分</button>
+            <div id="alert_msg_modal"></div>
+        }
+        else
+        {
+            @Html.Raw("学生互评全部完成！")
+        }
+        @Html.Hidden("StrEvalContent")
+    </div>
+}
+
+<script>
+    $(function () {
+        $("input[type='text'][name='EvalContent']").each(function () {
+            $(this).keyup(function () {
+                checkdata();
+            });
+        });
+
+        $("input[type='text'][name='EvalTotalScore']").each(function () {
+            $(this).keyup(function () {
+                checkdata();
+            });
+        });
+
+        $("#btnSaveScore").click(function () {
+            submitdata();
+        });
+
+    });
+
+    function addmsg(obj) {
+        $("#alert_msg_score").remove();
+        var str = "<div id='alert_msg_score' class='alert alert-success center-block' role='alert'>评分的格式为最多保留一位小数的数字，如10，10.5 ！</div>";
+        $("#alert_msg_modal").append(str);
+        $(obj).addClass("input-error");
+    }
+
+    function checkdata() {
+        var num = 0;
+        var num2 = 0;
+        var isOK = false;
+        var isOK2 = false;
+
+        $("input[type='text'][name='EvalTotalScore']").each(function () {
+            var score = $.trim($(this).val());
+            if (score == "" || score == null) {
+                addmsg($(this));
+                num++;
+            } else {
+                var reg = /^[0-9]+(.[0-9]{1})?$/;
+                if (!reg.test(score)) {
+                    addmsg($(this));
+                    num++;
+                } else {
+                    $(this).removeClass("input-error");
+                }
+            }
+        });
+
+        $("input[type='text'][name='EvalContent']").each(function () {
+            var evalContent = $.trim($(this).val());
+            if (evalContent == "" || evalContent == null || evalContent.length > 300) {
+                $("#alert_msg_content").remove();
+                var str = "<div id='alert_msg_content' class='alert alert-success center-block' role='alert'>请填写评语并且在300字以内</div>";
+                $("#alert_msg_modal").append(str);
+                $(this).addClass("input-error");
+                num2++;
+            } else {
+                $(this).removeClass("input-error");
+            }
+        });
+
+        if (num == 0) {
+            $("#alert_msg_score").remove();
+            isOK = true;
+        }
+        if (num2 == 0) {
+            $("#alert_msg_content").remove();
+            isOK2 = true;
+        }
+
+        return (isOK && isOK2);
+    }
+
+    function submitdata() {
+        if (checkdata()) {
+            var strevalcontent = "";
+            $("input[type='text'][name='EvalContent']").each(function () {
+                var evalContent = $.trim($(this).val());
+                strevalcontent += "|" + evalContent;
+            });
+            if (strevalcontent.length > 0) {
+                strevalcontent = strevalcontent.substring(1, strevalcontent.length);
+                $("#StrEvalContent").val(strevalcontent)
+            }
+
+            var str = "<div id='alert_msg_content' class='alert alert-success center-block' role='alert'>正在处理，请稍后...</div>";
+            $("#alert_msg_modal").append(str);
+            $("#btnSaveScore").attr("disabled", true);
+
+            $("#fm02").ajaxSubmit({
+                success: function (data) {
+                    $("#alert_msg_content").remove();
+                    if (data.Data.statuscode == 200) {
+                        var obj = "<div id='alert_msg_score' class='alert alert-success center-block' role='alert'>保存成功！</div>";
+                        $("#alert_msg_modal").append(obj);
+
+                        setTimeout(function () {
+                            $("#alert_msg_score").remove();
+                            loadform();
+                        }, 2000);
+                    } else {
+                        var obj = "<div id='alert_msg_score' class='alert alert-danger center-block' role='alert'>保存失败！</div>";
+                        $("#alert_msg_modal").append(obj);
+
+                        $("#btnSaveScore").attr("disabled", false);
+
+                        setTimeout(function () {
+                            $("#alert_msg_score").remove();
+                        }, 2000);
+                    }
+                }
+            });
+        }
+    }
+
+    function loadform() {
+        var ahref = "@Url.Action("HupingIndex")";
+        redirecturl(ahref);
+        $(".modal-backdrop").remove();
+    }
+</script>

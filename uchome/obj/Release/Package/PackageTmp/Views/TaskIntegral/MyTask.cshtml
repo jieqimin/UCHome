@@ -1,0 +1,105 @@
+﻿<head>
+    <title></title>
+    <link rel="stylesheet" href="@Url.Content("~/Content/css/eval.css")">
+    <link href="@Url.Content("~/Content/css/integral.css")" rel="stylesheet" />
+</head>
+<style type="text/css">
+</style>
+<div>
+    <ul class="nav nav-tabs" id="myTabs" role="tablist">
+        <li class="active" role="presentation">
+            <a href="#day" role="tab" aria-controls="home" data-toggle="tab">每天任务</a>
+        </li>
+        <li role="presentation">
+            <a href="#week" role="tab" aria-controls="profile" data-toggle="tab">每周任务</a>
+        </li>
+        <li role="presentation">
+            <a href="#mouth" role="tab" aria-controls="profile" data-toggle="tab">每月任务</a>
+        </li>
+    </ul>
+    <div class="tab-content pull-left" id="myTabContent">
+        <div class="tab-pane fade pull-left active in" id="day" role="tabpanel">
+            <div>
+                <span class="todayTask">每日任务</span>
+                <div class="progress">
+                    <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: @ViewBag.width;">
+                        <span class="sr-only">60% Complete (warning)</span>
+                    </div>
+                </div>
+                <span id="result">@ViewBag.finishCount<span>/</span>@ViewBag.sumCount</span>
+            </div>
+            <span class="todayTask">每日任务详情</span>
+            <table class="table" style="width: 650px; text-align: center">
+                @foreach (TaskIntegral.Model.View_UCHome_UserTask item in ViewBag.userdayTask)
+                {
+                    <tr>
+                        <td class="newTask">@item.TaskTypeName</td>
+                        <td class="rescourseWork">@item.ModuleName</td>
+                        <td class="num"><span>[</span>@item.TaskScore<span>分]</span></td>
+                        <td>@item.TaskName</td>
+                        @if (item.TaskStatus == "已完成")
+                        {
+                            <td class="type"><span class="glyphicon glyphicon-ok">@item.TaskStatus</span></td>
+                        }
+                        else
+                        {
+                            <td class="remove"><span class="glyphicon glyphicon-remove">@item.TaskStatus</span></td>
+                        }
+                    </tr>
+                }
+            </table>
+        </div>
+        <div class="tab-pane fade pull-left" id="week" role="tabpanel">
+            <span class="todayTask">周任务详情</span>
+            <table class="table" style="width: 650px; text-align: center">
+                @foreach (TaskIntegral.Model.View_UCHome_UserTask item in ViewBag.userweektask)
+                {
+                    <tr>
+                        <td class="newTask">@item.TaskTypeName</td>
+                        <td class="rescourseWork">@item.ModuleName</td>
+                        <td class="num"><span>[</span>@item.TaskScore<span>分]</span></td>
+                        <td>@item.TaskName</td>
+                        <td class="type"><span>已上传</span>@item.TaskStatus<span>个</span></td>
+                    </tr>
+                }
+            </table>
+        </div>
+        <div class="tab-pane fade pull-right" id="mouth" role="tabpanel">
+            <span class="todayTask">月任务详情</span>
+            <table class="table" style="width: 650px; text-align: center">
+                @foreach (TaskIntegral.Model.View_UCHome_UserTask item in ViewBag.usermonthtask)
+                {
+                    <tr>
+                        <td class="newTask">@item.TaskTypeName</td>
+                        <td class="rescourseWork">@item.ModuleName</td>
+                        <td class="num"><span>[</span>@item.TaskScore<span>分]</span></td>
+                        <td>@item.TaskName</td>
+                        @if (item.TaskName.Contains("全市"))
+                        {
+                            <td class="type"><span>市排名第</span>@ViewBag.cityresnum<span>名</span></td>
+                        }
+                        else if (item.TaskName.Contains("全区"))
+                        {
+                            <td class="type"><span>区排名第</span>@ViewBag.arearesnum<span>名</span></td>
+                        }
+                        else if (item.TaskName.Contains("学校"))
+                        {
+                            <td class="type"><span>学校排名第</span>@ViewBag.schoolresnum<span>名</span></td>
+                        }
+                        else if (item.TaskName.Contains("系统"))
+                        {
+                            <td class="type"><span>下载数量：</span>@ViewBag.systeUpmnum<span><span>&nbsp;&nbsp;&nbsp;</span>排名：@ViewBag.systeUpOrd</span></td>
+                        }
+                        
+                    </tr>
+                }
+            </table> 
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+
+    });
+</script>
+

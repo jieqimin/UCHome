@@ -1,0 +1,165 @@
+﻿@using UCHome.Model
+@{    
+    ViewBag.Title = "教师个人空间";   
+}
+@model Guid
+@{
+    if (Model == Guid.Empty)
+    {
+    @Html.Raw("<div class='modal-backdrop fade in center-block' style='opacity:1'><div class='modal-dialog modal-sm show'><div class='modal-content'><div class='modal-body text-center'>检测到帐号访问异常，请联系管理员！</div></div></div></div>")
+        return;
+    }  
+}
+@{
+    UCHomeEntities uc = new UCHomeEntities();
+    if (!uc.UCHome_BaseInfo.Any(u => u.UserID == Model))
+    {
+    @Html.Raw("<div class='modal-backdrop fade in center-block' style='opacity:1'><div class='modal-dialog modal-sm show'><div class='modal-content'><div class='modal-body'>抱歉，访问空间不存在，可能还未激活！<a class='text-center center-block' href='" + Url.Action("Index", "Home") + "'><br /><u>返回个人空间</u></a></div></div></div></div>")
+        return;
+    }
+}
+@section Head{
+    <link href="@Url.Content("~/Content/css/teacher.css")" rel="stylesheet" />
+    <script>
+        $(function () {
+            //数据绑定 BindData
+            $("#PersonInfo").load("@Url.Action("PersonInfo2", new { id = Model })");
+            $("#staticnews").load("@Url.Action("staticnews", new { id = Model })");
+            var actdefaulturl = "@Url.Action("QueryResById2", "MyResource", new { id = Model })";
+            $("#resourcecontent").load(actdefaulturl);
+            //End
+        });
+
+    </script>
+}
+<div class="top">
+    <div class="top_content">
+        @* <span class="title">个人空间</span>*@
+        <ul class="portal">
+            <li class="logo">泰安市教育云空间</li>
+        </ul>
+        <ul class="login">
+            <li><a class="returntop" href="#top">返回顶部</a></li>
+            <li><a class="loginout" href="http://www.taedu.gov.cn/Authentication.Web/Test/SignIn.aspx?ApplicationID=5cc47442-6677-40b9-8747-b5fc566660c9&ReturnUrl=http%3a%2f%2fwww.taedu.gov.cn%3a80%2fUCHomeNew%2fTeacherCenter%2fIndex">【登录】</a></li>
+            <li class="person"><a href="@Url.Action("Index", "Home")">返回个人中心</a></li>
+        </ul>
+        <span></span>
+
+    </div>
+</div>
+
+<div class="content2 clearfix">
+    <div class="concent_body2">
+        <div class="body_left2 clearfix">
+            <div class="br_content1 clearfix" id="PersonInfo">
+                <div style="margin-top: 80px;" class="loading">正在加载中，请稍候……</div>
+            </div>
+            <div class="message">
+                <ul>
+                    <li>日志<br />
+                        <span
+                            class="count">@ViewBag.articlecount</span></li>
+                    <li>说说<br />
+                        <span
+                            class="count">@ViewBag.saycount</span></li>
+                    <li>照片<br />
+                        <span
+                            class="count">@ViewBag.photocount</span></li>
+                </ul>
+            </div>
+
+
+            <div id="shortcut" class="shortcut">
+                @{
+                    var usertype = new ViewDataDictionary();
+                    usertype.Add("UserType", "T");
+                }
+                @Html.Partial("ZoomShortCut", Model, usertype)
+            </div>
+            <div class="Attentionlist clearfix">
+            </div>
+        </div>
+        <div id="body_content" class="body_center2">
+            <div class="bc_content1">
+                <div class="dtitle">
+                    最新动态 
+                </div>
+                <div id="staticnews">
+                    <div class="loading">正在加载中，请稍候……</div>
+                </div>
+            </div>
+            <div class="bc_content4">
+                <div class="dtitle">
+                    最新资源 
+                </div>
+                <div id="resourcecontent">
+                    <div class="loading">正在加载中，请稍候……</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="bottom"></div>
+
+<script>
+    $.ajax({
+        url: "@Url.Action("ValidAttent", "PublicShare")",
+        data: { AttentUser: "@Model" },
+        async: false,
+        success: function (data) {
+            if (!data) {
+                $(".Attentionlist").append(" <button id='btnAttent' type='button' opertype='cancelattent' class=' btn btn-success btn-lg col-xs-12'>取消关注</button>");
+            }
+            else {
+                $(".Attentionlist").append(" <button id='btnAttent' type='button' opertype='attentta' class=' btn btn-info btn-lg col-xs-12'>关注TA</button>");
+            }
+        }
+    });
+    $(function () {
+        $("#btnAttent").click(function () {
+            var opertype = $(this).attr("opertype");
+            if (opertype == "attentta")
+                $.ajax({
+                    url: "@Url.Action("AddAttent", "PublicShare")",
+                    data: { AttentUser: "@Model" },
+                    success: function (data) {
+                        if ($("#attendresult").length > 0)
+                            $("#attendresult").remove();
+                        if (data) {
+                            $(".Attentionlist").after("<div id='attendresult' class='alert alert-success'>关注成功！</div>");
+                            setTimeout(function () { $("#attendresult").remove(); }, 3000);
+                            $("#btnAttent").html("取消关注");
+                            $("#btnAttent").attr("opertype", "cancelattent");
+                            $("#btnAttent").removeClass("btn-info").addClass("btn-success");
+                        }
+                        else {
+                            $(".Attentionlist").after("<div id='attendresult'  class='alert alert-warning'>请先登录！</div>");
+                            setTimeout(function () { $("#attendresult").remove(); }, 3000);
+                        }
+                    }
+                });
+            else
+                $.ajax({
+                    url: "@Url.Action("CancelAttent", "PublicShare")",
+                    data: { AttentUser: "@Model" },
+                    success: function (data) {
+                        if ($("#attendresult").length > 0)
+                            $("#attendresult").remove();
+                        if (data) {
+                            $(".Attentionlist").after("<div id='attendresult' class='alert alert-success'>取消成功！</div>");
+                            setTimeout(function () { $("#attendresult").remove(); }, 3000);
+                            $("#btnAttent").html("关注TA");
+                            $("#btnAttent").attr("opertype", "attentta");
+                            $("#btnAttent").removeClass("btn-success").addClass("btn-info");
+                        }
+                        else {
+                            $(".Attentionlist").after("<div id='attendresult'  class='alert alert-warning'>请先登录！</div>");
+                            setTimeout(function () { $("#attendresult").remove(); }, 3000);
+                        }
+                    }
+                });
+        });
+    });
+
+</script>

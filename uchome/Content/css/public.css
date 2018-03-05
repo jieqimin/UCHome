@@ -1,0 +1,341 @@
+﻿div, p, ul, li, dl, dd, h4, h5 {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+.date-font-color {
+    color: #999;
+}
+
+.content-font-color {
+    color: #666;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #8FC2DF;
+    width: 100%;
+    height: 100%;
+    font-family: 微软雅黑;
+    overflow: auto;
+    background-repeat: no-repeat;
+    background-position: left bottom;
+    background-size: 100% 100%;
+}
+
+.text-cut {
+    max-width: 400px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+fieldset {
+    padding: .35em .625em .75em;
+    margin: 0 2px;
+    border: 1px solid silver;
+    border-radius: 4px !important;
+    -moz-border-radius: 4px !important;
+    -webkit-border-radius: 4px;
+}
+
+legend {
+    padding: .5em;
+    border: 0;
+    width: auto;
+}
+
+.loading_green {
+    background-image: url("../images/loading_green.gif");
+    background-position: top center;
+    color: #2e8b57;
+}
+
+.loading {
+    font-size: 14px;
+    text-align: center;
+    width: 100%;
+    line-height: 35px;
+    font-family: 微软雅黑;
+    vertical-align: middle;
+    background-repeat: no-repeat;
+    height: 100px;
+    padding-top: 65px;
+    margin-top: 10px;
+    font-size: 12px;
+    background-image: url("../images/loading.gif");
+    background-position: center center;
+    color: #333;
+}
+
+.loading_blue {
+    background-image: url("../images/loading_blue.gif");
+    background-position: center center;
+    color: #008080;
+}
+
+.nodata {
+    font-size: 14px;
+    text-align: center;
+    width: 100%;
+    line-height: 35px;
+    font-family: 微软雅黑;
+    vertical-align: middle;
+    background-repeat: no-repeat;
+    height: 100px;
+    padding-top: 65px;
+    margin-top: 10px;
+    font-size: 12px;
+    background-image: url("../images/nodata.png");
+    background-position: center center;
+    color: #333;
+}
+
+.noinfo {
+    font-size: 14px;
+    text-align: center;
+    width: 100%;
+    line-height: 35px;
+    font-family: 微软雅黑;
+    vertical-align: middle;
+}
+
+.top {
+    background-color: #04B1CC;
+    height: 43px;
+    width: 100%;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+}
+
+.top_content {
+    margin-top: 3px;
+    height: 40px;
+    position: relative;
+    margin: 0 auto;
+    width: 1200px;
+}
+
+    .top_content .title {
+        display: block;
+        height: 40px;
+        line-height: 40px;
+        font-family: 华文楷体;
+        font-weight: bold;
+        font-size: 24px;
+        letter-spacing: 2px;
+        position: absolute;
+        left: 50px;
+        vertical-align: middle;
+        color: #ffffff;
+    }
+
+    .top_content .portal {
+        margin: 0 auto;
+        width: 800px;
+        float: left;
+    }
+
+.portal .glyphicon, .login .glyphicon {
+    font-size: 15px;
+    margin-right: 10px;
+}
+
+.top_content .portal .logo {
+    font-size: 18px;
+    font-weight: bold;
+    width: 300px;
+    color: #fff;
+    letter-spacing: 2px;
+    font-family: punctuation, 微软雅黑;
+}
+
+
+
+.portal a, .login a {
+    color: #ffffff;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/*.portal li:hover a, .login li:hover a,.portal li:hover span, .login li:hover span  {
+    color: yellow;
+    font-size: 15px;
+}*/
+
+.top_content .login {
+    margin: 0 auto;
+    width: 400px;
+    float: right;
+    text-align: right;
+}
+
+.login .returntop {
+    float: right;
+    color: #ffffff;
+}
+
+.top_content .portal li {
+    float: left;
+    padding: 0 15px;
+    color: #ffffff;
+    line-height: 40px;
+    height: 40px;
+    text-align: left;
+    font-size: 12px;
+}
+
+.top_content .login li {
+    float: right;
+    width: 100px;
+    color: #ffffff;
+    line-height: 40px;
+    height: 40px;
+    text-align: right;
+    font-size: 12px;
+}
+
+.portal li:hover {
+    background-color: #08A0BC;
+}
+
+.top_content .login .person a {
+    color: #fff;
+}
+
+.top_content .loginout {
+    display: block;
+    height: 40px;
+    width: 100px;
+    line-height: 40px;
+    font-size: 12px;
+    color: #fff;
+    vertical-align: middle;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.content, .content2 {
+    margin: 0 auto;
+    width: 1000px;
+}
+
+.ul-shortcut li {
+    position: relative;
+}
+
+    .ul-shortcut li span {
+        display: inline-block;
+        margin-left: 10px;
+    }
+
+.li-icon {
+    background-image: url("../images/uchome-icon6.png");
+    background-repeat: no-repeat;
+    height: 16px;
+    width: 16px;
+    display: inline-block;
+    position: absolute;
+    top: 12px;
+}
+
+.li-icon2 {
+    background-image: url("../images/uchome-icon.png");
+    background-repeat: no-repeat;
+    height: 16px;
+    width: 16px;
+    display: inline-block;
+    position: absolute;
+    top: 12px;
+}
+
+.ul-shortcut li:hover {
+    color: #ffffff;
+}
+
+.li-icon-home {
+    background-position-x: -740px;
+    background-position-y: -150px;
+}
+
+.li-icon-say {
+    background-position-x: -740px;
+    background-position-y: -100px;
+}
+
+.li-icon-article {
+    background-position-x: -740px;
+    background-position-y: -125px;
+}
+
+.li-icon-log {
+    background-position-x: -765px;
+    background-position-y: -25px;
+}
+
+.li-icon-photo {
+    background-position-x: -740px;
+    background-position-y: -175px;
+}
+
+.li-icon-mark {
+    background-position-x: -740px;
+    background-position-y: -150px;
+}
+
+.li-icon-message {
+    background-position-x: -765px;
+    background-position-y: -175px;
+}
+
+.alertbg {
+    width: 500px;
+    text-align: left;
+    position: absolute;
+    top: 40%;
+    left: 30%;
+    z-index: 2000;
+}
+
+.customtree ul {
+    padding-left: 10px;
+    text-indent: 10px;
+}
+
+    .customtree ul li {
+        margin-top: 3px;
+        text-indent: 10px;
+        padding-left: 10px;
+    }
+
+.customtree li a {
+    line-height: 30px;
+    text-decoration: none;
+}
+
+    .customtree li a span:hover {
+        background-color: #337AB7;
+        color: white;
+    }
+
+    .customtree li a span {
+        height: 30px;
+        line-height: 30px;
+        display: inline-block;
+        white-space: nowrap;
+        padding-right: 10px;
+    }
+input.validate-error {
+    background-color: #F2DEDE;
+}
+.validate-error {
+    margin-top:5px;
+    padding:3px 0 ;
+    color: red;
+    width: 100%;
+    background-color: #eee;
+}

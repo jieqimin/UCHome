@@ -1,0 +1,289 @@
+﻿@{
+    Layout = null;
+}
+
+@using System.Web.Mvc
+@using M = ClassCenterModel;
+@model M.ClassDuty
+<link rel="stylesheet" href="@Url.Content("~/Content/css/msg.css")">
+<script src="@Url.Content("~/plugs/usercontrol/selectuser.js")"></script>
+<link rel="stylesheet" href="@Url.Content("~/plugs/webuploader/css/webuploader.css")">
+<link rel="stylesheet" href="@Url.Content("~/plugs/webuploader/css/demo.css")">
+<link rel="stylesheet" href="@Url.Content("~/plugs/datetimepicker/css/bootstrap-datetimepicker.css")">
+<link rel="stylesheet" href="@Url.Content("~/content/css/homework.css")">
+
+<link href="@Url.Content("~/content/css/summernote.css")" rel="stylesheet">
+<script src="@Url.Content("~/content/js/summernote.js")"></script>
+<style type="text/css">
+    .sel-notice {
+        width: 120px !important;
+        margin-right: 10px;
+    }
+</style>
+@using (Ajax.BeginForm("EditDutySend", null,
+    new AjaxOptions()
+    {
+        HttpMethod = "post",
+        Url = Url.Action("EditDutySend"),
+        UpdateTargetId = "#editDutySend",
+        LoadingElementId = "loding",
+        LoadingElementDuration = 2000
+    }, new { id = "form_editDutySend" }))
+{
+    @Html.HiddenFor(model => model.ID)
+
+
+    <div id="editDutySend" class="form-horizontal form-position pagew ">
+        @{if (Model != null)
+          {
+            <div class="form-group">
+                <label for="Day1" class="col-sm-2 control-label">
+                    <i class="required" style="color: red;">*</i>
+                    周一：
+                </label>
+                <div class="col-sm-9">
+                    <input type="text" class="col-xs-3" id="Day1" name="Day1" value="@Model.Day1" placeholder=" 请输入姓名" style="width:200px;" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="Day2" class="col-sm-2 control-label">
+                    <i class="required" style="color: red;">*</i>
+                    周二：
+                </label>
+                <div class="col-sm-9">
+                    <input type="text" class="col-xs-3" id="Day2" name="Day2" value="@Model.Day2" placeholder=" 请输入姓名" style="width:200px;" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="Day3" class="col-sm-2 control-label">
+                    <i class="required" style="color: red;">*</i>
+                    周三：
+                </label>
+                <div class="col-sm-9">
+                    <input type="text" class="col-xs-3" id="Day3" name="Day3" value="@Model.Day3" placeholder=" 请输入姓名" style="width:200px;" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="Day4" class="col-sm-2 control-label">
+                    <i class="required" style="color: red;">*</i>
+                    周四：
+                </label>
+                <div class="col-sm-9">
+                    <input type="text" class="col-xs-3" id="Day4" name="Day4" value="@Model.Day4" placeholder=" 请输入姓名" style="width:200px;" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="Day5" class="col-sm-2 control-label">
+                    <i class="required" style="color: red;">*</i>
+                    周五：
+                </label>
+                <div class="col-sm-9">
+                    <input type="text" class="col-xs-3" id="Day5" name="Day5" value="@Model.Day5" placeholder=" 请输入姓名" style="width:200px;" />
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="btn-group center-block" style="width: 200px;">
+                    <button id="btnSend" type="button" class="btn btn-info dropdown-toggle" data-toggle="button" aria-haspopup="true" aria-expanded="false">
+                        保存
+                    </button>
+                    <button style="margin-left: 10px" id="btnClose" type="button" class="btn btn-info dropdown-toggle" data-toggle="button" aria-haspopup="true" aria-expanded="false">
+                        关闭
+                    </button>
+                </div>
+            </div>
+
+            <div class="form-group" id="addLast">
+                <ul id="validmsg"></ul>
+            </div>
+          }
+          else
+          {
+            <div class="form-group">
+                <label for="Day1" class="col-sm-2 control-label">
+                    <i class="required" style="color: red;">*</i>
+                    周一：
+                </label>
+                <div class="col-sm-9">
+                    <input type="text" class="col-xs-3" id="Day1" name="Day1" placeholder=" 请输入姓名" style="width: 200px;" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="Day2" class="col-sm-2 control-label">
+                    <i class="required" style="color: red;">*</i>
+                    周二：
+                </label>
+                <div class="col-sm-9">
+                    <input type="text" class="col-xs-3" id="Day2" name="Day2" placeholder=" 请输入姓名" style="width: 200px;" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="Day3" class="col-sm-2 control-label">
+                    <i class="required" style="color: red;">*</i>
+                    周三：
+                </label>
+                <div class="col-sm-9">
+                    <input type="text" class="col-xs-3" id="Day3" name="Day3" placeholder=" 请输入姓名" style="width: 200px;" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="Day4" class="col-sm-2 control-label">
+                    <i class="required" style="color: red;">*</i>
+                    周四：
+                </label>
+                <div class="col-sm-9">
+                    <input type="text" class="col-xs-3" id="Day4" name="Day4" placeholder=" 请输入姓名" style="width: 200px;" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="Day5" class="col-sm-2 control-label">
+                    <i class="required" style="color: red;">*</i>
+                    周五：
+                </label>
+                <div class="col-sm-9">
+                    <input type="text" class="col-xs-3" id="Day5" name="Day5" placeholder=" 请输入姓名" style="width: 200px;" />
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="btn-group center-block" style="width: 200px;">
+                    <button id="btnSend" type="button" class="btn btn-info dropdown-toggle" data-toggle="button" aria-haspopup="true" aria-expanded="false">
+                        保存
+                    </button>
+                    <button style="margin-left: 10px" id="btnClose" type="button" class="btn btn-info dropdown-toggle" data-toggle="button" aria-haspopup="true" aria-expanded="false">
+                        关闭
+                    </button>
+                </div>
+            </div>
+
+            <div class="form-group" id="addLast">
+                <ul id="validmsg"></ul>
+            </div>
+          }
+        }
+
+
+
+    </div>
+}
+
+<link rel="stylesheet" href="@Url.Content("~/Content/css/zyUpload.css")" type="text/css">
+<!-- 引用核心层插件 -->
+<script type="text/javascript" src="@Url.Content("~/Content/js/zyFile.js")"></script>
+<!-- 引用控制层插件 -->
+<script type="text/javascript" src="@Url.Content("~/Content/js/zyUpload.js")"></script>
+<!-- 引用初始化JS -->
+<script type="text/javascript" src="@Url.Content("~/Content/js/uploadImages.js")"></script>
+
+<link href="@Url.Content("~/Content/css/nanogallery.css")" rel="stylesheet" type="text/css">
+<!-- nanoGALLERY js -->
+<script type="text/javascript" src="@Url.Content("~/Content/js/jquery.nanogallery.js")"></script>
+
+<script>
+    ///阻止事件冒泡的通用函数
+    function stopBubble(e) {
+        // 如果传入了事件对象，那么就是非ie浏览器
+        if (e && e.stopPropagation) {
+            //因此它支持W3C的stopPropagation()方法
+            e.stopPropagation();
+        } else {
+            //否则我们使用ie的方法来取消事件冒泡
+            window.event.cancelBubble = true;
+        }
+    }
+
+    ///删除上传的照片
+    function chearImage(obj, imageName, ext, e) {
+
+        if (confirm("确认删除该照片吗？")) {
+            $(obj).parent().parent().parent().remove();
+            $("#imageHtml").find("a[id=" + imageName + "]").remove();
+            $("#hidImages").val($("#hidImages").val().replace(imageName + ext + ";", ""));
+        }
+
+        stopBubble(e);
+    }
+
+    $(document).ready(function () {
+
+
+
+
+        $("#btnSend").click(function () {
+            $("#validmsg li").remove();
+            $("#form_editDutySend").submit();
+            $("#validmsg").show();
+        });
+
+        var validator = $("form").validate({
+            rules: {
+                Day1: "required",
+                Day2: "required",
+                Day3: "required",
+                Day4: "required",
+                Day5: "required"
+                //Day6: "required",
+                //Day7: "required"
+
+            },
+            messages: {
+                Day1: "请输入姓名",
+                Day2: "请输入姓名",
+                Day3: "请输入姓名",
+                Day4: "请输入姓名",
+                Day5: "请输入姓名"
+            },
+            errorClass: "red", //设置错误样式
+            errorElement: "label", //设置显示错误提示的控件,默认为<label>
+            errorLabelContainer: "#validmsg", //指定错误信息放置容器
+            wrapper: "li",
+
+            submitHandler: function (form) {
+                $(form).ajaxSubmit({
+                    success: function (data) {
+                        if (data.Data.statuscode == 200) {
+                            var obj = "<div id='operresultmsg' class='alert alert-success center-block' role='alert'>保存成功！</div>";
+                            $("#addLast").append(obj);
+
+                            $("#validmsg").show();
+                            setTimeout(function () {
+                                $("#operresultmsg").remove();
+                            }, 2000);
+                        }
+                        else if (data.Data.statuscode == 400) {
+                            var obj = "<div id='operresultmsg' class='alert alert-danger center-block' role='alert'>保存失败，请指定班主任或者学生添加！<p style='display:none'>" + data.Data.msg + "</p></div>";
+                            $("#addLast").append(obj);
+
+                            setTimeout(function () {
+                                $("#operresultmsg").remove();
+                            }, 2000);
+                        }
+
+                        else {
+                            var obj = "<div id='operresultmsg' class='alert alert-danger center-block' role='alert'>保存失败，请重试！<p style='display:none'>" + data.Data.msg + "</p></div>";
+                            $("#addLast").append(obj);
+
+                            setTimeout(function () {
+                                $("#operresultmsg").remove();
+                            }, 2000);
+                        }
+                    }
+                });
+            }
+            //onsubmit: false,//是否提交时验证，默认为True,用于设置某一个不需要验证的控件
+            //onfocusin: false,//是否获取焦点时验证，默认为True
+            //onkeyup: false,//是否在敲击键盘时验证，默认为True
+            //onclick: false//是否在鼠标点击时验证，默认为True
+        });
+    });
+
+</script>
+<script src="@Url.Content("~/plugs/datetimepicker/js/bootstrap-datetimepicker.min.js")"></script>
+<script src="@Url.Content("~/plugs/datetimepicker/js/bootstrap-datetimepicker.zh-CN.js")"></script>
+<script>
+    $('.form_datetime').datetimepicker({
+        minView: "month", //选择日期后，不会再跳转去选择时分秒
+        language: 'zh-CN',
+        format: 'yyyy-mm-dd',
+        autoclose: true
+    });
+</script>
+

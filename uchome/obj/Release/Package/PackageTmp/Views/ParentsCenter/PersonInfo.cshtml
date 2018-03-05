@@ -1,0 +1,13 @@
+﻿@model UCHome.Model.View_Simple_Parents
+@{
+    ViewBag.Title = "PersonInfo";
+}
+
+<ul>
+    <li class="teaphoto">
+        <img src="@Url.Content("~/Content/images/man.png")" border="0" />
+    </li>
+    <li class="teaname">@Model.XM</li>
+    <li class="teainfo">家长 | @Model.XXMC</li>
+    <li class="teaclass">@(Model.xsmc)家长</li>
+</ul>

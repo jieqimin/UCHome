@@ -1,0 +1,31 @@
+﻿@using UCHome.Model
+@model List<UCHome_App_System>
+<style>
+</style>
+<div class="app_alllists">
+    <ul class="app_alllists_ul">
+        @foreach (UCHome_App_System app in Model.OrderByDescending(a => a.CreateTime).Take(8).ToList()) {
+            if (app.AppTarget == "_blank") {
+                <li>
+                    <a href="@Url.Action("SystemAppRedirectPage", new { id = app.PKID })" target="@app.AppTarget">
+                        <span class="li_appbg">
+                            <img class="img-rounded" src="@Url.Content("~/Content/icon/fr" + app.AppIcon + app.AppColor + "2.png")" />
+                        </span>
+                        <span class="li_appname">@app.AppName</span>
+                    </a>
+                </li>
+}
+            else {
+                <li>
+                    <a onclick="OpenAppUrl('@Url.Action("SystemAppRedirectPage", new { id = app.PKID })')">
+                        <span class="li_appbg">
+                            <img class="img-rounded" src="@Url.Content("~/Content/icon/fr" + app.AppIcon + app.AppColor + "2.png")" />
+                        </span>
+                        <span class="li_appname">@app.AppName</span>
+                    </a>
+                </li>
+}
+        }
+    </ul>
+</div>
+

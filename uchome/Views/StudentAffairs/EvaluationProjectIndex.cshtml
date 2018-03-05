@@ -1,0 +1,70 @@
+﻿<link href="@Url.Content("~/plugs/zTree/zTreeStyle/zTreeStyle.css")" rel="stylesheet" />
+<link href="@Url.Content("~/angular/uchome/studentaffairs/studentaffaris.css")" rel="stylesheet" />
+<script src="@Url.Content("~/Scripts/jquery-1.7.1.min.js")"></script>
+<script src="@Url.Content("~/plugs/zTree/jquery.ztree.all.min.js")"></script>
+<div class="form-horizontal evaluation-container">
+    <div class="form-group">
+        <label class="col-md-3 control-label ">
+            项目名称：
+        </label>
+        <div class="col-md-7">
+            <input class="form-control" ng-model="Name" required />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-md-3 control-label ">
+            评价体系：
+        </label>
+        <div class="col-md-7">
+            <select ng-model="System" ng-change="ChangePropertyTree()" class="form-control" ng-options="system.Name for system in Systems" required></select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-md-3 control-label ">
+            描述：
+        </label>
+        <div class="col-md-7">
+            <textarea class="form-control" ng-model="System.Describe"></textarea>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-md-3 control-label ">
+            评价对象：
+        </label>
+        <div class="col-md-7">
+            <label class="label-middle"> <input type="radio" ng-init="evalutatedType='student'" ng-model="evalutatedType" value="student" name="evalutatedType" />学生</label>
+            <label class="label-middle"> <input type="radio" ng-model="evalutatedType" value="class" name="evalutatedType"/>班级</label>
+            <label class="label-middle"> <input type="radio" ng-model="evalutatedType" value="teacher" name="evalutatedType" />教师</label>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-md-3 control-label ">
+            评价周期：
+        </label>
+        <div class="col-md-7">
+            <label class="label-middle"> <input type="radio" ng-init="evalutatedCircle='day'" ng-model="evalutatedCircle" value="day" name="evalutatedCircle" />天</label>
+            <label class="label-middle"> <input type="radio" ng-model="evalutatedCircle" value="week" name="evalutatedCircle" />周</label>
+            <label class="label-middle"> <input type="radio" ng-model="evalutatedCircle" value="month" name="evalutatedCircle" />月</label>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-md-3 control-label ">
+            评价项：
+        </label>
+        <div class="col-md-7">
+            <ul id="treeDemo" class="ztree" style="margin: 10px;min-height:200px"></ul>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-7">
+            <button class="btn  btn-success float-right" ng-click="SaveProject()">保存</button>
+        </div>
+    </div>
+</div>
+<div class="warn-area">
+    <input type="hidden" id="projectId" value="@ViewBag.ProjectId" />
+    <ul>
+        <li ng-repeat="item in warnList">{{item}}</li>
+    </ul>
+</div>

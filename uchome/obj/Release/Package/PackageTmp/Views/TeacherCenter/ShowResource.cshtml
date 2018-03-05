@@ -1,0 +1,24 @@
+﻿@model string
+<ul id="resourcec" class="content2_tab2">
+</ul>
+<script>
+    $.ajax({
+        url: "@Url.Content("~/ashx/GetResoucesByType.ashx")",
+        data: { top: 5, learntype: "@ViewBag.LearnType" },
+        success: function (data) {
+            var schclass = eval("(" + data + ")"); //
+            if (schclass.length > 0) {
+                $.each(schclass, function (idx, item) {
+                    var rname = item.rname;
+                    var rdate = item.rdate;
+                    var rid = item.rid;
+                    var obj = "<li><a target=\"_blank\" href=\"http://jx.taedu.gov.cn:83/Resource.Portal.Web/SubjectResource/Preview?resid=" + rid + "\">▪  【" + rdate + "】" + rname + "</a></li>";
+                    $("#resourcec").append($(obj));
+                });
+            }
+            else {
+                $("#resourcec").append("<div  class=\"loading\">还没有上传的资源，现在马上<a href=\"http://jx.taedu.gov.cn:83/Resource.Portal.Web\">上传资源</a>!</div>");
+            }
+        }
+    })
+</script>

@@ -1,0 +1,283 @@
+﻿@{
+    Layout = null;
+}
+<link rel="stylesheet" href="@Url.Content("~/Content/css/msg.css")">
+<link rel="stylesheet" href="@Url.Content("~/plugs/datatables/css/jquery.dataTables.css")">
+<link rel="stylesheet" href="@Url.Content("~/plugs/datatables/css/dataTables.bootstrap.css")">
+<script src="@Url.Content("~/plugs/datatables/js/jquery.datatables.js")"></script>
+<script src="@Url.Content("~/plugs/datatables/js/dataTables.bootstrap.js")"></script>
+
+@using (Ajax.BeginForm("RegistIndex", null,
+    new AjaxOptions()
+    {
+        HttpMethod = "post",
+        Url = Url.Action("RegistIndex"),
+        UpdateTargetId = "#index",
+        LoadingElementId = "loding",
+        LoadingElementDuration = 2000
+    }, new { id = "form_editSend" }))
+{
+    <div id="index" class="form-position pagew">
+        <div class="col-sm-9">
+            <div style="margin-bottom:10px;">
+                活动标题&nbsp;&nbsp;<input type="text" id="ActiveName" name="ActiveName" style="line-height: 24px; width: 255px;" class="input-inline" placeholder="输入活动标题">&nbsp;&nbsp;&nbsp;&nbsp;
+            </div>
+            <span style="float: left;padding-top:6px;">时间&nbsp;&nbsp;</span>
+            <div class="date form_datetime input-group" data-date-format="yyyy-mm-dd" data-link-field="dtp_input1" style="float: left;width:170px;">
+                <input class="form-control" id="StartTime" name="StartTime" type="text" placeholder="开始日期">
+                <div class="input-group-addon">
+                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                </div>
+                <div class="input-group-addon">
+                    <span class="glyphicon glyphicon-th" aria-hidden="true"></span>
+                </div>
+            </div>
+            <span style="float: left;padding-top:6px;">&nbsp;&nbsp;-&nbsp;&nbsp;</span>
+            <div class="date form_datetime input-group" data-date-format="yyyy-mm-dd" data-link-field="dtp_input1" style="float: left;width:170px;">
+                <input class="form-control" id="EndTime" name="EndTime" type="text" placeholder="结束日期">
+                <div class="input-group-addon">
+                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                </div>
+                <div class="input-group-addon">
+                    <span class="glyphicon glyphicon-th" aria-hidden="true"></span>
+                </div>
+            </div>
+            <div style="float: left;margin-bottom:10px;">
+                &nbsp;&nbsp;
+                <button id="btnSelect" onclick="clickGetSearchList();" type="button" class="btn btn-info dropdown-toggle" data-toggle="button" aria-haspopup="true" aria-expanded="false">
+                    查询
+                </button>
+            </div>
+        </div>
+        <div class="component" id="dataContent">
+
+        </div>
+    </div>
+
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="clears();"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel" style="font-weight: bold;"></h4>
+                </div>
+                <div class="modal-body">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" onclick="clears()">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<script src="@Url.Content("~/plugs/datetimepicker/js/bootstrap-datetimepicker.min.js")"></script>
+<script src="@Url.Content("~/plugs/datetimepicker/js/bootstrap-datetimepicker.zh-CN.js")"></script>
+<link href="@Url.Content("~/content/css/summernote.css")" rel="stylesheet">
+<script src="@Url.Content("~/content/js/summernote.js")"></script>
+<script>
+    $('.form_datetime').datetimepicker({
+        minView: "month", //选择日期后，不会再跳转去选择时分秒
+        language: 'zh-CN',
+        format: 'yyyy-mm-dd',
+        autoclose: true
+    });
+</script>
+<script>
+    $(function () {
+        clickGetSearchList();
+    });
+
+    function openform(id, type) {
+        shows();
+        //type:1--活动详情，2--报名表，3--心得体会，4--编辑报名表，5--报名
+        //$('#myModal').modal('show');
+
+        var loadurl = "";
+
+        if (type === "1") {
+            //活动详情
+            $("#myModalLabel").html("活动详情");
+            loadurl = "@Url.Action("DetailsAcitve")?id=" + id;
+        } else if (type === "2") {
+            //报名表   
+            $("#myModalLabel").html("报名详情");
+            loadurl = "@Url.Action("SignDetails")?id=" + id;
+        } else if (type === "5") {
+            //报名
+            $("#myModalLabel").html("报名");
+            loadurl = "@Url.Action("Sign")?id=" + id;
+        } else if (type === "4") {
+            //编辑报名表
+            $("#myModalLabel").html("编辑报名信息");
+            loadurl = "@Url.Action("EditSign")?id=" + id;
+        } else if (type === "3") {
+            //心得体会
+            $("#myModalLabel").html("心得体会");
+            loadurl = "@Url.Action("SaveExperience")?id=" + id;
+        }
+
+        if (loadurl !== "") {
+            $(".modal-body").load(loadurl);
+        }
+    }
+
+    function RemoveSign(activeID) {
+        if (confirm("确认取消吗？")) {
+            if (activeID != null && activeID != "") {
+                $.getJSON('@Url.Action("RemoveSignJson")', { "activeId": activeID }, function (data) {
+                    alert(data);
+                    clickGetSearchList();
+                });
+            } else {
+                alert("取消报名失败！");
+            }
+        }
+    }
+
+    function clickGetSearchList() {
+        $("#dataContent").html("<img style=\" margin-left:45%;\" src=\"@Url.Content("~/Content/images/loading.gif")\" /><br />" +
+            "<span style=\"margin-left:40%;font-size: 12px;\">数据加载中，请稍候...</span>");
+
+        var loadurl = "@Url.Action("RegistIndexData")?ActiveName=" + $("#ActiveName").val() + "&StartTime=" + $("#StartTime").val() +
+            "&EndTime=" + $("#EndTime").val();
+        $("#dataContent").load(loadurl);
+    }
+
+    function clears() {
+        $("body").attr("class", "");
+        $("body").attr("style", "");
+        $("#myModal").attr("aria-hidden", "true");
+        $("#myModal").attr("class", "modal fade");
+        $("#myModal").css("display", "none");
+        $(".modal-backdrop").remove();
+        $(".modal-body").html("");
+    }
+
+    function shows() {
+        $("#myModal").css("display", "block");
+        $("body").attr("class", "modal-open");
+        $("body").css("padding-right", "17px");
+        $("#myModal").attr("aria-hidden", "false");
+        $("#myModal").attr("class", "modal fade in");
+        $("body").append("<div class=\"modal-backdrop fade in\"  onclick=\"clears();\"></div>");
+    }
+
+    function SubmitExperience() {
+        $("#loadsaveexp").html("<img style=\" margin-left:20px;\" src=\"@Url.Content("~/Content/images/loading.gif")\" /" +
+            "<span style=\"margin-left:10px;font-size: 12px;\">&nbsp;&nbsp;数据保存中，请稍候...</span>");
+
+        var activeId = $("#hidActiveId").val();
+        var experience = $('#divexperience').summernote('code');
+
+        if (activeId != null && activeId !== "") {
+            $.getJSON('@Url.Action("SaveExperienceJson")', { "activeId": activeId, "experience": escape(experience) }, function (data) {
+                $("#loadsaveexp").html("<span style=\"margin-left:20px;font-size: 12px;color:red;\">" + data + "</span>");
+                setTimeout(function () {
+                    clears();
+                }, 1500);
+            });
+        } else {
+            $("#loadsaveexp").html("<span style=\"margin-left:20px;font-size: 12px;color:red;\">心得体会提交失败！</span>");
+        }
+    }
+
+    function SaveSign(msg) {
+        $("#loadsave").html("<img style=\" margin-left:20px;\" src=\"@Url.Content("~/Content/images/loading.gif")\" /" +
+            "<span style=\"margin-left:10px;font-size: 12px;\">&nbsp;&nbsp;数据提交中，请稍候...</span>");
+
+        var requiredIds = "AllModelIds" + $("#RequiredIds").val();
+        var allModelIds = $("#AllModelIds").val();
+
+        var result = "0";
+
+        if (allModelIds != null && allModelIds != "") {
+            var allModelName = $("#AllModelNames").val().split(";");
+
+            var modelIds = allModelIds.split(";");
+            var len = modelIds.length;
+
+            for (var i = 0; i < len; i++) {
+                if (requiredIds.indexOf(modelIds[i]) >= 0) {
+                    if (modelIds[i].substring(0, 11) == "ComplexText") {
+                        var txt = $("#" + modelIds[i]).summernote('code');
+                        if (txt == null || txt == "" || txt == "<p><br></p>" || txt == "<br>") {
+                            $("#loadsave").html("请填写" + allModelName[i] + "！");
+                            result = "1";
+                            return false;
+                        }
+                    } else {
+                        var val = $("#" + modelIds[i]).val();
+
+                        if (val == null || val == "") {
+                            $("#loadsave").html("请填写" + allModelName[i] + "！");
+                            result = "1";
+                            return false;
+                        }
+                    }
+                }
+            }
+
+            var allValues = "";
+            var activeId = $("#ActiveID").val();
+            var modelId = $("#WriteRegistTable").val();
+            var activeNum = $("#ActiveNum").val();
+
+            if (result == "0") {
+                $.getJSON('@Url.Action("SaveRegistJson")', { "activeId": activeId, "modelId": modelId, "ActiveAudit": $("#ActiveAudit").val(), "activeNum": activeNum }, function (data) {
+
+                    if (data != null && data != "") {
+                        for (var i = 0; i < len; i++) {
+                            var val = "";
+                            if (modelIds[i].substring(0, 5) == "Radio") {
+                                val = $('input[id="' + modelIds[i] + '"]:checked ').val();
+                            } else if (modelIds[i].substring(0, 8) == "CheckBox") {
+                                var chkvalue = "";
+                                $('input[name="' + modelIds[i] + '"]:checked').each(function () {
+                                    chkvalue += $(this).attr("value") + ",";
+                                });
+                                if (chkvalue != "")
+                                    chkvalue = chkvalue.substring(0, chkvalue.length - 1);
+                                val = chkvalue;
+                            } else if (modelIds[i].substring(0, 11) == "ComplexText") {
+                                val = $("#" + modelIds[i]).summernote('code');
+                            } else {
+                                val = $("#" + modelIds[i]).val();
+                            }
+
+                            var savedata = {
+                                registID: data,
+                                activeId: activeId,
+                                modelId: modelId,
+                                modelName: allModelName[i],
+                                modelValue: escape(val)
+                            };
+
+                            $.ajax({
+                                url: "@Url.Action("SaveModelValueJson")",
+                                type: 'POST',
+                                dataType: 'json',
+                                data: savedata,
+                                success: function (response) {
+
+                                }
+                            });
+                        }
+
+                        $("#loadsave").html("<span style=\"margin-left:20px;font-size: 12px;color:red;\">" + msg + "</span>");
+                        setTimeout(function () {
+                            clears();
+                            clickGetSearchList();
+                        }, 1500);
+                    } else {
+                        $("#loadsave").html("");
+                    }
+                });
+            } else {
+                $("#loadsave").html("");
+            }
+        } else {
+            $("#loadsave").html("");
+        }
+    }
+
+</script>

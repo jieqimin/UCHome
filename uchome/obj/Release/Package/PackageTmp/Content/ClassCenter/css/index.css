@@ -1,0 +1,106 @@
+﻿
+.img-box{
+	width:281px;
+	height:158px;
+	margin-bottom:20px;
+	}
+.img-box>img{
+	width:281px;
+	height:158px;
+	}
+
+/*右边*/
+.onduty{
+	width:220px;
+	height:126px;
+	background:url(../images/index/zhi.png) no-repeat;
+	padding-top:24px;
+	margin-bottom:19px;
+	}
+.onduty img{
+	display:block;
+	margin-left:33px;
+	}
+.onduty ul{
+	width:200px;
+	margin:17px auto 0; 
+	}
+.onduty li{
+	width:33%;
+	float:left;
+	height:30px;
+	text-align:center;
+	line-height:30px;
+	font-size: 14px;
+	font-family: "Microsoft YaHei";
+	color:#fff;
+	}
+	
+	
+.tea-stu{
+	width:100%;
+	}
+.tea-stu-title{
+	height:28px;
+	border-bottom:2px solid #1db2ca;
+	}
+.title-item{
+	float:left;
+	width:109px;
+	height:28px;
+	border-top-left-radius:5px;
+	border-top-right-radius:5px;
+	background:#ececec;
+	text-align:center;
+	line-height:28px;
+	font-size: 16px;
+	font-family: "Microsoft YaHei";
+	color:#b9b9b9;
+	cursor:pointer;
+	}
+.margin-right{
+	margin-right:2px;
+	}
+.title-check{
+	background:#1db2ca !important;
+	color:#fff !important;
+	}
+	
+.tea-stu ul{
+	width:100%;
+	margin-top:10px;
+	}
+.tea-stu li{
+	width:106px;
+	height:38px;
+	border-radius:5px;
+	float:left;
+	margin-bottom:5px;
+	text-align:center;
+	line-height:38px;
+	}
+.tea-stu li img{
+	vertical-align:middle;
+	}
+.tea-stu li span{
+	/*font-size: 14px;*/
+	font-family: "Microsoft YaHei";
+	margin-left:7px;
+	}
+.tea-stu li:nth-child(2n-1){
+	margin-right:2px;
+	}
+.man{
+	background:#acdef1;
+	border:1px solid #94cee4;
+	}
+.man span{
+	color:#2188af;
+	}
+.woman{
+	background:#bbe6b7;
+	border:1px solid #a3d79e;
+	}
+.woman span{
+	color:#3e9e35;
+	}

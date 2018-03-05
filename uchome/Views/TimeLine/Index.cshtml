@@ -1,0 +1,311 @@
+﻿@{
+    Layout = null;
+}
+@using UCHome.Models;
+@model TimeLineViewModel
+<audio controls="controls" hidden="hidden" autoplay="autoplay" loop="loop">
+    <source src="@Url.Content("~/Scripts/TimeLine/images/time.mp3")" type="audio/mpeg" />
+</audio>
+<div id="divBackGround" style="width:100%;height:980px; background:url(@Url.Content("~/Scripts/TimeLine/images/bg1.png")) no-repeat;background-size:100% 100%; position:fixed;z-index:99;">
+<div id="content" style="height:100%;position:relative;z-index:999;">
+    <div class="top-container">
+        <div class="top-user"><img id="HeadPhoto" style="width:100px;height:100px;" src="@Url.Content("~/Scripts/TimeLine/images/100.png")" /></div>
+        <div class="top-mid">
+            <p class="top-big-title" id="NickName"></p>
+            @*<p class="top-small-title"></p>*@
+            <p class="top-details">
+                <img id="SexImage" src="@Url.Content("~/Scripts/TimeLine/images/sex.png")" /><span id="Sex"></span>
+                <img src="@Url.Content("~/Scripts/TimeLine/images/school.png")" /><span id="XXMC"></span>
+                @*<img src="@Url.Content("~/Scripts/TimeLine/images/sity.png")" /><span>上海</span>*@
+            </p>
+        </div>
+        <div class="top-right">
+            <ul>
+                <li><a href="##" title="相册"><img src="@Url.Content("~/Scripts/TimeLine/images/img.png")" /><span id="imgCount"></span></a></li>
+                <li><a href="##" title="说说"><img src="@Url.Content("~/Scripts/TimeLine/images/mess.png")" /><span id="commentCount"></span></a></li>
+                <li><a href="##" title="文章日志"><img src="@Url.Content("~/Scripts/TimeLine/images/note.png")" /><span id="recordCount"></span></a></li>
+                <li><a id="config" href="##" title="设置背景"><img src="@Url.Content("~/Scripts/TimeLine/images/shezhi.png")" /><span>设置</span></a></li>
+            </ul>
+        </div>
+    </div>
+    <div style="display:fixed;float:left;height:100%; width:8%;">
+        <ul class="scrubber_list"></ul>
+    </div>
+    <div id="RightContent" class="RightContent">
+        <ul class="timeline"></ul>
+        <a id="returnTop" href="javascript:;">回到顶部</a>
+    </div>
+</div>
+</div>
+
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-hidden="true">
+                    ×
+                </button>
+                <h4 class="modal-title" id="myModalLabel">
+                    设置背景色
+                </h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal ng-pristine ng-valid">
+                    <div class="form-body">
+                        <div class="row">
+                            <div class="col-md-3" style="text-align:center;">
+                                <img style="width:100%; height:100px;" src="@Url.Content("~/Scripts/TimeLine/images/bg1.png")" />
+                                <input type="radio" name="BackGroundImage" id="bg1" checked="checked" value="@Url.Content("~/Scripts/TimeLine/images/bg1.png")"> 星空
+                            </div>
+                            <div class="col-md-3" style="text-align:center;">
+                                <img style="width:100%; height:100px;" src="@Url.Content("~/Scripts/TimeLine/images/bg2.png")" />
+                                <input type="radio" name="BackGroundImage" id="bg2" value="@Url.Content("~/Scripts/TimeLine/images/bg2.png")"> 风车
+                            </div>
+                            <div class="col-md-3">
+
+                            </div>
+                            <div class="col-md-3">
+
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="btnOK">
+                    确定
+                </button>
+                <button type="button" class="btn btn-default" id="btnCancel"
+                        data-dismiss="modal">
+                    关闭
+                </button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<input type="hidden" id="ID" value="@Model.ID" />
+<input type="hidden" id="ImageUrl" value="@Model.ImageUrl" />
+<input type="hidden" id="BackGroundImageUrl" value="@Url.Content("~/Scripts/TimeLine/images/bg1.png")" />
+<script id="JsRenderLeft" type="text/x-jsrender">
+    <li>
+        <a onclick="clickScrubber_list_a(this);" href="#">{{:Year}}年</a>
+        <ul class="scrubber_list_month">
+            {{for MonthList}}
+            <li><a onclick="click_scroll('content{{:Year}}{{:Month}}');">{{:Month}}月</a></li>
+            {{/for}}
+        </ul>
+    </li>
+</script>
+<script id="JsRenderRight" type="text/x-jsrender">
+    <li>
+        <div class="time">{{:Year}}</div>
+        <div class="version">{{:Month}}-{{:Day}}</div>
+        <div class="number" onclick="clickNumber(this);">
+            <img class="hand_img" src="@Url.Content("~/Scripts/TimeLine/images/indicator.png")" />
+        </div>
+        <div id="content{{:Year}}{{:Month}}" class="content">
+            {{for ContentList}}
+            <div class="divCount">
+                {{if ObjectType === "更新相册"}}
+                <h3><a>{{:Title}}</a></h3><br />
+                <img src="{{:Summary}}" /><br />
+                {{else ObjectType==="资源"}}
+                <h3><a>新资源</a></h3>
+		{{:Title}}
+		{{else}}
+		<h3><a>{{:Title}}</a></h3>
+                @*<img src="@Url.Content("~/Scripts/TimeLine/images/1.JPG")" /><br />*@
+                {{:Summary}}
+                {{/if}}
+            </div>
+            {{/for}}
+        </div>
+    </li>
+</script>
+
+<link rel="stylesheet" href="@Url.Content("~/Content/bootstrap/css/bootstrap.min.css")">
+
+<link href="@Url.Content("~/Scripts/TimeLine/css/TimeLine.css")" rel="stylesheet" type="text/css" />
+<link href="@Url.Content("~/Scripts/TimeLine/video/video-js.css")" rel="stylesheet" type="text/css">
+
+@*<script src="@Url.Content("~/Scripts/TimeLine/js/jquery-1.8.2.min.js")"></script>*@
+<script src="@Url.Content("~/Content/js/jquery.min.js")"></script>
+<script src="@Url.Content("~/Content/bootstrap/js/bootstrap.min.js")"></script>
+<script src="@Url.Content("~/Scripts/TimeLine/js/top.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/TimeLine/video/video.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/JsRender/jsviews.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/LinqJs/linq.min.js")"></script>
+<script type="text/javascript">
+    var _ROOT_ = @Url.Content("~/");
+    $(function () {
+        if($("#BackGroundImageUrl").val() !== ""){
+            $("#divBackGround").css("background-image","url("+ $("#BackGroundImageUrl").val() + ")");
+        }
+        $("#config").click(function (){
+            $("input[name='BackGroundImage']").removeAttr("checked");
+            $("#" + $("#BackGroundImageUrl").val().substring($("#BackGroundImageUrl").val().lastIndexOf("/") + 1).split(".")[0]).prop("checked",true);
+            $("#myModal").modal();
+        });
+        $("input[name='BackGroundImage']").click(function (){
+            $("#divBackGround").css("background-image","url("+ $(this).val() + ")");
+        });
+        $("#btnOK").click(function (){
+            $("#BackGroundImageUrl").val($("input[name='BackGroundImage']:checked").val());
+            if($("#BackGroundImageUrl").val() !== ""){
+                $("#divBackGround").css("background-image","url("+ $("#BackGroundImageUrl").val() + ")");
+            }
+            $("#myModal").modal("hide");
+        });
+        $("#btnCancel").click(function (){
+            if($("#BackGroundImageUrl").val() !== ""){
+                $("#divBackGround").css("background-image","url("+ $("#BackGroundImageUrl").val() + ")");
+            }
+        });
+
+        scrubber_listFixed();
+        $("#content").bind("mousewheel", function(event, delta) {
+            scrubber_listFixed();
+        });
+
+        $.get(_ROOT_ + "ashx/GetUserInfo.ashx/ProcessRequest",{ID:$("#ID").val()},function(data){
+            //var dataJson = JSON.parse(data);
+	    var dataJson =eval('('+data+')');
+            //console.log(dataJson);
+            $("#NickName").text(dataJson[0].nickname);
+            if(dataJson[0].headphoto === ""){
+                $("#HeadPhoto").attr("src",_ROOT_ + "Scripts/TimeLine/images/100.png?date=" + new Date().toString());
+            }
+            else{
+                $("#HeadPhoto").attr("src",$("#ImageUrl").val() + dataJson[0].headphoto + "?date=" + new Date().toString());
+            }
+            var sex = "男";
+            if(dataJson[0].sex === "2"){
+                sex = "女";
+            }
+            $("#Sex").text(sex);
+            $("#XXMC").text(dataJson[0].xxmc);
+        });
+
+        //var contentJson = [{"Id":"1f317a57216843958a8c716c650c91e6","ObjectType":"文章日志","ObjectID":"dea20d79-ede2-44c7-9981-16d5b706f3ac","UID":"7242575d-e61f-4949-8b8e-05bd861b4b2d","UName":"赵媛媛","School":"新泰市向阳实验学校","Title":"习近平就防汛救灾工作提出6点要求","Summary":"<p style=\"margin-top: 15px; margin-bottom: 15px; padding: 0px; line-height: 2em; font-family: &#39;Microsoft YaHei&#39;, u5FAEu8F6Fu96C5u9ED1, Arial, SimSun, u5B8Bu4F53; white-space: normal;\">新华社北京7月20日电近日，中共中央总书记、国家主席、中央军委主席习近平在中共中央政治局常委会会议上发表重要讲话，对加强安全生产和汛 期安全防范工作作出重要指示，强调安全生产是民生大事，一丝一毫不能放松，要以对人民极端负责的精神抓好安全生产工作，站在人民群众的角度想问题，把重大 风险隐患当成事故来对待，守土有责，敢于担当，完善体制，严格监管，让人民群众安心放心。</p><p style=\"margin-top: 15px; margin-bottom: 15px; padding: 0px; line-height: 2em; font-family: &#39;Microsoft YaHei&#39;, u5FAEu8F6Fu96C5u9ED1, Arial, SimSun, u5B8Bu4F53; white-space: normal;\">　　习近平指出，各级党委和政府特别是领导干部要牢固树立安全生产的观念，正确处理安全和发展的关系，坚持发展决不能以牺牲安全为代价这条红线。经济社会发展 的每一个项目、每一个环节都要以安全为前提，不能有丝毫疏漏。要严格实行党政领导干部安全生产工作责任制，切实做到失职追责。要把遏制重特大事故作为安全 生产整体工作的“牛鼻子”来抓，在煤矿、危化品、道路运输等方面抓紧规划实施一批生命防护工程，积极研发应用一批先进安防技术，切实提高安全发展水平。</p><p style=\"margin-top: 15px; margin-bottom: 15px; padding: 0px; line-height: 2em; font-family: &#39;Microsoft YaHei&#39;, u5FAEu8F6Fu96C5u9ED1, Arial, SimSun, u5B8Bu4F53; white-space: normal;\">　　习近平强调，要加快完善安全生产管理体制，强化安全监管部门综合监管责任，严格落实行业主管部门监管责任、地方党委和政府属地管理责任，加强 基层安全监管执法队伍建设，制定权力清单和责任清单，督促落实到位。要发挥各级安委会指导协调、监督检查、巡查考核的作用，形成上下合力，齐抓共管。要改 革安全生产应急救援体制，提高组织协调能力和现场救援实效。要完善各类开发区、工业园区、港区、风景区等功能区安全监管体制，严格落实安全管理措施。要完 善安全生产许可制度，严把安全准入关。要健全安全生产法律法规和标准体系，统筹做好涉及安全生产的法律法规和标准的制定修订工作。</p><p style=\"margin-top: 15px; margin-bottom: 15px; padding: 0px; line-height: 2em; font-family: &#39;Microsoft YaHei&#39;, u5FAEu8F6Fu96C5u9ED1, Arial, SimSun, u5B8Bu4F53; white-space: normal;\">　　习近平强调，要加强城市运行管理，增强安全风险意识，加强源头治理。要加强城乡安全风险辨识，全面开展城市风险点、危险源的普查，防止认不清、想不到、管不到等问题的发生。</p><p><br/></p>","Date":"2016-07-21T06:16:45.9510000Z","URL":"/UCHome/PublicShare/logview2?pid=09fb1c7a-6ca3-4d7c-9839-99ca192f9280&uctype=article&userid=7242575d-e61f-4949-8b8e-05bd861b4b2d","Like":1,"Favorite":0,"Likes":{"7242575d-e61f-4949-8b8e-05bd861b4b2d":"赵媛媛"},"Comments":[{"FId":"1f317a57-2168-4395-8a8c-716c650c91e6","CId":"50d0e4f4-4d74-49a5-bab5-1cb0c398f74b","Content":"回复 赵媛媛：yaosini","UID":"7242575d-e61f-4949-8b8e-05bd861b4b2d","UName":"赵媛媛","PId":"a134b1d4376e4825973e5747a84b93c9","Date":"2016-07-22T03:18:59.4920000Z"},{"FId":"1f317a57-2168-4395-8a8c-716c650c91e6","CId":"48159953-c86a-44f0-940b-2f3b5b22b808","Content":"回复 赵媛媛：niyao wo a ","UID":"7242575d-e61f-4949-8b8e-05bd861b4b2d","UName":"赵媛媛","PId":"a134b1d4376e4825973e5747a84b93c9","Date":"2016-07-22T03:18:55.3050000Z"},{"FId":"1f317a57-2168-4395-8a8c-716c650c91e6","CId":"187def54-6b3f-43c8-983b-0ba5f415974c","Content":"回复 赵媛媛：nigeshab","UID":"7242575d-e61f-4949-8b8e-05bd861b4b2d","UName":"赵媛媛","PId":"a134b1d4376e4825973e5747a84b93c9","Date":"2016-07-22T03:18:50.1810000Z"},{"FId":"1f317a57-2168-4395-8a8c-716c650c91e6","CId":"4700d82d-09e1-40c3-bfa0-f54381611b36","Content":"回复 赵媛媛：就不服","UID":"7242575d-e61f-4949-8b8e-05bd861b4b2d","UName":"赵媛媛","PId":"f86be8ab9cf94b8cb288c248964e8045","Date":"2016-07-22T03:03:18.1220000Z"},{"FId":"1f317a57-2168-4395-8a8c-716c650c91e6","CId":"01256b97-2294-4ec2-999f-2e375881991d","Content":"回复 赵媛媛：不服","UID":"7242575d-e61f-4949-8b8e-05bd861b4b2d","UName":"赵媛媛","PId":"f86be8ab9cf94b8cb288c248964e8045","Date":"2016-07-22T03:03:13.5100000Z"},{"FId":"1f317a57-2168-4395-8a8c-716c650c91e6","CId":"c29c717f-f7a5-43f7-b4c6-699513c949eb","Content":"回复 赵媛媛：咬你怎么了","UID":"7242575d-e61f-4949-8b8e-05bd861b4b2d","UName":"赵媛媛","PId":"f86be8ab9cf94b8cb288c248964e8045","Date":"2016-07-22T03:02:05.6930000Z"},{"FId":"1f317a57-2168-4395-8a8c-716c650c91e6","CId":"d879e480-8924-42b6-8f0b-e6e76112a76b","Content":"回复 赵媛媛：你咬我啊","UID":"7242575d-e61f-4949-8b8e-05bd861b4b2d","UName":"赵媛媛","PId":"f86be8ab9cf94b8cb288c248964e8045","Date":"2016-07-22T03:01:33.4620000Z"},{"FId":"1f317a57-2168-4395-8a8c-716c650c91e6","CId":"f86be8ab-9cf9-4b8c-b288-c248964e8045","Content":"你个大傻逼","UID":"7242575d-e61f-4949-8b8e-05bd861b4b2d","UName":"赵媛媛","Date":"2016-07-22T03:01:24.6730000Z"},{"FId":"1f317a57-2168-4395-8a8c-716c650c91e6","CId":"7ae174a8-e24f-4c6c-9198-2b733c169abd","Content":"回复 赵媛媛：我很好","UID":"7242575d-e61f-4949-8b8e-05bd861b4b2d","UName":"赵媛媛","PId":"97644a6117ac4f00bb6569148d63c99f","Date":"2016-07-22T02:53:38.6720000Z"},{"FId":"1f317a57-2168-4395-8a8c-716c650c91e6","CId":"ab02518a-7bb5-4776-ad39-2b073c63f7b9","Content":"回复 赵媛媛:你好啊","UID":"7242575d-e61f-4949-8b8e-05bd861b4b2d","UName":"赵媛媛","PId":"97644a6117ac4f00bb6569148d63c99f","Date":"2016-07-22T02:52:10.3710000Z"},{"FId":"1f317a57-2168-4395-8a8c-716c650c91e6","CId":"936fa850-d525-4bb9-ad83-606f0a18a5ba","Content":"谢谢你啊","UID":"7242575d-e61f-4949-8b8e-05bd861b4b2d","UName":"赵媛媛","PId":"a134b1d4376e4825973e5747a84b93c9","Date":"2016-07-22T02:47:08.3310000Z"},{"FId":"1f317a57-2168-4395-8a8c-716c650c91e6","CId":"26d5b62a-ec9f-4b22-9018-1631cb4f195a","Content":"评论很好，谢谢","UID":"7242575d-e61f-4949-8b8e-05bd861b4b2d","UName":"赵媛媛","PId":"a134b1d4376e4825973e5747a84b93c9","Date":"2016-07-22T02:45:20.4710000Z"},{"FId":"1f317a57-2168-4395-8a8c-716c650c91e6","CId":"27cf1d71-3cac-4434-afc4-4a108a82badd","Content":"顶顶顶","UID":"7242575d-e61f-4949-8b8e-05bd861b4b2d","UName":"赵媛媛","Date":"2016-07-21T09:30:25.5370000Z"},{"FId":"1f317a57-2168-4395-8a8c-716c650c91e6","CId":"693acade-bf03-4034-a961-3447d2d5d0c4","Content":"文章可以","UID":"7242575d-e61f-4949-8b8e-05bd861b4b2d","UName":"赵媛媛","Date":"2016-07-21T09:30:07.6830000Z"},{"FId":"1f317a57-2168-4395-8a8c-716c650c91e6","CId":"299adc1f-657c-466e-9df6-5e25bfba0bd8","Content":"文章不错","UID":"7242575d-e61f-4949-8b8e-05bd861b4b2d","UName":"赵媛媛","Date":"2016-07-21T09:29:11.2170000Z"},{"FId":"1f317a57-2168-4395-8a8c-716c650c91e6","CId":"56a5e073-818f-4411-9ef1-dd23af7d2022","Content":"士大夫士大夫","UID":"7242575d-e61f-4949-8b8e-05bd861b4b2d","UName":"赵媛媛","Date":"2016-07-21T09:13:08.9950000Z"},{"FId":"1f317a57-2168-4395-8a8c-716c650c91e6","CId":"f2836790-074f-40f1-b212-597156b9af0a","Content":"豆腐干大锅饭","UID":"7242575d-e61f-4949-8b8e-05bd861b4b2d","UName":"赵媛媛","Date":"2016-07-21T09:11:55.6290000Z"},{"FId":"1f317a57-2168-4395-8a8c-716c650c91e6","CId":"26afda96-3369-4561-8b49-560945932219","Content":"豆腐干大锅饭","UID":"7242575d-e61f-4949-8b8e-05bd861b4b2d","UName":"赵媛媛","Date":"2016-07-21T09:11:52.3300000Z"},{"FId":"1f317a57-2168-4395-8a8c-716c650c91e6","CId":"c625c114-a44d-4366-8a3f-227f49fe6668","Content":"士大夫士大夫","UID":"7242575d-e61f-4949-8b8e-05bd861b4b2d","UName":"赵媛媛","Date":"2016-07-21T09:09:28.8560000Z"},{"FId":"1f317a57-2168-4395-8a8c-716c650c91e6","CId":"97644a61-17ac-4f00-bb65-69148d63c99f","Content":"测试评论","UID":"7242575d-e61f-4949-8b8e-05bd861b4b2d","UName":"赵媛媛","Date":"2016-07-21T09:08:31.8150000Z"},{"FId":"1f317a57-2168-4395-8a8c-716c650c91e6","CId":"a134b1d4-376e-4825-973e-5747a84b93c9","Content":"测试评论","UID":"7242575d-e61f-4949-8b8e-05bd861b4b2d","UName":"赵媛媛","Date":"2016-07-21T09:05:23.4890000Z"}]},{"Id":"51e39cd8d6c740419727508eb15fb81f","ObjectType":"更新相册","ObjectID":"85768657-1c6a-4b66-8226-30c204825da6","UID":"7242575d-e61f-4949-8b8e-05bd861b4b2d","UName":"赵媛媛","School":"新泰市向阳实验学校","Title":"2016/7/21 13:39:55更新了相册","Summary":"/upload/photos/7242575d-e61f-4949-8b8e-05bd861b4b2d/2016/7/21/fcacfd8a-99bf-4831-96ee-db91e1a59dbf.JPG","Date":"2016-07-21T05:39:55.7440000Z","Like":1,"Favorite":0,"Likes":{"7242575d-e61f-4949-8b8e-05bd861b4b2d":"赵媛媛"},"Comments":[{"FId":"51e39cd8-d6c7-4041-9727-508eb15fb81f","CId":"be4de067-53d7-4c8f-b03f-5be6f202a8af","Content":"回复 赵媛媛：gsb","UID":"7242575d-e61f-4949-8b8e-05bd861b4b2d","UName":"赵媛媛","PId":"c4173ed49c964c3db3dfc0526383cfd2","Date":"2016-07-22T02:59:39.8840000Z"},{"FId":"51e39cd8-d6c7-4041-9727-508eb15fb81f","CId":"25bb7895-29b5-4c73-9847-9279c40791c0","Content":"回复 赵媛媛：同意楼上观点","UID":"7242575d-e61f-4949-8b8e-05bd861b4b2d","UName":"赵媛媛","PId":"c4173ed49c964c3db3dfc0526383cfd2","Date":"2016-07-22T02:56:31.3450000Z"},{"FId":"51e39cd8-d6c7-4041-9727-508eb15fb81f","CId":"c4173ed4-9c96-4c3d-b3df-c0526383cfd2","Content":"高bb是个sb","UID":"7242575d-e61f-4949-8b8e-05bd861b4b2d","UName":"赵媛媛","Date":"2016-07-22T02:56:20.0320000Z"}]},{"Id":"8fe6585e3be4413e8e8c1b3b08b93c4f","ObjectType":"更新相册","ObjectID":"b225beaa-8bb9-4caf-8acf-c2e59ad144e4","UID":"7242575d-e61f-4949-8b8e-05bd861b4b2d","UName":"赵媛媛","School":"新泰市向阳实验学校","Title":"2016/7/21 13:39:55更新了相册","Summary":"/upload/photos/7242575d-e61f-4949-8b8e-05bd861b4b2d/2016/7/21/ad41822e-507b-42c9-8aed-d333b522765c.JPG","Date":"2016-07-21T05:39:55.2940000Z","Like":1,"Favorite":0,"Likes":{"7242575d-e61f-4949-8b8e-05bd861b4b2d":"赵媛媛"},"Comments":[{"FId":"8fe6585e-3be4-413e-8e8c-1b3b08b93c4f","CId":"cad72e4a-20a2-45cd-a24e-2b50627d970c","Content":"回复 赵媛媛：也很丑","UID":"7242575d-e61f-4949-8b8e-05bd861b4b2d","UName":"赵媛媛","PId":"6bfc8e1979a144e98b2442158901eb4c","Date":"2016-07-22T06:06:10.3940000Z"},{"FId":"8fe6585e-3be4-413e-8e8c-1b3b08b93c4f","CId":"6bfc8e19-79a1-44e9-8b24-42158901eb4c","Content":"臭死了","UID":"7242575d-e61f-4949-8b8e-05bd861b4b2d","UName":"赵媛媛","Date":"2016-07-22T06:06:03.3430000Z"}]},{"Id":"dd5ce35513994023bffdeae3c271a305","ObjectType":"更新相册","ObjectID":"058549b2-b8cb-4ba0-bf52-29f441e415d5","UID":"7242575d-e61f-4949-8b8e-05bd861b4b2d","UName":"赵媛媛","School":"新泰市向阳实验学校","Title":"2016/7/21 11:30:29更新了相册","Summary":"/upload/photos/7242575d-e61f-4949-8b8e-05bd861b4b2d/2016/7/21/32c376e2-cc5e-42cd-b657-bbdf4eab148b.jpg","Date":"2016-07-21T03:30:29.2740000Z","Like":1,"Favorite":0,"Likes":{"7242575d-e61f-4949-8b8e-05bd861b4b2d":"赵媛媛"},"Comments":[{"FId":"dd5ce355-1399-4023-bffd-eae3c271a305","CId":"919e90a2-4b78-4d19-90d5-8f8039b7c406","Content":"士大夫十分","UID":"7242575d-e61f-4949-8b8e-05bd861b4b2d","UName":"赵媛媛","Date":"2016-07-21T09:49:31.2560000Z"}]},{"Id":"5e9a774447314058bd616f78d2f653e6","ObjectType":"说说","ObjectID":"ad90c980-2cae-4c6f-94f5-bbae3c0166f8","UID":"7242575d-e61f-4949-8b8e-05bd861b4b2d","UName":"赵媛媛","School":"新泰市向阳实验学校","Title":"说说更新","Summary":"uyu","Date":"2016-07-21T03:30:12.1620000Z","Like":0,"Favorite":0},{"Id":"cd3e275b37ea4e67be37b878bb4e9262","ObjectType":"文章日志","ObjectID":"5cdbeca4-889d-406b-bb87-7b399b76be6a","UID":"7242575d-e61f-4949-8b8e-05bd861b4b2d","UName":"赵媛媛","School":"新泰市向阳实验学校","Title":"6666","Summary":"<p>666666</p>","Date":"2016-07-21T02:21:34.4800000Z","URL":"/UCHome/PublicShare/logview2?pid=0e74afb9-fdc8-4f86-b236-447a71cca929&uctype=article&userid=7242575d-e61f-4949-8b8e-05bd861b4b2d","Like":0,"Favorite":0},{"Id":"bd3bcb07988e405f91489416cd07b7fe","ObjectType":"说说","ObjectID":"e1edc2d6-f179-41f2-a739-ce9d88faf358","UID":"7242575d-e61f-4949-8b8e-05bd861b4b2d","UName":"赵媛媛","School":"新泰市向阳实验学校","Title":"说说更新","Summary":"eeeeerrrtt","Date":"2016-07-20T08:10:14.0270000Z","Like":0,"Favorite":0},{"Id":"082e87d814e14a69bbe21bbb36f2e3bf","ObjectType":"说说","ObjectID":"a9463e70-d080-4490-ad21-2b149422dd68","UID":"7242575d-e61f-4949-8b8e-05bd861b4b2d","UName":"赵媛媛","School":"新泰市向阳实验学校","Title":"说说更新","Summary":"ereer","Date":"2016-07-20T07:59:55.6330000Z","Like":1,"Favorite":0,"Likes":{"7242575d-e61f-4949-8b8e-05bd861b4b2d":"赵媛媛"}},{"Id":"26a7663cb788423fae369100da43368d","ObjectType":"说说","ObjectID":"93ef89e3-d03d-46fd-863a-d0f8512ea898","UID":"7242575d-e61f-4949-8b8e-05bd861b4b2d","UName":"赵媛媛","School":"新泰市向阳实验学校","Title":"说说更新","Summary":"hhhhh","Date":"2016-07-20T07:58:54.5910000Z","Like":1,"Favorite":0,"Likes":{"7242575d-e61f-4949-8b8e-05bd861b4b2d":"赵媛媛"},"Comments":[{"FId":"26a7663c-b788-423f-ae36-9100da43368d","CId":"f20e5755-2e39-4cf6-89d3-543cce9eb0da","Content":"回复 赵媛媛：很好","UID":"7242575d-e61f-4949-8b8e-05bd861b4b2d","UName":"赵媛媛","PId":"b7a1e51c1fc2411dbbfec8390b3f7856","Date":"2016-07-22T07:55:55.3630000Z"},{"FId":"26a7663c-b788-423f-ae36-9100da43368d","CId":"b7a1e51c-1fc2-411d-bbfe-c8390b3f7856","Content":"说说很好","UID":"7242575d-e61f-4949-8b8e-05bd861b4b2d","UName":"赵媛媛","Date":"2016-07-22T07:55:47.0400000Z"}]}];
+        //console.log(contentJson);
+        $.get($("#ImageUrl").val() + "/snsapi/feeds/?UID="+ $("#ID").val() +"&PageSize=5000&CurPage=0&format=json",{},function(contentJson){
+            //console.log(data);
+            var datatimeJson = new Array();
+            Enumerable.From(contentJson).GroupBy("d=>d.Date").ForEach(function (e,i){
+                var date = e.source[0].Date.split('T')[0];
+                var dates = date.split('-');
+                datatimeJson.push({ Date : date,Year : dates[0],Month : dates[1] ,Day : dates[2]});
+            });
+            datatimeJson = Enumerable.From(datatimeJson).Distinct("d=>d.Date").OrderByDescending("d=>d.Date").ToArray();
+            var yearJson = Enumerable.From(datatimeJson).Distinct("d=>d.Year").ToArray();
+            //console.log(datatimeJson);
+            //console.log(yearJson);
+            var leftContentDataJson = new Array();
+            $.each(yearJson,function(i,e){
+                var tempMonth = new Array();
+                Enumerable.From(datatimeJson).Where("d=>d.Year=='"+ e.Year +"'").Distinct("d=>d.Month").ForEach(function (f,j){
+                    tempMonth.push({Year : f.Year, Month : f.Month});
+                });
+                leftContentDataJson.push({ Year : e.Year,MonthList : tempMonth });
+            });
+            var rightTopDataJson = { ImgCount : 0, CommentCount : 0, RecordCount : 0 };
+            rightTopDataJson.ImgCount = Enumerable.From(contentJson).Where("d=>d.ObjectType === '更新相册'").ToArray().length;
+            rightTopDataJson.CommentCount = Enumerable.From(contentJson).Where("d=>d.ObjectType === '说说'").ToArray().length;
+            rightTopDataJson.RecordCount = Enumerable.From(contentJson).Where("d=>d.ObjectType === '文章日志'").ToArray().length;
+            var rightContentDataJson = new Array();
+            $.each(datatimeJson,function(i,e){
+                var tempContentJson = Enumerable.From(contentJson).Where("d=>d.Date.indexOf('" + e.Date +"') > -1").ToArray();
+                $.each(tempContentJson,function(j,f){
+                    if(f.ObjectType === "更新相册"){
+                        f.Summary = $("#ImageUrl").val() + f.Summary;
+                    }
+                });
+                rightContentDataJson.push({ Date : e.Date , Year : e.Year , Month : e.Month , Day : e.Day ,ContentList : tempContentJson });
+            });
+            //console.log(rightContentDataJson);
+            $(".scrubber_list").html($("#JsRenderLeft").render(leftContentDataJson));
+            $(".timeline").html($("#JsRenderRight").render(rightContentDataJson));
+            if(rightContentDataJson != null){
+                $("#imgCount").text(rightTopDataJson.ImgCount);
+                $("#commentCount").text(rightTopDataJson.CommentCount);
+                $("#recordCount").text(rightTopDataJson.RecordCount);
+            }
+        });
+
+        //时间轴收缩动画
+        //$(".number").click(function () {
+        //    var $divcount = $(this).parent().find(".divCount");
+        //    var $divimg = $(this).find(".hand_img");
+        //    if ($divcount.is(":hidden")) {
+        //        $divcount.slideDown(800);//收起内容
+        //        $divimg.removeClass("Rotation");//时间轴按钮方向转动
+        //    }
+        //    else {
+        //        $divcount.slideUp(1000);
+        //        $divimg.addClass("Rotation");
+        //    };
+        //});
+
+        //迷你时间选择轴动画
+        //$(".scrubber_list li a").click(function () {
+        //    var $liParent = $(this).parent().find(".scrubber_list_month");
+        //    if ($liParent.is(":hidden")) {
+        //        $(".scrubber_list_month").slideUp(800);
+        //        $liParent.slideDown(800);
+        //    }
+        //    else {
+        //        //收缩
+        //        $liParent.slideUp(800);
+        //    }
+        //});
+    });
+
+    //时间轴收缩动画
+    function clickNumber(obj){
+        var $divcount = $(obj).parent().find(".divCount");
+        var $divimg = $(obj).find(".hand_img");
+        if ($divcount.is(":hidden")) {
+            $divcount.slideDown(800);//收起内容
+            $divimg.removeClass("Rotation");//时间轴按钮方向转动
+        }
+        else {
+            $divcount.slideUp(1000);
+            $divimg.addClass("Rotation");
+        };
+    }
+
+    //迷你时间选择轴动画
+    function clickScrubber_list_a(obj){
+        var $liParent = $(obj).parent().find(".scrubber_list_month");
+        if ($liParent.is(":hidden")) {
+            $(".scrubber_list_month").slideUp(800);
+            $liParent.slideDown(800);
+        }
+        else {
+            //收缩
+            $liParent.slideUp(800);
+        }
+    }
+
+    ///scrubber_list定位
+    function scrubber_listFixed(){
+        if($(document).scrollTop() > 100){
+            $(".scrubber_list").attr("style","margin-top:0%;margin-left:90px;position:fixed");
+        }
+        else{
+            $(".scrubber_list").attr("style","margin-top:200px;margin-left:90px;");
+        }
+    }
+
+    //滚动效果 (jQuery的 animate() 方法实现)
+    function click_scroll(e) {
+        var scroll_offset = $("#" + e).offset();
+        $("body,html").animate({
+            scrollTop: scroll_offset.top
+        }, 1000);
+    }
+
+</script>

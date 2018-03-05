@@ -1,0 +1,189 @@
+﻿@{
+    Layout = null;
+}
+@using System.Web.Mvc
+@using M = TeacherAwards.Model;
+@model M.Entity.Teacher_ZZJG05
+<style type="text/css">
+    .pd {
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+
+    .h {
+        height: 34px;
+        line-height: 34px;
+    }
+
+    .lic {
+        float: left;
+        margin-right: 10px;
+        height: 33px;
+        line-height: 33px;
+    }
+
+    .w {
+        width: 450px;
+    }
+</style>
+
+<link href="@Url.Content("~/Content/css/nanogallery.css")" rel="stylesheet" type="text/css">
+<!-- nanoGALLERY js -->
+<script type="text/javascript" src="@Url.Content("~/Content/js/jquery.nanogallery.js")"></script>
+<script src="@Url.Content("~/plugs/datetimepicker/js/bootstrap-datetimepicker.min.js")"></script>
+<script src="@Url.Content("~/plugs/datetimepicker/js/bootstrap-datetimepicker.zh-CN.js")"></script>
+
+<div id="noticeSend" class="form-horizontal form-position pagew " style="margin-bottom: 0px; margin-top: 0px;">
+    <div class="form-group">
+        @Html.HiddenFor(model => model.GZJLID)
+        @Html.HiddenFor(model => model.CRZYJSZWM)
+        <label for="GZQSRQ" class="col-sm-3 control-label">工作起始日期：</label>
+        <div class="col-sm-5">
+            <div class="date form_datetime input-group" data-date-format="yyyy-mm-dd" data-link-field="dtp_input1">
+                <input class="form-control" id="GZQSRQ" name="GZQSRQ" type="text" value="@Model.GZQSRQ" placeholder="请选择工作起始日期">
+                <div class="input-group-addon">
+                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                </div>
+                <div class="input-group-addon">
+                    <span class="glyphicon glyphicon-th" aria-hidden="true"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="GZZZRQ" class="col-sm-3 control-label">工作终止日期：</label>
+        <div class="col-sm-5">
+            <div class="date form_datetime input-group" data-date-format="yyyy-mm-dd" data-link-field="dtp_input1">
+                <input class="form-control" id="GZZZRQ" name="GZZZRQ" type="text" value="@Model.GZZZRQ" placeholder="请选择工作终止日期">
+                <div class="input-group-addon">
+                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                </div>
+                <div class="input-group-addon">
+                    <span class="glyphicon glyphicon-th" aria-hidden="true"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="GZDW" class="col-sm-3 control-label">工作单位：</label>
+        <div class="col-sm-9 pd">
+            <input type="text" class="col-xs-3" id="GZDW" name="GZDW" value="@Model.GZDW" placeholder=" 工作单位" style="width: 200px;" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="GZNR" class="col-sm-3 control-label">工作内容：</label>
+        <div class="col-sm-9 pd h">
+            <input type="text" class="col-xs-3" id="GZNR" name="GZNR" value="@Model.GZNR" placeholder=" 工作内容" style="width: 200px;" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="SZDW" class="col-sm-3 control-label">曾任职务：</label>
+        <div class="col-sm-9 pd h">
+            <input type="text" class="col-xs-3" id="CRDZZW" name="CRDZZW" value="@Model.CRDZZW" placeholder=" 曾任职务" style="width: 200px;" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="CRZYJSZWM1" class="col-sm-3 control-label">曾任专业技术职务：</label>
+        <div class="col-sm-9 pd h">
+            <select id="CRZYJSZWM1" name="CRZYJSZWM1" class="form-control input-sm col-xs-2 sel-notice" style="width:200px;"></select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="GZZMR" class="col-sm-3 control-label">工作证明人：</label>
+        <div class="col-sm-9 pd h">
+            <input type="text" class="col-xs-3" id="GZZMR" name="GZZMR" value="@Model.GZZMR" placeholder=" 工作证明人" style="width:200px;" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="GZJLBZ" class="col-sm-3 control-label">工作简历备注：</label>
+        <div class="col-sm-9 pd h">
+            <textarea id="GZJLBZ" rows="2" cols="16" style="width: 300px; height: 116px;">@Model.GZJLBZ</textarea>
+        </div>
+    </div>
+    <div class="form-group" style="width:86%; margin-top: 100px;">
+        <div class="btn-group center-block" style="margin-left:69px;">
+            <button id="btnSave" type="button" class="btn btn-info dropdown-toggle" data-toggle="button" aria-haspopup="true" aria-expanded="false">
+                保存
+            </button>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('.form_datetime').datetimepicker({
+            minView: "month", //选择日期后，不会再跳转去选择时分秒
+            language: 'zh-CN',
+            format: 'yyyy-mm-dd',
+            autoclose: true
+        });
+
+        $.getJSON('@Url.Action("GetWorkZWJson")', function (data) {
+            var Html = "";
+            $.each(data, function (i, e) {
+                if ($("#CRZYJSZWM").val() === e.Code_Name) {
+                    Html += "<option value=\"" + e.Code_ID + "\" title=\"" + e.Code_ID + "\" selected=\"selected\">" + e.Code_Name + "</option>";
+                } else {
+                    Html += "<option value=\"" + e.Code_ID + "\" title=\"" + e.Code_ID + "\">" + e.Code_Name + "</option>";
+                }
+            });
+            $("#CRZYJSZWM1").html(Html);
+        });
+
+        $("#btnSave").click(function () {
+            var GZQSRQ = $("#GZQSRQ").val();
+            var GZDW = $("#GZDW").val();
+
+            if (GZQSRQ != null && GZQSRQ !== "" && GZDW != null && GZDW !== "") {
+
+                var data = {
+                    GZJLID: $("#GZJLID").val(),
+                    GZQSRQ: $("#GZQSRQ").val(),
+                    GZZZRQ: $("#GZZZRQ").val(),
+                    GZDW: $("#GZDW").val(),
+                    GZNR: $("#GZNR").val(),
+                    CRDZZW: $("#CRDZZW").val(),
+                    CRZYJSZWM: $("#CRZYJSZWM1").val(),
+                    GZZMR: $("#GZZMR").val(),
+                    GZJLBZ: $("#GZJLBZ").val()
+                };
+
+                var v1 = $.trim($("#GZQSRQ").val());
+                var v2 = $.trim($("#GZZZRQ").val());
+                if (v2 != "" && v2 != null) {
+
+                    if (v2 > v1) {
+                        $.post('@Url.Action("PostWorkEdit")', data, function (data) {
+                            if (data.Code == "Success") {
+                                //alert(data.Message);
+                                $(".modal-backdrop").remove();
+                                var loadurl = "@Url.Action("IndexWork")";
+                                redirecturl(loadurl);
+                            } else {
+                                alert(data.Message);
+                            }
+                        });
+                    } else {
+                        alert("起始日期不能迟于终止日期");
+                    }
+                } else {
+                    $.post('@Url.Action("PostWorkEdit")', data, function (data) {
+                        if (data.Code == "Success") {
+                            //alert(data.Message);
+                            $(".modal-backdrop").remove();
+                            var loadurl = "@Url.Action("IndexWork")";
+                            redirecturl(loadurl);
+                        } else {
+                            alert(data.Message);
+                        }
+                    });
+                }
+            } else {
+                alert("请输入工作起始日期和工作单位！");
+            }
+
+        });
+
+    });
+
+</script>

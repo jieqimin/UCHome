@@ -1,0 +1,77 @@
+﻿@model List<SchInfo.Model.SchStage>
+@using (Ajax.BeginForm("CreateSIGrade", null,
+            new AjaxOptions() {
+                HttpMethod = "post",
+                Url = @Url.Action("PatchCreateSIGrade"),
+                UpdateTargetId = "#sigrade",
+                LoadingElementId = "loding",
+                LoadingElementDuration = 2000
+            }, new { id = "form-sigrade" })) {
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal form-position pagew" id="sigrade">
+        <div class="form-group">
+            <fieldset>
+                <legend style="margin-bottom:0;"><label class="control-label">学前</label></legend>
+                <div class="list-group">
+                    <div class="list-group-item col-md-2"><input type="radio" name="stage1" alt="grade" value="13" gradename="幼儿园" @(Model.Any(g=>g.StageCode == 1 && g.years==3)?"checked":"") />三年</div>
+                </div>
+            </fieldset>
+        </div>
+        <div class="form-group">
+            <fieldset>
+                <legend style="margin-bottom:0;"><label class="control-label">小学</label></legend>
+                <div class="list-group">
+                    <div class="list-group-item col-md-2"><input type="radio" name="stage2" alt="grade" value="25" gradename="小学" @(Model.Any(g=>g.StageCode == 2 && g.years == 5)?"checked":"")/>五年</div>
+                    <div class="list-group-item col-md-2"><input type="radio" name="stage2" alt="grade" value="26" gradename="小学" @(Model.Any(g=>g.StageCode == 2 && g.years == 6)?"checked":"")  />六年</div>
+                </div>
+            </fieldset>
+        </div>
+        <div class="form-group">
+            <fieldset>
+                <legend style="margin-bottom:0;"><label class="control-label">初中</label></legend>
+                <div class="list-group">
+                    <div class="list-group-item col-md-2"><input type="radio" name="stage3" alt="grade" value="33" gradename="初中" @(Model.Any(g=>g.StageCode == 3 && g.years == 3)?"checked":"")/>三年</div>
+                    <div class="list-group-item col-md-2"><input type="radio" name="stage3" alt="grade" value="34" gradename="初中" @(Model.Any(g=>g.StageCode == 3 && g.years == 4)?"checked":"")/>四年</div>
+                </div>
+            </fieldset>
+        </div>
+        <div class="form-group">
+            <fieldset>
+                <legend style="margin-bottom:0;"><label class="control-label">高中</label></legend>
+                <div class="list-group">
+                    <div class="list-group-item col-md-2"><input type="radio" name="stage4" alt="grade" value="43" gradename="高中" @(Model.Any(g=>g.StageCode == 4 && g.years == 3)?"checked":"")/>三年</div>
+                </div>
+            </fieldset>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-4 col-md-8">
+                <input type="button" value="保存" id="btn-sigradepatchAdd" class="btn btn-info col-md-2" />&nbsp;&nbsp;
+                <input type="button" value="清空" id="btn-sigradepatchClear" class="btn btn-default" />&nbsp;&nbsp;
+            </div>
+        </div>
+    </div>
+}
+@*数据提交*@
+<script>
+    $(function () {
+        $("#btn-sigradepatchClear").click(function () {
+            $('input[alt="grade"]').prop("checked", false);
+        });
+        $("#btn-sigradepatchAdd").click(function () {
+            var selgrades = [];
+            $('input[alt="grade"]:checked').each(function (item) {
+                selgrades.push({ "Value": $(this).val(), "Text": $(this).attr("gradename") });
+            });
+            $.post("@Url.Action("PatchCreateSIGrade")", { grades: selgrades}, function (data) {
+                 if (data.Data.StatusCode == 200) {
+                            tipsuccessmsg("保存成功");
+                            //validator.resetForm(); //重置表单
+                        } else {
+                            tipfailmsg("保存失败，原因可能为：" + data.Data.ErrorMessage);
+                            //$("#PKID").val(data.data.PKID);
+                            //validator.resetForm(); //重置表单
+                        }
+            })
+        })
+    });
+</script>

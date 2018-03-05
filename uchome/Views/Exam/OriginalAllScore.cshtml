@@ -1,0 +1,201 @@
+﻿@{
+    Layout = null;
+}
+@using Exam.Model.ViewModel
+@model Exam.Model.ViewModel.OriginalScoreResponseViewModel
+@{
+
+    var originalScoreResponseViewModel = Model as OriginalScoreResponseViewModel;
+
+    //数据
+    var subjectList = originalScoreResponseViewModel.SubjectList;
+    var studentList = originalScoreResponseViewModel.StudentList;
+    var originalScoreList = originalScoreResponseViewModel.OriginalScoreList;
+
+}
+@if (subjectList != null && subjectList.Any() && studentList != null && studentList.Any() && originalScoreList != null && originalScoreList.Any())
+{
+    <input id="hidNum" type="hidden" value="5" />
+        @*<table class="overflow-y">*@
+    <table class="">
+        <thead>
+        <tr>
+            <th>序号</th>
+            <th>姓名</th>
+            <th>年级</th>
+            <th>班级</th>
+            <th>考生号</th>
+
+            @foreach (var sub in subjectList)
+            {
+                <th>@sub.SubjectName</th>
+                <th>@sub.SubjectName <br/>区名次</th>
+                <th>@sub.SubjectName <br/>校名次</th>
+                <th>@sub.SubjectName <br/>班名次</th>
+            }
+        </tr>
+        </thead>
+        <tbody>
+        @for (int j = 0; j < studentList.Count; j++)
+        {
+            <tr>
+                <th>@(j + 1)</th>
+
+                <th style="cursor:pointer;" onclick="ShowStudentYearScoreDetails('@studentList[j].StudentId','@studentList[j].GradeCode','@studentList[j].StuClassCode','@studentList[j].StudentName')" title="点击查看年度成绩">@Html.Raw(studentList[j].StudentName)</th>
+                <th>@Html.Raw(studentList[j].GradeName)</th>
+                <th>@Html.Raw(studentList[j].ClassName)</th>
+                <th>@Html.Raw(studentList[j].StuSchoolNumber)</th>
+
+                @foreach (var sub in subjectList)
+                {
+                    var examScore = originalScoreList.Where(w => w.SFZHM == studentList[j].StudentCardNumber && w.SubjectName == sub.SubjectName);
+
+                    if (examScore != null)
+                    {
+                        var areaScore = examScore.FirstOrDefault(f => f.RankType == "区名次");
+                        var schoolScore = examScore.FirstOrDefault(f => f.RankType == "校名次");
+                        var classScore = examScore.FirstOrDefault(f => f.RankType == "班名次");
+                            
+                                <td>@areaScore.Score</td>
+                                <td>@areaScore.ScoreRank</td>
+                                <td>@schoolScore.ScoreRank</td>
+                                <td>@classScore.ScoreRank</td>
+                    }
+                    else
+                    {
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                    }
+                }
+            </tr>
+        }
+        </tbody>
+    </table>
+    <span style="color: red; font-weight:bolder;">（注：数据列中总分为新建考试时记入总分的学科分数和，参考总分为所有参考学科分数和。）</span>
+    <br/>
+    <div id="container"></div>
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Scripts/Table/css/component.css")" />
+    <script type="text/javascript" src="@Url.Content("~/Scripts/Table/js/jquery.ba-throttle-debounce.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/Table/js/OriginalScoreheader.js")"></script>
+    <div id="divv" style="display: none;">@Html.Raw(ViewBag.StudentScoreViewModel)</div>
+}
+<script>
+    var chart;
+
+    function selectScore() {
+
+        $("#container").html("");
+        var score = $("#divv").html();
+  
+        if (score != null && score.length > 0) {
+            var resultmsg = eval("(" + score + ")");
+
+            if (resultmsg != null) {
+                var seriesList = resultmsg.SeriesList;
+                var stuRankList = resultmsg.StuRankList;
+                var rankLength = stuRankList.length;
+
+                if (seriesList != null && seriesList.length > 0) {
+
+                    chart = new Highcharts.Chart({
+                        chart: {
+                            renderTo: 'container',
+                            type: 'column'
+                        },
+                        title: {
+                            text: '班级学生成绩对比'
+                        },
+                        xAxis: {
+                            categories: resultmsg.StudentNames,
+                            labels: {
+                                rotation: -80,
+                                align: 'right',
+                                style: {
+                                    fontSize: '12px',
+                                    fontFamily: 'Verdana, sans-serif'
+                                }
+                            }
+                        },
+                        yAxis: [
+                            {
+                                min: 0,
+                                title: {
+                                    text: '分数'
+                                },
+                                stackLabels: {
+                                    enabled: true,
+                                    style: {
+                                        fontWeight: 'bold',
+                                        color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
+                                    }
+                                }
+                            }
+                        ],
+                        legend: {
+                            align: 'right',
+                            x: -70,
+                            verticalAlign: 'top',
+                            y: 20,
+                            floating: true,
+                            backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColorSolid) || 'white',
+                            borderColor: '#CCC',
+                            borderWidth: 1,
+                            shadow: false
+                        },
+                        tooltip: {
+                            formatter: function () {
+                                for (var i = 0; i < rankLength; i++) {
+                                    if (stuRankList[i].StudentName === this.x && stuRankList[i].SubjectName === this.series.name) {
+                                        return '<b>' + this.x + '</b><br/>' +
+                                            this.series.name + ': ' + this.y + '分<br/>' +
+                                           '区名次: ' + stuRankList[i].AreaRank + '<br/>' +
+                                            '校名次: ' + stuRankList[i].SchoolRank + '<br/>' +
+                                            '班名次: ' + stuRankList[i].ClassRank + '<br/>';
+                                    }
+                                }
+                            }
+                        },
+                        plotOptions: {
+                            column: {
+                                stacking: 'normal',
+                                dataLabels: {
+                                    formatter: function () {
+                                        if (this.y > 0)
+                                            return this.y;
+                                    },
+                                    enabled: true,
+                                    color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white'
+                                },
+                                cursor: 'pointer',
+                                events: {
+                                    click: function (e) {
+                                        //showRepairProject(e.point.category);
+                                    }
+                                }
+                            }
+                        },
+                        series: function () {
+                            var serie = [];
+                            var count = seriesList.length;
+                            for (var i = 0; i < count; i++) {
+                                var item = {
+                                    name: seriesList[i].name,
+                                    data: seriesList[i].Score
+                                }
+                                serie.push(item);
+                            };
+                            return serie;
+                        }()
+                    });
+                }
+            }
+        }
+    }
+
+    $(document).ready(function () {
+        selectScore();
+    });
+
+</script>

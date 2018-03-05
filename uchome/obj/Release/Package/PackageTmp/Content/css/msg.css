@@ -1,0 +1,15 @@
+﻿.red {
+    color: red;
+}
+
+.form-position {
+    margin: 30px auto;
+}
+
+.pagew {
+    width: 700px;
+}
+
+#validmsg {
+    padding-left: 15px;
+}

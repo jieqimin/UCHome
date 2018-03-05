@@ -1,0 +1,48 @@
+﻿@{
+    Layout = null;
+}
+@using System.Web.Mvc
+@using M = OA.Model.ViewModel;
+@model M.TeacherPaySelectModel
+<style type="text/css">
+    .pd {
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+
+    .h {
+        height: 34px;
+        line-height: 34px;
+    }
+
+    .lic {
+        float: left;
+        margin-right: 10px;
+        height: 33px;
+        line-height: 33px;
+    }
+
+    .w {
+        width: 450px;
+    }
+</style>
+
+<div id="payDetail" class="form-horizontal form-position pagew " style="margin-bottom: 0px; margin-top: 0px;">
+
+    @{
+        var teacherPayDetail = Model as M.TeacherPaySelectModel;
+
+        var teacherFinancial = teacherPayDetail.TeacherFinancial;
+        var teacherFinancialModel = teacherPayDetail.TeacherFinancialModel;
+
+        for (int i = 0; i < teacherFinancialModel.Count; i++)
+        {
+            <div class="form-group" style="width: 50%; display: inline-block;">
+                <label for="Pay @i" class="col-sm-2 control-label" style="width: 46%">@teacherFinancialModel[i]：</label>
+                <div class="col-sm-9 pd h" style="width: 49%">
+                    @teacherFinancial[i]
+                </div>
+            </div>
+        }
+    }
+</div>

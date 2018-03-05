@@ -1,0 +1,40 @@
+﻿@using UCHome.Model
+@{
+    Layout = "~/Views/Shared/_LayoutSys.cshtml";
+}
+@section Head{
+    <script src="@Url.Content("~/plugs/usercontrol/jquery-ui-1.10.0.custom.min.js")"></script>
+    <link rel="stylesheet" href="@Url.Content("~/plugs/usercontrol/jquery-ui-1.10.0.custom.css")">
+    <script src="@Url.Content("~/scripts/jquery.unobtrusive-ajax.js")"></script>
+    <script src="@Url.Content("~/plugs/AngularJs/angular.min.js")"></script>
+    <script src="@Url.Content("~/plugs/AngularJs/angular-ui-router.js")"></script>
+    <link rel="stylesheet" href="@Url.Content("~/plugs/datatables/css/jquery.dataTables.css")">
+    <link rel="stylesheet" href="@Url.Content("~/plugs/datatables/css/dataTables.bootstrap.css")">
+    <script src="@Url.Content("~/plugs/datatables/js/jquery.datatables.js")"></script>
+    <script src="@Url.Content("~/plugs/datatables/js/dataTables.bootstrap.js")"></script>
+    <link href="@Url.Content("~/plugs/toastr/toastr.min.css")" rel="stylesheet/less" type="text/css" />
+    <script src="@Url.Content("~/plugs/toastr/toastr.min.js")"></script>
+    <script src="@Url.Content("~/scripts/mycustomtip.js")"></script>
+    <script src="@Url.Content("~/scripts/guid.js")"></script>
+    <link rel="stylesheet" href="@Url.Content("~/plugs/AngularJs/datatables/angular-datatables.css")">
+    <script src="@Url.Content("~/plugs/AngularJs/datatables/angular-datatables.min.js")"></script>
+    <script src="@Url.Content("~/angular/uchomenew/sysmanage/roleman.js")"></script>
+}
+
+<div id="body_content" class="panel panel-default" ng-app="roleman" ng-controller="roleman">
+    <div class="panel-heading">
+        <ul id="appman-nav" class="nav nav-pills">
+            <li role="presentation" ng-class="active"><a href="#" ng-click="parentapppanel=true;childapppanel=false;showapp=true;showapp2=false;active='active';active2=''">应用列表</a></li>
+            <li role="presentation" ng-class="active2"><a href="#" ng-click="showapp=false;showapp2=true;active='';active2='active'">添加应用</a></li>
+        </ul>
+    </div>
+    <div class="sysman-body panel-body">
+        <div ng-if="showapp">
+            <div ng-include="'@Url.Action("Rolemanage")'"></div>
+        </div>
+        <div ng-if="showapp2">
+            <div ng-include="'@Url.Action("Roleapp")'"></div>
+        </div>
+    </div>
+</div>
+

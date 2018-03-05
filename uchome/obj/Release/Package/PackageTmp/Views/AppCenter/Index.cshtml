@@ -1,0 +1,52 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutAppMenu.cshtml";
+}
+@using System.Data.Entity.ModelConfiguration.Conventions
+@model UCHome.Model.UserInfo
+@{
+    ViewBag.Title = "个人空间—应用中心";
+    if (Model == null || Model.userid == Guid.Empty)
+    {
+    @Html.Raw("<div class='modal-backdrop fade in center-block' style='opacity:1'><div class='modal-dialog modal-sm show'><div class='modal-content'><div class='modal-body text-center'>检测到帐号访问异常，请联系管理员！</div></div></div></div>")
+        return;
+    }
+}
+@section Head{
+}
+<div>
+    <div class="bc_content1">
+        <div class="dtitle icon-latest" id="app-menu-hotornew">
+            <span class="selected" tag="hot">热门推荐</span><span tag="new">最新上线</span>
+        </div>
+        <div id="app-neworhot">
+            <div class="loading">正在紧张的处理中，敬请期待……</div>
+        </div>
+    </div>
+    <div class="bc_content2">
+        <div class="dtitle icon-latest">
+            常用应用
+        </div>
+        <div id="allapplications">
+            <div class="loading">正在紧张的处理中，敬请期待……</div>
+        </div>
+    </div>
+</div>
+<script>
+    $("#app-neworhot").load("@Url.Action("HotApp")");
+    $("#allapplications").load("@Url.Action("AllApplication")");
+    //$("#ifrcontent").load(function () {
+    //    var mainheight = $("#ifrcontent").contents().find("body").height() + 30;
+    //    $(this).height(mainheight);
+    //});
+    $("#app-menu-hotornew span").each(function () {
+        $(this).click(function () {
+            var tag = $(this).attr("tag");
+            $("#app-menu-hotornew span").removeClass("selected");
+            $(this).addClass("selected");
+            if (tag === "hot")
+                $("#app-neworhot").load("@Url.Action("HotApp")");
+            else
+                $("#app-neworhot").load("@Url.Action("NewApp")");
+        });
+    });
+</script>

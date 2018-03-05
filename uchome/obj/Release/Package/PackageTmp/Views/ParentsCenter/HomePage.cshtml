@@ -1,0 +1,104 @@
+﻿@using Student.Model
+@model Guid
+<style >
+    #kscj li {
+        padding-left: 20px;
+    }
+    #tab1content li span {
+        padding: 0 10px;
+        display: inline-block;
+        float: left;
+    }
+</style>
+<div class="bc_content2">
+    <div class="dtitle">
+        <ul>
+            <li class="selected">学业成长</li>
+        </ul>
+    </div>
+    <div id="kscj" class="dinfo">
+        <ul>
+            @foreach (StudentInformation.StudentScores items in ViewBag.ScoreInfo)
+            {
+                if (string.IsNullOrEmpty(items.ExamName))
+                {
+                <li class="text-center">暂时还没有发现有成绩记录！</li>
+                    break;
+                }
+                else
+                {
+                <li><span>考试名称：@items.ExamName</span><span>[@items.ExamType]</span>学科：@items.KCMC 成绩：@items.Score<span></span></li>
+                }
+
+            }
+        </ul>
+    </div>
+</div>
+
+<div class="bc_content4">
+    <div class="dmenu">
+        <ul id="tab1">
+            <li cid="tjtc" class="selected">体检体测</li>
+            <li cid="jlcc">奖励惩处</li>
+            <li cid="dybx">德育表现</li>
+        </ul>
+    </div>
+    <div id="tab1content" class="dinfo">
+        <ul id="tjtc">
+            @foreach (StudentInformation.StudentHealth items in ViewBag.StudentHealth)
+            {
+                if (string.IsNullOrEmpty(items.NodeName))
+                {
+                <li class="text-center">暂时还没有发现有体检体测记录！</li>
+                    break;
+                }
+                else
+                {
+                <li><span>体检日期：@items.CreateTime</span><span>体检项目：@items.NodeName</span><span>体检结果：@items.StuResult</span><span>处理意见：@items.TJResult</span></li>
+                }
+
+            }
+        </ul>
+        <ul id="jlcc" class="hidden">
+            @foreach (StudentInformation.JCinformation items in ViewBag.JCInfo)
+            {
+                if (string.IsNullOrEmpty(items.MC))
+                {
+                <li class="text-center">暂时还没有发现有奖励惩处记录！</li>
+                    break;
+                }
+                else
+                {
+                <li><span>奖惩名称：@items.MC</span><span>奖惩日期：@items.JCTime</span><span>奖惩原因：@items.Content</span></li>
+                }
+            }
+        </ul>
+        <ul id="dybx" class="hidden">
+            @foreach (StudentInformation.DYInformation items in ViewBag.DYInfo)
+            {
+                if (string.IsNullOrEmpty(items.FieldName))
+                {
+                <li class="text-center">暂时还没有发现有德育表现记录！</li>
+                    break;
+                }
+                else
+                {
+                <li><span>项目名称：@items.FieldName</span><span>评比日期：@items.YearMonth</span><span>评比得分：@items.Score</span></li>
+                }
+
+            }
+        </ul>
+    </div>
+</div>
+<div class="bc_content1" id="payinfo">
+</div>
+<script >
+    $("#payinfo").load("@Url.Action("GetPayInfo", new { id = Model })");
+    $("#tab1 li").click(function() {
+        var selli = $(this).attr("cid");
+        $("#tab1 li").removeClass("selected");
+        $(this).addClass("selected");
+        $("#tab1content ul").removeClass("show").addClass("hidden");
+        $("#" + selli).removeClass("hidden").addClass("show");
+    });
+</script>

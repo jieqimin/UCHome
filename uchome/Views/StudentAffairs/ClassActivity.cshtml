@@ -1,0 +1,111 @@
+﻿<link href="@Url.Content("~/angular/uchome/studentaffairs/studentaffaris.css")" rel="stylesheet"/>
+<link rel="stylesheet" href="@Url.Content("~/plugs/datatables/css/jquery.dataTables.css")">
+<link rel="stylesheet" href="@Url.Content("~/plugs/datatables/css/dataTables.bootstrap.css")">
+<script src="@Url.Content("~/plugs/datatables/js/jquery.datatables.js")"></script>
+<script src="@Url.Content("~/plugs/datatables/js/dataTables.bootstrap.js")"></script>
+<div class="form-horizontal div-body">
+    <div id="toolBar" class="form-group">
+        <label class="col-sm-1 control-label" style="width: 62px;">班级:</label>
+        <div class="col-sm-2 select-input">
+            <select id="classes" class="form-control" ng-model="selectedClassId">
+                <option value="1">选择班级</option>
+                <option ng-repeat="class in classList" value="{{class.Key}}">{{class.Value}}</option>
+            </select>
+        </div>
+        <button class="btn btn-success btn-sm col-sm-1 ml10" ng-click="GetClassActivites()">查询</button>
+
+        <label class="control-label red col-sm-2" id="warn" style="display: none">请选择班级...</label>
+    </div>
+    <hr/>
+    <table datatable="ng" dt-options="this.dtOptions" dt-column-defs="this.dtColumnDefs" class="table table-bordered table-condensed table-hover datatable">
+        <thead>
+            <tr>
+                <th>
+                    标题
+                </th>
+                <th>
+                    活动时间
+                </th>
+                <th>
+                    活动地点
+                </th>
+                <th>
+                    学年学期
+                </th>
+                <th>
+                    操作
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="tr in tableData">
+                <td class="text-overflow" style="max-width: 220px" title="{{tr.Title}}">{{tr.Title}}</td>
+                <td>{{TransDate(tr.DateTime)}}</td>
+                <td class="text-overflow" style="max-width: 150px" title="{{tr.Place}}">{{tr.Place}}</td>
+                <td>{{TransXNXQ(tr.TermID)}}</td>
+                <td>
+                    <a href="javascript:void(0)" ng-click="ActivityDetail(tr.ID)">详情</a>
+                    <a href="javascript:void(0)" ng-click="Delete(tr.ID)">删除</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div class="modal fade" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">活动详情</h4>
+            </div>
+            <div class="modal-body form-horizontal">
+                <div class="form-group">
+                    <label class=" col-sm-2 control-label">标题：</label>
+                    <div class="col-sm-8">
+                        {{Detail.Title}}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">班级：</label>
+                    <div class="col-sm-8">
+                        {{Detail.Classes}}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">类型：</label>
+                    <div class="col-sm-8">
+                        {{Detail.Type}}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">时间：</label>
+                    <div class="col-sm-8">
+                        {{Detail.DateTime}}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">地点：</label>
+                    <div class="col-sm-8">
+                        {{Detail.Place}}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">成员：</label>
+                    <div class="col-sm-8">
+                        {{Detail.Members}}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="">内容：</label>
+                    <div class="col-sm-9">
+                        <span ng-bind-html="Detail.Contents|htmlContent" id="Contents"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<input type="hidden" id="type" value="@ViewBag.Type"/>

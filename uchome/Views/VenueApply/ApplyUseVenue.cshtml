@@ -1,0 +1,170 @@
+﻿@using M = VenueSetup.Model;
+@model M.ApplyMeeting
+<link rel="stylesheet" href="@Url.Content("~/Content/css/msg.css")">
+<link rel="stylesheet" href="@Url.Content("~/plugs/datetimepicker/css/bootstrap-datetimepicker.css")">
+<script src="@Url.Content("~/plugs/datetimepicker/js/bootstrap-datetimepicker.min.js")"></script>
+<script src="@Url.Content("~/plugs/datetimepicker/js/bootstrap-datetimepicker.zh-CN.js")"></script>
+
+<form method="POST" id="form_applyUseVenue">
+    @Html.HiddenFor(model => model.ID)
+    <div id="applyUseVenue" class="form-horizontal form-position pagew">
+        <div class="form-group">
+            <label class="col-sm-3 control-label">场馆使用时间：</label>
+            <div class="col-sm-6">
+                <input type="text" readonly="readonly" class="form_datetime" id="StartTime" name="StartTime" style="width: 157px">
+                <span>--</span>
+                <input type="text" readonly="readonly" class="form_datetime" id="EndTime" name="EndTime" style="width: 157px">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="MeetingName" class="col-sm-3 control-label">场馆用途说明：</label>
+            <div class="col-sm-6">
+                <textarea class="form-control" id="MeetingName" name="MeetingName" rows="5" placeholder="请输入场馆用途" />
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="btn-group center-block" style="width: 200px;">
+                <input id="venueapplybtn" type="button" class="btn btn-info dropdown-toggle" value="保存" />
+
+
+            </div>
+        </div>
+        <div class="form-group">
+            <ul id="validmsg"></ul>
+        </div>
+        <input style="display: none" id="MeetingRoomID" name="MeetingRoomID" value="@ViewBag.RoomId"/>
+    </div>
+</form>
+<script type="text/javascript">
+    $(function () {
+        $("#venueapplybtn").click(function () {
+            $("#form_applyUseVenue").submit();
+        });
+        $("#form_applyUseVenue").validate({
+            rules: {
+                StartTime: "required",
+                EndTime: "required",
+                MeetingName: "required"
+            },
+            messages: {
+                StartTime: "请选择开始时间",
+                EndTime: "请选择结束时间",
+                MeetingName: "请输入场馆用途"
+
+            },
+            errorClass: "red", //设置错误样式
+            errorElement: "label", //设置显示错误提示的控件,默认为<label>
+            errorLabelContainer: "#validmsg", //指定错误信息放置容器
+            wrapper: "li",
+            submitHandler: function () {
+                $("#form_applyUseVenue").ajaxSubmit({
+                    url: "@Url.Action("ApplyUseVenue")",
+                    success: function (data) {
+                        if (data.Data.statuscode == 200) {
+                            var obj = "<div id='operresultmsg' class='alert alert-success center-block' role='alert'>保存成功！</div>";
+                            //$("form").append(obj);
+                            $("#validmsg").html(obj);
+                            $("#btnClose").click();
+                            window.parent.location.reload();
+
+                            validator.resetForm(); //重置表单
+                            $("#validmsg").show();
+                            var guid = '@Guid.NewGuid().ToString()';
+                            $("#ID").val(guid); //动态生成newid
+                            setTimeout(function () {
+                                $("#operresultmsg").remove();
+                            }, 2000);
+                        } else {
+                            var obj = "<div id='operresultmsg' class='alert alert-danger center-block' role='alert'>保存失败，请重试！<p style='display:none'>" + data.Data.msg + "</p></div>";
+                            //$("form").append(obj);
+                            $("#validmsg").html(obj);
+
+                            setTimeout(function () {
+                                $("#operresultmsg").remove();
+                            }, 2000);
+                        }
+                    }
+                });
+            }
+            //onsubmit: false,//是否提交时验证，默认为True,用于设置某一个不需要验证的控件
+            //onfocusin: false,//是否获取焦点时验证，默认为True
+            //onkeyup: false,//是否在敲击键盘时验证，默认为True
+            //onclick: false//是否在鼠标点击时验证，默认为True
+        });
+    });
+
+    var initDate = '@ViewBag.Time';
+    var timeType = '@ViewBag.type';
+
+    var strs = initDate.split(".");
+    var date = new Date();
+    initDate = new Date(parseInt(strs[0]), parseInt(strs[1]) - 1, strs[2], 0, 0, 0);
+    date = initDate;
+    var startHour = "";
+    var endHour = "";
+    if (timeType === "上午") {
+        startHour = 6;
+        endHour = 11;
+
+    }
+    if (timeType === "下午") {
+        startHour = 12;
+        endHour = 21;
+    }
+
+
+    $('.form_datetime').datetimepicker({
+        startDate: new Date(date.getFullYear(), date.getMonth(), date.getDate(), startHour, 0, 0), //开始时间
+        endDate: new Date(date.getFullYear(), date.getMonth(), date.getDate(), endHour, 59, 59), //结束时间
+        language: 'zh-CN', //语言
+        format: 'yyyy-mm-dd hh:ii p', //格式
+        bootcssVer: 3,
+        CustomFormat: 'yyyy-mm-dd hh:ii',
+        startView: 1, //选完时间首先显示的视图 默认值：2, ‘month’从月视图开始，选天     1 从天视图开始，选小时
+        maxView: 1, //最高能展示的时间 默认值：4, ‘decade’
+        minView: 0, //最精确的时间 默认值：0, ‘hour’ 1 从天视图开始，选小时
+        initialDate: initDate,
+        showMeridian: true, //是否显示上午下午
+        autoclose: true
+        //daysOfWeekDisabled — 一周的周几不能选eg:daysOfWeekDisabled: [0,4,6]
+        //autoclose — 选完时间后是否自动关闭 默认值：false
+        //todayBtn — 当天日期按钮 默认值：false’
+    }).on('changeDate', function (ev) {
+        var starttime = $("#StartTime").val();
+        var endtime = $("#EndTime").val();
+        if (starttime.indexOf(timeType) < 0) {
+            $("#StartTime").val("");
+        }
+        if (endtime.indexOf(timeType) < 0) {
+            $("#EndTime").val("");
+        }
+        if (starttime != "" && endtime != "") {
+            if (endtime < starttime) {
+                $("#StartTime").val("");
+                $("#EndTime").val("");
+            } else {
+                //验证和其他的时间是否冲突
+                var roomId = '@ViewBag.RoomId';
+                $.getJSON('@Url.Action("CheckTime")', { "startTime": starttime, "endTime": endtime, "roomId": roomId }, function (data) {
+                    if (!data) {
+                        var html = "<div id='operresultmsg' class='alert alert-success center-block' role='alert'>该时间段内已有人申请！</div>";
+                        $("#validmsg").html(html);
+                        $("#StartTime").val("");
+                        $("#EndTime").val("");
+                        setTimeout(function () {
+                            $("#operresultmsg").remove();
+                        }, 2000);
+                    }
+                });
+            }
+        }
+    });
+    if (timeType === "上午") {
+        $('.form_datetime').datetimepicker('setHoursDisabled', ['0', '1', '2', '3', '4', '5', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24']);
+    }
+    if (timeType === "下午") {
+        $('.form_datetime').datetimepicker('setHoursDisabled', ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '22', '23', '24']);
+    }
+
+
+</script>

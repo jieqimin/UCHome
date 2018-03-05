@@ -1,0 +1,60 @@
+﻿@{
+    ViewBag.Title = "皮肤设置";
+}
+@using UCHome.Model
+
+<style>
+    .modal-alive {
+        display: block;
+    }
+
+    #section label, #subject label[section] {
+        margin-left: 5px;
+    }
+
+    label.error {
+        color: red;
+        font-size: 14px;
+        display: none;
+    }
+</style>
+<script  src="@Url.Content("~/Scripts/jquery.form.js")"></script>
+<script  src="@Url.Content("~/scripts/jquery.validate.min.js")"></script>
+<span style="color: #fff; cursor: pointer;" id="skinsetmodal">皮肤设置</span>
+<div id="modal_skinset" class="modal fade in" title="皮肤设置">
+</div>
+<script>
+    
+    $("#skinsetmodal").click(function () {
+        $("#modal_skinset").load("@Url.Action("Skins")");
+        $("#modal_skinset").dialog({
+            autoOpen: true,
+            modal: true,
+            width: 900,
+            height:560,
+            buttons: {
+                "确认": function () {
+                    var skin=$("input:radio:checked").val();
+                    $.ajax({                        
+                        url: "@Url.Action("SkinSet","Home")",
+                        data: { skintheme: skin,skincolor:"8" },
+                        success: function (data) {
+                            console.log(data);
+                            if (data.Data.statuscode == "200") {
+                                document.location.href = document.location.href;
+                            }
+                        }
+                    });
+                    $(this).dialog("close");
+                },
+                "取消": function () {
+                    $(this).dialog("close");
+                }
+            }
+
+        });
+    })
+</script>
+<script>
+   
+    </script>

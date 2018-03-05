@@ -1,0 +1,86 @@
+﻿@using System.Configuration;
+@{
+    ViewBag.Title = "教师个人空间";
+}
+@model Guid
+@{
+    if (Model == Guid.Empty)
+    {
+    @Html.Raw("<div class='modal-backdrop fade in center-block' style='opacity:1'><div class='modal-dialog modal-sm show'><div class='modal-content'><div class='modal-body text-center'>检测到帐号访问异常，请联系管理员！</div></div></div></div>")
+        return;
+    }
+}
+@section Head{
+    <link href="@Url.Content("~/Content/css/teacher.css")" rel="stylesheet" />
+    <script src="@Url.Content("~/Scripts/app.js")"></script>
+    <script>
+        $(function () {
+            //数据绑定 BindData
+            $("#PersonInfo").load("@Url.Action("PersonInfo", new { id = Model })");
+            $("#Studentlist").load("@Url.Action("Studentlist", new { id = Model })");
+            $("#Attentionlist").load("@Url.Action("Attentionlist", "PublicShare", new { id = Model })");
+            $("#changebj").click(function () {
+                $(".bjlist").toggle();
+            });
+            //End
+        });
+        function BackNotice() {
+            parent.window.location.href = "@Url.Action("MyAppRedirectPage", "AppCenter", new { id = "a0fcd905-5498-467a-87dd-687566186323" })";
+                        @*var loadurl = "@Url.Action("ReciveQuery","MessageCenter")";
+            redirecturl(loadurl);*@
+            //$("#id-app-content").load(loadurl);
+        };
+    </script>
+}
+
+<div class="top" id="top">
+    <div class="top_content">
+        @Html.Action("Portal", "Home")
+    </div>
+</div>
+<div class="content clearfix">
+    <div class="concent_body">
+        <div class="body_left">
+            <div class="message">
+                <ul>
+                    <li onclick="openwindow('http://xy.taedu.gov.cn:81/Messages.Web/Msg/receivelistbyuchome.aspx',1000,500,'我的邮件')">邮件<span
+                        class="count">new</span></li>
+                    <li onclick="openwindow('http://xy.taedu.gov.cn:81/Messages.Web/Affiche/receivelistbyuchome.aspx', 1000, 500, '我的消息')">消息<span
+                        class="count">new</span></li>
+                    <li onclick="openwindow('@Url.Action("TeacherTask", "TeacherCenter")', 550, 500, '任务面板')">每日任务<span class="count">new</span>
+                    </li>
+                </ul>
+            </div>
+
+            <hr style="border-bottom: solid 1px #8FC2DF; border-top: solid 1px #739BB4; height: 0; position: absolute; width: 149px; left: 0;" />
+
+            <div id="shortcut" class="shortcut">
+                @{
+                    var usertype = new ViewDataDictionary();
+                    usertype.Add("UserType", "T");
+                }
+                @Html.Partial("MyZoomShortCut", Model, usertype)
+            </div>
+            <hr style="border-bottom: solid 1px #8FC2DF; border-top: solid 1px #739BB4; height: 0; position: absolute; width: 149px; left: 0;" />
+        </div>
+        <div id="body_content" class="body_center">
+            @Html.Partial("PersonHome", Model, usertype)
+        </div>
+        <div class="body_right">
+            <div class="br_content1 clearfix" id="PersonInfo">
+                <div style="margin-top: 80px;" class="loading">正在加载中，请稍候……</div>
+            </div>
+            <div class="selectbj" id="changebj">【切换班级】</div>
+            <div class="bjlist">
+                <ul id="bjlist"></ul>
+            </div>
+            <div class="br_content2" id="Studentlist">
+                <div class="loading">正在加载中，请稍候……</div>
+            </div>
+            <div class="br_content3" id="Attentionlist">
+                <div class="loading">正在加载中，请稍候……</div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="bottom"></div>

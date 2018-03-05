@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <title>@ViewBag.Title</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <script src="@Url.Content("~/Content/js/jquery.min.js")"></script>
+    <script src="@Url.Content("~/scripts/jquery.validate.js")"></script>
+    <script src="@Url.Content("~/Scripts/jquery.form.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/plugs/AngularJs/angular.min.js")"></script>
+    <script src="@Url.Content("~/Content/plugs/layer/layer.min.js")"></script>
+    <script src="@Url.Content("~/Content/js/public.js")"></script>
+    <link rel="stylesheet" href="@Url.Content("~/Content/bootstrap/css/bootstrap.min.css")">
+    <link rel="stylesheet" href="@Url.Content("~/Content/bootstrap/css/bootstrap-theme.min.css")">
+    <script src="@Url.Content("~/Content/bootstrap/js/bootstrap.min.js")"></script>
+    <script src="@Url.Content("~/plugs/usercontrol/jquery-ui-1.10.0.custom.min.js")"></script>
+
+    <script src="@Url.Content("~/Content/bootstrap/plugs/pagination/jquery.pagination.min.js")"></script>
+    <link href="@Url.Content("~/plugs/toastr/toastr.min.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/plugs/toastr/toastr.min.js")"></script>
+    <script src="@Url.Content("~/scripts/mycustomtip.js")"></script>
+    <link href="@Url.Content("~/Content/css/public.css")" rel="stylesheet" />
+    <link rel="stylesheet" href="@Url.Content("~/plugs/usercontrol/jquery-ui-1.10.0.custom.css")">
+    <script src="@Url.Content("~/scripts/less.min.js")"></script>
+    <style>
+        .modal-alive {
+            display: block;
+        }
+    </style>
+    @RenderSection("Head", false)
+
+</head>
+
+<body>
+    <div class="clearfix" id="top"></div>
+    @RenderBody()
+</body>
+</html>

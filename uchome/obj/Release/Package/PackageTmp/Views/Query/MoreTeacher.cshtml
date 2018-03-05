@@ -1,0 +1,94 @@
+﻿@using UCHome.Model
+@{
+    ViewBag.Title = "更多教师";
+    Layout = "~/Views/Shared/_MoreLayout.cshtml";
+}
+<script >
+    $(function () {
+        $("#xzqhm").val("@ViewBag.xzqhm");
+        $("#schoolType").val("@ViewBag.schoolType");
+    });
+</script>
+<script type="text/x-jquery-tmpl" id="dataTemp">
+    <li>
+        <span class="news-dot">·</span>
+        <a href="@Url.Content("~/SchoolCenter/Index/")${XXID}" title="${XXMC}">${Title}</a>
+    </li>
+</script>
+<style>
+    #contentList li {
+        text-align: left;
+        width: 135px;
+        height: 95px;
+        line-height: 35px;
+        float: left;
+        padding-left: 20px;
+    }
+</style>
+<body>
+    <input type="hidden" id="xzqhm" value="370901" />
+    <input type="hidden" id="schoolType" value="1" />
+    <input type="hidden" id="xxid" />
+    <input type="hidden" id="dataType" value="2" />
+    <div class="header">
+        @Html.Partial("HeadMenu", UCHomeBasePage.IsLogin)
+    </div>
+    <div class="container">
+        <div class="content">
+            <!--title-->
+            <div class="title">
+                <img src="@Url.Content("~/Content/NewFile/image/public/logo.png")">
+                <span>&nbsp;&nbsp;@ViewBag.NewTitle</span>
+            </div>
+            <!--silder-->
+            <div class="slider">
+                <div class="slider-container">
+                    <div class="slider-wrapper">
+                        <div class="slide">
+                            <a target="_blank" href="http://www.taedu.gov.cn/cloud/">
+                                <img src="@Url.Content("~/Content/NewFile/image/school/banner1.jpg")" /></a>
+                        </div>
+                        <div class="slide">
+                            <a target="_blank" href="http://jx.taedu.gov.cn:83/Resource.Portal.Web">
+                                <img src="@Url.Content("~/Content/NewFile/image/school/banner2.jpg")" /></a>
+                        </div>
+                        <div class="slide">
+                            <a target="_blank" href="http://www.taedu.gov.cn/UCHomeNew/">
+                                <img src="@Url.Content("~/Content/NewFile/image/school/banner3.jpg")" />
+                            </a>
+                        </div>
+                        <div class="slide">
+                            <a target="_blank" href="http://jx.taedu.gov.cn:83/Resource.Portal.Web">
+                                <img src="@Url.Content("~/Content/NewFile/image/school/banner4.jpg")" />
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--第一模块-->
+            <div id="Part1">
+                @{Html.RenderAction("Part1", "Query", new { xzqhm = ViewBag.xzqhm, schoolType = ViewBag.schoolType });}
+            </div>
+            <div id="Part2">
+                <div style="width: 25%; float: left">
+                    <div id="schoolList">
+                        @{Html.RenderAction("Part2", "Query", new { key = "", xzqhm = ViewBag.xzqhm, schoolType = ViewBag.schoolType, xxid = ViewBag.xxid, dataType = ViewBag.dataType });}
+                    </div>
+                </div>
+                <div style="width: 70%; float: right">
+                    <div class="part3">
+                        <div style="height: 35px; width: 100%; background-color: #f5f5f5">
+                            <span style="color: #47c6a9; line-height: 35px; font-size: 15px; padding-left: 5px; font-weight: bold;">教师</span>
+                        </div>
+                        <div id="dataContent"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <div class="footer_content">
+            版权信息：CopyRight©2010-2015
+        </div>
+    </div>
+</body>

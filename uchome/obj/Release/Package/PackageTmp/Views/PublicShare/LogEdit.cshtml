@@ -1,0 +1,198 @@
+﻿@model UCHome.Model.UCHome_PersonNew
+<script  src="@Url.Content("~/Scripts/jquery.form.js")"></script>
+<script  src="@Url.Content("~/scripts/jquery.validate.min.js")"></script>
+<script  src="@Url.Content("~/scripts/validate.msg.cn.js")"></script>
+<style >
+    .newloginfo {
+        background-color: #fff;
+        height: 1080px;
+        position: relative;
+        overflow: hidden;
+    }
+      
+    .newloginfo .historyback {
+        height: 40px;
+        background-color: #ebf7fd;
+        overflow: hidden;
+    }
+    .historyback .logtip {
+        float: left;
+        font-size: 14px;
+        font-weight: bold;
+        line-height: 40px;
+        padding-left: 10px;
+    
+    }
+    .historyback .returnloglist {
+        background-image: url(@Url.Content("~/Content/images/SwapRight.png"));
+        background-repeat: no-repeat;
+        background-position: left center;
+        text-indent: 25px;
+        float: right;
+        display: inline-block;
+        line-height: 40px;
+        font-size: 12px;
+        color: #2595b7;
+        cursor: pointer;
+        padding-right: 10px;
+    }
+
+    .newloginfo .logtitle {
+        margin: 10px 20px;
+        height: 50px;
+        text-align: center;
+        color: #999;
+        border: solid 1px #eee;
+        overflow: hidden;
+    }
+    .logtitle .newlogtitle {
+        border: 0;
+        height: 50px;
+        line-height: 50px;
+        text-align: center;
+        width: 100%;
+    }
+    .newloginfo .logtitle h4 {
+        line-height:50px;
+    }
+
+    .newloginfo .logother {
+        margin: 10px 20px;
+        padding: 0 10px;
+        line-height: 35px;       
+        color: #2595b7;
+        text-align: left;
+        font-size: 14px;
+        overflow: hidden;
+        width: 560px;
+        
+    }
+    .newloginfo .logother span {
+        color: #2595b7;
+        display: inline-block;
+        float: left;
+    }
+    .logother select {
+        float: left;
+        vertical-align: middle;
+        line-height: 30px;
+    }
+    .newloginfo .logcontent {
+        margin: 10px 20px;
+    }
+        .newloginfo .operarea {
+        margin-left: 20px;
+    }
+    .newloginfo .operarea button {
+        float: left;margin-left: 20px;
+    }
+        label.error {
+        position: absolute;
+        right: 25px;
+        color: red;
+        font-size: 14px;
+        font-weight: normal;
+        line-height: 48px;
+    }
+</style>
+<form method="POST" id="newlogform">
+    @Html.HiddenFor(model => Model.PKID)
+    @Html.Hidden("AddUser", Model.AddUser)
+    @Html.Hidden("Abstract")
+    <div class="newloginfo">
+        <div class="historyback">
+            <span class="logtip">写日志</span>
+            <span id="returnbtn" class="returnloglist">返回列表页面</span>
+        </div>
+        <div class="logtitle">
+            <h4>
+                <input name="Title" id="newlogtitle" class="required newlogtitle" type="text" value="@Model.Title" title="日志标题不能为空" /></h4>
+        </div>
+        <div class="logother">
+            <span>分类：</span>
+            <div class="col-xs-4">
+                <select name="UCType" class="form-control input-sm col-xs-2">
+                    <option value="article" selected="selected">个人文章</option>
+                    <option value="log">私人日记</option>
+                </select>
+            </div>
+
+            <span>权限：</span>
+            <div class="col-xs-4">
+                <select name="IsShare" class="form-control input-sm col-xs-2">
+                    <option value="9" selected="selected">完全公开</option>
+                    <option value="0">个人私有</option>
+                    <option value="1">好友公开</option>
+                    <option value="2">同学公开</option>
+                    <option value="3">教师公开</option>
+                    <option value="4">本校公开</option>
+                    <option value="5">本区公开</option>
+                    <option value="6">本市公开</option>
+                </select>
+            </div>
+
+        </div>
+        <div class="logcontent">
+            @Html.TextAreaFor(model => model.Content)
+        </div>
+        <div class="operarea">
+            <div class="checkbox pull-left">
+                <label>
+
+                    @Html.CheckBox("IsShow", Model.IsShow == 0) 存为草稿
+                </label>
+            </div>
+            <button type="submit" id="btnsavenewlog" class="btn btn-info btn-sm">保 存 </button>
+        </div>
+    </div>
+</form>
+<script >
+    $("select[name='UCType']").find("option").removeAttr("selected");
+    $("select[name='UCType']").find("option[value=@Model.UCType]").attr("selected", "selected");
+    $("select[name='IsShare']").find("option").removeAttr("selected");
+    $("select[name='IsShare']").find("option[value=@Model.IsShare]").attr("selected", "selected");
+</script>
+<script >
+    window.UEDITOR_HOME_URL = "@Url.Content("~/plugs/ueditor/")";
+</script>
+<script  src="@Url.Content("~/plugs/ueditor/ueditor.config.js")"></script>
+<script  src="@Url.Content("~/plugs/ueditor/ueditor.all.min.js")"></script>
+
+<script >
+    //$(function () {
+    //返回
+    $("#returnbtn").click(function () {
+        $("#body_content").load("@Url.Action("PersonLog", "PublicShare", new { id = Model.AddUser })");
+    });
+    //编辑器加载
+
+    var editor = new baidu.editor.ui.Editor();
+    editor.render("Content");
+
+    $("#newlogform").validate({
+        submitHandler: function (form) {
+            var cc = editor.getContent();
+            var cctxt = editor.getContentTxt();
+            //去除空格、回车、换行
+            cctxt = cctxt.replace(/\+/g, "").replace(/[]/g, "").replace(/[\r\n]/g, "").replace(/-/g, "");
+            $("#Content").val(cc);
+            $("#Abstract").val(cctxt.substr(0, 150));
+            $("#btnsavenewlog").html("正在保存……").attr("disabled", "disabled");
+            $(form).ajaxSubmit({
+                url: "@Url.Action("EditLog", "PublicShare")",
+                success: function (data) {
+                    if (data.Data.statuscode == 0) {
+                        tipsuccessmsg(data.Data.message);
+                        hidesuccessmsg(1000);
+                        setTimeout(function () {
+                            $("#returnbtn").click();
+                        }, 2000);
+                    } else {
+                        tipsuccessmsg(data.Data.message);
+                        hidefailmsg(2000);
+                    }
+                }
+            });
+        }
+    });
+</script>

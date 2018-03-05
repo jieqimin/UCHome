@@ -1,0 +1,80 @@
+﻿
+
+.right-title{
+	width:220px;
+	height:28px;
+	border-bottom:2px solid #f59909;
+	margin-bottom:10px;
+	}
+.right-title span{
+	display:inline-block;
+	width:109px;
+	height:28px;
+	border-top-left-radius:5px;
+	border-top-right-radius:5px;
+	background:#f59909;
+	font-size: 16px;
+	font-family: "Microsoft YaHei";
+	color:#fff;
+	line-height:28px;
+	text-align:center;
+	}
+.visitor-box{
+	width:100%;
+	height:auto;
+	padding-top:4px;
+	padding-bottom:9px;
+	border:1px solid #d8d8d8;
+	box-sizing:border-box;
+	}
+.visitor-box ul{
+	width:198px;
+	margin:0 auto;
+	}
+.visitor{
+	width:100%;
+	height:51px;
+	border-bottom:1px solid #e5e5e5;
+	padding-top:6px;
+	overflow:hidden;
+	}
+.visitor img{
+	display:block;
+	float:left;
+	width:45px;
+	height:45px;
+	}
+.visitor-font{
+	width:144px;
+	float:right;
+	}
+.visitor-font p{
+	font-size: 13px;
+	font-family: "SimSun";
+	color:#1db2ca;
+	line-height:24px;
+	}
+.visitor-font span{
+	font-size: 12px;
+	font-family: "SimSun";
+	color:#919191;
+	line-height:18px;
+	}
+.look{
+	width:198px;
+	text-align:right;
+	margin:6px auto 0;
+	}
+.lookmore{
+	display:inline-block;
+	width:69px;
+	height:21px;
+	background:#1db2ca;
+	
+	font-size: 12px;
+	font-family: "SimSun";
+	color:#fff;
+	line-height:21px;
+	text-align:center;
+	}
+

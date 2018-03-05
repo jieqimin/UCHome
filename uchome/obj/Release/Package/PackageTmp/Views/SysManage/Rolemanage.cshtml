@@ -1,0 +1,200 @@
+﻿@{
+    Layout = null;
+}
+<style>
+    .red {
+        color: red;
+    }
+
+    #ul_appicon {
+    }
+
+        #ul_appicon > li {
+            position: relative;
+        }
+
+            #ul_appicon > li input[type=checkbox] {
+                position: absolute;
+                right: 0;
+                bottom: 0;
+                border: solid 1px #ccc !important;
+            }
+</style>
+<div id="myapplist" class="form-position pagew" ng-if="parentapppanel">
+    @*{{checkboxes.items}}*@
+    <form class="form-horizontal">
+        <table datatable="ng" class="table table-striped table-bordered table-hover datatable" id="table_myapp">
+            <thead>
+                <tr>
+                    <td>应用名称</td>
+                    <td>排序</td>
+                    <td>状态</td>
+                    <td>操作</td>
+                </tr>
+            </thead>
+            <tr ng-repeat="app in applist">
+
+                <td>{{app.AppName}}</td>
+                <td>{{app.AppOrder}}</td>
+                <td><span ng-class="{'glyphicon glyphicon-ok':app.STATUS==1,'glyphicon glyphicon-remove':app.STATUS==0}"></span><span ng-class="{'green':app.STATUS==1,'red':app.STATUS==0}">{{app.STATUS=="1"?"正常":"禁用"}}</span></td>
+                <td>
+                    <a href="" class="btn btn-info btn-xs" ng-click="editchildapp(app.PKID);">管理子应用</a>
+                    <a href="" ng-class="{'btn btn-warning btn-xs':app.STATUS==1,'btn btn-success btn-xs':app.STATUS==0}" ng-click="removeapp(app.PKID,app.STATUS=='1'?'0':'1')">{{app.STATUS=="1"?"禁用":"启用"}}</a>
+                    <a href="" class="btn btn-danger btn-xs" ng-click="deleteapp(app.PKID)">删除</a>
+                </td>
+            </tr>
+        </table>
+        <script type="text/ng-template" id="ng-table/headers/checkbox.html">
+        <input type="checkbox" ng-model="checkboxes.checked" id="select_all" name="filter-checkbox" value="" />
+        </script>
+    </form>
+</div>
+
+<div id="app_menu_manage_modal" title="管理子功能" ng-if="childapppanel" ng-init="childappanel=false">
+    <div id="app_menu_manage_panel">
+        <div id="app_menu_list">
+            <button class="btn btn-info pull-left mb10" ng-click="returnparent()">返回</button>
+            <table ng-table="tableParams2" class="table table-striped table-bordered table-hover datatable" id="table_appmenu">
+                <thead>
+                    <tr>
+                        <td>功能名称</td>
+                        <td>功能路径</td>
+                        <td>数据路径</td>
+                        <td>控制器名称</td>
+                        <td>排序</td>
+                        <td>操作</td>
+                    </tr>
+                </thead>
+                <tr ng-repeat="menu in appmenulist">
+                    <td>{{menu.MenuName}}</td>
+                    <td><span class="text-cut">{{menu.Menuhref}}</span></td>
+                    <td><span class="text-cut">{{menu.DataPath}}</span></td>
+                    <td>{{menu.controllername}}</td>
+                    <td>{{menu.Orders}}</td>
+                    <td>
+                        <a href="" class="btn btn-danger btn-xs" ng-click="deletechildapp(menu.PKID)">删除</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div id="app_addmenu" class="form-horizontal">
+            <div class="form-group">
+                <label for="MenuName" class="control-label col-sm-3">功能名称：</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" id="MenuName" name="MenuName" ng-model="newappmenu.MenuName" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="Menuhref" class="control-label col-sm-3">功能路径：</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" id="Menuhref" name="Menuhref" ng-model="newappmenu.Menuhref" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="Menuhref" class="control-label col-sm-3">数据路径：</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" id="DataPath" name="DataPath" ng-model="newappmenu.DataPath" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="Menuhref" class="control-label col-sm-3">控制器名称：</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" id="controllername" name="controllername" ng-model="newappmenu.controllername" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="Menuhref" class="control-label col-sm-3">排序值：</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" id="Orders" name="Orders" ng-model="newappmenu.Orders" />
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-3 col-sm-8">
+                    <button type="submit" class="btn btn-success" ng-click="addchildApp(newappmenu)">
+                        添加
+                    </button>
+                </div>
+            </div>
+            <input type="hidden" ng-model="newappmenu.ParentAppID" value="{{newappmenu.ParentAppID}}" />
+            <div class="form-group">
+                <ul id="appmenu_add_errormsg"></ul>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+
+    function appmenumanage(parentappid) {
+        var src = "'" + "@Url.Action("Addappmenu")" + "?parentAppId=" + parentappid + "'";
+        $("#app_menu_manage_panel").attr("ng-include", src);
+        $("#app_menu_manage_modal").dialog();
+    }
+    function myappdelete(value) {
+        delconfirm("确认要移除此项吗？", moveapp, value);
+
+    }
+    function myappmove(value) {
+        delconfirm("确认要移除此项吗？", moveapp, value);
+    }
+    function moveapp(appid) {
+        $.ajax({
+            url: "@Url.Action("Movemyapp", "AppCenter")?appid=" + appid,
+            type: "POST",
+            success: function (data) {
+                if (data.Data.statuscode == "200") {
+                    alertmsg("success", "删除成功");
+                    table2.ajax.reload();
+                }
+                else if (data.Data.statuscode == "300") {
+                    alertmsg("warning", "抱歉，该项存在子功能，不允许删除！");
+                    $("#alerttip").alert();
+                }
+                else {
+                    alertmsg("fail", "操作异常，请重试！");
+                    $("#alerttip").alert();
+                }
+            }
+        });
+    }
+</script>
+<style>
+    .datatable .glyphicon {
+        font-weight: bold;
+        margin-left: 5px;
+        position: relative;
+        display: inline-block;
+        width: 20px;
+    }
+
+    .datatable .glyphicon2:before {
+        content: "";
+        border-width: 4px;
+        border-style: solid;
+        left: 8px;
+        top: 50%;
+        position: absolute;
+        margin-top: -2px;
+    }
+
+    .datatable .glyphicon-ok, .green {
+        color: green;
+    }
+
+    .datatable .plus:before {
+        border-color: green;
+        border-top: none;
+        border-left: 4px solid transparent;
+        border-right: 4px solid transparent;
+    }
+
+    .datatable .glyphicon-remove, .red {
+        color: red;
+    }
+
+    .datatable .minus:before {
+        border-color: red;
+        border-bottom: none;
+        border-left: 4px solid transparent;
+        border-right: 4px solid transparent;
+    }
+</style>

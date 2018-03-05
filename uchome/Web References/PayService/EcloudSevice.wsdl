@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:ns="http://webservice.sdust.com" xmlns:ns1="http://org.apache.axis2/xsd" targetNamespace="http://webservice.sdust.com" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:documentation>EcloudSevice</wsdl:documentation>
+  <wsdl:types>
+    <xs:schema attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://webservice.sdust.com">
+      <xs:element name="test">
+        <xs:complexType>
+          <xs:sequence />
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="testResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="return" nillable="true" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="getOrder">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="userID" nillable="true" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="getOrderResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="return" nillable="true" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="getECloudURL">
+        <xs:complexType>
+          <xs:sequence />
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="getECloudURLResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="return" nillable="true" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="getDealByCount">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="userID" nillable="true" type="xs:string" />
+            <xs:element minOccurs="0" name="count" nillable="true" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="getDealByCountResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="return" nillable="true" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="testRequest">
+    <wsdl:part name="parameters" element="ns:test" />
+  </wsdl:message>
+  <wsdl:message name="testResponse">
+    <wsdl:part name="parameters" element="ns:testResponse" />
+  </wsdl:message>
+  <wsdl:message name="getOrderRequest">
+    <wsdl:part name="parameters" element="ns:getOrder" />
+  </wsdl:message>
+  <wsdl:message name="getOrderResponse">
+    <wsdl:part name="parameters" element="ns:getOrderResponse" />
+  </wsdl:message>
+  <wsdl:message name="getDealByCountRequest">
+    <wsdl:part name="parameters" element="ns:getDealByCount" />
+  </wsdl:message>
+  <wsdl:message name="getDealByCountResponse">
+    <wsdl:part name="parameters" element="ns:getDealByCountResponse" />
+  </wsdl:message>
+  <wsdl:message name="getECloudURLRequest">
+    <wsdl:part name="parameters" element="ns:getECloudURL" />
+  </wsdl:message>
+  <wsdl:message name="getECloudURLResponse">
+    <wsdl:part name="parameters" element="ns:getECloudURLResponse" />
+  </wsdl:message>
+  <wsdl:portType name="EcloudSevicePortType">
+    <wsdl:operation name="test">
+      <wsdl:input wsaw:Action="urn:test" message="ns:testRequest" />
+      <wsdl:output wsaw:Action="urn:testResponse" message="ns:testResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="getOrder">
+      <wsdl:input wsaw:Action="urn:getOrder" message="ns:getOrderRequest" />
+      <wsdl:output wsaw:Action="urn:getOrderResponse" message="ns:getOrderResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="getDealByCount">
+      <wsdl:input wsaw:Action="urn:getDealByCount" message="ns:getDealByCountRequest" />
+      <wsdl:output wsaw:Action="urn:getDealByCountResponse" message="ns:getDealByCountResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="getECloudURL">
+      <wsdl:input wsaw:Action="urn:getECloudURL" message="ns:getECloudURLRequest" />
+      <wsdl:output wsaw:Action="urn:getECloudURLResponse" message="ns:getECloudURLResponse" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="EcloudSeviceSoap11Binding" type="ns:EcloudSevicePortType">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="test">
+      <soap:operation soapAction="urn:test" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getOrder">
+      <soap:operation soapAction="urn:getOrder" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getDealByCount">
+      <soap:operation soapAction="urn:getDealByCount" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getECloudURL">
+      <soap:operation soapAction="urn:getECloudURL" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="EcloudSeviceSoap12Binding" type="ns:EcloudSevicePortType">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="test">
+      <soap12:operation soapAction="urn:test" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getOrder">
+      <soap12:operation soapAction="urn:getOrder" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getDealByCount">
+      <soap12:operation soapAction="urn:getDealByCount" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getECloudURL">
+      <soap12:operation soapAction="urn:getECloudURL" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="EcloudSeviceHttpBinding" type="ns:EcloudSevicePortType">
+    <http:binding verb="POST" />
+    <wsdl:operation name="test">
+      <http:operation location="test" />
+      <wsdl:input>
+        <mime:content part="parameters" type="application/xml" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="parameters" type="application/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getOrder">
+      <http:operation location="getOrder" />
+      <wsdl:input>
+        <mime:content part="parameters" type="application/xml" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="parameters" type="application/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getDealByCount">
+      <http:operation location="getDealByCount" />
+      <wsdl:input>
+        <mime:content part="parameters" type="application/xml" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="parameters" type="application/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getECloudURL">
+      <http:operation location="getECloudURL" />
+      <wsdl:input>
+        <mime:content part="parameters" type="application/xml" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="parameters" type="application/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="EcloudSevice">
+    <wsdl:port name="EcloudSeviceHttpSoap11Endpoint" binding="ns:EcloudSeviceSoap11Binding">
+      <soap:address location="http://111.17.215.232:100/axis2/services/EcloudSevice.EcloudSeviceHttpSoap11Endpoint/" />
+    </wsdl:port>
+    <wsdl:port name="EcloudSeviceHttpSoap12Endpoint" binding="ns:EcloudSeviceSoap12Binding">
+      <soap12:address location="http://111.17.215.232:100/axis2/services/EcloudSevice.EcloudSeviceHttpSoap12Endpoint/" />
+    </wsdl:port>
+    <wsdl:port name="EcloudSeviceHttpEndpoint" binding="ns:EcloudSeviceHttpBinding">
+      <http:address location="http://111.17.215.232:100/axis2/services/EcloudSevice.EcloudSeviceHttpEndpoint/" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,101 @@
+﻿@model SchInfo.Model.siGround
+@{}
+@using (Ajax.BeginForm("CreateSIGround", null,
+                                                                new AjaxOptions() {
+                                                                    HttpMethod = "post",
+                                                                    Url = @Url.Action("CreateSIGround"),
+                                                                    UpdateTargetId = "#siground",
+                                                                    LoadingElementId = "loding",
+                                                                    LoadingElementDuration = 2000
+                                                                }, new { id = "form-siground" })) {
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal form-position pagew" id="siground">
+        @Html.HiddenFor(model => model.GroundID)
+        <div class="form-group">
+            @Html.LabelFor(model => model.GroundType_DictCode, "* 场地类别", htmlAttributes: new { @class = "control-label col-md-2 required" })
+            <div class="col-md-5">
+                @Html.DropDownListFor(model => model.GroundType_DictCode, null, new { @class = "form-control col-md-12" })
+                @Html.ValidationMessageFor(model => model.GroundType_DictCode, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.GroundCode, "* 场地代码", htmlAttributes: new { @class = "control-label col-md-2 required" })
+            <div class="col-md-5">
+                @Html.EditorFor(model => model.GroundCode, new { htmlAttributes = new { @class = "form-control", placeholder = "输入长度不要超过10字" } })
+                @Html.ValidationMessageFor(model => model.GroundCode, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.GroundName, "* 场地名称", htmlAttributes: new { @class = "control-label col-md-2 required" })
+            <div class="col-md-5">
+                @Html.EditorFor(model => model.GroundName, new { htmlAttributes = new { @class = "form-control", placeholder = "输入长度不要超过20字" } })
+                @Html.ValidationMessageFor(model => model.GroundName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.GroundAddress, "场地地址", htmlAttributes: new { @class = "control-label col-md-2 required" })
+            <div class="col-md-5">
+                @Html.EditorFor(model => model.GroundAddress, new { htmlAttributes = new { @class = "form-control", placeholder = "输入长度不要超过100字" } })
+                @Html.ValidationMessageFor(model => model.GroundAddress, "", new { @class = "text-danger" })
+            </div>
+            
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-4 col-md-8">
+                <input type="submit" value="保存" id="btn-sigroundAdd" class="btn btn-info col-md-2" />&nbsp;&nbsp;
+                <button type="button" class="btn btn-default" onclick="RedircetUrl('@Url.Action("SIGroundIndex","SchoolInfo")')">返回</button>
+            </div>
+        </div>
+    </div>
+}
+@*数据提交*@
+<script>
+    $(function () {
+      var sigroundvalid=  $("#form-siground").validate({
+          rules: {
+                GroundCode:"required",
+                GroundName: "required"
+            },
+            ignore: "hidden",
+            messages: {
+                GroundCode: "场地代码不能为空",
+                GroundName: "场地名称不能为空"
+            },
+            errorClass: "validate-error", //设置错误样式
+            errorElement: "label", //设置显示错误提示的控件,默认为<label>
+            errorLabelContainer: "#validmsg", //指定错误信息放置容器
+            wrapper: "li",
+            //errorPlacement: function (error,element) { //指定错误信息放置位置
+            //    error.appendTo($("#validmsg"));
+            //},
+            //debug: true,//进行调试模式（表单不提交）
+            submitHandler: function () {
+                $("#btn-sigroundAdd").val("正在保存，请稍候…");
+                $("#btn-sigroundAdd").attr("disabled", "disabled");
+                $("#form-siground").ajaxSubmit({
+                    success: function (data) {
+                        if (data.Data.StatusCode == 200) {
+                            completeselect("保存成功", function () {
+                                sigroundvalid.resetForm(); //重置表单
+                            }, function () {
+                                RedircetUrl("@Url.Action("siGroundIndex")");
+                            }, null)
+                            //tipsuccessmsg("保存成功");
+                            //validator.resetForm(); //重置表单
+                        } else {
+                            tipfailmsg("保存失败，原因可能为：" + data.Data.ErrorMessage);
+                            //$("#PKID").val(data.data.PKID);
+                            //validator.resetForm(); //重置表单
+                        }
+                        $("#btn-sigroundAdd").val("保存");
+                        $("#btn-sigroundAdd").removeAttr("disabled");
+                    }
+                });
+            }
+            //onsubmit: false,//是否提交时验证，默认为True,用于设置某一个不需要验证的控件
+            //onfocusin: false,//是否获取焦点时验证，默认为True
+            //onkeyup: false,//是否在敲击键盘时验证，默认为True
+            //onclick: false//是否在鼠标点击时验证，默认为True
+        });
+    });
+</script>

@@ -1,0 +1,170 @@
+﻿@using UCHome.Model
+@{
+    Layout = "~/Views/Shared/_LayoutSys.cshtml";
+}
+@section Head{
+    <script src="@Url.Content("~/plugs/usercontrol/jquery-ui-1.10.0.custom.min.js")"></script>
+    <link rel="stylesheet" href="@Url.Content("~/plugs/usercontrol/jquery-ui-1.10.0.custom.css")">
+    <link rel="stylesheet" href="@Url.Content("~/plugs/datatables/css/jquery.dataTables.css")">
+    <link rel="stylesheet" href="@Url.Content("~/plugs/datatables/css/dataTables.bootstrap.css")">
+    <script src="@Url.Content("~/plugs/datatables/js/jquery.datatables.js")"></script>
+    <script src="@Url.Content("~/plugs/datatables/js/dataTables.bootstrap.js")"></script>
+    <link href="@Url.Content("~/plugs/toastr/toastr.min.css")" rel="stylesheet/less" type="text/css" />
+    <script src="@Url.Content("~/plugs/toastr/toastr.min.js")"></script>
+    <script src="@Url.Content("~/scripts/mycustomtip.js")"></script>
+    <script src="@Url.Content("~/scripts/guid.js")"></script>
+    <link rel="stylesheet" href="@Url.Content("~/Content/css/eval.css")">
+    <script src="@Url.Content("~/plugs/usercontrol/selectuser.js")"></script>
+    <link rel="stylesheet" href="@Url.Content("~/content/css/selUserStyle.css")">
+    <style type="text/css">
+        .table table-bordered {
+            margin-top: 10px;
+        }
+
+        table tr td {
+            text-align: center;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        .Permissions {
+            color: green;
+        }
+
+        .delete {
+            color: red;
+            padding-left: 10px;
+        }
+
+        .nav-tabs > li {
+            margin-bottom: -2px !important;
+        }
+
+        #myTabs, #mytabsearch, #myTabContent {
+            width: 800px;
+        }
+    </style>
+
+}
+
+@using (Ajax.BeginForm(
+                                new AjaxOptions()
+                                {
+                                    HttpMethod = "post",
+                                    Url = Url.Action("CharacterMan"),
+                                    LoadingElementId = "loding",
+                                    LoadingElementDuration = 2000
+                                }))
+{
+    <div id="body_content" class="panel panel-default">
+        <input id="hidRoleType" type="hidden" value="TP" />
+        <div class="sysman-body panel-body">
+            <ul class="nav nav-tabs" id="myTabs" role="tablist">
+                <li class="active" role="presentation">
+                    <a href="#teacher" role="tab" aria-controls="home" data-toggle="tab" name="teacher" id="TP"> 教 师 </a>
+                </li>
+                <li role="presentation">
+                    <a href="#student" role="tab" aria-controls="profile" data-toggle="tab" name="student" id="SP"> 学 生 </a>
+                </li>
+                <li role="presentation">
+                    <a href="#parents" role="tab" aria-controls="profile" data-toggle="tab" name="parents" id="PP"> 家 长 </a>
+                </li>
+                <li role="presentation">
+                    <a href="#manager" role="tab" aria-controls="profile" data-toggle="tab" name="manager" id="XP"> 管理员 </a>
+                </li>
+            </ul>
+            <div id="mytabsearch" style="text-indent: 15px; padding-top: 10px; border-left: 1px solid #ddd; border-right: 1px solid #ddd; ">
+                快速添加角色：<input type="text" class="input-medium search-query" id="roleName">
+                <button type="button" id="btnaddrole" onclick="AddRole()" roletype="TP" class="btn btn-info">确认</button>
+            </div>
+            <div class="tab-content pull-left" id="myTabContent">
+                <div class="tab-pane fade pull-left active in" id="teacher" role="tabpanel" style="overflow: hidden; width: 800px;">
+                </div>
+                <div class="tab-pane fade pull-left" id="student" role="tabpanel" style="width: 800px;">
+                </div>
+                <div class="tab-pane fade pull-left" id="parents" role="tabpanel" style="width: 800px;">
+                </div>
+                <div class="tab-pane fade pull-left" id="manager" role="tabpanel" style="width: 800px;">
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<script type="text/javascript">
+    //$("#hidRoleType").val("TP");
+
+    $("#teacher").load("@Url.Action("SetPermissions", "SysManage")?roletype=TP");
+    $('#myTabs li a').click(function () {
+        var roletype = $(this).attr("id");
+        var name = $(this).attr("name");
+        $("#teacher").html("");
+        $("#student").html("");
+        $("#parents").html("");
+        $("#manager").html("");
+        $("#" + name).load("@Url.Action("SetPermissions", "SysManage")?roletype=" + roletype);
+        $("#btnaddrole").attr("roletype", roletype);
+        //getRoleList();
+    });
+
+    //添加角色
+    function AddRole() {
+        var roletype = $("#btnaddrole").attr("roletype");
+        var name = $("#roleName").val();
+        if (name == null || name == "") {
+            alert("请输入角色名");
+        } else {
+            $.ajax({
+                url: "@Url.Action("AddRole")",
+                data: { "roleName": name, "roleType": roletype },
+                success: function (response) {
+                    if (response > 0) {
+                        $("#roleName").empty();
+                        $("#roleName").val("");
+                        getRoleList(roletype);
+                    } else {
+                        alert("添加失败");
+                    }
+                }
+            });
+        }
+
+    }
+
+    //删除角色
+    function delRole(roleId, roletype) {
+        if (confirm("确定要删除吗？")) {
+            $.post("@Url.Action("DelappRole")", { roleId: roleId }, function (data) {
+                //alert(data);
+                getRoleList(roletype);
+            });
+        }
+    }
+
+    //获取所有角色
+    function getRoleList(roletype) {
+        $("#rolelisttable").html("");
+        $.ajax({
+            url: "@Url.Action("GetRoleList")",
+            data: { "roleType": roletype },
+            success: function (response) {
+                if (response != null && response.length > 0) {
+                    var html = "<tr><td>角色名称</td><td>人员名称</td><td>操作</td></tr>";
+                    $.each(response, function (i, item) {
+                        html += "<tr><td class=\"newTask\">" + item["RoleName"] + "</td>" +
+                            "<td class=\"active\" role=\"presentation\">" +
+                            "<a href=\"#seeNameList\" class=\"seeNameList\" name=\"seeNameList\" " +
+                            "role=\"tab\" aria-controls=\"home\" data-toggle=\"tab\" onclick=\"roleId('" + item["RoleId"] + "','" + item["RoleName"] + "')\">查看名单</a></td>" +
+                            "<td role=\"presentation\"><a href=\"#setper\" role=\"tab\" aria-controls=\"home\" data-toggle=\"tab\" class=\"setpurview\" onclick=\"setPromission('" + item["RoleId"] + "','" + item["RoleName"] + "')\">设置权限</a>" +
+                            "<a href=\"javascript:void(0);\" class=\"delete\" onclick=\"delRole('" + item["RoleId"] + "','" + roletype + "')\">删除</a></td></tr>";
+                    });
+                    $("#rolelisttable").html(html);
+                }
+            }
+        });
+    }
+</script>
+
+
+

@@ -1,0 +1,68 @@
+﻿@{
+    Layout = null;
+}
+@using Student.Model
+@using UCHome.Controllers
+@model List<StuScores>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>2016学年第一次测试</title>
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/css/h5/reset.css")" />
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/css/h5/public.css")" />
+    <script src="@Url.Content("~/Content/js/jquery.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/public.js")"></script>
+    <style>
+
+</style>
+</head>
+<body>
+    @{
+        var examname = "";
+        var starttime = "";
+        var endtime = "";
+        var examtype = "";
+        if (Model != null && Model.Count > 0)
+        {
+            StuScores ss = Model.FirstOrDefault();
+            starttime = ss.stuscore.ExamStartTime.Value.ToShortDateString();
+            endtime = ss.stuscore.ExamEndTime.Value.ToShortDateString();
+            examtype = ss.stuscore.ExamType;
+            examname = ss.stuscore.ExamName;
+        }
+    }
+    <header>
+        <p>@examname</p>
+    </header>
+    <section>
+        <div class="Count">
+            <p class="SubTitle">
+                <span>时间：@starttime-@endtime</span>
+                <span>类型：@examtype</span>
+            </p>
+            <table>
+                @{
+                    decimal totalscore = 0; 
+                }
+                @foreach (StuScores item in Model.OrderBy(m => m.KCIndex))
+                {
+                    totalscore += item.stuscore.Score;
+                    <tr>
+                        <td>@item.stuscore.KCMC</td>
+                        <td>@item.stuscore.Score</td>
+                    </tr>
+                }
+                <tr class="totalscore">
+                    <td>总分</td>
+                    <td>@totalscore</td>
+                </tr>
+            </table>
+            <a href="@Url.Action("ScoreView")" class="Btn">
+                <p>返回列表</p>
+            </a>
+        </div>
+    </section>
+</body>
+</html>

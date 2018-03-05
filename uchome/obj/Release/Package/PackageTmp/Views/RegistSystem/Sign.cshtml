@@ -1,0 +1,192 @@
+﻿@{
+    Layout = null;
+}
+@model TeacherAwards.Model.Entity.RegistActiveTable
+<style type="text/css">
+    .pd
+    {
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+
+    .h
+    {
+        line-height: 34px;
+    }
+
+    .lic
+    {
+        float: left;
+        margin-right: 10px;
+        height: 33px;
+        line-height: 33px;
+    }
+
+    .w
+    {
+        width: 450px;
+    }
+</style>
+<div id="noticeSend" class="form-horizontal form-position pagew " style="margin-bottom: 0px; margin-top: 0px;">
+    <div class="form-group">
+        <label for="Time" class="col-sm-2 control-label">活动标题：</label>
+        <div class="col-sm-7 pd h">
+            @Html.HiddenFor(model => model.ActiveID)
+            @Html.HiddenFor(model => model.WriteRegistTable)
+            @Html.HiddenFor(model => model.ActiveAudit)
+            @Html.HiddenFor(model => model.EndTime)
+            @Html.HiddenFor(model => model.ActiveNum)
+            @Html.Hidden("RequiredIds")
+            @Html.Hidden("AllModelIds")
+            @Html.Hidden("AllModelNames")
+            @Model.ActiveName
+        </div>
+
+    </div>
+    <div id="modelHtml">
+        <img style=" margin-left:37%;" src="@Url.Content("~/Content/images/loading.gif")" /><br/>
+        <span style="margin-left:32%;font-size: 12px;">数据加载中，请稍候...</span>
+    </div>
+</div>
+<link href="@Url.Content("~/content/css/summernote.css")" rel="stylesheet">
+<script src="@Url.Content("~/content/js/summernote.js")"></script>
+<script src="@Url.Content("~/plugs/datetimepicker/js/bootstrap-datetimepicker.min.js")"></script>
+<script src="@Url.Content("~/plugs/datetimepicker/js/bootstrap-datetimepicker.zh-CN.js")"></script>
+<script type="text/javascript">
+    $(function () {
+        var endTime = $("#EndTime").val();
+        var now = new Date();
+        var nowyear = now.getFullYear();
+        var nowmonth = now.getMonth() + 1;
+        var nowday = now.getDate();
+        var today = nowyear + "-" + nowmonth + "-" + nowday;
+        if (today > endTime) {
+            $("#btnSign").css("display", "none");
+        }
+
+        var modelId = $("#WriteRegistTable").val();
+        var requiredIds = "";
+        var allModelIds = "";
+        var allModelNames = "";
+        var teaxareaid = "";
+
+        var num = 1;
+        $.ajaxSettings.async = false;
+        $.getJSON('@Url.Action("AllModelListJson")', { "modelId": modelId }, function (data) {
+            if (data != null && data.length > 0) {
+                var modelHtml = "";
+                var len = data.length;
+                for (var i = 1; i <= len; i++) {
+                    allModelNames += data[i - 1].RegistModelName + ";";
+                    modelHtml += "<div class=\"form-group\"><label for=\"Time\" class=\"col-sm-2 control-label\">";
+
+                    if (data[i - 1].RegistModelType == "复杂文本") {
+                        allModelIds += data[i - 1].TypeEngName + num + ";";
+                    } else {
+                        allModelIds += data[i - 1].TypeEngName + i + ";";
+                    }
+
+                    if (data[i - 1].RegistModelValue == "是") {
+                        modelHtml += "<span style=\"color:red;\">*</span>";
+                        if (data[i - 1].RegistModelType == "复杂文本") {
+                            requiredIds += data[i - 1].TypeEngName + num + ";";
+                        } else {
+                            requiredIds += data[i - 1].TypeEngName + i + ";";
+                        }
+                    }
+
+                    var html = data[i - 1].TypeHtml.replace("$placeholder$", data[i - 1].RegistModelName);
+                    html = html.replace("$title$", data[i - 1].RegistModelDes);
+                    html = html.replace("$value$", "");
+
+                    if (data[i - 1].RegistModelType == "性别") {
+                        html = "<input id=\"Radio" + i + "\" name=\"Radio" + i + "\" type=\"radio\" checked=\"checked\" value=\"男\" /> 男&nbsp;&nbsp;" +
+                            "<input id=\"Radio" + i + "\" name=\"Radio" + i + "\" type=\"radio\" value=\"女\" /> 女";
+                    } else if (data[i - 1].RegistModelType == "复杂文本") {
+                        teaxareaid += '#' + data[i - 1].TypeEngName + num + ";";
+                        html = html.replace("$id$", data[i - 1].TypeEngName + num);
+                        html = html.replace("$name$", data[i - 1].TypeEngName + num);
+                        num++;
+                    } else if (data[i - 1].RegistModelType == "下拉框") {
+                        var h = "<select id=\"" + data[i - 1].TypeEngName + i + "\" name=\"" + data[i - 1].TypeEngName + i + "\" class=\"input-sm sel-notice\">";
+                        $.ajaxSettings.async = false;
+                        $.getJSON('@Url.Action("LoadDDLlListJson")', { "ddlValue": data[i - 1].RegistModelName }, function (data1) {
+                            h += "<option value =\"\">--请选择--</option>";
+                            $.each(data1, function (j, item) {
+                                h += "<option value =\"" + item["CodeName"] + "\">" + item["CodeName"] + "</option>";
+                            });
+                        });
+                        h += "</select>";
+                        html = h;
+                    } else if (data[i - 1].RegistModelType == "单选框") {
+                        var d = "";
+                        $.ajaxSettings.async = false;
+                        $.getJSON('@Url.Action("LoadDDLlListJson")', { "ddlValue": data[i - 1].RegistModelName }, function (data1) {
+                            $.each(data1, function (j, item) {
+                                if (j == 0) {
+                                    d += "<input id=\"" + data[i - 1].TypeEngName + i + "\" name=\"" + data[i - 1].TypeEngName + i + "\" type=\"radio\" checked=\"checked\" value=\"" + item["CodeName"] + "\" /> " + item["CodeName"] + "&nbsp;&nbsp;";
+                                } else {
+                                    d += "<input id=\"" + data[i - 1].TypeEngName + i + "\" name=\"" + data[i - 1].TypeEngName + i + "\" type=\"radio\" value=\"" + item["CodeName"] + "\" /> " + item["CodeName"] + "&nbsp;&nbsp;";
+                                }
+
+                            });
+                        });
+                        html = d;
+                    } else if (data[i - 1].RegistModelType == "复选框") {
+                        var f = "";
+                        $.ajaxSettings.async = false;
+                        $.getJSON('@Url.Action("LoadDDLlListJson")', { "ddlValue": data[i - 1].RegistModelName }, function (data1) {
+                            $.each(data1, function (j, item) {
+                                f += "<input id=\"" + data[i - 1].TypeEngName + i + "\" name=\"" + data[i - 1].TypeEngName + i + "\" type=\"checkbox\" value=\"" + item["CodeName"] + "\" /> " + item["CodeName"] + "&nbsp;&nbsp;";
+                            });
+                        });
+                        html = f;
+                    } else {
+                        html = html.replace("$id$", data[i - 1].TypeEngName + i);
+                        html = html.replace("$name$", data[i - 1].TypeEngName + i);
+                    }
+
+    modelHtml += data[i - 1].RegistModelName + "</label><div class=\"col-sm-7 pd h\">" + html;
+
+    modelHtml += "</div></div>";
+}
+
+    if (allModelIds.length > 0) {
+        allModelIds = allModelIds.substring(0, allModelIds.length - 1);
+    }
+
+    $("#RequiredIds").val(requiredIds);
+    $("#AllModelIds").val(allModelIds);
+    $("#AllModelNames").val(allModelNames);
+
+    modelHtml += "<div class=\"form-group\"><label for=\"Time\" class=\"col-sm-1 control-label\"></label>" +
+    "<div class=\"col-sm-8 pd h\"><button id=\"btnSign\" style=\"float:left;\" onclick=\"SaveSign('报名成功！');\" type=\"button\" class=\"btn btn-info dropdown-toggle\" data-toggle=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\">报名</button><div id=\"loadsave\"></div></div></div>";
+    $("#modelHtml").html(modelHtml);
+}
+        });
+
+        $('.form_datetime').datetimepicker({
+            minView: "month", //选择日期后，不会再跳转去选择时分秒
+            language: 'zh-CN',
+            format: 'yyyy-mm-dd',
+            autoclose: true
+        });
+
+        $('.form_datetimemin').datetimepicker({
+            language: 'zh-CN',
+            format: 'yyyy-mm-dd hh:ii:ss',
+            autoclose: true
+        });
+
+        if (teaxareaid != "") {
+            var teaxareaids = teaxareaid.split(";");
+
+            for (var i = 0; i < teaxareaids.length; i++) {
+                $(teaxareaids[i]).summernote({
+                    height: 200
+                });
+            }
+        }
+    });
+</script>
+

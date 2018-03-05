@@ -1,0 +1,17 @@
+﻿@{
+    Layout = null;
+    int index = 1;
+}
+@model List<UCHome.Model.ArticleHits>
+    <ul>
+        @foreach (var item in Model)
+        {
+            <li>
+                <span class="news-dot a-font">@index</span>
+                <a title="@item.Title" class="a-font" target="_blank" href="@Url.Action("ArticleInfo","Query",new { id = item.PKID})"><span>-&nbsp;</span>@item.DisplayName</a>
+                <span class="news-date">@item.Hits</span>
+            </li>
+            <div class="dotted"></div>
+            index++;
+        }
+    </ul>

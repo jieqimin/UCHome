@@ -1,0 +1,446 @@
+﻿@model StuInfo.Model.StuInfo
+
+@{
+}
+<link rel="stylesheet" href="@Url.Content("~/plugs/webuploader/css/webuploader.css")">
+<link rel="stylesheet" href="@Url.Content("~/plugs/webuploader/css/demo.css")">
+<link rel="stylesheet" href="@Url.Content("~/plugs/datetimepicker/css/bootstrap-datetimepicker.css")">
+<script src="@Url.Content("~/plugs/AddressSelect/selectaddress.js")"></script>
+<form id="form-stuinfocreate" method="post" action="@Url.Action("EditStu")">
+    <div class="form-position pagew">
+        <div class="row">
+            <div class="col-md-9">
+                <div id="stuinfo" class="form-horizontal ">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.HiddenFor(model => model.StuID)
+                    @Html.HiddenFor(model => model.IsState)
+                    @Html.HiddenFor(model => model.StuMarital)
+                    @Html.HiddenFor(model => model.StuNationality)
+                    @Html.HiddenFor(model => model.StuStatus)
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.StuName, "* 学生姓名", htmlAttributes: new { @class = "text-danger control-label col-md-3" })
+                        <div class="col-md-9">
+                            @Html.EditorFor(model => model.StuName, new { htmlAttributes = new { @class = "form-control col-md-10", placeholder = "例如：张三" } })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.StuCode, "* 学籍号", htmlAttributes: new { @class = "text-danger control-label col-md-3" })
+                        <div class="col-md-9">
+                            @Html.EditorFor(model => model.StuCode, new { htmlAttributes = new { @class = "form-control col-md-10", placeholder = "学籍号将作为系统登录账号，要求唯一且不变" } })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.StuNumber, "* 学号", htmlAttributes: new { @class = "text-danger control-label col-md-3" })
+                        <div class="col-md-9">
+                            @Html.EditorFor(model => model.StuNumber, new { htmlAttributes = new { @class = "form-control col-md-10", placeholder = "请输入班内学号" } })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.StuIdentity, "* 身份证号", htmlAttributes: new { @class = "text-danger control-label col-md-3" })
+                        <div class="col-md-9">
+                            @Html.EditorFor(model => model.StuIdentity, new { htmlAttributes = new { @class = "form-control col-md-10", placeholder = "请输入15位或18位身份证号" } })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 text-center">
+                <div id="imgstuphoto" style="position:relative;">
+                    @if (Model.StuPhoto == null) {
+                        <img id="img-stuphoto" style="border:solid 1px #eeeeee;" src="@Url.Content("~/Content/images/defaultimg.png")" width="125" height="120" />}
+                    else {
+                        <img id="img-stuphoto" style="border:solid 1px #eeeeee;" width="125" height="120" src="@Model.StuPhoto" />}
+                </div>
+                <p>个人照片</p>
+                <input id="StuPhoto" class="col-md-10" name="StuPhoto" type="hidden" value="@Model.StuPhoto" placeholder="校标" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-horizontal form-position">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.StuID_BJID, "所在班级", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10 form-inline">
+                        <select class="form-control col-md-4" id="StuID_GradeID" name="StuID_GradeID">
+                            <option value="0">请选择年级</option>
+                            @foreach (var item in ViewBag.Grades as SelectList) {
+                                if (item.Value == ViewBag.Grade) {
+                                    <option value="@item.Value" selected>@item.Text</option>
+}
+                                else {
+                                    <option value="@item.Value">@item.Text</option>
+}
+                            }
+                        </select>
+                        <select class="form-control col-md-4" id="StuID_BJID" name="StuID_BJID">
+                            <option value="0">请选择班级</option>
+                        </select>
+                    </div>
+                </div>
+
+
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.StuEntrance, "入学年份", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        @Html.EditorFor(model => model.StuEntrance, new { htmlAttributes = new { @class = "form-control", placeholder = "请输入四位数字，例如：2017" } })
+                    </div>
+                    @Html.LabelFor(model => model.ICardNo, "一卡通号", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        @Html.EditorFor(model => model.ICardNo, new { htmlAttributes = new { @class = "form-control", placeholder = "请输入一卡通号" } })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.StuGender, "性别", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        <div class="btn-group" group="StuGender" aria-label="...">
+                            @{  string stugrender = Model.StuGender;
+
+                            }
+                            @if (Model.StuGender == "1") {
+                                <button type="button" onclick="togglesel(this,'StuGender',1)" class="btn btn-info">男</button>}
+                            else {
+                                <button type="button" onclick="togglesel(this,'StuGender',1)" class="btn btn-default">男</button>}
+                            @if (Model.StuGender == "2") {
+                                <button type="button" onclick="togglesel(this,'StuGender',2)" class="btn btn-info">女</button>}
+                            else {
+                                <button type="button" onclick="togglesel(this,'StuGender',2)" class="btn btn-default">女</button>}
+                            @if (Model.StuGender == "9") {
+                                <button type="button" onclick="togglesel(this,'StuGender',9)" class="btn btn-info">未说明</button>}
+                            else {
+                                <button type="button" onclick="togglesel(this,'StuGender',9)" class="btn btn-default">未说明</button>}
+                        </div>
+                        @Html.HiddenFor(model => model.StuGender, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                    @Html.LabelFor(model => model.StuBirthDay, "出生日期", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        <div class="date form_datetime input-group" data-date-format="yyyy-mm-dd" data-link-field="dtp_input1">
+                            @Html.EditorFor(model => model.StuBirthDay, new { htmlAttributes = new { @class = "form-control", placeholder = "请选择日期" } })
+                            <div class="input-group-addon">
+                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                            </div>
+                            <div class="input-group-addon">
+                                <span class="glyphicon glyphicon-th" aria-hidden="true"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.StuHomeAddress, "家庭地址", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div id="stuhome" class="col-md-10 form-inline addressSelect">
+                        @Html.HiddenFor(model => model.StuHomeDistrict, new { htmlAttributes = new { @class = "form-control col-md-10" } })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.StuHomeAddress, "  ", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.StuHomeAddress, new { htmlAttributes = new { @class = "form-control col-md-10", placeholder = "请输入现居住家庭地址" } })
+                    </div>
+                </div>
+                @*<div class="form-group hide">
+                        @Html.LabelFor(model => model.StuBirthAddress, "出生地址", htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div id="stubirth" class="col-md-10 form-inline addressSelect">
+                            @Html.HiddenFor(model => model.StuBirthDistrict, new { htmlAttributes = new { @class = "form-control col-md-10" } })
+                        </div>
+                    </div>
+                    <div class="form-group hide">
+                        @Html.LabelFor(model => model.StuBirthAddress, " ", htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.StuBirthAddress, new { htmlAttributes = new { @class = "form-control col-md-10", placeholder = "" } })
+                        </div>
+                    </div>
+                    <div class="form-group hide">
+                        @Html.LabelFor(model => model.StuRegistAddress, "户籍地址", htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div id="sturegisit" class="col-md-10 form-inline addressSelect">
+                            @Html.HiddenFor(model => model.StuRegistDistrict, new { htmlAttributes = new { @class = "form-control col-md-10" } })
+                        </div>
+                    </div>
+                    <div class="form-group hide">
+                        @Html.LabelFor(model => model.StuRegistAddress, "  ", htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.StuRegistAddress, new { htmlAttributes = new { @class = "form-control col-md-10", placeholder = "请输入户籍所在地址" } })
+                        </div>
+                    </div>*@
+                <div class="form-group">
+
+                    @Html.LabelFor(model => model.StuSpelling, "姓名拼音", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        @Html.EditorFor(model => model.StuSpelling, new { htmlAttributes = new { @class = "form-control", placeholder = "例如：张三 请输入zhangsan" } })
+                    </div>
+                    @Html.LabelFor(model => model.StuNameUsed, "曾用名", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        @Html.EditorFor(model => model.StuNameUsed, new { htmlAttributes = new { @class = "form-control", placeholder = "请输入曾用名" } })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.StuTelPhone, "联系方式", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        @Html.EditorFor(model => model.StuTelPhone, new { htmlAttributes = new { @class = "form-control", placeholder = "手机号或固定电话" } })
+                    </div>
+
+                    @Html.LabelFor(model => model.StuEmail, "电子信箱", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        @Html.EditorFor(model => model.StuEmail, new { htmlAttributes = new { @class = "form-control", placeholder = "例如：zhangsan@163.com" } })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.StuEnName, "英文名", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        @Html.EditorFor(model => model.StuEnName, new { htmlAttributes = new { @class = "form-control", placeholder = "请输入英文名" } })
+                    </div>
+                    @Html.LabelFor(model => model.StuPostcode, "邮政编码", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        @Html.EditorFor(model => model.StuPostcode, new { htmlAttributes = new { @class = "form-control", placeholder = "请输入6位数字，例如：200230" } })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.StuHomePage, "个人主页", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        @Html.EditorFor(model => model.StuHomePage, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                    @Html.LabelFor(model => model.StuQQ, "通讯号", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        @Html.EditorFor(model => model.StuQQ, new { htmlAttributes = new { @class = "form-control", placeholder = "QQ、微信或者其它" } })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.StuNation, "民族", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        @Html.DropDownListFor(model => model.StuNation, null, new { @class = "form-control" })
+                    </div>
+                    @Html.LabelFor(model => model.StuBloodType, "血型", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        @Html.DropDownListFor(model => model.StuBloodType, null, new { @class = "form-control" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.StuHealth, "健康状况", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        @Html.DropDownListFor(model => model.StuHealth, null, new { @class = "form-control" })
+                    </div>
+                    @Html.LabelFor(model => model.StuPolitics, "政治面貌", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        @Html.DropDownListFor(model => model.StuPolitics, null, new { @class = "form-control" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.StuGAT, "是否港澳台侨", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        <div class="btn-group" group="StuGAT">
+                            @if (Model.IsHobo == "1") {
+                                <button type="button" onclick="togglesel(this,'StuGAT',1)" class="btn btn-info">是</button>}
+                            else {
+                                <button type="button" onclick="togglesel(this,'StuGAT',1)" class="btn btn-default">是</button>}
+                            @if (Model.IsHobo == "0") {
+                                <button type="button" onclick="togglesel(this,'StuGAT',0)" class="btn btn-info">否</button>}
+                            else {
+                                <button type="button" onclick="togglesel(this,'StuGAT',0)" class="btn btn-default">否</button>}
+                        </div>
+                        @Html.HiddenFor(model => model.StuGAT, new { @class = "form-control" })
+                    </div>
+                    @Html.LabelFor(model => model.IsHobo, "是否流动人口", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        <div class="btn-group" group="IsHobo">
+                            @if (Model.IsHobo == "1") {
+                                <button type="button" onclick="togglesel(this,'IsHobo',1)" class="btn btn-info">是</button>}
+                            else {
+                                <button type="button" onclick="togglesel(this,'IsHobo',1)" class="btn btn-default">是</button>}
+                            @if (Model.IsHobo == "0") {
+                                <button type="button" onclick="togglesel(this,'IsHobo',0)" class="btn btn-info">否</button>}
+                            else {
+                                <button type="button" onclick="togglesel(this,'IsHobo',0)" class="btn btn-default">否</button>}
+                        </div>
+                        @Html.HiddenFor(model => model.IsHobo, new { @class = "form-control" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.StuStrengths, "特长", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextAreaFor(model => model.StuStrengths, 4, 80, new { htmlAttributes = new { @class = "form-control col-md-9", placeholder = "请输入特长，150字以内！" } })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-4 col-md-8">
+                        <button type="submit" id="btn-stuinfocreate" class="btn btn-info col-md-2">保存</button>&nbsp;&nbsp;
+                        <button type="button" class="btn btn-default" onclick="RedircetUrl('@Url.Action("Index","StuInfo")')">返回</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<script>
+    $(function () {
+        //绑定省市区校三级联动
+        var stuhomedistrict = $("#StuHomeDistrict").val();
+        var stuhomeprovince = stuhomedistrict.substring(0, 2) + "0000";
+        var stuhomecity = stuhomedistrict.substring(0, 4) + "00";
+        $("#stuhome").SelAddress({
+            defaultprovince: stuhomeprovince,
+            defaultcity: stuhomecity,
+            defaultdistrict: stuhomedistrict,
+            objid: "stuhome",
+            callBackfn: function (value, text) {
+                $("#StuHomeDistrict").val(value);
+            }
+        });
+        //$("#stubirth").SelAddress({
+        //    objid: "stubirth",
+        //    callBackfn: function (value, text) {
+        //        $("#StuBirthDistrict").val(value);
+        //    }
+        //});
+        //$("#sturegisit").SelAddress({
+        //    objid: "sturegisit",
+        //    callBackfn: function (value, text) {
+        //        $("#StuRegistDistrict").val(value);
+        //    }
+        //});
+        //end
+        //上传校徽
+        //end
+        //上传校标
+        //end
+    })
+</script>
+<script src="@Url.Content("~/plugs/datetimepicker/js/bootstrap-datetimepicker.min.js")"></script>
+<script src="@Url.Content("~/plugs/datetimepicker/js/bootstrap-datetimepicker.zh-CN.js")"></script>
+<script>
+    $('.form_datetime').datetimepicker({
+        format: 'yyyy-mm-dd',
+        language: 'zh-CN',
+        weekStart: 1,
+        todayBtn: 1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 2,
+        minView: 2,
+        maxView: 2,
+        forceParse: 0
+    });
+</script>
+@*设置校徽校标*@
+<style>
+    .webuploader-pick {
+        background-color: transparent;
+    }
+</style>
+<script src="@Url.Content("~/plugs/webuploader/js/webuploader.js")"></script>
+<script src="@Url.Content("~/plugs/webuploader/js/upimg.js")"></script>
+<script>
+
+    var BASE_URL = '@Url.Content("~/plugs/webuploader/")';
+    //文件处理服务
+    var Server_URL = "@Url.Action("AddFile", "PublicShare")";
+    var upfile2 = new Upfiles({
+        id: "imgstuphoto",
+        baseurl: BASE_URL,
+        serverurl: Server_URL,
+        callbackfn: function (ret) {
+            if (ret != null) {
+                //var results = new Array();
+                var files = eval("(" + ret + ")");
+                $.each(files, function (index, item) {
+                    //results.push(item.filename);
+                    $("#StuPhoto").val(item.filepath);
+                    $("#img-stuphoto").attr("src", item.filepath);
+                })
+                //$("#SchLogo").val(results);
+            }
+        }
+    })
+</script>
+<script>
+    function getclasslistbygrade(gradecode, classid) {
+            $("#StuID_BJID option").remove();
+            $("#StuID_BJID").append("<option value='0'>请选择班级</option>");
+            if (gradecode != "0") {
+                $.ajax({
+                    "dataType": 'json',
+                    "type": "Get",
+                    "url": "@Url.Action("GetSIClassList")",
+                    "data": { grade: gradecode },
+                    "success": function (response) {
+                        var classobj = response.data;
+                        $.each(classobj, function (index, item) {
+                            if (item.ClassID == classid) {
+                                $("#StuID_BJID").append("<option value='" + item.ClassID + "' selected>" + item.ClassName + "</option>");
+                            }
+                            else {
+                                $("#StuID_BJID").append("<option value='" + item.ClassID + "'>" + item.ClassName + "</option>");
+                            }
+
+                        })
+
+                    }
+                });
+            }
+    }
+</script>
+
+@*数据提交*@
+<script>
+    $(function () {
+        $("#StuID_GradeID").change(function () {
+            var grade = $("#StuID_GradeID").val();
+            getclasslistbygrade(grade, "0");
+        });
+        getclasslistbygrade("@ViewBag.Grade","@Model.StuID_BJID");
+        var sistuinfovalid= $("#form-stuinfocreate").validate({
+            rules: {
+                StuName: "required",
+                StuCode: "required",
+                StuIdentity: "required"
+            },
+            ignore: "hidden",
+            messages: {
+                StuName: "姓名不能为空",
+                StuCode: "学籍号不能为空",
+                StuIdentity: "身份证号不能为空"
+            },
+            errorClass: "validate-error", //设置错误样式
+            errorElement: "label", //设置显示错误提示的控件,默认为<label>
+            errorLabelContainer: "#validmsg", //指定错误信息放置容器
+            wrapper: "li",
+            //errorPlacement: function (error,element) { //指定错误信息放置位置
+            //    error.appendTo($("#validmsg"));
+            //},
+            //debug: true,//进行调试模式（表单不提交）
+            submitHandler: function () {
+                $("#btn-stuinfocreate").text("正在保存，请稍候…");
+                $("#btn-stuinfocreate").attr("disabled", "disabled");
+                $("#form-stuinfocreate").ajaxSubmit({
+                    success: function (data) {
+                        if (data.Data.StatusCode == 200) {
+                            completeselect("保存成功", function () {
+                                sistuinfovalid.resetForm(); //重置表单
+                            }, function () {
+                                RedircetUrl("@Url.Action("Index")");
+                            }, null)
+                        } else {
+                            tipfailmsg("保存失败，原因可能为：" + data.Data.ErrorMessage);
+                            //$("#PKID").val(data.data.PKID);
+                            //validator.resetForm(); //重置表单
+                        }
+                        $("#btn-stuinfocreate").text("保存");
+                        $("#btn-stuinfocreate").removeAttr("disabled");
+                    }
+                });
+            }
+            //onsubmit: false,//是否提交时验证，默认为True,用于设置某一个不需要验证的控件
+            //onfocusin: false,//是否获取焦点时验证，默认为True
+            //onkeyup: false,//是否在敲击键盘时验证，默认为True
+            //onclick: false//是否在鼠标点击时验证，默认为True
+        });
+    });
+</script>
+
+<script type="text/javascript">
+    function togglesel(obj, groupname, value) {
+        $("div[group=" + groupname + "] button").removeClass("btn-info").addClass("btn-default");
+        $(obj).removeClass("btn-default").addClass("btn-info");
+        $("#" + groupname).val(value);
+    }
+</script>

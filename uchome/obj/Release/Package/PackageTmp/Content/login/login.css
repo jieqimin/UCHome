@@ -1,0 +1,132 @@
+﻿body {
+    background: #F5F8FA;
+    overflow-x: hidden;
+}
+
+header {
+    background: #212121;
+    height: 60px;
+}
+
+    header .logo {
+        color: #fff;
+        font-size: 32px;
+        margin-top: 12px;
+        float: left;
+    }
+
+    header .logotxt {
+        margin-top: 12px;
+        color: #fff;
+        font-size: 24px;
+        display: block;
+        float: left;
+        height: 36px;
+        line-height: 36px;
+        text-indent: 10px;
+        font-family: '方正姚体';
+    }
+
+    header ul {
+        margin-top: 20px;
+    }
+
+        header ul li a {
+            color: #fff;
+            text-align: center;
+        }
+
+            header ul li a:hover {
+                color: #F5F8FA;
+            }
+
+    header dl {
+        color: #dddddd;
+        margin-top: 20px;
+    }
+
+section .rolelist {
+    margin: 5px auto;
+    width: 95%;
+    letter-spacing: 1px;
+}
+    section .rolelist h4 {
+        color: #666;
+        line-height: 35px;
+        font-family: 'Microsoft YaHei';
+    }
+        section .rolelist dl {
+        line-height: 30px;
+        font-family: 'Microsoft YaHei';
+        letter-spacing: inherit;
+
+    }
+    section .rolelist dt {
+        color: #666;
+        line-height: 30px;
+        letter-spacing: inherit;
+        font-family: 'Microsoft YaHei';
+    }
+    section .rolelist dd {
+        color: #999;
+        line-height: 25px;
+        font-size: 12px;
+        letter-spacing: inherit;
+        font-family: 'Microsoft YaHei';
+        text-indent: 2em;
+    }
+    section .rolelist .abstract {
+        padding:15px;
+        color:#333;
+        min-height:460px;
+    }
+.abstract-admin {
+    border-right: solid 1px #dddddd;
+}
+.abstract-teacher {
+    border-right: solid 1px #dddddd;
+}
+.abstract-student {
+    border-right: solid 1px #dddddd;
+}
+    footer {
+        position: relative;
+        bottom: 0;
+        width: 100%;
+        line-height: 28px;
+        font-size: 12px;
+        color: #ccc;
+        text-align: center;
+        padding: 15px;
+        background: #212121;
+    }
+
+.login {
+    margin: 50px auto;
+    width: 460px;
+    min-height: 420px;
+    background: #fff;
+}
+
+.login-tab li {
+    height: 60px;
+    line-height: 60px;
+    text-align: center;
+    background: #fafafa;
+    font-size: 16px;
+    font-family: 微软雅黑;
+}
+
+    .login-tab li.active {
+        background: #fff;
+    }
+
+.login-main {
+    padding: 40px 45px 20px;
+    font-size: 14px;
+}
+
+.login-btn {
+    width: 100%;
+    height: 40px;
+}

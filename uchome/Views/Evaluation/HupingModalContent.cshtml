@@ -1,0 +1,172 @@
+﻿@{
+    Layout = null;
+}
+@using M = Evaluation.Model;
+@model M.Models.EvaluationGuageGuide          
+@using (Html.BeginForm("SaveHupingScore", "Evaluation", FormMethod.Post, new { id = "fm01" }))
+{
+    <div id="evalscore" class="form-horizontal">
+        @Html.HiddenFor(model => model.EvalID)
+        @Html.HiddenFor(model => model.XSID)
+
+        @if (Model.listGuageGuide.Count == 0)
+        {
+            @Html.Raw("当前学期没有设置评价指标！");
+        }
+        else
+        {
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>评价一级指标</th>
+                        <th>评价二级指标</th>
+                        <th>分值范围</th>
+                        <th class="cell2">评分</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+            var firstLevelList = Model.listGuageGuide.Where(w => w.ParentId == 0).OrderBy(w => w.ItemOrder).ToList();
+            foreach (M.View_Tbl_GuageGuide item in firstLevelList)
+            {
+                var secondLevelList = Model.listGuageGuide.Where(w => w.ParentId == item.Id).OrderBy(w => w.ItemOrder).ToList();
+                var rowcount = secondLevelList.Count;
+                var i = 0;
+
+                foreach (M.View_Tbl_GuageGuide t in secondLevelList)
+                {
+                    i++;
+                    var itemscore = "0";
+                    if (Model.listEvaluationItem != null)
+                    {
+                        var m = Model.listEvaluationItem.FirstOrDefault(w => w.GuageGuideLineId == t.Id);
+                        if (m != null) { itemscore = m.EvalItem_Score.ToString(); }
+                    }
+                            
+                        <tr>
+                            @if (i == 1)
+                            { 
+                                <td rowspan="@rowcount">@item.NodeName</td>
+                            }
+
+                            <td>@t.NodeName</td>
+                            <td>@t.Description</td>
+                            <td>
+                                <input type="hidden" id="GuageGuideLineId" name="GuageGuideLineId" value="@t.Id" />
+                                <input type="text" value="@itemscore" class="form-control" id="EvalItem_Score" name="EvalItem_Score" placeholder="请输入评分" />
+                            </td>
+                        </tr>
+                }
+            }
+                    }
+                </tbody>
+            </table>
+            <div class="pull-left" style="height: 30px;">评语：</div>
+            <div class="pull-right" style="height: 30px;">总评分：<span id="sp_score">@Model.EvalTotalScore</span></div>
+            @Html.TextAreaFor(model => model.EvalContent, new { @class = "form-control text-box", rows = "3" })
+           
+            <div id="alert_msg_modal"></div>
+        }
+    </div>
+}
+
+<script>
+    $(function () {
+        $("table tbody tr td input[type='text']").each(function () {
+            $(this).keyup(function () {
+                checkdata();
+            });
+        });
+
+        $("#EvalContent").keyup(function () {
+            checkContent();
+        });
+
+    });
+
+    function checkContent() {
+        $("#alert_msg_score").remove();
+        var evalContent = $.trim($("#EvalContent").val());
+        if (evalContent == "" || evalContent == null || evalContent.length > 300) {
+            var str = "<div id='alert_msg_score' class='alert alert-success center-block' role='alert'>请填写评语并且在300字以内</div>";
+            $("#alert_msg_modal").append(str);
+            $("#EvalContent").addClass("input-error");
+            return false;
+        } else {
+            $("#EvalContent").removeClass("input-error");
+            $("#alert_msg_score").remove();
+            return true;
+        }
+    }
+
+    function addmsg(obj) {
+        $("#alert_msg_score").remove();
+        var str = "<div id='alert_msg_score' class='alert alert-success center-block' role='alert'>评分的格式为最多保留一位小数的数字，如10，10.5 ！</div>";
+        $("#alert_msg_modal").append(str);
+        $(obj).addClass("input-error");
+    }
+
+    function checkdata() {
+        var totalscore = 0;
+        var num = 0;
+        var isOK = false;
+
+        $("table tbody tr td input[type='text']").each(function () {
+            var score = $.trim($(this).val());
+            if (score == "" || score == null) {
+                addmsg($(this));
+                num++;
+            } else {
+                var reg = /^(-?\d+)(\.\d+)?$/;
+                if (!reg.test(score)) {
+                    addmsg($(this));
+                    num++;
+                } else {
+                    totalscore += parseFloat(score);
+                    $(this).removeClass("input-error");
+                }
+            }
+        });
+
+        $("#sp_score").html(totalscore.toFixed(1));
+
+        if (num == 0) {
+            isOK = checkContent();
+        } else {
+            $("#EvalContent").removeClass("input-error");
+        }
+
+        return isOK;
+    }
+
+    function submitdata() {
+        if (checkdata()) {
+            $("#fm01").ajaxSubmit({
+                success: function (data) {
+                    if (data.Data.statuscode == 200) {
+                        var obj = "<div id='alert_msg_score' class='alert alert-success center-block' role='alert'>保存成功！</div>";
+                        $("#alert_msg_modal").append(obj);
+
+                        setTimeout(function () {
+                            $("#alert_msg_score").remove();
+                            loadform();
+                        }, 2000);
+                    } else {
+                        var obj = "<div id='alert_msg_score' class='alert alert-danger center-block' role='alert'>保存失败！</div>";
+                        $("#alert_msg_modal").append(obj);
+
+                        setTimeout(function () {
+                            $("#alert_msg_score").remove();
+                        }, 2000);
+                    }
+                }
+            });
+        }
+    }
+
+    function loadform() {
+        var ahref = "@Url.Action("HupingIndex")";
+        redirecturl(ahref);
+        $(".modal-backdrop").remove();
+    }
+</script>

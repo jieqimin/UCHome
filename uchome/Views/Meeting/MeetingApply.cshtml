@@ -1,0 +1,273 @@
+﻿@{
+    Layout = null;
+}
+@using System.Web.Mvc
+@using M =MeetingModel
+@model M.ApplyMeeting
+<link rel="stylesheet" href="@Url.Content("~/Content/css/msg.css")">
+<script src="@Url.Content("~/plugs/usercontrol/selectuser.js")"></script>
+<link rel="stylesheet" href="@Url.Content("~/plugs/webuploader/css/webuploader.css")">
+<link rel="stylesheet" href="@Url.Content("~/plugs/webuploader/css/demo.css")">
+<link rel="stylesheet" href="@Url.Content("~/plugs/datetimepicker/css/bootstrap-datetimepicker.css")">
+<link rel="stylesheet" href="@Url.Content("~/content/css/homework.css")">
+
+<style type="text/css">
+    .sel-notice {
+        width: 120px !important;
+        margin-right: 10px;
+    }
+</style>
+
+@using (Ajax.BeginForm("MeetingApply", null,
+    new AjaxOptions()
+    {
+        HttpMethod = "post",
+        Url = Url.Action("MeetingApply"),
+        UpdateTargetId = "#meetingApply",
+        LoadingElementId = "loding",
+        LoadingElementDuration = 2000
+    }, new { id = "form_meetingApply" }))
+{
+    @Html.HiddenFor(model => model.ID)
+    <div id="editNotice" class="form-horizontal form-position pagew ">
+
+        <div class="form-group">
+            <label for="MeetingName" class="col-sm-2 control-label">会议名称：</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" id="MeetingName" name="MeetingName" placeholder="请输入会议名称并且在50字以内" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="Remark" class="col-sm-2 control-label">会议说明：</label>
+            <div class="col-sm-9">
+                <textarea class="form-control" id="Remark" name="Remark" rows="5" placeholder="请输入主要内容并且在300字以内" />
+            </div>
+        </div>
+
+      
+        <div class="form-group">
+            <label for="MeetingRoom" class="col-sm-2 control-label">会议室：</label>
+            <div class="col-sm-9">
+                <select id="MeetingRoom" name="MeetingRoom" class="form-control input-sm col-xs-2 sel-notice"></select>
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <label for="hwname" class="col-sm-2 control-label">开始日期：</label>
+            <div class="col-sm-5">
+                <div class="date form_datetime input-group" data-date-format="yyyy-mm-dd" data-link-field="dtp_input1">
+                    <input class="form-control" id="StartTime" name="StartTime" type="text" value="" placeholder="请选择日期">
+                    <div class="input-group-addon">
+                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                    </div>
+                    <div class="input-group-addon">
+                        <span class="glyphicon glyphicon-th" aria-hidden="true"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="hwname" class="col-sm-2 control-label">结束日期：</label>
+            <div class="col-sm-5">
+                <div class="date form_datetime input-group" data-date-format="yyyy-mm-dd" data-link-field="dtp_input1">
+                    <input class="form-control" id="EndTime" name="EndTime" type="text" value="" placeholder="请选择日期">
+                    <div class="input-group-addon">
+                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                    </div>
+                    <div class="input-group-addon">
+                        <span class="glyphicon glyphicon-th" aria-hidden="true"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="ApproveId" class="col-sm-2 control-label">审核人：</label>
+            <div class="col-sm-9">
+                <select id="ApproveId" name="ApproveId" class="form-control input-sm col-xs-2 sel-notice"></select>
+               
+            </div>
+
+            
+
+        </div>
+        <div class="form-group">
+            <label for="showSelectUserName" class="col-sm-2 control-label">与会人员：</label>
+            <div class="col-sm-9">
+               
+                <button type="button" class="btn btn-info dropdown-toggle selUsers" data-toggle="button"
+                        aria-haspopup="true" aria-expanded="false">
+                    与会人员
+                </button>
+
+                <div id="showSelectUserName">
+                </div>
+                <input id="selectUserID" name="selectUserID" type="hidden" value="" />
+                <input id="selectUserName" name="selectUserName" type="hidden" value="" />
+            </div>
+
+
+
+        </div>
+    
+        
+        <div class="form-group">
+            <div class="btn-group center-block" style="width: 200px;">
+                <button id="btnSend" type="button" class="btn btn-info dropdown-toggle" data-toggle="button" aria-haspopup="true" aria-expanded="false">
+                    立即申请
+                </button>
+
+                <button style="margin-left:10px" id="btnClose" type="button" class="btn btn-info dropdown-toggle" data-toggle="button" aria-haspopup="true" aria-expanded="false">
+                    关闭
+                </button>
+            </div>
+        </div>
+        <div class="form-group">
+            <ul id="validmsg"></ul>
+        </div>
+    </div>
+}
+<script src="@Url.Content("~/plugs/webuploader/js/webuploader.js")"></script>
+<script src="@Url.Content("~/plugs/webuploader/js/upfile.js")"></script>
+<script>
+
+    $(document).ready(function () {
+        var seluser1 = new SelUser({
+            obj: $(".selUsers"),
+            selRole: "tea",//tea,stu,fam
+            selType: "muti",//多选：muti,单选:single
+            selArea: "department",//friend:我的好友,student:我的学生,stuparent:学生家长,colleague:我的同事,myclassmate:我的同学,teacher:我的老师,classmateparent:同学家长,department:学校部门
+            selValue: $("#selectUserID"),
+            selText: $("#showSelectUserName"),
+            callBackfn: function (ids, names) {
+                //将先中的结果进行处理
+                $("#selectUserID").val(ids);
+                $("#selectUserName").val(names);
+                $("#showSelectUserName").text(names);
+            }
+        });
+
+        $.getJSON('@Url.Action("GetApprovePeopleList")', function (data) {
+            $.each(data, function (i, item) {
+                $("<option></option>").val(item["Value"]).text(item["Text"]).appendTo($("#ApproveId"));
+            });
+        });
+      
+        $.getJSON('@Url.Action("GetMeetingRoomList")', function (data) {
+            $.each(data, function (i, item) {
+                $("<option></option>").val(item["Value"]).text(item["Text"]).appendTo($("#MeetingRoom"));
+            });
+        });
+        //$("#MsgTypeCode").change(function () {
+        //    $("#selectUserID").val("");
+        //    $("#selectUserName").val("");
+        //    $("#showSelectUserName").text("");
+        //    $(".selUsers").show();
+        //});
+
+        $("#btnSend").click(function () {
+            var userids = $("#selectUserID").val();
+            var enddate = $("#EndTime").val();
+            var startdate = $("#StartTime").val();
+            var meetroom = $("#MeetingRoom").val();
+            if (startdate > enddate) {
+                alert("开始日期不能大于结束日期");
+                return false;
+            }
+            $.post('@Url.Action("CheckTime")', { startdate: startdate, enddate: enddate, meetroom: meetroom }, function (data) {
+                if (data.Data.code == 1) {
+                    $("#form_meetingApply").submit();
+                    $("#validmsg").show();
+
+                }
+                else {
+                    var msg = "会议室这段时间内已被占用，请联系管理员！ 占用时间段为:" +data.Data.msg;
+                    alert(msg);
+                    return false;
+                }
+            });
+           
+           
+               
+           
+        });
+
+        $("#btnClose").click(function () {
+
+            var loadurl = "@Url.Action("MeetingApply")";
+            redirecturl(loadurl);
+            //$("#id-app-content").load(loadurl);
+        });
+        var validator = $("form").validate({
+            rules: {
+                selectUserID: "required",
+                MeetingName: "required",
+                MeetingRoom: "required",
+                StartTime: "required",
+                EndTime: "required"
+            },
+            messages: {
+                selectUserID: "请选择人员",
+                MeetingName: "请输入会议名称并且在50字以内",
+                MeetingRoom: "请选择会议室",
+                StartTime: "请选择开始时间",
+                EndTime: "请选择结束时间"
+            },
+            errorClass: "red",//设置错误样式
+            errorElement: "label",//设置显示错误提示的控件,默认为<label>
+            errorLabelContainer: "#validmsg",//指定错误信息放置容器
+            wrapper: "li",
+            //errorPlacement: function (error,element) { //指定错误信息放置位置
+            //    error.appendTo($("#validmsg"));
+            //},
+            //debug: true//进行调试模式（表单不提交）
+            submitHandler: function (form) {
+                $(form).ajaxSubmit({
+                    success: function (data) {
+                        if (data.Data.statuscode == 200) {
+                            var obj = "<div id='operresultmsg' class='alert alert-success center-block' role='alert'>发送成功！</div>";
+                            $("form").append(obj);
+
+                            validator.resetForm();//重置表单
+                            $("#selectUserID").val("");
+                            $("#selectUserName").val("");
+                            $("#showSelectUserName").text("");
+                            $("#validmsg").show();
+                            //$(".selUsers").hide();
+                            //$(".selOneUser").hide();
+
+                            var guid = '@Guid.NewGuid().ToString()';
+                            $("#ID").val(guid);//动态生成newid
+
+                            setTimeout(function () {
+                                $("#operresultmsg").remove();
+                            }, 2000);
+                        } else {
+                            var obj = "<div id='operresultmsg' class='alert alert-danger center-block' role='alert'>发送失败，请重试！<p style='display:none'>" + data.Data.msg + "</p></div>";
+                            $("form").append(obj);
+
+                            setTimeout(function () {
+                                $("#operresultmsg").remove();
+                            }, 2000);
+                        }
+                    }
+                })
+            }
+            //onsubmit: false,//是否提交时验证，默认为True,用于设置某一个不需要验证的控件
+            //onfocusin: false,//是否获取焦点时验证，默认为True
+            //onkeyup: false,//是否在敲击键盘时验证，默认为True
+            //onclick: false//是否在鼠标点击时验证，默认为True
+        })
+    })
+</script>
+<script src="@Url.Content("~/plugs/datetimepicker/js/bootstrap-datetimepicker.min.js")"></script>
+<script src="@Url.Content("~/plugs/datetimepicker/js/bootstrap-datetimepicker.zh-CN.js")"></script>
+<script>
+    $('.form_datetime').datetimepicker({
+        language: 'zh-CN',
+        format: 'yyyy-mm-dd hh:ii'
+    });
+
+</script>

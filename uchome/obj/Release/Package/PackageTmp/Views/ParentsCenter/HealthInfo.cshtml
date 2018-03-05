@@ -1,0 +1,34 @@
+﻿@using Student.Model
+@model Guid
+<style>
+    #kscj li {
+        padding-left: 20px;
+    }
+
+    #tab1content li span {
+        padding: 10px;
+        display: inline-block;
+        float: left;
+    }
+</style>
+<div class="info-content">
+    <div class="dtitle">
+        <ul>
+            <li class="selected">体检体测</li>
+        </ul>
+    </div>
+    <div class="dinfo">
+        <ul id="tjtc">
+            @foreach (StudentInformation.StudentHealth items in ViewBag.StudentHealth)
+            {
+                if (string.IsNullOrEmpty(items.NodeName))
+                {
+                <li class="text-center">暂时还没有发现有体检体测记录！</li>
+                    break;
+                }
+                <li><span>体检日期：@(items.CreateTime)</span><span>体检项目：@(items.NodeName)</span><span>体检结果：@(items.StuResult)</span><span>处理意见：@(items.TJResult)</span></li>
+            }
+        </ul>
+    </div>
+</div>
+

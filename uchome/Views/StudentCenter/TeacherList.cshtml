@@ -1,0 +1,40 @@
+﻿@using UCHome.Model;
+@model MyClass
+@{
+    if (Model == null)
+    {
+    @Html.Raw("<li class=\"noinfo\">没有找到相应的任何信息！</li>")
+        return;
+    }
+}
+<div class="dtitle">@(Model.bjmc)教师</div>
+<div class="dpicture">
+    <ul id="Plist">
+    </ul>
+</div>
+<div class="more" onclick="openwindow('@Url.Action("PersonList", "PublicShare", new { bjid = Model.bjid, usertype = "T" })',770,500,'教师列表')">查看更多</div>
+<script>
+    //填充课表
+    $.ajax({
+        url: "@Url.Content("~/ashx/GetClassTeaInfo.ashx")",
+        data: { bjid: "@Model.bjid", xxid: "@Model.xxid", xnxqid: "@((new UCHomeBasePage()).CurrentSchTerm)" },
+        success: function (data) {
+            var kb = eval("(" + data + ")"); //
+            $.each(kb, function (idx, item) {
+                var jsid = item.jsid;
+                var xm = item.xm;
+                var xb = item.xb;
+                //var zp = item.zp;
+                var obj;
+                var url = "@Url.Action("Index", "TeacherCenter")" + "?id =" + jsid;
+                if (xb == "2") {
+                    obj = "<li><a href='" + url + "'><dl><dd class=\"photo\"><img src=\"@Url.Content("~/Content/images/male.png")\" border=\"0\"  width=\"40\" height=\"40\"/></dd><dd class=\"info\">" + xm + "老师</dd></dl></a></li>";
+                }
+                else {
+                    obj = "<li><a href='" + url + "'><dl><dd class=\"photo\"><img src=\"@Url.Content("~/Content/images/man.png")\" border=\"0\"  width=\"40\" height=\"40\"/></dd><dd class=\"info\">" + xm + "老师</dd></dl></a></li>";
+                }
+                $("#Plist").append($(obj));
+            });
+        }
+    })
+</script>

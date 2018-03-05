@@ -1,0 +1,149 @@
+﻿@{
+    Layout = null;
+}
+@using System.Web.Mvc
+@using M = TeacherAwards.Model;
+@model M.Entity.Teacher_ZZJG0302
+<style type="text/css">
+    .pd {
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+
+    .h {
+        height: 34px;
+        line-height: 34px;
+    }
+
+    .lic {
+        float: left;
+        margin-right: 10px;
+        height: 33px;
+        line-height: 33px;
+    }
+
+    .w {
+        width: 450px;
+    }
+</style>
+
+<link href="@Url.Content("~/Content/css/nanogallery.css")" rel="stylesheet" type="text/css">
+<!-- nanoGALLERY js -->
+<script type="text/javascript" src="@Url.Content("~/Content/js/jquery.nanogallery.js")"></script>
+
+<div id="noticeSend" class="form-horizontal form-position pagew " style="margin-bottom: 0px; margin-top: 0px;">
+    <div class="form-group">
+        @Html.HiddenFor(model => model.JTCYID)
+        @Html.HiddenFor(model => model.GXM)
+        @Html.HiddenFor(model => model.ZZMMM)
+        <label for="XM" class="col-sm-2 control-label">姓名：</label>
+        <div class="col-sm-9 pd h">
+            <input type="text" class="col-xs-3" id="XM" name="XM" value="@Model.XM" placeholder=" 姓名" style="width:200px;" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="GXM1" class="col-sm-2 control-label">家庭关系：</label>
+        <div class="col-sm-9 pd h">
+            <select id="GXM1" name="GXM1" class="form-control input-sm col-xs-2 sel-notice" style="width:200px;"></select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="JTCYZYM" class="col-sm-2 control-label">工作职业：</label>
+        <div class="col-sm-9 pd">
+            <input type="text" class="col-xs-3" id="JTCYZYM" name="JTCYZYM" value="@Model.JTCYZYM" placeholder=" 工作职业" style="width:200px;" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="SZDW" class="col-sm-2 control-label">所在单位：</label>
+        <div class="col-sm-9 pd h">
+            <input type="text" class="col-xs-3" id="SZDW" name="SZDW" value="@Model.SZDW" placeholder=" 所在单位" style="width:200px;" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="ZZMMM1" class="col-sm-2 control-label">政治面貌：</label>
+        <div class="col-sm-9 pd h">
+            <select id="ZZMMM1" name="ZZMMM1" class="form-control input-sm col-xs-2 sel-notice" style="width:200px;"></select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="YDDH" class="col-sm-2 control-label">联系电话：</label>
+        <div class="col-sm-9 pd h">
+            <input type="text" class="col-xs-3" id="YDDH" name="YDDH" value="@Model.YDDH" placeholder=" 联系电话" style="width:200px;" />
+        </div>
+    </div>
+    <div class="form-group" style="width:86%;">
+        <div class="btn-group center-block" style="margin-left:35px;">
+            <button id="btnSave" type="button" class="btn btn-info dropdown-toggle" data-toggle="button" aria-haspopup="true" aria-expanded="false">
+                保存
+            </button>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+
+        $.getJSON('@Url.Action("GetFamillyGXJson")', function (data) {
+            var Html = "";
+            $.each(data, function (i, e) {
+                if ($("#GXM").val() === e.CODE_ID) {
+                    Html += "<option value=\"" + e.CODE_ID + "\" title=\"" + e.CODE_ID + "\" selected=\"selected\">" + e.CODE_NAME + "</option>";
+                }
+                else {
+                    Html += "<option value=\"" + e.CODE_ID + "\" title=\"" + e.CODE_ID + "\">" + e.CODE_NAME + "</option>";
+                }
+            });
+            $("#GXM1").html(Html);
+        });
+        $.getJSON('@Url.Action("GetZZMMJson")', function(data) {
+            var Html = "";
+            $.each(data, function(i, e) {
+                if ($("#ZZMMM").val() === e.Code_ID) {
+                    Html += "<option value=\"" + e.Code_ID + "\" title=\"" + e.Code_ID + "\" selected=\"selected\">" + e.Code_Name + "</option>";
+                } else {
+                    Html += "<option value=\"" + e.Code_ID + "\" title=\"" + e.Code_ID + "\">" + e.Code_Name + "</option>";
+                }
+            });
+            $("#ZZMMM1").html(Html);
+        });
+
+        $("#btnSave").click(function() {
+            var JTCYID = $("#JTCYID").val();
+            var XM = $("#XM").val();
+            var GXM = $("#GXM1").val();
+            var JTCYZYM = $("#JTCYZYM").val();
+            var SZDW = $("#SZDW").val();
+            var ZZMMM = $("#ZZMMM1").val();
+            var YDDH = $("#YDDH").val();
+
+            if (XM != null && XM !== "") {
+
+                var data = {
+                    JTCYID: $("#JTCYID").val(),
+                    XM: $("#XM").val(),
+                    GXM: $("#GXM1").val(),
+                    JTCYZYM: $("#JTCYZYM").val(),
+                    SZDW: $("#SZDW").val(),
+                    ZZMMM: $("#ZZMMM1").val(),
+                    YDDH: $("#YDDH").val()
+                };
+
+                $.post('@Url.Action("PostFamilyEdit")', data, function (data) {
+                    if (data.Code == "Success") {
+                        //alert(data.Message);
+                        $(".modal-backdrop").remove();
+                        var loadurl = "@Url.Action("IndexFamily")";
+                        redirecturl(loadurl);
+                    } else {
+                        alert(data.Message);
+                    }
+                });
+            } else {
+                alert("请输入姓名！");
+            }
+
+        });
+
+    });
+
+</script>

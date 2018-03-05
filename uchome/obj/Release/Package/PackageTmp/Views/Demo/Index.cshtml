@@ -1,0 +1,37 @@
+﻿@{
+    Layout = null;
+}
+@using System.Web.Mvc
+@using HomeWork.Model
+@model Homework_HwPublish
+<link rel="stylesheet" href="@Url.Content("~/content/css/homework.css")">
+<style>
+    .red {
+        color: red;
+    }
+</style>
+@using (Ajax.BeginForm(
+    new AjaxOptions()
+    {
+        HttpMethod = "post",
+        Url = @Url.Action("HW_Deploy"),
+        UpdateTargetId = "#homework_publish",
+        LoadingElementId = "loding",
+        LoadingElementDuration = 2000
+    }))
+{
+    @Html.HiddenFor(model => model.HomeworkID)
+    <div id="homework_publish" class="form-horizontal form-position pagew ">
+        <div class="list-group">
+            @Ajax.ActionLink("Demo列表", "MyAppRedirectPage", "AppCenter", new { id = "ef051716-3ec2-4a3d-9174-e19ecda3d9e3", menuid = "cd001716-3ec2-4a3d-9174-e19ecda3d9e3" }, null, new { @class = "list-group-item active" })
+            @Ajax.ActionLink("UI样式", "MyAppRedirectPage", "AppCenter", new { id = "ef051716-3ec2-4a3d-9174-e19ecda3d9e3", menuid = "cd002716-3ec2-4a3d-9174-e19ecda3d9e3" }, null, new { @class = "list-group-item" })
+            @Ajax.ActionLink("日期控件", "MyAppRedirectPage", "AppCenter", new { id = "ef051716-3ec2-4a3d-9174-e19ecda3d9e3", menuid = "cd003716-3ec2-4a3d-9174-e19ecda3d9e3" }, null, new { @class = "list-group-item" })
+            @Ajax.ActionLink("上传控件", "MyAppRedirectPage", "AppCenter", new { id = "ef051716-3ec2-4a3d-9174-e19ecda3d9e3", menuid = "cd004716-3ec2-4a3d-9174-e19ecda3d9e3" }, null, new { @class = "list-group-item" })
+            @Ajax.ActionLink("数据验证", "MyAppRedirectPage", "AppCenter", new { id = "ef051716-3ec2-4a3d-9174-e19ecda3d9e3", menuid = "cd005716-3ec2-4a3d-9174-e19ecda3d9e3" }, null, new { @class = "list-group-item" })
+            @Ajax.ActionLink("表格控件", "MyAppRedirectPage", "AppCenter", new { id = "ef051716-3ec2-4a3d-9174-e19ecda3d9e3", menuid = "cd006716-3ec2-4a3d-9174-e19ecda3d9e3" }, null, new { @class = "list-group-item" })
+            @Ajax.ActionLink("选人组件", "MyAppRedirectPage", "AppCenter", new { id = "ef051716-3ec2-4a3d-9174-e19ecda3d9e3", menuid = "cd007716-3ec2-4a3d-9174-e19ecda3d9e3" }, null, new { @class = "list-group-item" })
+            @Ajax.ActionLink("表单验证", "MyAppRedirectPage", "AppCenter", new { id = "ef051716-3ec2-4a3d-9174-e19ecda3d9e3", menuid = "cd008716-3ec2-4a3d-9174-e19ecda3d9e3" }, null, new { @class = "list-group-item" })
+        </div>
+    </div>
+}
+

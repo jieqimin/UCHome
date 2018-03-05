@@ -1,0 +1,67 @@
+﻿@model IEnumerable<UCHome.Model.UCHome_Skin>
+<link rel="stylesheet" href="@Url.Content("~/plugs/datatables/css/jquery.dataTables.css")">
+<link rel="stylesheet" href="@Url.Content("~/plugs/datatables/css/dataTables.bootstrap.css")">
+<script src="@Url.Content("~/plugs/datatables/js/jquery.datatables.js")"></script>
+<script src="@Url.Content("~/plugs/datatables/js/dataTables.bootstrap.js")"></script>
+<script src="@Url.Content("~/angular/uchome/sysmanage/appman.js")"></script>
+<style>
+    .red {
+        color: red;
+    }
+    .green{
+        color:green;
+    }
+    #ul_appicon {
+    }
+
+        #ul_appicon > li {
+            position: relative;
+        }
+
+            #ul_appicon > li input[type=checkbox] {
+                position: absolute;
+                right: 0;
+                bottom: 0;
+                border: solid 1px #ccc !important;
+            }
+
+    .table > thead {
+        display: none;
+    }
+</style>
+<div id="myapplist" class="form-position pagew" ng-if="parentskinpanel">
+    @*{{checkboxes.items}}*@
+    <form class="form-horizontal">
+        <table class="table table-striped table-bordered table-hover datatable" id="table_mythemes" show-filter="showCheckbox">
+            <tr>
+                <td style="text-align: left">
+                    <div class="row" style="width: 840px;">
+                        @foreach (var item in Model)
+                        {
+                            <div class="col-sm-4 col-md-3">
+                                <div class="thumbnail">
+                                    <img src="@item.SkinBackground" style="width: 171px; height: 180px;">
+                                    <div class="caption">
+                                        <p style="text-align: center;">
+                                            <span class="pull-left col-md-7" style="font-size: 14px; font-family: 微软雅黑">@item.SkinName</span>
+                                            <a role="button" onclick="previewtheme('@item.PKID');">预览</a>
+                                            <a role="button" onclick="removetheme('@item.PKID','@(item.Status=="1"?"0":"1")')"><span class='@(item.Status=="1"?"red":"green")'>@(item.Status=="1"?"禁用":"启用")</span></a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+<script>
+    $("#table_mythemes").DataTable({
+            //"ajax":'severurl',//通过ajax请求数据源，其数据格式为{"data":[],[]}
+            "oLanguage": {
+                "sUrl": "@Url.Content("~/plugs/datatables/language/zh_cn.json")"
+            }
+        });
+</script>

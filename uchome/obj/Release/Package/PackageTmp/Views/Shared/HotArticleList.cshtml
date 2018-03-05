@@ -1,0 +1,17 @@
+﻿@{
+    Layout = null;
+}
+@model List<UCHome.Model.HotArticle>
+    <ul>
+        @foreach (var item in Model)
+        {
+            <li>
+                @*<span class="news-dot">·</span>*@
+                <a target="_blank" href="@Url.Action("ArticleInfo", "Query", new {id = item.PKID})">@item.Title</a>
+                <span class="news-icon">
+                    <img src="@Url.Content("~/Content/NewFile/image/public/hot.png")">
+                </span>
+                <span class="news-date">@item.DeployTime.ToString("yyyy/MM/dd")</span>
+            </li>
+        }
+    </ul>

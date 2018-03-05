@@ -1,0 +1,557 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <script src="@Url.Content("~/Content/css/lang/summernote-zh-CN.js")"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.js")"></script>
+    <link rel="stylesheet" href="@Url.Content("~/Content/css/msg.css")">
+    <link href="@Url.Content("~/Content/css/mui.min.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/css/app.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/css/mui.picker.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/css/mui.poppicker.css")" rel="stylesheet" />
+    <title>家长注册</title>
+    <style type="text/css">
+        a:link {
+            text-decoration: none; /* 指正常的未被访问过的链接*/
+            color: white
+        }
+
+        a:visited {
+            text-decoration: none; /*指已经访问过的链接*/
+             color: white
+        }
+
+        a:hover {
+            text-decoration: none; /*指鼠标在链接*/
+             color: white
+        }
+
+        a:active {
+            text-decoration: none; /* 指正在点的链接*/
+             color: white
+        }
+         .ui-alert {
+             display: inline;
+         }
+
+        body {
+            font-size: 14px;
+            font-family: "微软雅黑";
+        }
+
+        .div_image {
+            color: white;
+            height: 30px;
+            width: 146px;
+            text-align: center;
+            background-repeat: no-repeat;
+            line-height: 30px;
+            float: left;
+            font-size: 12px;
+        }
+
+        .mui-btn-block {
+            margin-left: 39px;
+            font-weight: bold;
+            font-size: 14px;
+            font-family: "微软雅黑";
+            color: gray;
+             
+        }
+        .label_childInfo {
+            display: inline-block; width: 30%; float: left; text-align: right; line-height: 40px;
+            margin-left:32px;
+            color: gray;
+           
+        }
+        .div_childInfo {
+            display: inline-block; width: 45%; float: left;
+            margin-left: 10px;
+            color: gray;
+        }
+        .btn_submit {
+            margin-bottom: 54px;
+            background-color: rgb(0, 153, 225);
+            border-color: rgb(0, 153, 225) !important;
+            background-repeat: no-repeat;
+            color: white;
+            margin-left: 93px;
+            margin-top: 10px;
+            padding: 7px;
+        }
+
+          .btn_submit_regis {
+            margin-bottom: 54px;
+            background-color: rgb(0, 153, 225);
+            border-color: rgb(0, 153, 225) !important;
+            background-repeat: no-repeat;
+            color: white;
+            margin-top: 10px;
+            padding: 7px;
+        }
+       
+        .register_success {
+            display: inline-block;
+            float: left;
+            text-align: right;
+            line-height: 40px;
+            margin-left: 32px;
+            color: gray;
+        }
+        .regiseter_info {
+            display: inline-block;
+            width: 45%;
+            float: left;
+            margin-left: 10px;
+            color: gray;
+            padding-top: 10px;
+        }
+
+        .diventrygzh {
+            border: 1px dashed gray;
+            width: 83%;
+            height: 70px;
+            margin-left: 36px;
+        }
+         .downloadapp {
+            border: 1px dashed gray;
+            width: 83%;
+            height: 70px;
+            margin-left: 36px;
+            margin-top: 2%;
+        }
+        .btnentrygzh {
+            margin-bottom: 54px;
+            background-color: rgb(0, 153, 225);
+            border-color: rgb(0, 153, 225) !important;
+            background-repeat: no-repeat;
+            color: white;
+            margin-left: -1%;
+            margin-top: 4px;
+        }
+        
+        .label_alert {
+            padding-top: 14%;
+            margin-left: -30%;
+            color: gray;
+        }
+
+        .downloadTaApp {
+            margin-top: 3%;
+            background-color: rgb(0, 153, 225);
+            border-color: rgb(0, 153, 225) !important;
+            color: white;
+            margin-left: 1%;
+        }
+        input[type=text] {
+            height: 30px;
+        }
+        .main_content_ChildInfo_lable {
+            color: gray;
+            padding-left: 17px;
+        }
+        .main_content_ChildInfo_div {
+            float: right;
+            color: gray;
+            padding-top: 2px;
+            padding-right: 27px;
+        }
+        .main_content_alert_h1 {
+            padding-left: 31px;
+            color: rgb(0, 153, 225);
+            font-weight: bold;
+        }
+        .main_childInfo_div {
+            border: 1px dashed gray;
+            width: 85%;
+            height: 78px;
+            margin-left: 33px;
+            margin-top: 3%;
+            margin-bottom: 10px;
+        }
+        .col-btn-reg {
+            background-color: rgb(0, 153, 225);
+            border-color: rgb(0, 153, 225) !important;
+        }
+        .col-sm-btn-reg {
+            padding-left: 17%
+        }
+    </style>
+</head>
+
+<body>
+    <header class="mui-bar mui-bar-nav">
+        <h1 class="mui-title" style="color: white !important">家长注册</h1>
+    </header>
+    <div class="row">
+        <div class="eightcol last">
+            <form role="form" id="signupForm">
+                <div class="mui-content" style="overflow: hidden; background-color: #f5f5f5; padding: 20px;margin-top: 44px;">
+                    <div class="div_image" style="background-image: url(../Content/images/step_green.png); ">第一步验证亲子信息</div>
+                    <div class="div_image" style="background-image: url(../Content/images/step_gray.png);">第二步填写注册信息</div>
+                </div>
+                <div id="studentInfo">
+                    <div style="margin-bottom: 10px;">
+                        <a id="showUserPicker" class="mui-btn mui-btn-block">选择所在区县：</a>
+                        <div id="userResult" class="ui-alert"></div><br/>
+                    </div>
+                    <div style="margin-bottom: 10px;">
+                        <a id="showTypePicker" class="mui-btn mui-btn-block">选择学校学制：</a>
+                        <div id="TypeResult" class="ui-alert"></div><br/>
+                    </div>
+                    <div style="margin-bottom: 10px;">
+                        <a id="showschoolPicker" class="mui-btn mui-btn-block">选择所在学校：</a>
+                        <div id="schoolResult" class="ui-alert"></div>
+                    </div>
+                    <div>
+                        <label for="childName" class="label_childInfo">亲子真实姓名：</label>
+                        <div class="div_childInfo">
+                            <input type="text" class="form-control" id="childName" name="childName" placeholder="请输入亲子真实姓名">
+                        </div>
+                        <div style="clear: both"></div>
+                    </div>
+                    <div>
+                        <label for="childIcard" class="label_childInfo">亲子身份证号：</label>
+                        <div class="div_childInfo">
+                            <input type="text" class="form-control" childicard="childIcard" id="childIcard" name="childIcard" placeholder="请输入亲子身份证号">
+                        </div>
+                        <div style="clear: both"></div>
+                    </div>
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <a class="btn_submit" onclick="CheckChildInfo()">验证并进入下一步</a>
+                    </div>
+                </div>
+            </form>
+            <form role="form" id="signupFormTwo" style="display: none;">
+                <div class="mui-content" style="overflow: hidden; background-color: #f5f5f5; padding: 20px; margin-top: 44px;">
+                    <div class="div_image" style="background-image: url(../Content/images/step_gray.png);">第一步验证亲子信息</div>
+                    <div class="div_image" style="background-image: url(../Content/images/step_green.png);">第二步填写注册信息</div>
+                </div>
+                <div>
+                    <h4 class="main_content_alert_h1">亲子信息</h4>
+                    <div style="border: 1px dashed gray" class="main_childInfo_div">
+                        <div>
+                            <label for="childschName" class="main_content_ChildInfo_lable">亲子所在学校：</label>
+                            <div id="childschName" name="childschName" class="main_content_ChildInfo_div">
+                            </div>
+                        </div>
+                        <div>
+                            <label for="childtruName" class="main_content_ChildInfo_lable">亲子真实姓名：</label>
+                            <div id="childtruName" name="childtruName" class="main_content_ChildInfo_div">
+                            </div>
+                        </div>
+                        <div>
+                            <label for="childicarNum" class="main_content_ChildInfo_lable">亲子身份证号：</label>
+                            <div id="childicarNum" name="childicarNum" class="main_content_ChildInfo_div">
+                            </div>
+                        </div>
+
+                    </div>
+                    <div>
+                        <label for="name" class="label_childInfo">家长姓名：</label>
+                        <div class="div_childInfo">
+                            <input type="text" class="form-control" id="name" name="name" placeholder="请输入家长姓名">
+                        </div>
+                        <div style="clear: both"></div>
+                    </div>
+                    <div>
+                        <label for="icard" class="label_childInfo">身份证号：</label>
+                        <div class="div_childInfo">
+                            <input type="text" class="form-control" childicard="childIcard" id="icard" name="icard" placeholder="请输入身份证号">
+                        </div>
+                        <div style="clear: both"></div>
+                    </div>
+                    <div>
+                        <label for="nickname" class="label_childInfo">用户昵称：</label>
+                        <div class="div_childInfo">
+                            <input type="text" class="form-control" id="nickname" name="nickname" placeholder="请输入用户昵称">
+                        </div>
+                        <div style="clear: both"></div>
+                    </div>
+                    <div>
+                        <label for="email" class="label_childInfo">登录邮箱：</label>
+                        <div class="div_childInfo">
+                            <input type="text" class="form-control" id="email" name="email" placeholder="请输入登录邮箱">
+                        </div>
+                        <div style="clear: both"></div>
+                    </div>
+                    <div>
+                        <label for="password" class="label_childInfo">登录密码：</label>
+                        <div class="div_childInfo">
+                            <input type="password" class="form-control" id="password" name="password" placeholder="请输入登录密码">
+                        </div>
+                        <div style="clear: both"></div>
+                    </div>
+                    <div>
+                        <label for="checkPassword" class="label_childInfo">确认密码：</label>
+                        <div class="div_childInfo">
+                            <input type="password" class="form-control" id="checkPassword" name="checkPassword" placeholder="请输入确认密码">
+                        </div>
+                        <div style="clear: both"></div>
+                    </div>
+                    <div>
+                        <label for="tel" class="label_childInfo">联系电话：</label>
+                        <div class="div_childInfo">
+                            <input type="text" class="form-control" tel="tel" id="tel" name="tel" placeholder="请输入联系电话">
+                        </div>
+                        <div style="clear: both"></div>
+                    </div>
+                    <div class="col-sm-offset-2 col-sm-10" style="text-align: center;">
+                        <a class="btn_submit_regis" onclick="CheckParentsInfo()">确认注册</a>
+                    </div>
+                    <div style="clear: both"></div>
+                </div>
+            </form>
+            <form id="modalLoginInfo" style="display: none;">
+                <div class="mui-content" style="overflow: hidden; background-color: #f5f5f5; padding: 20px; margin-top: 44px;">
+                    <h3 style="text-align: center">恭喜你,账号注册成功！</h3>
+                </div>
+                    <div id="loginInfodiv">
+                        <div style="border: none">
+                            <label id="loginLabel" class="register_success" style="font-weight: bold;">注册成功请核对下列信息</label>
+                            <div style="clear: both"></div>
+                        </div>
+                        <div>
+                            <label for="loginname" class="label_childInfo">家长登录账号：</label>
+                            <div class="regiseter_info" id="loginname" name="loginname">
+                            </div>
+                            <div style="clear: both"></div>
+                        </div>
+                        <div>
+                            <label for="icards" class="label_childInfo">家长身份证号：</label>
+                            <div class="regiseter_info" id="icards" name="icards">
+                            </div>
+                            <div style="clear: both"></div>
+                        </div>
+                        <div>
+                            <label for="emails" class="label_childInfo">家长电子邮箱：</label>
+                            <div class="regiseter_info" id="emails" name="emails">
+                            </div>
+                            <div style="clear: both"></div>
+                        </div>
+                        <div>
+                            <label for="telphone" class="label_childInfo">家长联系电话：</label>
+                            <div class="regiseter_info" id="telphone" name="telphone">
+                            </div>
+                            <div style="clear: both"></div>
+                        </div>
+                        <div>
+                            <label for="childname" class="label_childInfo">子女姓名：</label>
+                            <div class="regiseter_info" id="childname" name="childname">
+                            </div>
+                            <div style="clear: both"></div>
+                        </div>
+                        <div>
+                            <label for="childSchool" class="label_childInfo">子女学校：</label>
+                            <div class="regiseter_info" id="childSchool" name="childSchool">
+                            </div>
+                            <div style="clear: both"></div>
+                        </div>
+                        <label class="register_success">您现在可以进行以下操作</label>
+                        <div style="clear: both"></div>
+                        <div class="downloadapp">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button class="downloadTaApp" onclick="donwnload()">下载官方泰安教育云APP</button>
+                                <label style="color: gray">全面精确了解您的小孩在校各类数据分析</label>
+                            </div>
+                        </div>
+                    </div>
+            </form>
+        </div>
+    </div>
+    @*弹出层*@
+      
+    <script src="@Url.Content("~/Content/js/mui.min.js")"></script>
+    <script src="@Url.Content("~/Content/js/mui.picker.js")"></script>
+    <script src="@Url.Content("~/Content/js/mui.poppicker.js")"></script>
+    <script src="@Url.Content("~/Content/js/city.data.js")"></script>
+    <script src="@Url.Content("~/Content/js/city.data-3.js")"></script>
+<script>
+    //验证子女信息
+    function CheckChildInfo() {
+        var studentSch = jQuery("#schoolResult").attr("name");
+        var studentName = $("#childName").val();
+        var studentNo = $("#childIcard").val();
+        $.getJSON("@Url.Action("CheckStudentInfo")", { childschool: studentSch, childName: studentName, childIcard: studentNo }, function (result) {
+            if (result === 0) {
+                alert("不存在此学生");
+                return false;
+            } else if (result == 1) {
+                $("#signupForm").hide();
+                $("#signupFormTwo").show();
+                $("#childschName").text($("#schoolResult").text());
+                $("#childtruName").text(studentName);
+                $("#childicarNum").text(studentNo);
+                $("#modalLoginInfo").hide();
+            }
+        });
+    }
+
+    //验证家长注册信息
+    function CheckParentsInfo() {
+        var studentSch = jQuery("#schoolResult").attr("name");;
+        var studentName = $("#childName").val();
+        var studentNo = $("#childIcard").val();
+        var username = $("#name").val();
+        var usericard = $("#icard").val();
+        var usernickname = $("#nickname").val();
+        var useremail = $("#email").val();
+        var userpassword = $("#password").val();
+        var usercheckPas = $("#checkPassword").val();
+        var usertel = $("#tel").val();
+        $.getJSON("@Url.Action("SubmitRegInfo")", { name: username, icard: usericard, nickname: usernickname, email: useremail, password: userpassword, checkPassword: usercheckPas, tel: usertel, childschool: studentSch, childName: studentName, childIcard: studentNo }, function (result) {
+            if (result.indexOf("注册成功") > -1) {
+                var apiUrl = "http://wechat.izhihuidao.com/Api/";
+                var openId="@ViewBag.openId";
+                var sceneId="@ViewBag.sceneId";
+                var userId = result.split(',')[1];
+                var addBindInfoUrl = "http://localhost:85/UCHomeAppApi/api/User/addBindInfo?jUserId=" + userId + "&openId=" + openId; //将openid和JuserId的关系绑定到数据库中
+                $.post(addBindInfoUrl, function (addResult) {
+                });
+                $.post(apiUrl + "account/checkbind", { OpenId: openId, JUserId: userId, SceneId: sceneId }, function (result) {
+                    if (result.Code === 0) { //微信没有和此账号绑定
+                        $.post(apiUrl + "account/bind", { OpenId: openId, JUserId: userId, SceneId: sceneId }, function (response) {
+                            alert("注册成功，"+response.Message);
+                        });
+                    } else {
+                       alert("注册成功，"+result.Message);
+                    }
+                }).error(function () {
+                    alert("用户名或者密码不正确！");
+                });
+                $("#signupForm").hide();
+                $("#signupFormTwo").hide();
+                $("#modalLoginInfo").show();
+                $("#loginname").text(usernickname);
+                $("#icards").text(usericard);
+                $("#emails").text(useremail);
+                $("#telphone").text(usertel);
+                $("#childname").text(studentName);
+                $("#childSchool").text($("#schoolResult").text());
+            } else {
+                alert(result);
+            }
+        });
+    }
+
+    function donwnload() {
+        var url = "http://app.izhihuidao.com/tajy";
+        window.open(url);
+    }
+
+    function weixinbind() {
+        window.open('http://localhost:85/UCHomeAppApi/home/index');
+    }
+    (function ($, doc) {
+        $.init();
+        $.ready(function () {
+            //普通示例
+            var userPicker = new $.PopPicker();
+            userPicker.setData([
+                {
+                    value: '370901',
+                    text: '市辖区'
+                }, {
+                    value: '370902',
+                    text: '泰山区'
+                }, {
+                    value: '370903',
+                    text: '岱岳区'
+                }, {
+                    value: '370921',
+                    text: '宁阳县'
+                }, {
+                    value: '370923',
+                    text: '东平县'
+                }, {
+                    value: '370982',
+                    text: '新泰市'
+                }, {
+                    value: '370983',
+                    text: '肥城市'
+                }, {
+                    value: '370991',
+                    text: '高新区'
+                }, {
+                    value: '370992',
+                    text: '泰山景区'
+                }
+            ]);
+
+            var typePicker = new $.PopPicker();
+            typePicker.setData([
+                {
+                    value: '1',
+                    text: '小学六年制'
+                }, {
+                    value: '2',
+                    text: '初中三年制'
+                }, {
+                    value: '3',
+                    text: '完全中学'
+                }, {
+                    value: '4',
+                    text: '九年一贯制'
+                }, {
+                    value: '5',
+                    text: '初中四年制'
+                }, {
+                    value: '6',
+                    text: '高中'
+                }, {
+                    value: '7',
+                    text: '小学五年制'
+                }, {
+                    value: '9',
+                    text: '教育局'
+                }
+            ]);
+            var showtypePickerButton = doc.getElementById('showTypePicker');
+            var typeResult = doc.getElementById('TypeResult');
+            showtypePickerButton.addEventListener('tap', function (event) {
+                typePicker.show(function (items) {
+                    typeResult.innerText = items[0].text;
+                    jQuery("#TypeResult").attr("name", items[0].value);
+                    var areaCode = jQuery("#userResult").attr("name");
+                    var schooltype = items[0].value;
+                    if (areaCode != "" && items[0].value != "") {
+                        jQuery.post("@Url.Action("GetSchByAreaAType")", { area: areaCode, school: schooltype }, function (schoolName) {
+                            var showschoolPicker = new $.PopPicker();
+                            var data = [];
+                            jQuery.each(schoolName, function (idx, item) {
+                                data.push({ text: item.Text, value: item.Value });
+                            });
+                            showschoolPicker.setData(data);
+                            var showschoolPickerButton = doc.getElementById('showschoolPicker');
+                            var schoolResult = doc.getElementById('schoolResult');
+                            showschoolPickerButton.addEventListener('tap', function (event) {
+                                showschoolPicker.show(function (items1) {
+                                    schoolResult.innerText = items1[0].text;
+                                    jQuery("#schoolResult").attr("name", items1[0].value);
+                                    //返回 false 可以阻止选择框的关闭
+                                    //return false;
+                                });
+                            }, false);
+                        });
+                    }
+                    //返回 false 可以阻止选择框的关闭
+                    //return false;
+                });
+            }, false);
+
+            var showUserPickerButton = doc.getElementById('showUserPicker');
+            var userResult = doc.getElementById('userResult');
+            showUserPickerButton.addEventListener('tap', function (event) {
+                userPicker.show(function (items) {
+                    userResult.innerText = items[0].text;
+                    jQuery("#userResult").attr("name", items[0].value);
+                    //返回 false 可以阻止选择框的关闭
+                    //return false;
+                });
+            }, false);
+        });
+    })(mui, document);
+</script>
+</body>
+</html>

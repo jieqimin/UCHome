@@ -1,0 +1,236 @@
+﻿@{
+    Layout = null;
+}
+@using System.Web.Mvc
+@using UCHome.Model
+@model UCHome_Skin
+<script src="@Url.Content("~/scripts/jquery.validate.js")"></script>
+<script src="@Url.Content("~/Scripts/jquery.form.js")"></script>
+<link rel="stylesheet" href="@Url.Content("~/plugs/webuploader/css/webuploader.css")">
+<link rel="stylesheet" href="@Url.Content("~/plugs/webuploader/css/demo.css")">
+<link rel="stylesheet" href="@Url.Content("~/content/css/homework.css")">
+<style>
+    .red {
+        color: red;
+    }
+
+    #ul_appicon {
+    }
+
+        #ul_appicon > li {
+            position: relative;
+        }
+
+            #ul_appicon > li input[type=checkbox] {
+                position: absolute;
+                right: 0;
+                bottom: 0;
+                border: solid 1px #ccc !important;
+            }
+
+    #uploader .filelist li {
+        float: none !important;
+        text-align: center !important;
+        width: 500px !important;
+    }
+
+    #app_menu_add_modal {
+        overflow-x: hidden;
+    }
+</style>
+<form id="form-skin-add" name="form-skin-add" action="@Url.Action("AddSkin")" method="post">
+    <div id="app_add" class="form-horizontal form-position pagew ">
+        <div class="form-group">
+            <label for="SkinTheme" class="col-sm-2 control-label">皮肤主题：</label>
+            <div class="col-sm-6">
+                <select class="form-control" name="SkinTheme" id="SkinTheme">
+                    <option value="1" selected="selected">卡通动漫</option>
+                    <option value="2">自然风景</option>
+                    <option value="3">唯美简约</option>
+                    <option value="4">影视明星</option>
+                    <option value="5">炫酷时尚</option>
+                    <option value="6">体育竞技</option>
+                    <option value="9">另类其他</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="SkinColor" class="col-sm-2 control-label">皮肤颜色：</label>
+            <div class="col-sm-10">
+                <label class="radio-inline">
+                    <input type="radio" name="SkinColor" id="SkinColor2" value="1">
+                    无
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="SkinColor" id="SkinColor1" value="2">
+                    <span class="glyphicon glyphicon-heart" aria-hidden="true" style="color: black;"></span>
+                    黑
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="SkinColor" id="SkinColor3" value="3">
+                    <span class="glyphicon glyphicon-heart" aria-hidden="true" style="color: red;"></span>
+                    红
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="SkinColor" id="SkinColor4" value="4">
+                    <span class="glyphicon glyphicon-heart" aria-hidden="true" style="color: orange;"></span>
+                    黄
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="SkinColor" id="SkinColor6" value="6">
+                    <span class="glyphicon glyphicon-heart" aria-hidden="true" style="color: green;"></span>
+                    绿
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="SkinColor" id="SkinColor7" value="7">
+                    <span class="glyphicon glyphicon-heart" aria-hidden="true" style="color:fuchsia;"></span>
+                    粉
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="SkinColor" id="SkinColor8" value="8">
+                    <span class="glyphicon glyphicon-heart" aria-hidden="true" style="color: blue;"></span>
+                    蓝
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="SkinColor" id="SkinColor9" value="9">
+                    <span class="glyphicon glyphicon-heart" aria-hidden="true" style="color: mediumorchid;"></span>
+                    紫
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="SkinColor" id="SkinColor0" value="0">
+                    其他
+                </label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="AppName" class="col-sm-2 control-label">皮肤名称：</label>
+            <div class="col-sm-6">
+                <input type="text" class="form-control" id="SkinName" name="SkinName" placeholder="请输入皮肤名称" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="AppIcon" class="col-sm-2 control-label">预览缩略：</label>
+            <div class="col-sm-9">
+                <button type="button" id="uploadbtn" data-toggle="modal" data-target="#uploadphoto" class="btn btn-info">
+                    上传图片
+                </button>
+                【提示：皮肤主题的效果预览图，图片大小不要超过5M】
+                <input type="hidden" id="SkinBackground" class="col-md-10" name="SkinBackground" />
+                <script src="@Url.Content("~/plugs/webuploader/js/webuploader.js")"></script>
+                <script src="@Url.Content("~/plugs/webuploader/js/upfile.js")"></script>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="memo" class="col-sm-2 control-label">样式名称：</label>
+            <div class="col-sm-6">
+                <input type="text" class="form-control" id="Skinmemo" name="memo" placeholder="请输入皮肤CSS样式表名称，由小写英文字母组成" />
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="center-block" style="width: 300px;">
+                <button type="submit" id="btnaddskin" class="btn btn-success">
+                    保存确认
+                </button>
+            </div>
+        </div>
+        <div class="form-group">
+            <ul class="col-sm-8" id="app_add_errormsg"></ul>
+        </div>
+    </div>
+</form>
+<div class="modal fade bs-example-modal-lg" id="uploadphoto" tabindex="-1" role="dialog" aria-labelledby="uploadlabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="uploadlabel">上传照片</h4>
+            </div>
+            <div class="modal-body">
+                <form id="form-skinbackground" name="form-skinbackground" class="form-horizontal">
+                    <div class="form-group text-center custom-photoarea center-block">
+                        <div id="uploader" class="wu-example">
+                            <div class="queueList">
+                                <div id="dndArea" class="placeholder">
+                                    <div id="filePicker">
+                                        <button class="btn btn-info btn-lg center-align"><i class="icon-add"></i>选择图片</button>
+                                    </div>
+                                    <p>或将照片拖到这里，单次最多可选30张</p>
+                                </div>
+                            </div>
+                            <div class="statusBar" style="display: none;">
+                                <div class="progress">
+                                    <span class="text">0%</span>
+                                    <span class="percentage"></span>
+                                </div>
+                                <div class="info"></div>
+                                <div class="btns">
+                                    <div id="filePicker2"></div>
+                                    <div class="uploadBtn">开始上传</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div id="modal-photoopera" class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal"> 确 定 </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // 添加全局站点信息
+    var BASE_URL = '@Url.Content("~/plugs/webuploader/")';
+    var photoserver = "@Url.Action("AddThemes", "PublicShare")";
+    var filenumlimit = 1;
+</script>
+<script src="@Url.Content("~/plugs/webuploader/js/webuploader.js")"></script>
+<script src="@Url.Content("~/plugs/webuploader/js/demo.js")"></script>
+<script>
+    var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+    var photolists = new Array();
+    function callbackfn(ret) {
+        var statuscode = ret.Data.statuscode;
+        if (statuscode == 200) {
+            var photourl = ret.Data.filepath;
+            photolists.push(photourl);
+            $("#SkinBackground").val(photolists);
+            $("#uploadbtn").text("查看预览");
+        }
+    }
+</script>
+<script type="text/javascript">
+    $(function () {
+        var validator = $("#form-skin-add").validate({
+            rules: {
+                SkinName: "required"
+            },
+            ignore: "hidden",
+            messages: {
+                SkinName: "请为皮肤取个名称"
+            },
+            errorClass: "validate-error", //设置错误样式
+            errorElement: "label", //设置显示错误提示的控件,默认为<label>
+            errorLabelContainer: "#validmsg", //指定错误信息放置容器
+            wrapper: "li",
+            submitHandler: function () {
+                $(".btnaddskin").text("正在保存，请稍候…");
+                //$(".login-btn").toggleClass("btn-success", "btn-info");
+                $(".btnaddskin").attr("disabled", "disabled");
+                $("#form-skin-add").ajaxSubmit({
+                    success: function (data) {
+                        console.log(data);
+                        if (data.Data.statuscode == 200) {
+                            tipsuccessmsg("保存成功");
+                        } else {
+                            tipfailmsg("保存失败，网络异常，请重新操作！")
+                        }
+                        $(".login-btn").text("登录");
+                        $(".login-btn").removeAttr("disabled");
+                    }
+                });
+            }
+        });
+    });
+</script>

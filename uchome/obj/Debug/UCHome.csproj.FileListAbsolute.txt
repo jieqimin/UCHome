@@ -1,0 +1,397 @@
+F:\中职产品规划\UCHome\UCHome\bin\UCHome.dll
+F:\中职产品规划\UCHome\UCHome\bin\UCHome.pdb
+F:\中职产品规划\UCHome\UCHome\bin\EntityFramework.dll
+F:\中职产品规划\UCHome\UCHome\bin\LoginSet.dll
+F:\中职产品规划\UCHome\UCHome\bin\Microsoft.Web.Infrastructure.dll
+F:\中职产品规划\UCHome\UCHome\bin\System.Web.Helpers.dll
+F:\中职产品规划\UCHome\UCHome\bin\System.Web.Mvc.dll
+F:\中职产品规划\UCHome\UCHome\bin\System.Web.Providers.dll
+F:\中职产品规划\UCHome\UCHome\bin\System.Web.Razor.dll
+F:\中职产品规划\UCHome\UCHome\bin\System.Web.WebPages.Deployment.dll
+F:\中职产品规划\UCHome\UCHome\bin\System.Web.WebPages.dll
+F:\中职产品规划\UCHome\UCHome\bin\System.Web.WebPages.Razor.dll
+F:\中职产品规划\UCHome\UCHome\bin\UCHome.Model.dll
+F:\中职产品规划\UCHome\UCHome\bin\Wicresoft.Common.dll
+F:\中职产品规划\UCHome\UCHome\bin\Wicresoft.Framework.dll
+F:\中职产品规划\UCHome\UCHome\bin\NPOI.dll
+F:\中职产品规划\UCHome\UCHome\bin\ICSharpCode.SharpZipLib.dll
+F:\中职产品规划\UCHome\UCHome\bin\UCHome.Model.pdb
+F:\中职产品规划\UCHome\UCHome\bin\EntityFramework.xml
+F:\中职产品规划\UCHome\UCHome\bin\System.Web.Helpers.xml
+F:\中职产品规划\UCHome\UCHome\bin\System.Web.Mvc.xml
+F:\中职产品规划\UCHome\UCHome\bin\System.Web.Razor.xml
+F:\中职产品规划\UCHome\UCHome\bin\System.Web.WebPages.xml
+F:\中职产品规划\UCHome\UCHome\bin\System.Web.WebPages.Deployment.xml
+F:\中职产品规划\UCHome\UCHome\bin\System.Web.WebPages.Razor.xml
+F:\中职产品规划\UCHome\UCHome\bin\zh-Hans\EntityFramework.resources.dll
+F:\中职产品规划\UCHome\UCHome\bin\zh-Hans\System.Web.Providers.resources.dll
+F:\中职产品规划\UCHome\UCHome\obj\Debug\UCHome.csprojResolveAssemblyReference.cache
+F:\中职产品规划\UCHome\UCHome\obj\Debug\UCHome.dll
+F:\中职产品规划\UCHome\UCHome\obj\Debug\UCHome.pdb
+F:\中职产品规划\UCHome\UCHome\bin\MetadataCenter.Client.dll
+F:\中职产品规划\UCHome\UCHome\bin\MetadataCenter.dll
+F:\中职产品规划\UCHome\UCHome\bin\ResourceLibrary.Client.dll
+F:\中职产品规划\UCHome\UCHome\bin\ResourceLibrary.dll
+F:\中职产品规划\UCHome\UCHome\bin\SimplifyDDD.dll
+F:\中职产品规划\UCHome\UCHome\bin\Newtonsoft.Json.dll
+F:\中职产品规划\UCHome\UCHome\bin\Basic.Model.dll
+F:\中职产品规划\UCHome\UCHome\bin\Basic.Model.pdb
+F:\泰安项目\个人空间\UCHome\bin\UCHome.dll
+F:\泰安项目\个人空间\UCHome\bin\UCHome.pdb
+F:\泰安项目\个人空间\UCHome\bin\Basic.Model.dll
+F:\泰安项目\个人空间\UCHome\bin\MetadataCenter.Client.dll
+F:\泰安项目\个人空间\UCHome\bin\MetadataCenter.dll
+F:\泰安项目\个人空间\UCHome\bin\Microsoft.Web.Infrastructure.dll
+F:\泰安项目\个人空间\UCHome\bin\ResourceLibrary.Client.dll
+F:\泰安项目\个人空间\UCHome\bin\ResourceLibrary.dll
+F:\泰安项目\个人空间\UCHome\bin\System.Web.Helpers.dll
+F:\泰安项目\个人空间\UCHome\bin\System.Web.Razor.dll
+F:\泰安项目\个人空间\UCHome\bin\System.Web.WebPages.Deployment.dll
+F:\泰安项目\个人空间\UCHome\bin\System.Web.WebPages.dll
+F:\泰安项目\个人空间\UCHome\bin\System.Web.WebPages.Razor.dll
+F:\泰安项目\个人空间\UCHome\bin\UCHome.Model.dll
+F:\泰安项目\个人空间\UCHome\bin\SimplifyDDD.dll
+F:\泰安项目\个人空间\UCHome\bin\Newtonsoft.Json.dll
+F:\泰安项目\个人空间\UCHome\bin\UCHome.Model.pdb
+F:\泰安项目\个人空间\UCHome\bin\Basic.Model.pdb
+F:\泰安项目\个人空间\UCHome\bin\EntityFramework.xml
+F:\泰安项目\个人空间\UCHome\bin\zh-Hans\EntityFramework.resources.dll
+F:\泰安项目\个人空间\UCHome\bin\zh-Hans\System.Web.Providers.resources.dll
+F:\泰安项目\个人空间\UCHome\obj\Debug\UCHome.csprojResolveAssemblyReference.cache
+F:\泰安项目\个人空间\UCHome\obj\Debug\UCHome.dll
+F:\泰安项目\个人空间\UCHome\obj\Debug\UCHome.pdb
+F:\泰安项目\个人空间\UCHome\bin\EntityFramework.dll
+F:\泰安项目\个人空间\UCHome\bin\System.Web.Mvc.dll
+F:\泰安项目\个人空间\UCHome\bin\System.Web.Providers.dll
+F:\泰安项目\个人空间\UCHome\bin\Newtonsoft.Json.pdb
+F:\泰安项目\个人空间\UCHome\bin\Newtonsoft.Json.xml
+F:\泰安项目\个人空间\UCHome\bin\Student.Information.Service.dll
+F:\泰安项目\个人空间\UCHome\bin\Student.Model.dll
+F:\泰安项目\个人空间\UCHome\bin\Student.Information.Service.pdb
+F:\泰安项目\个人空间\UCHome\bin\Student.Model.pdb
+F:\泰安项目\个人空间\UCHome\bin\Microsoft.AspNet.SignalR.Core.dll
+F:\泰安项目\个人空间\UCHome\bin\Microsoft.AspNet.SignalR.SystemWeb.dll
+F:\泰安项目\个人空间\UCHome\bin\Microsoft.Owin.dll
+F:\泰安项目\个人空间\UCHome\bin\Microsoft.Owin.Host.SystemWeb.dll
+F:\泰安项目\个人空间\UCHome\bin\Microsoft.Owin.Security.dll
+F:\泰安项目\个人空间\UCHome\bin\Owin.dll
+F:\泰安项目\个人空间\UCHome\bin\Microsoft.AspNet.SignalR.Core.xml
+F:\泰安项目\个人空间\UCHome\bin\Microsoft.AspNet.SignalR.SystemWeb.xml
+F:\泰安项目\个人空间\UCHome\bin\Microsoft.Owin.xml
+F:\泰安项目\个人空间\UCHome\bin\Microsoft.Owin.Host.SystemWeb.xml
+F:\泰安项目\个人空间\UCHome\bin\Microsoft.Owin.Security.xml
+F:\泰安项目\个人空间\UCHome\bin\Microsoft.AspNet.SignalR.Owin.dll
+F:\泰安项目\个人空间\UCHome\bin\Microsoft.AspNet.SignalR.Owin.xml
+F:\泰安项目\个人空间\UCHome\bin\NPOI.dll
+F:\泰安项目\个人空间\UCHome\bin\ICSharpCode.SharpZipLib.dll
+F:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\UCHome.dll
+F:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\UCHome.pdb
+F:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\EntityFramework.dll
+F:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\MetadataCenter.Client.dll
+F:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\MetadataCenter.dll
+F:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\Microsoft.Web.Infrastructure.dll
+F:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\Newtonsoft.Json.dll
+F:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\ResourceLibrary.Client.dll
+F:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\ResourceLibrary.dll
+F:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\System.Web.Helpers.dll
+F:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\System.Web.Mvc.dll
+F:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\System.Web.Providers.dll
+F:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\System.Web.Razor.dll
+F:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\System.Web.WebPages.Deployment.dll
+F:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\System.Web.WebPages.dll
+F:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\System.Web.WebPages.Razor.dll
+F:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\UCHome.Model.dll
+F:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\SimplifyDDD.dll
+F:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\NPOI.dll
+F:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\ICSharpCode.SharpZipLib.dll
+F:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\UCHome.Model.pdb
+F:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\Basic.Model.pdb
+F:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\Microsoft.AspNet.SignalR.Core.xml
+F:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\Microsoft.AspNet.SignalR.Owin.xml
+F:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\Microsoft.AspNet.SignalR.SystemWeb.xml
+F:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\Microsoft.Owin.xml
+F:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\Microsoft.Owin.Host.SystemWeb.xml
+F:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\Microsoft.Owin.Security.xml
+F:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\Newtonsoft.Json.pdb
+F:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\Newtonsoft.Json.xml
+F:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\Student.Information.Service.pdb
+F:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\Student.Model.pdb
+F:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\EntityFramework.xml
+F:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\zh-Hans\EntityFramework.resources.dll
+F:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\zh-Hans\System.Web.Providers.resources.dll
+F:\泰安项目\Code\泰安教育云\教育云空间\UCHome\obj\Debug\UCHome.csprojResolveAssemblyReference.cache
+F:\泰安项目\Code\泰安教育云\教育云空间\UCHome\obj\Debug\UCHome.dll
+F:\泰安项目\Code\泰安教育云\教育云空间\UCHome\obj\Debug\UCHome.pdb
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\obj\Debug\UCHome.csprojResolveAssemblyReference.cache
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\UCHome.dll
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\UCHome.pdb
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\ClassCenterBLL.dll
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\ClassCenterModel.dll
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\EcoEdu.Framework.SingleSignOn.dll
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\EntityFramework.dll
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\ErrorCollection.BLL.dll
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\ErrorCollection.Model.dll
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\Evaluation.Bll.dll
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\Evaluation.Model.dll
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\EvalutionSystem.Bll.dll
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\EvalutionSystem.Model.dll
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\Exam.BLL.dll
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\Exam.Model.dll
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\HomeWork.BLL.dll
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\HomeWork.Model.dll
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\LoginSet.dll
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\MeetingBLL.dll
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\MeetingModel.dll
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\MessageCenter.BLL.dll
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\MessageCenter.Model.dll
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\MetadataCenter.Client.dll
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\MetadataCenter.dll
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\Microsoft.AspNet.SignalR.Core.dll
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\Microsoft.AspNet.SignalR.Owin.dll
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\Microsoft.AspNet.SignalR.SystemWeb.dll
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\Microsoft.IdentityModel.dll
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\Microsoft.Owin.dll
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\Microsoft.Owin.Host.SystemWeb.dll
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\Microsoft.Owin.Security.dll
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\Microsoft.Web.Infrastructure.dll
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\MongoDB.Bson.dll
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\MongoDB.Driver.dll
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\Newtonsoft.Json.dll
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\NPOI.dll
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\NPOI.OOXML.dll
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\NPOI.OpenXml4Net.dll
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\NPOI.OpenXmlFormats.dll
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\OA.BLL.dll
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\OA.Model.dll
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\Owin.dll
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\ParentsRegister.BLL.dll
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\ParentsRegister.Model.dll
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\ResourceLibrary.Client.dll
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\ResourceLibrary.dll
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\ServiceInterface.dll
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\ServiceModel.dll
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\ServiceStack.Common.dll
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\ServiceStack.dll
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\ServiceStack.Interfaces.dll
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\ServiceStack.ServiceInterface.dll
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\ServiceStack.Text.dll
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\Student.Model.dll
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\StudentAffaris.BLL.dll
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\StudentAffaris.Model.dll
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\StudentAskLeave.Bll.dll
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\StudentAskLeave.Model.dll
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\System.Net.Http.Formatting.dll
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\System.Web.Helpers.dll
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\System.Web.Http.dll
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\System.Web.Http.WebHost.dll
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\System.Web.Mvc.dll
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\System.Web.Providers.dll
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\System.Web.Razor.dll
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\System.Web.WebPages.Deployment.dll
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\System.Web.WebPages.dll
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\System.Web.WebPages.Razor.dll
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\TaskIntegral.Bll.dll
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\TaskIntegral.Model.dll
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\Teacher.Model.dll
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\TeacherAwards.BLL.dll
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\TeacherAwards.Model.dll
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\TeacherInfo.BLL.dll
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\TeacherInfo.Model.dll
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\UCHome.BLL.dll
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\UCHome.Model.dll
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\VenueSetup.Bll.dll
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\VenueSetup.Model.dll
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\Wicresoft.Framework.dll
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\WSAFLoginSet.dll
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\SimplifyDDD.dll
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\WSAFLoginSet.pdb
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\ClassCenterBLL.pdb
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\ClassCenterModel.pdb
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\ErrorCollection.BLL.pdb
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\ErrorCollection.Model.pdb
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\Evaluation.Bll.pdb
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\Evaluation.Model.pdb
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\EvalutionSystem.Bll.pdb
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\EvalutionSystem.Model.pdb
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\Exam.BLL.pdb
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\Exam.Model.pdb
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\HomeWork.BLL.pdb
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\HomeWork.Model.pdb
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\MeetingBLL.pdb
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\MeetingModel.pdb
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\MessageCenter.BLL.pdb
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\OA.BLL.pdb
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\OA.Model.pdb
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\ParentsRegister.BLL.pdb
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\ParentsRegister.Model.pdb
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\StudentAffaris.BLL.pdb
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\StudentAffaris.Model.pdb
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\StudentAskLeave.Bll.pdb
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\StudentAskLeave.Model.pdb
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\TaskIntegral.Bll.pdb
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\TaskIntegral.Model.pdb
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\TeacherAwards.BLL.pdb
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\TeacherAwards.Model.pdb
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\TeacherInfo.BLL.pdb
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\TeacherInfo.Model.pdb
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\UCHome.BLL.pdb
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\UCHome.Model.pdb
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\VenueSetup.Bll.pdb
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\VenueSetup.Model.pdb
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\EntityFramework.xml
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\MessageCenter.Model.pdb
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\Microsoft.AspNet.SignalR.Core.xml
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\Microsoft.AspNet.SignalR.Owin.xml
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\Microsoft.AspNet.SignalR.SystemWeb.xml
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\Microsoft.Owin.xml
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\Microsoft.Owin.Host.SystemWeb.xml
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\Microsoft.Owin.Security.xml
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\Newtonsoft.Json.pdb
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\Newtonsoft.Json.xml
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\NPOI.xml
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\Student.Model.pdb
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\System.Net.Http.Formatting.xml
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\System.Web.Http.xml
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\System.Web.Http.WebHost.xml
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\zh-Hans\EntityFramework.resources.dll
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\zh-Hans\System.Web.Http.resources.dll
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\zh-Hans\System.Web.Providers.resources.dll
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\obj\Debug\UCHome.dll
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\obj\Debug\UCHome.pdb
+D:\泰安项目\Code\泰安教育云\教育云空间\UCHome\bin\ICSharpCode.SharpZipLib.dll
+E:\个人空间\UCHome\obj\Debug\UCHome.csprojResolveAssemblyReference.cache
+E:\个人空间\UCHome\obj\Debug\UCHome.dll
+E:\个人空间\UCHome\obj\Debug\UCHome.pdb
+E:\个人空间\UCHome\bin\UCHome.dll
+E:\个人空间\UCHome\bin\UCHome.pdb
+E:\个人空间\UCHome\bin\MetadataCenter.Client.dll
+E:\个人空间\UCHome\bin\MetadataCenter.dll
+E:\个人空间\UCHome\bin\Newtonsoft.Json.dll
+E:\个人空间\UCHome\bin\ResourceLibrary.Client.dll
+E:\个人空间\UCHome\bin\ResourceLibrary.dll
+E:\个人空间\UCHome\bin\System.Web.Helpers.dll
+E:\个人空间\UCHome\bin\System.Web.Razor.dll
+E:\个人空间\UCHome\bin\System.Web.WebPages.Deployment.dll
+E:\个人空间\UCHome\bin\System.Web.WebPages.dll
+E:\个人空间\UCHome\bin\System.Web.WebPages.Razor.dll
+E:\个人空间\UCHome\bin\SimplifyDDD.dll
+E:\个人空间\UCHome\bin\EntityFramework.xml
+E:\个人空间\UCHome\bin\Newtonsoft.Json.pdb
+E:\个人空间\UCHome\bin\Newtonsoft.Json.xml
+E:\个人空间\UCHome\bin\Student.Model.pdb
+E:\个人空间\UCHome\bin\System.Web.Helpers.xml
+E:\个人空间\UCHome\bin\System.Web.Razor.xml
+E:\个人空间\UCHome\bin\System.Web.WebPages.xml
+E:\个人空间\UCHome\bin\System.Web.WebPages.Deployment.xml
+E:\个人空间\UCHome\bin\System.Web.WebPages.Razor.xml
+E:\个人空间\UCHome\bin\UCHome.BLL.pdb
+E:\个人空间\UCHome\bin\UCHome.Model.pdb
+E:\个人空间\UCHome\bin\zh-Hans\EntityFramework.resources.dll
+E:\个人空间\UCHome\bin\zh-Hans\System.Web.Mvc.resources.dll
+D:\my files\个人空间\UCHome\bin\UCHome.dll.config
+D:\my files\个人空间\UCHome\bin\UCHome.dll
+D:\my files\个人空间\UCHome\bin\UCHome.pdb
+D:\my files\个人空间\UCHome\bin\MetadataCenter.Client.dll
+D:\my files\个人空间\UCHome\bin\MetadataCenter.dll
+D:\my files\个人空间\UCHome\bin\Newtonsoft.Json.dll
+D:\my files\个人空间\UCHome\bin\ResourceLibrary.Client.dll
+D:\my files\个人空间\UCHome\bin\ResourceLibrary.dll
+D:\my files\个人空间\UCHome\bin\SSO.Adapter.dll
+D:\my files\个人空间\UCHome\bin\Student.Model.dll
+D:\my files\个人空间\UCHome\bin\System.Web.Helpers.dll
+D:\my files\个人空间\UCHome\bin\System.Web.Mvc.dll
+D:\my files\个人空间\UCHome\bin\System.Web.Razor.dll
+D:\my files\个人空间\UCHome\bin\System.Web.WebPages.Deployment.dll
+D:\my files\个人空间\UCHome\bin\System.Web.WebPages.dll
+D:\my files\个人空间\UCHome\bin\System.Web.WebPages.Razor.dll
+D:\my files\个人空间\UCHome\bin\UCHome.BLL.dll
+D:\my files\个人空间\UCHome\bin\UCHome.Model.dll
+D:\my files\个人空间\UCHome\bin\SimplifyDDD.dll
+D:\my files\个人空间\UCHome\bin\SSO.Adapter.pdb
+D:\my files\个人空间\UCHome\bin\UCHome.BLL.pdb
+D:\my files\个人空间\UCHome\bin\UCHome.Model.pdb
+D:\my files\个人空间\UCHome\bin\UCHome.Model.dll.config
+D:\my files\个人空间\UCHome\bin\Newtonsoft.Json.pdb
+D:\my files\个人空间\UCHome\bin\Newtonsoft.Json.xml
+D:\my files\个人空间\UCHome\bin\Student.Model.pdb
+D:\my files\个人空间\UCHome\bin\System.Web.Helpers.xml
+D:\my files\个人空间\UCHome\bin\System.Web.Mvc.xml
+D:\my files\个人空间\UCHome\bin\System.Web.Razor.xml
+D:\my files\个人空间\UCHome\bin\System.Web.WebPages.xml
+D:\my files\个人空间\UCHome\bin\System.Web.WebPages.Deployment.xml
+D:\my files\个人空间\UCHome\bin\System.Web.WebPages.Razor.xml
+D:\my files\个人空间\UCHome\bin\zh-Hans\System.Web.Mvc.resources.dll
+D:\my files\个人空间\UCHome\obj\Debug\UCHome.csprojResolveAssemblyReference.cache
+D:\my files\个人空间\UCHome\obj\Debug\UCHome.dll
+D:\my files\个人空间\UCHome\obj\Debug\UCHome.pdb
+D:\my files\个人空间\UCHome\bin\Microsoft.IdentityModel.dll
+D:\my files\个人空间\UCHome\bin\UCHome.Interface.dll
+D:\my files\个人空间\UCHome\bin\UCHome.Interface.pdb
+D:\my files\个人空间\UCHome\bin\UCHome.LinqEF.dll
+D:\my files\个人空间\UCHome\bin\UCHome.LinqEF.pdb
+D:\my files\个人空间\UCHome\bin\EntityFramework.dll
+D:\my files\个人空间\UCHome\bin\SchInfo.BLL.dll
+D:\my files\个人空间\UCHome\bin\SchInfo.Model.dll
+D:\my files\个人空间\UCHome\bin\EntityFramework.Extended.dll
+D:\my files\个人空间\UCHome\bin\SchInfo.BLL.pdb
+D:\my files\个人空间\UCHome\bin\SchInfo.BLL.dll.config
+D:\my files\个人空间\UCHome\bin\SchInfo.Model.pdb
+D:\my files\个人空间\UCHome\bin\SchInfo.Model.dll.config
+D:\my files\个人空间\UCHome\bin\EntityFramework.xml
+D:\my files\个人空间\UCHome\bin\EntityFramework.Extended.xml
+D:\my files\个人空间\UCHome\bin\zh-Hans\EntityFramework.resources.dll
+D:\my files\个人空间\UCHome\bin\EntityFramework.SqlServer.dll
+D:\my files\个人空间\UCHome\bin\EntityFramework.SqlServer.xml
+D:\my files\个人空间\UCHome\bin\EntityFramework.Extended.dll.config
+D:\my files\个人空间\UCHome\bin\zh-Hans\EntityFramework.SqlServer.resources.dll
+D:\my files\个人空间\UCHome\bin\JYTGBT.dll
+D:\my files\个人空间\UCHome\bin\JYTGBT.pdb
+D:\my files\个人空间\UCHome\bin\StuInfo.BLL.dll
+D:\my files\个人空间\UCHome\bin\StuInfo.Model.dll
+D:\my files\个人空间\UCHome\bin\StuInfo.Model.pdb
+D:\my files\个人空间\UCHome\bin\StuInfo.Model.dll.config
+D:\my files\个人空间\UCHome\bin\StuInfo.BLL.pdb
+D:\my files\个人空间\UCHome\bin\StuInfo.BLL.dll.config
+D:\my files\个人空间\UCHome\bin\JYTGBT.dll.config
+D:\my files\个人空间\UCHome\bin\System.Net.Http.Formatting.dll
+D:\my files\个人空间\UCHome\bin\System.Web.Http.dll
+D:\my files\个人空间\UCHome\bin\System.Web.Http.WebHost.dll
+D:\my files\个人空间\UCHome\bin\dotnetCHARTING.dll
+D:\my files\个人空间\UCHome\bin\OpenSmtp.dll
+D:\my files\个人空间\UCHome\bin\Microsoft.Vsa.dll
+E:\个人空间\UCHome\obj\Debug\UCHome.csproj.CoreCompileInputs.cache
+E:\个人空间\UCHome\bin\UCHome.dll.config
+E:\个人空间\UCHome\bin\EntityFramework.dll
+E:\个人空间\UCHome\bin\EntityFramework.SqlServer.dll
+E:\个人空间\UCHome\bin\JYTGBT.dll
+E:\个人空间\UCHome\bin\SchInfo.BLL.dll
+E:\个人空间\UCHome\bin\SchInfo.Model.dll
+E:\个人空间\UCHome\bin\SSO.Adapter.dll
+E:\个人空间\UCHome\bin\StuInfo.BLL.dll
+E:\个人空间\UCHome\bin\StuInfo.Model.dll
+E:\个人空间\UCHome\bin\System.Web.Mvc.dll
+E:\个人空间\UCHome\bin\UCHome.BLL.dll
+E:\个人空间\UCHome\bin\UCHome.Interface.dll
+E:\个人空间\UCHome\bin\UCHome.LinqEF.dll
+E:\个人空间\UCHome\bin\UCHome.Model.dll
+E:\个人空间\UCHome\bin\EntityFramework.Extended.dll
+E:\个人空间\UCHome\bin\Microsoft.Vsa.dll
+E:\个人空间\UCHome\bin\JYTGBT.pdb
+E:\个人空间\UCHome\bin\JYTGBT.dll.config
+E:\个人空间\UCHome\bin\SchInfo.BLL.pdb
+E:\个人空间\UCHome\bin\SchInfo.BLL.dll.config
+E:\个人空间\UCHome\bin\SchInfo.Model.pdb
+E:\个人空间\UCHome\bin\SchInfo.Model.dll.config
+E:\个人空间\UCHome\bin\SSO.Adapter.pdb
+E:\个人空间\UCHome\bin\StuInfo.Model.pdb
+E:\个人空间\UCHome\bin\StuInfo.Model.dll.config
+E:\个人空间\UCHome\bin\UCHome.Interface.pdb
+E:\个人空间\UCHome\bin\UCHome.LinqEF.pdb
+E:\个人空间\UCHome\bin\UCHome.Model.dll.config
+E:\个人空间\UCHome\bin\StuInfo.BLL.pdb
+E:\个人空间\UCHome\bin\StuInfo.BLL.dll.config
+E:\个人空间\UCHome\bin\EntityFramework.SqlServer.xml
+E:\个人空间\UCHome\bin\System.Web.Mvc.xml
+E:\个人空间\UCHome\bin\EntityFramework.Extended.xml
+E:\个人空间\UCHome\bin\EntityFramework.Extended.dll.config
+E:\个人空间\UCHome\bin\zh-Hans\EntityFramework.SqlServer.resources.dll

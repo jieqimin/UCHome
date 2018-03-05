@@ -1,0 +1,36 @@
+﻿@using Student.Model
+@model Guid
+<style>
+    #kscj li {
+        padding-left: 20px;
+    }
+
+    #tab1content li span {
+        padding: 10px;
+        display: inline-block;
+        float: left;
+    }
+</style>
+<div class="info-content">
+    <div class="dtitle">
+        <ul>
+            <li class="selected">奖励惩处</li>
+        </ul>
+    </div>
+    <div id="kscj" class="dinfo">
+        <ul id="jlcc">
+            @foreach (StudentInformation.JCinformation items in ViewBag.JCInfo)
+            {
+                if (string.IsNullOrEmpty(items.MC))
+                {
+                <li class="text-center">暂时还没有发现有奖励惩处记录！</li>
+                    break;
+                }
+                <li><span>奖惩名称：@(items.MC)</span><span>奖惩日期：@(items.JCTime)</span><span>奖惩原因：@(items.Content)</span></li>
+            }
+        </ul>
+    </div>
+</div>
+
+
+

@@ -1,0 +1,21 @@
+﻿@{
+    Layout = null;
+}
+@using M = Evaluation.Model.Models;
+@model List<M.SchoolGrade>
+@{
+    int i = 0;
+    string[] array = { "bg-c1", "bg-c2", "bg-c3", "bg-c1", "bg-c2", "bg-c3" };
+}
+@foreach (M.SchoolGrade item in Model)
+{
+    if (i == 0)
+    { 
+    <div onclick="showModal('historyeval','@item.GradeCode','@item.GradeName')" class="btn circle @array[i]">@item.GradeName</div>
+    }
+    else
+    {
+    <div onclick="showModal('historyeval','@item.GradeCode','@item.GradeName')" class="btn circle ml @array[i]">@item.GradeName</div>
+    }
+    i++;
+}

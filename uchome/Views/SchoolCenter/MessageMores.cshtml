@@ -1,0 +1,103 @@
+﻿@using UCHome.Model
+@{
+    ViewBag.Title = "更多学校通知";
+    Layout = "~/Views/Shared/_MoreLayout.cshtml";
+}
+@section Head
+{
+    <script>
+
+    </script>
+    <script type="text/x-jquery-tmpl" id="dataTemp">
+        <li>
+            <span class="news-dot">·</span>
+            <a href="@Url.Content("~/SchoolCenter/Index/")${XXID}" title="${XXMC}">${Title}</a>
+        </li>
+    </script>
+    <style>
+        #contentList li {
+            text-align: left;
+            height: 35px;
+            line-height: 35px;
+            padding-left: 20px;
+        }
+        #Part1 {
+          
+            height: 100%;
+            background: #f5f8fc;
+            border: 1px solid #c8dcf2;
+            margin-top: 25px;
+        }
+        #titlemore {
+            color: #47c6a9;
+            line-height: 35px;
+            font-size: 15px;
+            padding-left: 5px;
+            font-weight: bold;
+        }
+            #titlemore ul {
+            padding-left:35px;
+            }
+    </style>
+}
+
+
+
+<div class="header">
+    @Html.Partial("HeadMenu", UCHomeBasePage.IsLogin)
+</div>
+<div class="container">
+    <div class="content">
+        <!--title-->
+        <div class="title">
+            <img src="@Url.Content("~/Content/NewFile/image/public/logo.png")">
+            <span>&nbsp;&nbsp; @ViewBag.xxmc</span>
+        </div>
+        <!--silder-->
+        <div class="slider">
+            <div class="slider-container">
+                <div class="slider-wrapper">
+                    <div class="slide">
+                        <a target="_blank" href="http://www.taedu.gov.cn/cloud/"><img src="@Url.Content("~/Content/NewFile/image/school/banner1.jpg")" /></a>
+                    </div>
+                    <div class="slide">
+                        <a target="_blank" href="http://jx.taedu.gov.cn:83/Resource.Portal.Web"><img src="@Url.Content("~/Content/NewFile/image/school/banner2.jpg")" /></a>
+                    </div>
+                    <div class="slide">
+                        <a target="_blank" href="http://www.taedu.gov.cn/UCHomeNew/">
+                            <img src="@Url.Content("~/Content/NewFile/image/school/banner3.jpg")" />
+                        </a>
+                    </div>
+                    <div class="slide">
+                        <a target="_blank" href="http://jx.taedu.gov.cn:83/Resource.Portal.Web">
+                            <img src="@Url.Content("~/Content/NewFile/image/school/banner4.jpg")" />
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--第一模块-->
+        <div id="Part1">
+            <div id="titlemore">学校通知列表</div>
+
+            <ul>
+                @foreach (var item in Model)
+                {
+                    <li style="margin-left: 15px; color: #337ab7; line-height: 30px; width: 290px; font-size: 18px; ">
+
+                        <a title="@item.MsgTitle" class="a-font" style="color: #8d8d8d;" target="_blank" href="@Url.Action("SchoolMessageEdit", "SchoolCenter", new { id = item.ID})">@item.MsgTitle</a>
+                    </li>
+                }
+            </ul>
+
+         
+        </div>
+        
+
+    </div>
+</div>
+<div class="footer">
+    <div class="footer_content">
+        版权信息：CopyRight©2010-2015
+    </div>
+</div>

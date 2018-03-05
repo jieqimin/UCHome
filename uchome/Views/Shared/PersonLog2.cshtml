@@ -1,0 +1,116 @@
+﻿@model Guid
+<style>
+    .mylog_menu {
+        margin: 0 20px;
+        border-bottom: solid 1px #cfebf5;
+        height: 49px;
+    }
+
+        .mylog_menu .mylog_menu_list {
+            height: 50px;
+            float: left;
+            position: relative;
+            zoom: 1;
+            z-index: 200;
+        }
+
+    .mylog_menu_list ul {
+        position: relative;
+    }
+
+        .mylog_menu_list ul li {
+            float: left;
+            line-height: 50px;
+            color: #2595b7;
+            margin: 0 20px;
+            display: inline-block;
+            font-size: 15px;
+            cursor: pointer;
+        }
+
+    .mylog_menu li.foucs {
+        height: 47px;
+        border-bottom: solid 3px #2595b7;
+        font-weight: bold;
+    }
+
+    .mylog_menu .mylog_menu_other {
+        float: right;
+    }
+
+    .mylog_menu_other .mylog_menu_other_item {
+        float: left;
+        line-height: 50px;
+        color: #2595b7;
+        margin: 0 10px;
+        display: inline-block;
+        font-size: 14px;
+        cursor: pointer;
+    }
+  
+    .mylog_menu_other_item .recyclelog {
+        background: url("@Url.Content("~/Content/images/Recycle.png")") no-repeat center center;
+        display: inline-block;
+        width: 28px;
+        height: 18px;
+    }
+    .mylog_showstyle {
+        text-align: right;
+        color: #2595b7;
+        font-size: 12px;
+        margin: 5px 20px;
+        line-height: 16px;
+        height: 16px;
+        cursor: pointer;
+        width: 560px;
+    }
+        .mylog_showstyle a {             
+        display:inline-block;
+        height: 16px;
+        line-height: 16px;
+            text-align: center;
+    }
+    .mylog_showstyle i {
+        background-image: url("@Url.Content("~/Content/images/Properties.png")");
+        background-repeat: no-repeat;
+        background-position-x: center;
+        background-position-y: center;
+        display: inline-block;
+        width: 16px;
+        height: 16px;
+        vertical-align: middle;
+        margin-right: 5px;
+    }
+    .mylog_content {
+        margin-top: 20px;
+    }
+</style>
+<div style="background-color: #fff; min-height: 610px;">
+    <div class="mylog_menu">
+        <div class="mylog_menu_list">
+            <ul class="mylog_menu_ul">
+                <li class="mylog_menu_ul_li foucs">文章日志</li>
+                <li class="mylog_menu_ul_li hidden">私人日志</li>
+            </ul>
+        </div>
+    </div>
+    <div class="mylog_showstyle" style="display: none;">
+        <a id="mylog_showstyle" showstyle="list" title="切换到列表模式"><i></i>切换到列表</a>
+    </div>
+    <div class="mylog_content" id="mylog_content">
+        @Html.Partial("LogAbstract2")
+    </div>
+</div>
+<script>
+    //$(function () {
+    $("#mylog_showstyle").click(function () {
+        var showstyle = $(this).attr("showstyle");
+        if (showstyle == "list") {
+            $("#mylog_content").load("@Url.Action("LogList", "PublicShare", new { id = Model })");
+            $(this).attr("showstyle", "abstract");
+        } else {
+            $("#mylog_content").load("@Url.Action("LogAbstract", "PublicShare", new { id = Model })");
+            $(this).attr("showstyle", "list");
+        }
+    });
+</script>

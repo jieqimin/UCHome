@@ -1,0 +1,175 @@
+﻿@{
+    Layout = null;
+}
+@using UCHome.Controllers
+@using M = UCHome.Model;
+@*@model List<m.view_uchome_notice>*@
+
+<link rel="stylesheet" href="@Url.Content("~/Content/css/eval.css")">
+<link href="@Url.Content("~/Content/css/integral.css")" rel="stylesheet" />
+<link rel="stylesheet" href="@Url.Content("~/plugs/datatables/css/jquery.dataTables.css")">
+<link rel="stylesheet" href="@Url.Content("~/plugs/datatables/css/dataTables.bootstrap.css")">
+<script src="@Url.Content("~/plugs/datatables/js/jquery.datatables.js")"></script>
+<script src="@Url.Content("~/plugs/datatables/js/dataTables.bootstrap.js")"></script>
+@using (Ajax.BeginForm(
+    new AjaxOptions()
+    {
+        HttpMethod = "post",
+        Url = Url.Action("RolePermissions"),
+        UpdateTargetId = "#rolePermissions",
+        LoadingElementId = "loding",
+        LoadingElementDuration = 2000
+    }))
+{
+    <div id="rolePermissions" class="form-position pagew">
+        <ul class="nav nav-tabs" id="myTabs" role="tablist">
+            <li class="active" role="presentation">
+                <a href="#techer" role="tab" aria-controls="home" data-toggle="tab">教师</a>
+            </li>
+            <li role="presentation">
+                <a href="#student" role="tab" aria-controls="profile" data-toggle="tab">学生</a>
+            </li>
+            @*<li role="presentation">
+                    <a href="#parents" role="tab" aria-controls="profile" data-toggle="tab">家长</a>
+              </li>*@
+        </ul>
+        <div class="tab-content pull-left" id="myTabContent">
+            <div class="tab-pane fade pull-left active in" id="techer" role="tabpanel">
+                <table class="table table-striped table-bordered table-hover datatable" id="techerList" >
+                    <thead>
+                        <tr>
+                            <th>序号</th>
+                            <th>部门</th>
+                            <th>姓名</th>
+                            <th>身份证</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            int i = 0;
+                        }
+                        @foreach (UCHome.Model.View_Simple_TeaInfo item in ViewBag.teacherList)
+                        {
+                            i++;
+                            <tr>
+                                <td>@i</td>
+                                <td>@item.jgmc</td>
+                                <td>@item.XM</td>
+                                <td>@item.SFZJH</td>
+                                <td>
+                                    <a class="label label-info" onclick="openform('@item.jsid','TP','@item.XM')">查看</a>
+                                </td>
+                            </tr>
+                        }               
+                    </tbody>
+                </table>
+            </div>
+            <div class="tab-pane fade pull-left" id="student" role="tabpanel">
+                <table class="table table-striped table-bordered table-hover datatable" id="studentList">
+                    <thead>
+                        <tr>
+                            <th>序号</th>
+                            <th>班级</th>
+                            <th>姓名</th>
+                            <th>学籍号</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            int s = 0;
+                        }
+                        @foreach (UCHome.Model.View_Simple_StuInfo items in ViewBag.studentList)
+                        {
+                            s++;
+                            <tr>
+                                <td>@s</td>
+                                <td>@items.bjmc</td>
+                                <td>@items.XM</td>
+                                <td>@items.username</td>
+                                <td>
+                                    <a class="label label-info" onclick="openform('@items.xsid','SP','@items.XM')">查看</a>
+                                </td>
+                            </tr>
+                        }            
+                    </tbody>
+                </table>
+            </div>
+            @*<table class="table table-striped table-bordered table-hover datatable" id="parents">
+                    <thead>
+                        <tr>
+                            <th>序号</th>
+                            <th>类型</th>
+                            <th>姓名</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>*@
+        </div>
+    </div>
+
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel" style="font-weight: bold;"></h4>
+                </div>
+                <div class="modal-body" style="width: 350px;">
+                    
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<script type="text/javascript">
+    $(function() {
+        $("#techerList").DataTable({
+            //"ajax":'severurl',//通过ajax请求数据源，其数据格式为{"data":[],[]}
+            "oLanguage": {
+                "sUrl": "@Url.Content("~/plugs/datatables/language/zh_cn.json")"
+            }
+        });
+
+        $("#studentList").DataTable({
+            //"ajax":'severurl',//通过ajax请求数据源，其数据格式为{"data":[],[]}
+            "oLanguage": {
+                "sUrl": "@Url.Content("~/plugs/datatables/language/zh_cn.json")"
+            }
+        });
+    });
+
+    function openform(id, type, name) {
+        $("#myModalLabel").text("正在为" + name + "设置权限");
+        $('#myModal').modal('show');
+        var htm = "";
+        $.getJSON('@Url.Action("getRolebyId")', { id: id, type: type }, function(date) {
+            $.each(date, function (i, item) {
+                if (item["Selected"]) {
+                    htm += "<span style='margin-left:10px;display: inline-block;' class='adq_role'>" +
+                        "<input onclick=\"setpromisses('" + id + "','" + item["Value"] + "','" + name + "')\" name='adq_role' roleId='" + item["Value"] + "' " +
+                        "type='checkbox' checked='checked' roleName='" + item["Text"] + "' value='true'>" + item["Text"] +
+                        "</input></span>";
+                } else {
+                    htm += "<span style='margin-left:10px;display: inline-block;' class='adq_role'>" +
+                       "<input onclick=\"setpromisses('" + id + "','" + item["Value"] + "','" + name + "')\" name='adq_role' roleId='" + item["Value"] + "' " +
+                       "type='checkbox' roleName='" + item["Text"] + "' value='true'>" + item["Text"] +
+                       "</input></span>";
+                }
+                
+            });
+            $(".modal-body").html(htm);
+        });
+    }
+
+    function setpromisses(userid, roleId, username) {
+        debugger;
+        $.post("@Url.Action("SetpersonPro")", { userid: userid, roleId: roleId, username: username }, function (data) {
+    });
+    }
+</script>

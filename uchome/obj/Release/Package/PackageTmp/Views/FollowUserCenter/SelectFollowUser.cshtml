@@ -1,0 +1,368 @@
+﻿@{
+    Layout = null;
+}
+<div class="banner"><img src="@Url.Content("~/Content/images/2.png")" /></div>
+
+<ul class="title">
+    <li class="title-check" onclick="changeuser('1')">寻找老师</li>
+    <li onclick="changeuser('2')">寻找学生</li>
+</ul>
+
+<div class="course" style="margin-top: 10px;">
+    <ul class="course-ul">
+        <li>
+            <span id="area">选择区县</span><img src="@Url.Content("~/Content/images/white-a.png")" />
+            <ul class="item-ul" id="areaList">
+            </ul>
+        </li>
+        <li>
+            <span id="type">选择学制</span><img src="@Url.Content("~/Content/images/white-a.png")" />
+            <ul class="item-ul" id="typeList">
+            </ul>
+        </li>
+        <li>
+            <span id="school">选择学校</span><img src="@Url.Content("~/Content/images/white-a.png")" />
+            <ul class="item-ul" id="schoolList">
+            </ul>
+        </li>
+    </ul>
+
+    <div class="search">
+        <input type="text" placeholder="请输入姓名查询" id="txtName" />
+        <button id="btnSelect" onclick="getUserIds()" style="margin-top:-1px;margin-left:5px;" type="button" class="btn btn-info dropdown-toggle" data-toggle="button" aria-haspopup="true" aria-expanded="false">
+            查找
+        </button>
+    </div>
+</div>
+<input id="hidUserName" type="hidden"/>
+<input id="hidAPIHTTP" type="hidden" value="@ViewBag.APIHTTP2" />
+<input id="hidImageHead" type="hidden" value="@ViewBag.ImageHead"/>
+<input id="hidType" type="hidden" value="1"/>
+<div style="display:none;" id="divuserids">
+
+</div>
+<ul class="result" id="ulresult" style="overflow: hidden;"></ul>
+<div id="callBackPager" style="text-align: center;"></div>
+
+<script>
+    $(function() {
+        $(".title li").click(function() {
+            $(".title li").removeClass("title-check");
+            $(this).addClass("title-check");
+        });
+        $(".course-ul li").click(function() {
+            $(this).children("ul").toggle();
+        });
+        GetAreaList();
+        GetSchoolTypeList();
+    });
+
+    function changeuser(num) {
+        $("#hidType").val(num);
+    }
+
+    function getUserIds() {
+        var schoolId = $("#school").val();
+
+        if (schoolId != null && schoolId.length > 0) {
+
+            $("#divuserids").html("");
+
+            //$.ajaxSettings.async = false;
+            $.post("@Url.Action("GetMyBookUserIds")", { schoolId: schoolId }, function (data) {
+
+                if (data != null && data.length > 0) {
+
+                    var html = "";
+
+                    for (var i = 0; i < data.length; i++) {
+                        html += data[i] + ";";
+                    }
+
+                    $("#divuserids").html(html);
+                }
+
+                GetUserList();
+
+            });
+        }
+
+    }
+
+    function GetUserListByName(url, center) {
+        var https = $("#hidAPIHTTP").val();
+        var imageHead = $("#hidImageHead").val();
+        var userIds = $("#divuserids").html();
+
+        $.ajaxSettings.async = false;
+        $.get(https + url, function (data) {
+
+            if (data != null && data.UserList != null && data.UserList.length > 0) {
+
+                var dataJson = data.UserList;
+                var count = data.TotalCount;
+
+                $("#callBackPager").show();
+                $('#callBackPager').extendPagination({
+                    totalCount: count,
+                    showCount: 10,
+                    limit: 12,
+                    callback: function (curr, limit, totalCount) {
+                        if (center === "TeacherCenter") {
+                            createTeaTable(curr, limit, totalCount);
+                        } else {
+                            createStuTable(curr, limit, totalCount);
+                        }
+                    }
+                });
+
+                var html = "";
+
+                for (var i = 0; i < dataJson.length; i++) {
+
+                    var pid = "p" + dataJson[i].Id;
+
+                    var link = imageHead + "/" + center + "/Query?id=" + dataJson[i].Id;
+
+                    var imageurl = imageHead + "/Content/images/man.png";
+
+                    var fir = "<a class=\"glyphicon glyphicon-plus\" onclick=\"AddMyBook('" + dataJson[i].Id + "','" + dataJson[i].Name + "');\">关注</a>";
+
+                    if (userIds.indexOf(dataJson[i].Id) > 0) {
+                        fir = "<a class=\"glyphicon glyphicon-remove\" onclick=\"RemoveMyBook('" + dataJson[i].Id + "','" + dataJson[i].Name + "');\">取消</a>";
+                    }
+
+                    $.ajax({
+                        url: "../../../upload/headimages/" + dataJson[i].Id + ".jpg",
+                        error: function (xhr, error, ex) {
+                            if (xhr.status === '404') {
+                                imageurl = imageHead + "/Content/images/man.png";
+                            }
+                        },
+                        success: function () {
+                            imageurl = "../../../upload/headimages/" + dataJson[i].Id + ".jpg";
+                        }
+                    });
+
+                    var xxmc = dataJson[i].XXMC;
+
+                    if (xxmc.length > 11) {
+                        xxmc = xxmc.substring(0, 11);
+                    }
+
+                    html += "<li id=\"" + dataJson[i].Id + "\"><div class=\"user-pic\"><a target=\"_blank\" href=\"" + link +
+                        "\"><img src=\"" + imageurl + "\"/></a>" +
+                        "</div><div class=\"user-right\"><p id=\"" + pid + "\">" + dataJson[i].Name + fir + "</p><p title=\"" + dataJson[i].XXMC + "\">" +
+                        xxmc + "</p></div></li>";
+                }
+
+                $("#ulresult").html(html);
+            }
+        });
+    }
+
+    function GetUserListByPage(url, center, page) {
+        var https = $("#hidAPIHTTP").val();
+        var imageHead = $("#hidImageHead").val();
+        var userIds = $("#divuserids").html();
+
+        $.get(https + url, function (data) {
+
+            if (data != null && data.UserList != null && data.UserList.length > 0) {
+
+                var dataJson = data.UserList;
+
+                $("#callBackPager").show();
+
+                var html = "";
+
+                for (var i = 0; i < dataJson.length; i++) {
+
+                    var pid = "p" + dataJson[i].Id;
+
+                    var link = imageHead + "/" + center + "/Query?id=" + dataJson[i].Id;
+
+                    var imageurl = imageHead + "/Content/images/man.png";
+
+                    var fir = "<a class=\"glyphicon glyphicon-plus\" onclick=\"AddMyBook('" + dataJson[i].Id + "','" + dataJson[i].Name + "');\">关注</a>";
+
+                    if (userIds.indexOf(dataJson[i].Id) > 0) {
+                        fir = "<a class=\"glyphicon glyphicon-remove\" onclick=\"RemoveMyBook('" + dataJson[i].Id + "','" + dataJson[i].Name + "');\">取消</a>";
+                    }
+
+                    $.ajax({
+                        url: "../../../upload/headimages/" + dataJson[i].Id + ".jpg",
+                        error: function (xhr, error, ex) {
+                            if (xhr.status === '404') {
+                                imageurl = imageHead + "/Content/images/man.png";
+                            }
+                        },
+                        success: function () {
+                            imageurl = "../../../upload/headimages/" + dataJson[i].Id + ".jpg";
+                        }
+                    });
+
+                    var xxmc = dataJson[i].XXMC;
+
+                    if (xxmc.length > 11) {
+                        xxmc = xxmc.substring(0, 11);
+                    }
+
+                    html += "<li id=\"" + dataJson[i].Id + "\"><div class=\"user-pic\"><a target=\"_blank\" href=\"" + link +
+                        "\"><img src=\"" + imageurl + "\"/></a>" +
+                        "</div><div class=\"user-right\"><p id=\"" + pid + "\">" + dataJson[i].Name + fir + "</p><p title=\"" + dataJson[i].XXMC + "\">" +
+                        xxmc + "</p></div></li>";
+                }
+
+                $("#ulresult").html(html);
+            }
+        });
+    }
+
+    function GetUserList() {
+
+        var type = $("#hidType").val();
+        var html = "<div><img style=\"margin-left: 45%;\" src=\"@Url.Content("~/Content/images/loading.gif")\"/><br/>" +
+    "<span style=\"margin-left: 40%; font-size: 12px;\">正在加载数据，请稍候...</span></div>";
+
+        $("#ulresult").html(html);
+        $("#callBackPager").hide();
+
+        var userName = $("#txtName").val();
+        var schoolId = $("#school").val();
+
+        if (userName != null && userName.length > 0) {
+
+            $("#hidUserName").val(userName);
+
+            //教师
+            if (type === "1") {
+                GetUserListByName("/RedisCache.Api/api/user/SchoolUsers/teacherSearch/" + schoolId + "/" + userName + "/12/1", "TeacherCenter");
+            } else {
+                GetUserListByName("/RedisCache.Api/api/user/SchoolUsers/studentSearch/" + schoolId + "/" + userName + "/12/1", "StudentCenter");
+            }
+        } else {
+            $("#hidUserName").val("");
+
+            //教师
+            if (type === "1") {
+                GetUserListByName("/RedisCache.Api/api/user/SchoolUsers/teacher/" + schoolId + "/12/1", "TeacherCenter");
+            } else {
+                GetUserListByName("/RedisCache.Api/api/user/SchoolUsers/student/" + schoolId + "/12/1", "StudentCenter");
+            }
+        }
+
+    }
+
+    function createTeaTable(currPage) {
+        var html = "<div><img style=\"margin-left: 45%;\" src=\"@Url.Content("~/Content/images/loading.gif")\"/><br/>" +
+    "<span style=\"margin-left: 40%; font-size: 12px;\">正在加载数据，请稍候...</span></div>";
+
+        $("#ulresult").html(html);
+        $("#callBackPager").hide();
+        var schoolId = $("#school").val();
+        var userName = $("#hidUserName").val();
+
+        if (userName != null && userName.length > 0) {
+            GetUserListByPage("/RedisCache.Api/api/user/SchoolUsers/teacherSearch/" + schoolId + "/" + userName + "/12/" + currPage, "TeacherCenter", currPage);
+        } else {
+            GetUserListByPage("/RedisCache.Api/api/user/SchoolUsers/teacher/" + schoolId + "/12/" + currPage, "TeacherCenter", currPage);
+        }
+    }
+
+    function createStuTable(currPage) {
+        var html = "<div><img style=\"margin-left: 45%;\" src=\"@Url.Content("~/Content/images/loading.gif")\"/><br/>" +
+    "<span style=\"margin-left: 40%; font-size: 12px;\">正在加载数据，请稍候...</span></div>";
+
+        $("#ulresult").html(html);
+        $("#callBackPager").hide();
+        var schoolId = $("#school").val();
+        var userName = $("#hidUserName").val();
+
+        if (userName != null && userName.length > 0) {
+            GetUserListByPage("/RedisCache.Api/api/user/SchoolUsers/studentSearch/" + schoolId + "/" + userName + "/12/" + currPage, "StudentCenter", currPage);
+        } else {
+            GetUserListByPage("/RedisCache.Api/api/user/SchoolUsers/student/" + schoolId + "/12/" + currPage, "StudentCenter", currPage);
+        }
+    }
+
+    function GetAreaList() {
+        var html = "";
+        $.ajax({
+            url: '@Url.Action("GetAreaList")',
+            success: function (data) {
+                if (data.length > 0) {
+                    $.each(data, function (idx, item) {
+                        html += "<li onclick=\"AreaClick(this);\" value=\"" + item.Id + "\"> " + item.Name + " </li>";
+                    });
+                }
+                $("#areaList").empty();
+                $("#areaList").append(html);
+            }
+        });
+    }
+
+    function AreaClick(obj) {
+        var value = $(obj).attr("value");
+        var text = $(obj).text();
+        $("#area").text(text);
+        $("#area").val(value);
+        GetSchoolList();
+    }
+
+    function GetSchoolTypeList() {
+        var html = "";
+        $.ajax({
+            url: '@Url.Action("GetSchoolTypeList")',
+            success: function (data) {
+                if (data.length > 0) {
+                    $.each(data, function (idx, item) {
+                        html += "<li onclick=\"TypeClick(this);\" value=\"" + item.Id + "\"> " + item.Name + " </li>";
+                    });
+                }
+                $("#typeList").empty();
+                $("#typeList").append(html);
+            }
+        });
+    }
+
+    function TypeClick(obj) {
+        var value = $(obj).attr("value");
+        var text = $(obj).text();
+        $("#type").text(text);
+        $("#type").val(value);
+        GetSchoolList();
+    }
+
+    function GetSchoolList() {
+        $("#school").text("选择学校");
+        $("#school").val("");
+
+        var areaId = $("#area").val();
+        var typeId = $("#type").val();
+
+        if (areaId.length > 0 && typeId.length > 0) {
+            var html = "";
+            $.ajax({
+                url: '@Url.Action("GetSchoolList")',
+                data: { areaId: areaId, typeId: typeId },
+                success: function (data) {
+                    if (data.length > 0) {
+                        $.each(data, function (idx, item) {
+                            html += "<li onclick=\"SchoolClick(this);\" title=\"" + item.XXMC + "\" value=\"" + item.XXID + "\"> " + item.XXMC + " </li>";
+                        });
+                    }
+                    $("#schoolList").empty();
+                    $("#schoolList").append(html);
+                }
+            });
+        }
+    }
+
+    function SchoolClick(obj) {
+        var value = $(obj).attr("value");
+        var text = $(obj).text();
+        $("#school").text(text);
+        $("#school").val(value);
+    }
+</script>

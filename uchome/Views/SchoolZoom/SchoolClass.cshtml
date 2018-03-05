@@ -1,0 +1,14 @@
+﻿<script>
+    $.ajax({
+        url: "@Url.Content("~/ashx/GetSchoolClass.ashx")",
+        data: { id: "A285FBD2-A823-4516-8489-96CCC8B68815" },
+         success: function (data) {
+             var schclass = eval("(" + data + ")"); //
+             $.each(schclass, function (idx, item) {
+                 var bjmc = item.bjmc;
+                 var njmc = item.njmc;
+                 $("#schclass").append("<li>" + njmc + "-" + bjmc + "</li>");
+             });
+         }
+     })
+ </script>

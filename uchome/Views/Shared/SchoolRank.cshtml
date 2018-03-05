@@ -1,0 +1,16 @@
+﻿@{
+    Layout = null;
+    int index = 1;
+}
+@model List<UCHome.Model.SchoolRank>
+<ul>
+    @foreach (var item in Model)
+    {
+        <li>
+            <span class="news-dot a-font">@index</span>
+            <a title="@item.XXMC" class="a-font" href="@Url.Action("index","SchoolCenter",new {id = @item.XXID})"><span>-&nbsp;</span>@item.Title<span class="a-num">@item.Hits</span></a>
+        </li>
+        <div class="dotted"></div>
+        index++;
+    }
+</ul>

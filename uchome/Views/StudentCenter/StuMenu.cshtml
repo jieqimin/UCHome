@@ -1,0 +1,56 @@
+﻿@using UCHome.Model
+@model UserInfo
+<style>
+    .list-group-item {
+        cursor: pointer;
+    }
+</style>
+<div class="row center-align">
+    <ul id="sysman" class="list-group list-group-noborder kjtd ">
+        <li id="mystatic" class="list-group-item {{selvalue1}}">
+            <span class="glyphicon glyphicon-list"></span><a href="@Url.Action("Query", "StudentCenter", new { id = Model.userid })" target="_self">个人动态</a>
+        </li>
+        <li id="mysay" class="list-group-item {{selvalue2}}">
+            <span class="glyphicon glyphicon-heart"></span><a>心情说说</a>
+        </li>
+        <li id="mylog" class="list-group-item {{selvalue3}}">
+            <span class="glyphicon glyphicon-list-alt"></span><a target="_self">个人文章</a>
+        </li>
+        <li id="myphoto" class="list-group-item {{selvalue4}}">
+            <span class="glyphicon glyphicon-picture"></span><a target="_self">个人相册</a>
+        </li>
+        <li id="mymessage" class="list-group-item {{selvalue6}}">
+            <span class="glyphicon glyphicon-comment"></span><a target="_self">留言板</a>
+        </li>
+        <li id="mystudy" class="list-group-item {{selvalue6}}">
+            <span class="glyphicon glyphicon-tree-conifer"></span><a target="_self" href="http://jx.taedu.gov.cn:83/CourseCenter/Student/Index?XSID=@(Model.userid)">个人成长</a>
+        </li>
+         <li id="myperform" class="list-group-item {{selvalue6}}">
+            <span class="glyphicon glyphicon-thumbs-up"></span><a target="_self">个人表现</a>
+        </li>
+    </ul>
+</div>
+<script>
+    $(function () {
+        $("#mylog").click(function () {
+            loaddata($("#teacherhome"));
+            $("#teacherhome").load("@Url.Action("PersonLog2", "PublicShare", new { id = Model.userid })");
+        });
+        $("#myphoto").click(function () {
+            loaddata($("#teacherhome"));
+            $("#teacherhome").load("@Url.Action("PersonPhoto2", "PublicShare", new { id = Model.userid })");
+        });      
+        $("#mymessage").click(function () {
+            loaddata($("#teacherhome"));
+            $("#teacherhome").load("@Url.Action("PersonMessage2", "PublicShare", new { id = Model.userid })");
+        });
+        $("#mysay").click(function () {
+            loaddata($("#teacherhome"));
+            $("#teacherhome").load("@Url.Action("PersonSay2", "PublicShare", new { id = Model.userid })");
+        });
+        $("#myperform").click(function () {
+            loaddata($("#teacherhome"));
+            $("#teacherhome").load("@Url.Action("DYInfo", "ParentsCenter", new { id = Model.userid })");
+         });
+    })
+</script>

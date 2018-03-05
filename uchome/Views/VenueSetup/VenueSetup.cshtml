@@ -1,0 +1,97 @@
+﻿@{
+    Layout = null;
+}
+<link rel="stylesheet" href="@Url.Content("~/Content/css/msg.css")">
+<script src="@Url.Content("~/plugs/usercontrol/selectuser.js")"></script>
+@using M = VenueSetup.Model;
+@model M.MeetingRoom
+<form id="form_venueSetup" method="POST">
+    @Html.HiddenFor(model => model.ID)
+    <div id="venueSetup" class="form-horizontal form-position pagew ">
+        <div class="form-group">
+            <label for="MeetingRoomName" class="col-sm-2 control-label">场馆名称：</label>
+            <div class="col-sm-6">
+                <input type="text" class="form-control" id="MeetingRoomName" name="MeetingRoomName" placeholder="请输入场馆名称" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="RoomAddress" class="col-sm-2 control-label">场馆地址：</label>
+            <div class="col-sm-6">
+                <input type="text" class="form-control" id="RoomAddress" name="RoomAddress" placeholder="请输入场馆地址" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="NumberOfContainPeople" class="col-sm-2 control-label">容纳人数：</label>
+            <div class="col-sm-6">
+                <input type="text" class="form-control" id="NumberOfContainPeople" name="NumberOfContainPeople" placeholder="请输入容纳人数" />
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="btn-group center-block" style="width: 200px;">
+                <button id="btnSend" type="button" class="btn btn-info dropdown-toggle" data-toggle="button" aria-haspopup="true" aria-expanded="false">
+                    保存
+                </button>
+            </div>
+        </div>
+        <div class="form-group">
+            <ul id="validmsg"></ul>
+        </div>
+    </div>
+</form>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#btnSend").click(function () {
+            $("#form_venueSetup").submit();
+        });
+        var validator = $("#form_venueSetup").validate({
+            rules: {
+                MeetingRoomName: "required",
+                RoomAddress: "required",
+                NumberOfContainPeople: "number"
+            },
+            messages: {
+                MeetingRoomName: "请输入场馆名称",
+                RoomAddress: "请输入场馆地址",
+                NumberOfContainPeople: "请正确的格式"
+            },
+            errorClass: "red",//设置错误样式
+            errorElement: "label",//设置显示错误提示的控件,默认为<label>
+            errorLabelContainer: "#validmsg",//指定错误信息放置容器
+            wrapper: "li",
+            //errorPlacement: function (error,element) { //指定错误信息放置位置
+            //    error.appendTo($("#validmsg"));
+            //},
+            //debug: true//进行调试模式（表单不提交）
+            submitHandler: function () {
+                $("#form_venueSetup").ajaxSubmit({
+                    url: "@Url.Action("VenueSetup")",
+                    success: function (data) {
+                        if (data.Data.statuscode == 200) {
+                            var obj = "<div id='operresultmsg' class='alert alert-success center-block' role='alert'>保存成功！</div>";
+                            $("form").append(obj);
+
+                            validator.resetForm(); //重置表单
+                            $("#validmsg").show();
+                            var guid = '@Guid.NewGuid().ToString()';
+                            $("#ID").val(guid); //动态生成newid
+                            setTimeout(function () {
+                                $("#operresultmsg").remove();
+                            }, 2000);
+                        } else {
+                            var obj = "<div id='operresultmsg' class='alert alert-danger center-block' role='alert'>保存失败，请重试！<p style='display:none'>" + data.Data.msg + "</p></div>";
+                            $("form").append(obj);
+
+                            setTimeout(function () {
+                                $("#operresultmsg").remove();
+                            }, 2000);
+                        }
+                    }
+                });
+            }
+            //onsubmit: false,//是否提交时验证，默认为True,用于设置某一个不需要验证的控件
+            //onfocusin: false,//是否获取焦点时验证，默认为True
+            //onkeyup: false,//是否在敲击键盘时验证，默认为True
+            //onclick: false//是否在鼠标点击时验证，默认为True
+        });
+    });
+</script>

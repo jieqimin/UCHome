@@ -1,0 +1,591 @@
+﻿body {
+        background-image: url("../images/bg_xs.jpg");
+}
+.top, .top_content {
+    background-color: #81ca37;
+}
+
+.content, .content2 {
+    background: url(../images/bg_student.png) no-repeat;
+    background-color: #81ca37;
+}
+
+.concent_body, .concent_body2 {
+    margin-top: 80px;
+    width: 990px;
+}
+
+.body_left {
+    float: left;
+    width: 150px;
+    position: relative;
+}
+
+.body_left2 {
+    float: left;
+    width: 230px;
+    margin-left: 10px;
+}
+
+    .body_left2 .message {
+        height: 70px;
+        margin: 10px auto;
+        width: 230px;
+        text-align: center;
+        background-color: #fff;
+    }
+
+        .body_left2 .message ul {
+            height: 70px;
+            margin: 0 auto;
+            width: 210px;
+        }
+
+        .body_left2 .message li {
+            color: #000;
+            line-height: 35px;
+            font-size: 16px;
+            cursor: pointer;
+            float: left;
+            width: 70px;
+            text-align: center;
+        }
+
+            .body_left2 .message li .count {
+                display: block;
+                background: url("../images/tip.png") no-repeat center center;
+                color: #ffffff;
+                line-height: 15px;
+                font-size: 12px;
+                width: 70px;
+                text-align: center;
+            }
+
+    .body_left2 .br_content1 {
+        background: url("../images/student.png") no-repeat center top;
+        position: relative;
+        min-height: 200px;
+        background-color: #fff;
+    }
+
+        .body_left2 .br_content1 .teaphoto {
+            margin-top: 30px;
+            margin-left: 85px;
+            width: 60px;
+            height: 60px;
+        }
+
+        .body_left2 .br_content1 .teaname {
+            height: 40px;
+            line-height: 40px;
+            top: 90px;
+            text-align: center;
+            width: 230px;
+            font-size: 16px;
+        }
+
+        .body_left2 .br_content1 .teainfo {
+            font-size: 14px;
+            top: 130px;
+            text-align: center;
+            width: 230px;
+            height: 25px;
+            letter-spacing: 2px;
+        }
+
+        .body_left2 .br_content1 .teaclass {
+            font-size: 12px;
+            top: 160px;
+            text-align: center;
+            width: 230px;
+            border-top: solid #ccc 1px;
+            height: 25px;
+            line-height: 25px;
+            letter-spacing: 5px;
+        }
+
+    .body_left2 .shortcut {
+        margin-top: 10px;
+        background-color: #fff;
+        color: #008080;
+    }
+
+        .body_left2 .shortcut li {
+            height: 38px;
+            line-height: 38px;
+            font-size: 14px;
+            letter-spacing: 2px;
+            text-indent: 30px;
+            cursor: pointer;
+        }
+
+            .body_left2 .shortcut li:hover {
+                background-color: #cccccc;
+            }
+
+            .body_left2 .shortcut li a {
+                color: #008080;
+                height: 38px;
+                line-height: 38px;
+                font-size: 14px;
+                letter-spacing: 2px;
+                cursor: pointer;
+                text-decoration: none;
+            }
+
+    .body_left2 .Attentionlist {
+        margin-top: 10px;
+        margin-bottom: 5px;
+    }
+
+.content2 .body_center2 {
+    float: left;
+    width: 730px;
+    margin: 0 10px;
+    padding-bottom: 10px;
+    background-color: #fff;
+
+}
+
+.body_left .message {
+    height: 98px;
+    padding-left: 20px;
+}
+
+    .body_left .message ul {
+        height: 100px;
+    }
+
+    .body_left .message li {
+        color: #fff;
+        height: 35px;
+        line-height: 35px;
+        font-size: 14px;
+        position: relative;
+        cursor: pointer;
+    }
+
+        .body_left .message li .count {
+            display: block;
+            background: url("../images/tip.png") no-repeat right center;
+            position: absolute;
+            top: 10px;
+            right: 14px;
+            color: #ffffff;
+            line-height: 15px;
+            font-size: 12px;
+            width: 28px;
+            text-align: center;
+        }
+
+.body_left .shortcut {
+    margin-top: 20px;
+}
+
+    .body_left .shortcut li {
+        color: #fff;
+        height: 38px;
+        line-height: 38px;
+        font-size: 14px;
+        letter-spacing: 2px;
+        text-indent: 20px;
+        cursor: pointer;
+    }
+
+        .body_left .shortcut li:hover {
+            background-color: #90e13d;
+        }
+
+        .body_left .shortcut li a {
+            color: #fff;
+            height: 38px;
+            line-height: 38px;
+            font-size: 14px;
+            letter-spacing: 2px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+.body_center {
+    float: left;
+    width: 600px;
+    margin-right: 10px;
+}
+
+.body_right {
+    float: left;
+    width: 230px;
+    overflow: hidden;
+    margin-bottom: 10px;
+}
+
+
+.dmenu {
+    height: 40px;
+    border-bottom: solid 1px #ddd;
+}
+
+    .dmenu li {
+        line-height: 40px;
+        height: 40px;
+        font-size: 16px;
+        float: left;
+        cursor: pointer;
+    }
+
+        .dmenu li:hover, .dmenu li.selected {
+            background: url("../images/selected.png") no-repeat center bottom;
+        }
+
+.selectbj {
+    height: 30px;
+    line-height: 30px;
+    font-size: 16px;
+    border-bottom: solid 1px #ddd;
+    background-color: #ffffff;
+    margin-top: 10px;
+    text-align: center;
+    font-size: 12px;
+    color: #800000;
+    cursor: pointer;
+}
+
+.dtitle {
+    height: 35px;
+    line-height: 35px;
+    font-size: 16px;
+    border-bottom: solid 1px #ddd;
+}
+
+    .dtitle .down {
+        margin-left: 5px;
+        cursor: pointer;
+    }
+
+.bc_content0 {
+    height: 66px;
+    width: 598px;
+    margin-bottom: 10px;
+    background-color: #fff;
+    border: solid 1px #74a7c5;
+    overflow: hidden;
+}
+
+    .bc_content0 .txtcontent {
+        border: 0;
+        width: 500px;
+        height: 66px;
+        overflow-y: hidden;
+        float: left;
+        line-height: 22px;
+        text-indent: 5px;
+    }
+
+    .bc_content0 .sendc {
+        background-color: #32cd32;
+        width: 96px;
+        height: 66px;
+        line-height: 66px;
+        font-size: 16px;
+        float: right;
+        border: 0;
+        text-align: center;
+        color: #ffffff;
+        font-family: 微软雅黑;
+        cursor: pointer;
+    }
+
+.bc_content1 {
+    height: 260px;
+    margin-bottom: 10px;
+    background-color: #fff;
+    overflow: hidden;
+}
+
+.bc_content2 {
+    height: 230px;
+    margin-bottom: 10px;
+    background-color: #fff;
+    overflow: hidden;
+}
+
+.bc_content3 {
+    height: 361px;
+    margin-bottom: 10px;
+    background-color: #fff;
+    overflow: hidden;
+}
+
+.bc_content4 {
+    height: 362px;
+    margin-bottom: 10px;
+    background-color: #fff;
+    overflow: hidden;
+}
+
+    .bc_content1 .dtitle, .bc_content3 .dtitle, .bc_content4 .dtitle, .info-content .dtitle {
+        background: url("../images/icon.png") no-repeat 14px center;
+        text-indent: 35px;
+    }
+
+    .bc_content2 .dmenu li, .bc_content4 .dmenu li {
+        width: 90px;
+        text-align: center;
+    }
+
+.bc_content3 dl {
+    margin-left: 2px;
+}
+
+    .bc_content3 dl:last-child {
+        border-bottom: solid 1px #CFCFCF;
+    }
+
+.bc_content3 dt, .bc_content3 dd {
+    width: 98px;
+    height: 37px;
+    line-height: 37px;
+    float: left;
+    text-align: center;
+    background-color: #F3F3F3;
+    font-size: 12px;
+    color: #666;
+}
+
+.bc_content3 dt {
+    border-top: solid 1px #CFCFCF;
+    border-left: solid 1px #CFCFCF;
+    border-right: solid 1px #CFCFCF;
+}
+
+.bc_content3 dd {
+    border-right: solid 1px #CFCFCF;
+    border-top: solid 1px #CFCFCF;
+}
+
+    .bc_content3 dd.selected {
+        background-color: orangered;
+        color: #ffffff;
+        cursor: pointer;
+    }
+
+    .bc_content3 dd:hover {
+        background-color: orange;
+        color: #ffffff;
+        cursor: pointer;
+    }
+
+.dinfo {
+    padding: 7px 0;
+}
+
+    .dinfo li {
+        height: 35px;
+        font-size: 14px;
+        font-family: 微软雅黑;
+        list-style-type: none;
+        vertical-align: middle;
+    }
+
+        .dinfo li a {
+            display: block;
+            height: 35px;
+            line-height: 35px;
+            text-decoration: none;
+            color: #666;
+            text-indent: 35px;
+            list-style-type: disc;
+            font-size: 13px;
+            letter-spacing: 1px;
+        }
+
+            .dinfo li a:hover {
+                color: red;
+            }
+
+.body_right .br_content1 {
+    background: url("../images/student.png") no-repeat;
+    position: relative;
+    min-height: 230px;
+    background-color: #fff;
+    top: 0;
+}
+
+    .body_right .br_content1 .teaphoto {
+        margin-top: 30px;
+        margin-left: 85px;
+        width: 60px;
+        height: 60px;
+    }
+
+    .body_right .br_content1 .teaname {
+        height: 40px;
+        line-height: 40px;
+        top: 90px;
+        text-align: center;
+        width: 230px;
+        font-size: 16px;
+    }
+
+    .body_right .br_content1 .teainfo {
+        font-size: 14px;
+        top: 130px;
+        text-align: center;
+        width: 230px;
+        height: 25px;
+        letter-spacing: 2px;
+    }
+
+    .body_right .br_content1 .teaclass {
+        font-size: 12px;
+        top: 160px;
+        text-align: center;
+        width: 230px;
+        border-top: solid #ccc 1px;
+        height: 25px;
+        line-height: 25px;
+        letter-spacing: 5px;
+    }
+
+.br_content2, .br_content3 {
+    height: 395px;
+    margin-top: 10px;
+    background-color: #fff;
+}
+
+.br_content4 {
+    height: 230px;
+    margin-top: 10px;
+    background-color: #fff;
+}
+
+.dinfo2 li {
+    line-height: 22px;
+    font-size: 12px;
+    margin-left: 20px;
+    margin-top: 5px;
+    margin-right: 20px;
+    border-bottom: dotted 1px #ccc;
+}
+
+    .dinfo2 li span {
+        color: chocolate;
+    }
+
+.br_content2 .dtitle, .br_content3 .dtitle, .br_content4 .dtitle {
+    text-align: center;
+}
+
+.br_content2 .dpicture li, .br_content3 .dpicture li {
+    height: 53px;
+    padding-left: 20px;
+    vertical-align: middle;
+}
+
+    .br_content2 .dpicture li:hover, .br_content3 .dpicture li:hover {
+        background-color: #8fc2df;
+        cursor: pointer;
+    }
+
+.dpicture a, .dpicture a:hover, .dpicture a:visited {
+    text-decoration: none;
+    color: #000;
+    cursor: pointer;
+}
+
+.dpicture dd.photo {
+    width: 43px;
+    height: 43px;
+    margin: 5px;
+    float: left;
+}
+
+.dpicture dd.info {
+    width: 120px;
+    height: 43px;
+    line-height: 43px;
+    margin: 5px;
+    float: left;
+    text-indent: 30px;
+}
+
+    .dpicture dd.info p {
+        width: 80px;
+        height: 30px;
+        line-height: 30px;
+        font-size: 13px;
+    }
+
+.dpicture dd.msgcount {
+    background: url("../images/tip.png") no-repeat right center;
+    width: 30px;
+    height: 60px;
+    line-height: 60px;
+    margin: 5px;
+    float: left;
+    color: #fff;
+    text-align: center;
+    font-size: 12px;
+}
+
+.br_content2 .more, .br_content3 .more, .br_content4 .more {
+    border-top: solid 1px #ccc;
+    font-size: 13px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    background: url("../images/more.png") no-repeat 150px center;
+    cursor: pointer;
+}
+
+.news {
+    margin: 10px 5px;
+}
+
+    .news li {
+        margin: 5px auto;
+        height: 30px;
+        line-height: 30px;
+    }
+
+        .news li span, .news li p {
+            display: block;
+            line-height: 35px;
+            font-size: 12px;
+        }
+
+        .news li p {
+            clear: both;
+            text-indent: 5px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+            .news li p.person {
+                background: url("../images/icon-right.png") no-repeat 5px center;
+                border-bottom: dotted 1px #ccc;
+                float: left;
+                text-indent: 20px;
+            }
+
+        .news li .newsdate {
+            width: 80px;
+            float: right;
+            color: #666;
+        }
+
+        .news li .newscontent {
+            line-height: 35px;
+            float: left;
+            color: #007bc1;
+            text-overflow:ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+            width: 480px;
+            display: inline-block;
+        }
+
+            .news li .newscontent a {
+                color: #800000;
+                cursor: pointer;
+            }

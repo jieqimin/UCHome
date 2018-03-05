@@ -1,0 +1,203 @@
+﻿@using System.Web.Mvc
+@using M = UCHome.Model;
+@model M.UCHome_Notice
+<link rel="stylesheet" href="@Url.Content("~/Content/css/msg.css")">
+<script src="@Url.Content("~/plugs/usercontrol/selectuser.js")"></script>
+
+<style type="text/css">
+    .sel-notice {
+        width: 120px !important;
+        margin-right: 10px;
+    }
+</style>
+
+@using (Ajax.BeginForm("NoticeSend", null,
+    new AjaxOptions()
+    {
+        HttpMethod = "post",
+        Url = Url.Action("NoticeSend"),
+        UpdateTargetId = "#noticeSend",
+        LoadingElementId = "loding",
+        LoadingElementDuration = 2000
+    }, new { id = "form-familysch-noticesend" }))
+{
+    @Html.HiddenFor(model => model.NoticeID)
+    <div id="noticeSend" class="form-horizontal form-position pagew ">
+        <div class="form-group">
+            <label for="NoticeTypeCode" class="col-sm-2 control-label">通知类型：</label>
+            <div class="col-sm-9">
+                <select id="NoticeTypeCode" name="NoticeTypeCode" class="form-control input-sm col-xs-2 sel-notice">
+                </select>
+
+                <button type="button" class="btn btn-info dropdown-toggle selUsers" data-toggle="button"
+                    aria-haspopup="true" aria-expanded="false">
+                    选择人员
+                </button>
+
+                <button type="button" class="btn btn-info dropdown-toggle selOneUser" data-toggle="button"
+                    aria-haspopup="true" aria-expanded="false">
+                    选择人员
+                </button>
+
+                <div id="showSelectUserName">
+                </div>
+                <input id="selectUserID" name="selectUserID" type="hidden" value="" />
+                <input id="selectUserName" name="selectUserName" type="hidden" value="" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="NoticeTitle" class="col-sm-2 control-label">通知标题：</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" id="NoticeTitle" name="NoticeTitle" placeholder="请输入通知标题并且在50字以内" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="NoticeContent" class="col-sm-2 control-label">通知内容：</label>
+            <div class="col-sm-9">
+                <textarea class="form-control" id="NoticeContent" name="NoticeContent" rows="5" placeholder="请输入通知内容并且在300字以内" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="btn-group center-block" style="width: 200px;">
+                <button id="btnSend" type="button" class="btn btn-info dropdown-toggle" data-toggle="button" aria-haspopup="true" aria-expanded="false">
+                    立即发送 
+                </button>
+            </div>
+        </div>
+        <div class="form-group">
+            <ul id="validmsg"></ul>
+        </div>
+    </div>
+}
+
+<script>
+    $(document).ready(function () {
+        var seluser1 = new SelUser({
+            obj: $(".selUsers"),
+            selRole: "tea",//tea,stu,fam
+            selType: "muti",//多选：muti,单选:single
+            selArea: "stuparent",//friend:我的好友,student:我的学生,stuparent:学生家长,colleague:我的同事,myclassmate:我的同学,teacher:我的老师,classmateparent:同学家长
+            selValue: $("#selectUserID"),
+            selText: $("#showSelectUserName"),
+            callBackfn: function (ids, names) {
+                //将先中的结果进行处理
+                $("#selectUserID").val(ids);
+                $("#selectUserName").val(names);
+                $("#showSelectUserName").text(names);
+            }
+        });
+        var seluser2 = new SelUser({
+            obj: $(".selOneUser"),
+            selRole: "tea",//tea,stu,fam
+            selType: "single",//多选：muti,单选:single
+            selArea: "stuparent",//friend:我的好友,student:我的学生,stuparent:学生家长,colleague:我的同事,myclassmate:我的同学,teacher:我的老师,classmateparent:同学家长
+            selValue: $("#selectUserID"),
+            selText: $("#showSelectUserName"),
+            callBackfn: function (ids, names) {
+                //将先中的结果进行处理
+                $("#selectUserID").val(ids);
+                $("#selectUserName").val(names);
+                $("#showSelectUserName").text(names);
+            }
+        });
+
+        $(".selUsers").hide();
+        $(".selOneUser").hide();
+
+        $.getJSON('@Url.Action("GetNoticeTypeList")', function (data) {
+            $.each(data, function (i, item) {
+                $("<option></option>").val(item["Value"]).text(item["Text"]).appendTo($("#NoticeTypeCode"));
+            });
+        });
+
+        $("#NoticeTypeCode").change(function () {
+            $("#selectUserID").val("");
+            $("#selectUserName").val("");
+            $("#showSelectUserName").text("");
+
+            var v = $(this).val();
+            if (v == "2") {
+                $(".selUsers").show();
+                $(".selOneUser").hide();
+            } else if (v == "3") {
+                $(".selUsers").hide();
+                $(".selOneUser").show();
+            } else {
+                $(".selUsers").hide();
+                $(".selOneUser").hide();
+            }
+        });
+
+        $("#btnSend").click(function () {
+            var code = $("#NoticeTypeCode").val();
+            var userids = $("#selectUserID").val();
+            if ((userids == "" || userids == null) && code != "1") {
+                var tag = $("#validmsg > li > label[for='selectUserID']").attr("for");
+                if (tag != "selectUserID") {
+                    var obj = "<li><label for=\"selectUserID\" generated=\"true\" class=\"red\" style=\"display: inline-block;\">请选择人员</label></li>";
+                    $("#validmsg").append(obj);
+                }
+            } else {
+                $("#validmsg li").remove();
+                $("#form-familysch-noticesend").submit();
+            }
+            $("#validmsg").show();
+        });
+
+        var validator = $("#form-familysch-noticesend").validate({
+            rules: {
+                NoticeTitle: "required",
+                NoticeContent: "required"
+            },
+            messages: {
+                NoticeTitle: "请输入通知标题并且在50字以内",
+                NoticeContent: "请输入通知内容并且在300字以内"
+            },
+            errorClass: "red",//设置错误样式
+            errorElement: "label",//设置显示错误提示的控件,默认为<label>
+            errorLabelContainer: "#validmsg",//指定错误信息放置容器
+            wrapper: "li",
+            //errorPlacement: function (error,element) { //指定错误信息放置位置
+            //    error.appendTo($("#validmsg"));
+            //},
+            //debug: true//进行调试模式（表单不提交）
+            submitHandler: function () {
+                $("#form-familysch-noticesend").ajaxSubmit({
+                    success: function (data) {
+                        if (data.Data.statuscode == 200) {
+                            var obj = "<div id='operresultmsg' class='alert alert-success center-block' role='alert'>发送成功！</div>";
+                            $("form").append(obj);
+
+                            validator.resetForm();//重置表单 
+                            $("#selectUserID").val("");
+                            $("#selectUserName").val("");
+                            $("#showSelectUserName").text("");
+                            $("#validmsg").show();
+                            $(".selUsers").hide();
+                            $(".selOneUser").hide();
+
+                            var guid = '@Guid.NewGuid().ToString()';
+                            $("#NoticeID").val(guid);//动态生成newid
+
+                            setTimeout(function () {
+                                $("#operresultmsg").remove();
+                            }, 2000);
+                        } else {
+                            var obj = "<div id='operresultmsg' class='alert alert-danger center-block' role='alert'>发送失败，请重试！<p style='display:none'>" + data.Data.msg + "</p></div>";
+                            $("form").append(obj);
+
+                            setTimeout(function () {
+                                $("#operresultmsg").remove();
+                            }, 2000);
+                        }
+                    }
+                })
+            }
+            //onsubmit: false,//是否提交时验证，默认为True,用于设置某一个不需要验证的控件
+            //onfocusin: false,//是否获取焦点时验证，默认为True
+            //onkeyup: false,//是否在敲击键盘时验证，默认为True
+            //onclick: false//是否在鼠标点击时验证，默认为True
+        })
+    })
+</script>

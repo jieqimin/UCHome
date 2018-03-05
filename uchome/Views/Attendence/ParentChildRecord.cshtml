@@ -1,0 +1,68 @@
+﻿@{
+    Layout = null;
+}
+<link href="@Url.Content("~/Content/css/StuRecordIndex.css")" rel="stylesheet"/>
+<link rel="stylesheet" href="@Url.Content("~/plugs/datetimepicker/css/bootstrap-datetimepicker.css")">
+<script src="@Url.Content("~/plugs/datetimepicker/js/bootstrap-datetimepicker.min.js")"></script>
+<script src="@Url.Content("~/plugs/datetimepicker/js/bootstrap-datetimepicker.zh-CN.js")"></script>
+<link rel="stylesheet" href="@Url.Content("~/plugs/datatables/css/jquery.dataTables.css")">
+<link rel="stylesheet" href="@Url.Content("~/plugs/datatables/css/dataTables.bootstrap.css")">
+<script src="@Url.Content("~/plugs/datatables/js/jquery.datatables.js")"></script>
+<script src="@Url.Content("~/plugs/datatables/js/dataTables.bootstrap.js")"></script>
+<div ng-controller="ParentChildRecord" class="clearfix">
+    <div class="row  toolBar">
+
+        <div class="col-sm-3">
+            <label>开始时间:</label>
+            <input type="text" class="form-control" ng-model="StartTime" id="starttime" readonly>
+        </div>
+        <div class="col-sm-3">
+            <label>结束时间:</label>
+            <input type="text" class="form-control" ng-model="EndTime" id="endtime" readonly>
+        </div>
+        <div class="col-sm-3">
+            <input type="button" class="btn btn-sm btn-default" value="查询" ng-click="SearchRecord()">
+        </div>
+    </div>
+    <hr/>
+    <table class="table table-hover table-condensed table-bordered datatable" id="recordTable" >
+        <thead>
+            <tr>
+                <th>姓名</th>
+                <th>位置</th>
+                <th>进入时间</th>
+                <th>离开时间</th>
+            </tr>
+        </thead>
+        
+    </table>
+
+</div>
+<script>
+    $(function () {
+        $('#starttime,#endtime').datetimepicker({
+            language: 'zh-CN',
+            format: 'yyyy-mm-dd hh:ii',
+            autoclose: true,
+            todayBtn: true
+        }).on('changeDate', function (ev) {
+            $("input[type=button]").removeAttr("disabled");
+            $("#starttime,#endtime").css({ "border-color": "#ccc" });
+            if (ev.target.id == "starttime") {
+                var endDate = new Date($("#endtime").val());
+                if (ev.date > endDate) {
+                    $("input[type=button]").attr("disabled", "disabled");
+                    $("#starttime").css({ "border-color": "#ff4500" });
+                }
+            } else {
+                var beginDate = new Date($("#starttime").val());
+                if (ev.date < beginDate) {
+                    $("input[type=button]").attr("disabled", "disabled");
+                    $("#endtime").css({ "border-color": "#ff4500" });
+                }
+            }
+            
+            
+        });;
+    })
+</script>

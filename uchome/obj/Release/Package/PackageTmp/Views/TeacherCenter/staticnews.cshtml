@@ -1,0 +1,43 @@
+﻿@using UCHome.Model;
+@model View_Simple_User
+@{
+    if (Model == null)
+    {
+    @Html.Raw("<div class=\"noinfo\">没有找到相应的任何信息！</div>")
+        return;
+    }
+}
+<ul class="news clearfix" id="teanews">
+</ul>
+<script  src="@Url.Content("~/scripts/Base64-80.js")"></script>
+<script>
+    $.ajax({
+        url: "@Url.Content("~/ashx/GetStaticnews.ashx")",
+        data: { id: "@Model.userid", topcount: 5, newstype: "self" },
+        success: function (data) {
+            var schclass = eval("(" + data + ")"); // 
+            var obj = "";
+            if (schclass.length > 0) {
+                $.each(schclass, function (idx, item) {
+                    var newsc = utf8to16(decode64(item.newscontent));
+                    var newsd = item.newsdate;
+                    var writefrom = item.writefrom;
+                    var pid = item.pid;
+                    if (writefrom == "article") {
+                        obj = "<li><p class=\"person\"><span class=\"newscontent\"><a onclick=\"viewloglnk('@Url.Action("logview2", "PublicShare")?pid=" + pid + "&uctype=" + writefrom + "&userid=@Model.userid')\">" + newsc + "</a></span><span class=\"newsdate\">" + newsd + "</span></p></li>";
+                        $("#teanews").append($(obj));
+                    } else {
+                        obj = "<li><p class=\"person\"><span class=\"newscontent\">" + newsc + "</span><span class=\"newsdate\">" + newsd + "</span></p></li>";
+                        $("#teanews").append($(obj));
+                    }
+                });
+            } else {
+                obj = "<li class=\"noinfo\"><p class=\"person\"><span class=\"newscontent\">还没有任何动态信息！</span></p></li>";
+                $("#teanews").append($(obj));
+            }
+        }
+    });
+    function viewloglnk(url) {
+        $("#body_content").load(url);
+    }
+</script>

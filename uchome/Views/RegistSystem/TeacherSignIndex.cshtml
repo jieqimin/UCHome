@@ -1,0 +1,112 @@
+﻿@{
+    Layout = null;
+}
+@using M = TeacherAwards.Model;
+@model M.ViewModel.ActiveCountAndScoreModel
+<link rel="stylesheet" href="@Url.Content("~/Content/css/msg.css")">
+<link rel="stylesheet" href="@Url.Content("~/plugs/datatables/css/jquery.dataTables.css")">
+<link rel="stylesheet" href="@Url.Content("~/plugs/datatables/css/dataTables.bootstrap.css")">
+<script src="@Url.Content("~/plugs/datatables/js/jquery.datatables.js")"></script>
+<script src="@Url.Content("~/plugs/datatables/js/dataTables.bootstrap.js")"></script>
+
+@using (Ajax.BeginForm("RegistIndex", null,
+    new AjaxOptions()
+    {
+        HttpMethod = "post",
+        Url = Url.Action("RegistIndex"),
+        UpdateTargetId = "#index",
+        LoadingElementId = "loding",
+        LoadingElementDuration = 2000
+    }, new { id = "form_editSend" }))
+{
+    <div id="index" class="form-position pagew">
+        <div class="col-sm-9">
+            <span style="float: left; padding-top: 6px;">时间&nbsp;&nbsp;</span>
+            <div class="date form_datetime input-group" data-date-format="yyyy-mm-dd" data-link-field="dtp_input1" style="float: left; width: 170px;">
+                <input class="form-control" id="StartTime" name="StartTime" type="text" placeholder="开始日期">
+                <div class="input-group-addon">
+                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                </div>
+                <div class="input-group-addon">
+                    <span class="glyphicon glyphicon-th" aria-hidden="true"></span>
+                </div>
+            </div>
+            <span style="float: left; padding-top: 6px;">&nbsp;&nbsp;-&nbsp;&nbsp;</span>
+            <div class="date form_datetime input-group" data-date-format="yyyy-mm-dd" data-link-field="dtp_input1" style="float: left; width: 170px;">
+                <input class="form-control" id="EndTime" name="EndTime" type="text" placeholder="结束日期">
+                <div class="input-group-addon">
+                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                </div>
+                <div class="input-group-addon">
+                    <span class="glyphicon glyphicon-th" aria-hidden="true"></span>
+                </div>
+            </div>
+            <div style="float: left; margin-bottom: 10px;">
+                &nbsp;&nbsp;
+                <button id="btnSelect" onclick="clickGetSearchList();" type="button" class="btn btn-info dropdown-toggle" data-toggle="button" aria-haspopup="true" aria-expanded="false">
+                    查询
+                </button>
+            </div>
+        </div>
+        <div class="col-sm-9" style="margin-bottom: 10px;">
+            <span style="font-weight: bold; font-size: 16px; color: #1172B9;">参与次数：<font color="red">@Model.ActiveCount</font> 次，名次：<font color="red">@Model.ActiveCountRank</font>
+            &nbsp;&nbsp;&nbsp;&nbsp;</span>
+            <span style="font-weight: bold; font-size: 16px; color: #17ACC3;">
+                参与得分：<font color="red">@Model.ActiveScore</font> 分，名次：<font color="red">@Model.ActiveScoreRank</font>
+            </span>
+        </div>
+        <div class="component" id="dataContent">
+
+        </div>
+    </div>
+
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="clears();"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel" style="font-weight: bold;"></h4>
+                </div>
+                <div class="modal-body">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" onclick="clears()">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<script src="@Url.Content("~/plugs/datetimepicker/js/bootstrap-datetimepicker.min.js")"></script>
+<script src="@Url.Content("~/plugs/datetimepicker/js/bootstrap-datetimepicker.zh-CN.js")"></script>
+<script>
+    $('.form_datetime').datetimepicker({
+        minView: "month", //选择日期后，不会再跳转去选择时分秒
+        language: 'zh-CN',
+        format: 'yyyy-mm-dd',
+        autoclose: true
+    });
+</script>
+<script>
+    $(function () {
+        clickGetSearchList();
+    });
+
+    function openform(id) {
+        $('#myModal').modal('show');
+
+        $("#myModalLabel").html("活动报名详情");
+        var loadurl = "@Url.Action("TeacherSignDetails")?id=" + id;
+
+        if (loadurl !== "") {
+            $(".modal-body").load(loadurl);
+        }
+    }
+
+    function clickGetSearchList() {
+        $("#dataContent").html("<img style=\" margin-left:45%;\" src=\"@Url.Content("~/Content/images/loading.gif")\" /><br />" +
+            "<span style=\"margin-left:40%;font-size: 12px;\">数据加载中，请稍候...</span>");
+
+        var loadurl = "@Url.Action("SignIndexData")?StartTime=" + $("#StartTime").val() + "&EndTime=" + $("#EndTime").val();
+        $("#dataContent").load(loadurl);
+    }
+</script>

@@ -1,0 +1,40 @@
+﻿@using UCHome.Model;
+@model MyClass
+@{
+    if (Model == null)
+    {
+    @Html.Raw("<li class=\"noinfo\">没有找到相应的任何信息！</li>")
+        return;
+    }
+}
+<div class="dtitle">我的关注</div>
+<div class="dpicture">
+    <ul id="Plist">
+    </ul>
+</div>
+<div class="more" onclick="openwindow('@Url.Action("PersonList", "PublicShare", new { bjid = Model.bjid, usertype = "P" })',770,500,'家长列表')">查看更多</div>
+<script>
+    //填充课表
+    $.ajax({
+        url: "@Url.Content("~/ashx/GetClassStuInfo.ashx")",
+        data: { bjid: "@Model.bjid", xxid: "@Model.xxid" },
+        success: function (data) {
+            var kb = eval("(" + data + ")"); //
+            $.each(kb, function (idx, item) {
+                var xsid = item.xsid;
+                var xm = item.xm;
+                var xb = item.xb;
+                //var zp = item.zp;
+                var obj;
+                var url = "Chat?classlist =@Model.bjid & stuname =" + xsid;
+                if (xb == "2") {
+                    obj = "<li onclick=\"openwindow('" + url + "')\"><dl><dd class=\"photo\"><img src=\"@Url.Content("~/Content/images/male.png")\" border=\"0\"  width=\"40\" height=\"40\"/></dd><dd class=\"info\">" + xm + "家长</dd></dl></li>";
+                }
+                else {
+                    obj = "<li onclick=\"openwindow('" + url + "')\"><dl><dd class=\"photo\"><img src=\"@Url.Content("~/Content/images/man.png")\" border=\"0\"  width=\"40\" height=\"40\"/></dd><dd class=\"info\">" + xm + "家长</dd></dl></li>";
+                }
+                $("#Plist").append($(obj));
+            });
+        }
+    })
+</script>

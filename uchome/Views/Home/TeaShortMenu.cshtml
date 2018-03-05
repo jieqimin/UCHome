@@ -1,0 +1,53 @@
+﻿@using UCHome.Model
+<div class="row center-align">
+    <ul id="sysman" class="list-group list-group-noborder kjtd ">
+        <li class="list-group-item {{selvalue1}}">
+            <span class="glyphicon glyphicon-blackboard" aria-hidden="true"></span><a data-toggle="dropdown" href="#" target="_self">我的班级<span class="caret"></span></a>
+            <ul class="dropdown-menu" id="TechBj">
+            </ul>
+        </li>
+        <li class="list-group-item {{selvalue2}}">
+            <span class="glyphicon glyphicon-home"></span><a href="@Url.Action("Index", "SchoolCenter", new { id = ViewBag.XXID })" target="_self">我的学校</a>
+        </li>
+        <li class="list-group-item {{selvalue3}}">
+            <span class="glyphicon glyphicon-open"></span><a target="_blank" href="http://jx.taedu.gov.cn:83/Resource.Portal.Web/PersonCenter/Index?num=2" target="_self">资源上传</a>
+        </li>
+        <li class="list-group-item {{selvalue4}}">
+            <span class="glyphicon glyphicon-pencil"></span><a target="_blank" href="http://111.17.215.232:96/TaiXue/Teacher/Course" target="_self">教案设计</a>
+        </li>
+        <li class="list-group-item {{selvalue5}}">
+            <span class="glyphicon glyphicon-ok"></span><a href="@Url.Action("Index", "TeacherCenter")" target="_self">文章发布</a>
+        </li>
+        <li class="list-group-item {{selvalue6}}">
+            <span class="glyphicon glyphicon-earphone"></span><a href="@Url.Action("SystemAppRedirectPage", "AppCenter", new { id = "6fedce94-75d7-4e48-8281-0ed4a8425363" })" target="_self">请假申请</a>
+        </li>
+        <li class="list-group-item {{selvalue7}}">
+            <span class="glyphicon glyphicon-volume-up"></span><a href="@Url.Action("SystemAppRedirectPage", "AppCenter", new { id = "a0fcd905-5498-467a-87dd-687566186323" })" target="_self">通知公告</a>
+        </li>
+        <li class="list-group-item {{selvalue8}}">
+            <span class="glyphicon glyphicon-tasks"></span><a href="@Url.Action("SystemAppRedirectPage", "AppCenter", new { id = "6b051716-3ec2-4a3d-9174-e19ecda3d9e4" })" target="_self">任务积分</a>
+        </li>
+        <li class="list-group-item {{selvalue8}}">
+            <span class="glyphicon glyphicon-stats"></span><a href="@Url.Action("SystemAppRedirectPage", "AppCenter", new { id = "6b051716-3ec2-4a3d-9174-e19ecda3d9e4" })" target="_self">数据图表</a>
+        </li>
+    </ul>
+</div>
+<script>
+    $.ajax({
+        url: "@Url.Content("~/ashx/GetTeaTechInfo.ashx")",
+        data: { id: "@ViewBag.UserID", xnxqid: "@((new UCHomeBasePage()).CurrentSchTerm)" },
+        success: function (data) {
+            var kb = eval("(" + data + ")"); //
+            var bjlist = new Array();
+            var curobj;
+            $.each(kb, function (idx, item) {
+                var bjmc = item.bjmc;
+                var bjid = item.bjid;
+                if (bjlist.indexOf(bjid) < 0) {
+                    bjlist.push(bjid);
+                    $("#TechBj").append($("<li bjid=\"" + bjid + "\"><a class=\"bjmenu\" href=\"@Url.Action("ClassIndex", "ClassCenterInfo")?bjid=" + bjid + "&bjmc=" + bjmc + "\">" + bjmc + "</a></li>"));
+                }
+            });
+        }
+    });
+</script>

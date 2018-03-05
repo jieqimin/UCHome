@@ -1,0 +1,54 @@
+﻿@using UCHome.Model
+@model List<UCHome_Statics_Results>
+@*<script >
+            loaddata($("#AllHomeslist"));
+        </script>*@
+@{
+    //获取学校名单
+    List<SelectListItem> schlist = ViewBag.SchList as List<SelectListItem>;
+}
+<div id="AllArticleslist">
+    <div>附加说明：数据统计每小时更新一次，最新统计时间：@Model[0].LastStaticTime</div>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <td rowspan="2">学校名称 </td>
+                <td colspan="3">空间激活数 </td>
+                <td colspan="3">文章发表数 </td>
+            </tr>
+            <tr>
+                <td>总计</td>
+                <td>教师</td>
+                <td>学生</td>
+                <td>总计</td>
+                <td>教师</td>
+                <td>学生</td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (SelectListItem item in schlist)
+            {
+                
+                UCHome_Statics_Results thome = Model.SingleOrDefault(s => s.SObjectID.ToLower() == item.Value.ToLower() && s.SType == "spacealive" && s.UserType == "t");
+                int thomecount = thome != null ? thome.SResults.Value : 0;
+                UCHome_Statics_Results shome = Model.SingleOrDefault(s => s.SObjectID.ToLower() == item.Value.ToLower() && s.SType == "spacealive" && s.UserType == "s");
+                int shomecount = shome != null ? shome.SResults.Value : 0;
+                int homecount = thomecount + shomecount;
+                UCHome_Statics_Results tarticles = Model.SingleOrDefault(s => s.SObjectID.ToLower() == item.Value.ToLower() && s.SType == "articles" && s.UserType == "t");
+                int tarticlecount = tarticles != null ? tarticles.SResults.Value : 0;
+                UCHome_Statics_Results sarticles = Model.SingleOrDefault(s => s.SObjectID.ToLower() == item.Value.ToLower() && s.SType == "articles" && s.UserType == "s");
+                int sarticlecount = sarticles != null ? sarticles.SResults.Value : 0;
+                int articlecount = tarticlecount + sarticlecount;
+                <tr>
+                    <td><a href="@Url.Action("AllStaticsBySch", new { xxid = item.Value })">@item.Text</a><a style="color:red;" href="@Url.Action("NoActiveBySch", new { xxid = item.Value })">【未激活名单】</a></td>
+                    <td>@homecount</td>
+                    <td>@thomecount</td>
+                    <td>@shomecount </td>
+                    <td>@articlecount </td>
+                    <td>@tarticlecount </td>
+                    <td>@sarticlecount </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

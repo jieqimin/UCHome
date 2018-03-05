@@ -1,0 +1,196 @@
+﻿<style>
+    .red {
+        color: red;
+    }
+
+    #ul_appicon {
+    }
+
+        #ul_appicon > li {
+            position: relative;
+        }
+
+            #ul_appicon > li input[type=checkbox] {
+                position: absolute;
+                right: 0;
+                bottom: 0;
+                border: solid 1px #ccc !important;
+            }
+</style>
+<link href="@Url.Content("~/angular/uchome/errorcollection/errorcollection.css")" rel="stylesheet/less" type="text/css" />
+<div id="myapplist" class="form-position pagew" ng-if="parentapppanel">
+    @*{{checkboxes.items}}*@
+    <form class="form-horizontal">
+        <table datatable="ng" class="table table-striped table-bordered table-hover datatable" id="table_myapp">
+            <thead>
+                <tr>
+                    <td>知识学科</td>
+                    <td>问题名称</td>
+                    <td style="width: 80px;">难易程度</td>
+                    <td style="width: 80px;">出错次数</td>
+                    <td style="width: 100px;">标记状态</td>
+                    <td style="width: 150px;">操作</td>
+                </tr>
+            </thead>
+            <tr ng-repeat="eitem in errorcollections">
+
+                <td class="text-cut">{{eitem.QKnowledge}}</td>
+                <td>{{eitem.QName}}</td>
+                <td><span ng-class="{'label label-success':eitem.QDifficulty==0,'label label-primary':eitem.QDifficulty==1,'label label-info':eitem.QDifficulty==2,'label label-warning':eitem.QDifficulty==3,'label label-danger':eitem.QDifficulty==4 }">{{eitem.QDifficulty==0?"容易":eitem.QDifficulty==1?"较易":eitem.QDifficulty==2?"一般":eitem.QDifficulty==3?"较难":"最难"}}</span></td>
+                <td>{{eitem.ErrorTimes}}</td>
+                <td><span ng-class="{'glyphicon glyphicon-ok':eitem.status==1,'glyphicon glyphicon-remove':eitem.status==0}"></span><span ng-class="{'green':eitem.status==1,'red':eitem.status==0}">{{eitem.status==1?"已掌握":"未掌握"}}</span></td>
+                <td>
+                    <a href="" class="btn btn-info btn-xs" ng-click="showerrorcollectiondetail(eitem.PKID);">详情</a>
+                    <a href="" ng-class="{'btn btn-warning btn-xs':eitem.status==1,'btn btn-success btn-xs':eitem.status==0}" ng-click="changeerrorcollectionstatus(eitem.PKID,eitem.status)">{{eitem.status==1?"重记":"掌握"}}</a>
+                    <a href="" class="btn btn-danger btn-xs" ng-click="deleteData(eitem.PKID)">删除</a>
+                </td>
+            </tr>
+        </table>
+        <script type="text/ng-template" id="ng-table/headers/checkbox.html">
+        <input type="checkbox" ng-model="checkboxes.checked" id="select_all" name="filter-checkbox" value="" />
+        </script>
+    </form>
+</div>
+
+<div id="errorcollectiondetails" title="错题详情" style="display: none;">
+    <fieldset>
+        <legend>
+            <h4>题目信息</h4>
+        </legend>
+        <div class="form-horizontal">
+            <div class="form-group">
+                <label class="control-label col-sm-3">问题名称：</label>
+                <div class="col-sm-6">
+                    <label class="control-label">{{errorcollection.QName}}</label>
+                </div>
+                <div class="col-sm-3"><span ng-class="{'glyphicon glyphicon-ok lg':errorcollection.status==1,'glyphicon glyphicon-remove lg':errorcollection.status==0}"></span><span ng-class="{'green lg ml10':errorcollection.status==1,'red lg ml10':errorcollection.status==0}">{{errorcollection.status==1?"已掌握":"未掌握"}}</span></div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-3">问题分类：</label>
+                <div class="col-sm-8">
+                    <label class="control-label mr10" ng-repeat="type in QuestionTypeAndErrors">{{type.TypeName}}</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-3">知识章节：</label>
+                <div class="col-sm-8">
+                    <label class="control-label">{{errorcollection.QKnowledge}}</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-3">问题附件：</label>
+                <div class="col-sm-4">
+                    <label class="control-label"><a style="color: blue;" ng-href="{{errorcollection.QFiles}}">查看附件</a></label>
+                </div>
+                <div class="col-sm-5">
+                    <div class="btn-group" role="group" aria-label="">
+                        <button type="button" class="btn  btn-sm" ng-class="{'btn-success':errorcollection.QDifficulty==0,'btn-default':errorcollection.QDifficulty!=0}">容易</button>
+                        <button type="button" class="btn  btn-sm" ng-class="{'btn-primary':errorcollection.QDifficulty==1,'btn-default':errorcollection.QDifficulty!=1}">较易</button>
+                        <button type="button" class="btn  btn-sm" ng-class="{'btn-info':errorcollection.QDifficulty==2,'btn-default':errorcollection.QDifficulty!=2}">一般</button>
+                        <button type="button" class="btn  btn-sm" ng-class="{'btn-warning':errorcollection.QDifficulty==3,'btn-default':errorcollection.QDifficulty!=3}">较难</button>
+                        <button type="button" class="btn  btn-sm" ng-class="{'btn-danger':errorcollection.QDifficulty==4,'btn-default':errorcollection.QDifficulty!=4}">最难</button>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-3">问题内容：</label>
+                <div class="col-sm-8">
+                    
+                    <label class="control-label">
+                        <span ng-bind-html="errorcollection.QMemo|htmlContent"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+    <fieldset>
+        <legend>
+            <h4>答题解析</h4>
+        </legend>
+        <div class="form-horizontal">
+            <div class="form-group">
+                <label class="control-label col-sm-3">关键解析：</label>
+                <div class="col-sm-8">
+                    <label class="control-label">{{errorcollection.QAMemo}}</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-3">答案附件：</label>
+                <div class="col-sm-8">
+                    <label class="control-label"><a style="color: blue;" ng-href="{{errorcollection.QAFiles}}">查看附件</a></label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-3">出错原因：</label>
+                <div class="col-sm-6">
+                    <label class="control-label mr10" ng-repeat="reason in QuestionReasonAndErrors">{{reason.ReasonName}}</label>
+                    <label class="control-label">{{errorcollection.QEMemo}}</label>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+</div>
+<script>
+
+    function appmenumanage(parentappid) {
+        var src = "'" + "@Url.Action("Addappmenu")" + "?parentAppId=" + parentappid + "'";
+        $("#app_menu_manage_panel").attr("ng-include", src);
+        $("#app_menu_manage_modal").dialog();
+    }
+    function myappdelete(value) {
+        delconfirm("确认要移除此项吗？", moveapp, value);
+
+    }
+    function myappmove(value) {
+        delconfirm("确认要移除此项吗？", moveapp, value);
+    }
+</script>
+<style>
+    .glyphicon {
+        font-weight: bold;
+        margin-left: 5px;
+        position: relative;
+        display: inline-block;
+        width: 20px;
+    }
+
+    .glyphicon2:before {
+        content: "";
+        border-width: 4px;
+        border-style: solid;
+        left: 8px;
+        top: 50%;
+        position: absolute;
+        margin-top: -2px;
+    }
+
+    .lg {
+        font-size: 16px;
+    }
+
+    .glyphicon.lg {
+        font-size: 32px;
+    }
+
+    .glyphicon-ok, .green {
+        color: green;
+    }
+
+    .plus:before {
+        border-color: green;
+        border-top: none;
+        border-left: 4px solid transparent;
+        border-right: 4px solid transparent;
+    }
+
+    .glyphicon-remove, .red {
+        color: red;
+    }
+
+    .minus:before {
+        border-color: red;
+        border-bottom: none;
+        border-left: 4px solid transparent;
+        border-right: 4px solid transparent;
+    }
+</style>

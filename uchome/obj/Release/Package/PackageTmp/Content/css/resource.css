@@ -1,0 +1,404 @@
+﻿.content, .content2 {
+    background: url(../images/bg.png) no-repeat;
+    background-color: #80AEC8;
+}
+
+.concent_body, .concent_body2 {
+    margin-top: 80px;
+    width: 990px;
+}
+
+
+
+.body_left2 {
+    float: left;
+    width: 230px;
+    margin-left: 10px;
+    margin-bottom: 10px;
+}
+
+
+
+    .body_left2 .myresandfav {
+        margin-top: 10px;
+    }
+
+.myresandfav ul {
+    background-color: #fff;
+}
+
+    .myresandfav ul li {
+        height: 38px;
+        line-height: 38px;
+        font-size: 14px;
+        letter-spacing: 2px;
+        cursor: pointer;
+        text-align: center;
+    }
+
+        .myresandfav ul li span {
+            display: inline-block;
+            float: left;
+        }
+
+        .myresandfav ul li i.icon-myres {
+            float: left;
+            display: inline-block;
+            width: 90px;
+            height: 38px;
+            background: url("../images/u135_original.png") no-repeat 60px center;
+        }
+
+        .myresandfav ul li i.icon-myfav {
+            float: left;
+            display: inline-block;
+            width: 90px;
+            height: 38px;
+            background: url("../images/u138_original.png") no-repeat 60px center;
+        }
+        .myresandfav ul li i.icon-upres {
+            float: left;
+            display: inline-block;
+            width: 90px;
+            height: 38px;
+            background: url("../images/u142_original.png") no-repeat 60px center;
+        }
+.body_left2 .br_content1 {
+    background: url("../images/tea.png") no-repeat center top;
+    position: relative;
+    min-height: 160px;
+    background-color: #fff;
+}
+
+    .body_left2 .br_content1 .teaphoto {
+        margin-top: 30px;
+        margin-left: 85px;
+        width: 60px;
+        height: 60px;
+    }
+
+    .body_left2 .br_content1 .teaname {
+        height: 40px;
+        line-height: 40px;
+        top: 90px;
+        text-align: center;
+        width: 230px;
+        font-size: 16px;
+        letter-spacing: 2px;
+        font-weight: bold;
+    }
+
+    .body_left2 .br_content1 .teainfo {
+        font-size: 14px;
+        top: 130px;
+        text-align: center;
+        width: 230px;
+        height: 25px;
+        letter-spacing: 2px;
+        color: #077DB0;
+    }
+
+    .body_left2 .br_content1 .teaclass {
+        font-size: 12px;
+        top: 160px;
+        text-align: center;
+        width: 230px;
+        border-top: solid #ccc 1px;
+        height: 25px;
+        line-height: 25px;
+        letter-spacing: 5px;
+    }
+
+
+.body_left2 .br_content2, .body_left2 .br_content3 {
+    margin-top: 10px;
+    position: relative;
+    min-height: 150px;
+    background-color: #fff;
+    color: #333;
+}
+
+.body_left2 .shortcut {
+    background-color: #fff;
+}
+
+    .body_left2 .shortcut li {
+        height: 38px;
+        line-height: 38px;
+        font-size: 14px;
+        letter-spacing: 2px;
+        cursor: pointer;
+        width: 50%;
+        text-align: center;
+    }
+
+        .body_left2 .shortcut li:hover {
+            background-color: #cccccc;
+        }
+
+        .body_left2 .shortcut li span {
+            color: #666;
+            height: 38px;
+            line-height: 38px;
+            font-size: 14px;
+            letter-spacing: 2px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+
+
+.content2 .body_center2 {
+    float: left;
+    width: 730px;
+    margin: 0 10px;
+    padding-bottom: 10px;
+    position: relative;
+}
+
+
+
+
+
+.dmenu {
+    height: 40px;
+    border-bottom: solid 1px #ddd;
+}
+
+    .dmenu li {
+        line-height: 40px;
+        height: 40px;
+        font-size: 16px;
+        float: left;
+        cursor: pointer;
+    }
+
+        .dmenu li:hover, .dmenu li.selected {
+            background: url("../images/selected.png") no-repeat center bottom;
+        }
+
+
+
+.dtitle {
+    height: 40px;
+    line-height: 40px;
+    font-size: 16px;
+    border-bottom: solid 1px #ddd;
+}
+
+    .dtitle .down {
+        margin-left: 5px;
+        cursor: pointer;
+    }
+
+
+
+.bc_content1, .bc_content2 {
+    height: auto;
+    background-color: #fff;
+    overflow: hidden;
+    border-bottom: solid 1px #ddd;
+}
+
+
+
+    .br_content2 .dtitle, .br_content3 .dtitle, .bc_content2 .dtitle {
+        background: url("../images/icon.png") no-repeat 14px center;
+        text-indent: 35px;
+    }
+
+    .bc_content1 .icon-ressearch {
+        background: url("../images/u46_original.png") no-repeat 15px center;
+        text-indent: 40px;
+    }
+
+
+    .bc_content2 .dmenu li, .bc_content4 .dmenu li {
+        width: 90px;
+        text-align: center;
+    }
+
+
+
+.dinfo {
+    padding: 7px 0;
+}
+
+    .dinfo li {
+        height: 35px;
+        font-size: 14px;
+        font-family: 微软雅黑;
+        list-style-type: disc;
+    }
+
+        .dinfo li a {
+            display: block;
+            height: 35px;
+            line-height: 35px;
+            text-decoration: none;
+            color: #666;
+            text-indent: 35px;
+            list-style-type: disc;
+            font-size: 13px;
+            letter-spacing: 1px;
+        }
+
+            .dinfo li a:hover {
+                color: red;
+            }
+
+.br_content2 li.selected span {
+    color: #1e90ff;
+}
+#resourcecenter {
+    background-color: #fff;
+}
+.searchwhere {
+    background-color: #f8f8f8;
+}
+
+    .searchwhere .where_type {
+        width: 60px;
+        float: left;
+        display: inline-block;
+        line-height: 40px;
+        text-align: center;
+        color: #077DB0;
+        font-weight: bold;
+    }
+
+    .searchwhere .search_where_ul {
+        line-height: 30px;
+        float: left;
+        display: inline-block;
+        width: 660px;
+    }
+
+        .searchwhere .search_where_ul li {
+            float: left;
+            line-height: 40px;
+            margin: 0 10px;
+            cursor: pointer;
+        }
+
+            .searchwhere .search_where_ul li.selected {
+                color: #077DB0;
+            }
+
+.searchBar {
+    height: 40px;
+    line-height: 40px;
+    background-color: #F8F8F8;
+    border-top: solid 1px #CCCCCC;
+    border-bottom: solid 1px #CCCCCC;
+    text-indent: 15px;
+    position: relative;
+}
+
+#searchBar {
+    color: #077DB0;
+    font-size: 12px;
+    position: absolute;
+    left: 80px;
+    top: 0;
+}
+
+.searchBar .search_order {
+    display: inline-block;
+    height: 40px;
+    line-height: 40px;
+    position: absolute;
+    right: 80px;
+    top: 2px;
+}
+
+.searchBar .search_btn {
+    display: inline-block;
+    height: 40px;
+    line-height: 40px;
+    position: absolute;
+    right: 10px;
+    top: -3px;
+}
+#page_data {
+    margin: 0 auto;
+    width: 600px;
+    text-align: center;
+}
+#resourcecenter .log-pager {
+    text-align: center;
+    width: 100%;
+}
+#resourcecenter .page_bg {
+    margin: 0;
+    padding: 0 5px;
+    text-align: center;
+    bottom: 30px;
+    right: 10px;
+}
+
+#resourcecenter .pagination_custom {
+    margin: 5px 0;
+}
+
+#resourcelist {
+    margin: 10px 20px;
+}
+
+    #resourcelist .res-content {
+        line-height: 30px;
+        width: 100%;
+        border-bottom: dotted 1px #ccc;
+    }
+
+.res-content li.res-abstract {
+    float: left;
+    min-width: 420px;
+    overflow: hidden;
+}
+
+    .res-content li.res-schoolstage {
+        float: right;
+        margin:0 10px;
+        line-height: 65px;
+        text-align: center;
+        color: #4D8C31;
+    }
+
+    .res-content li.res-sub {
+        float: right;
+        margin:0 10px;
+        line-height: 65px;
+        text-align: center;
+        color:#4D8C31;
+    }
+
+    .res-content li.res-grade {
+        float: right;
+        margin:0 10px;
+        line-height: 65px;
+        text-align: center;
+        color: #4D8C31;
+    }
+
+.res-content .res-name {
+    color: #333;
+    font-size: 14px;
+    line-height: 30px;
+    height: 30px;
+    width: 420px;
+    overflow: hidden;
+}
+
+.res-content .res-property {
+    color: #999;
+    font-size: 12px;
+    line-height: 25px;
+}
+
+    .res-content .res-property span {
+        float: left;
+        display: inline-block;
+        line-height: 25px;
+        margin: 5px;
+    }

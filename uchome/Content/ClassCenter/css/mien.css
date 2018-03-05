@@ -1,0 +1,67 @@
+@charset "utf-8";
+/* CSS Document */
+.teacher{
+	width:490px;
+	float:left;
+	margin-bottom:100px;
+	}
+.tea-title{
+	width:490px;
+	height:40px;
+	background:url(../images/mien/headbg.png) no-repeat;
+	}
+.stu-title{
+	width:490px;
+	height:40px;
+	background:url(../images/mien/headbg2.png) no-repeat;
+	}
+.tea-title,.stu-title{
+	font-size: 16px;
+	font-family: "Microsoft YaHei";
+	color:#fff;
+	line-height:40px;
+	text-indent:30px;
+	}
+
+.student{
+	width:490px;
+	float:right;
+	}
+
+.mien{
+	width:100%;
+	margin-top:5px;
+	margin-bottom:40px;
+	}
+.mien li{
+	float:left;
+	width:118px;
+	height:89px;
+	margin-right:6px;
+	margin-bottom:6px;
+	position:relative;
+	z-index:99;
+	}
+.mien li:nth-child(4n){
+	margin-right:0;
+	}
+.mien li a{
+	display:block;
+
+	}
+.mien li a img{
+	width:100%;
+	height:100%;
+	z-index:999;
+	}
+.mien  li.on{
+	z-index:999;
+	}
+.mien  li.on .in{
+	position:relative;
+	top:-30px;
+	left:-41px;
+	padding:5px;
+	background:#fff;
+	}
+

@@ -1,0 +1,147 @@
+﻿@{
+    Layout = null;
+    int currentYear = DateTime.Now.Year;
+}
+<link rel="stylesheet" href="@Url.Content("~/Content/css/msg.css")">
+<script src="@Url.Content("~/plugs/usercontrol/selectuser.js")"></script>
+<script src="@Url.Content("~/Scripts/jquery-1.7.1.js")"></script>
+
+<link rel="stylesheet" href="@Url.Content("~/plugs/webuploader/css/webuploader.css")">
+<link rel="stylesheet" href="@Url.Content("~/plugs/webuploader/css/demo.css")">
+<link rel="stylesheet" href="@Url.Content("~/plugs/datetimepicker/css/bootstrap-datetimepicker.css")">
+<link rel="stylesheet" href="@Url.Content("~/content/css/homework.css")">
+
+<link rel="stylesheet" href="@Url.Content("~/content/css/selUserStyle.css")">
+
+<div id="noticeSend" class="form-horizontal form-position pagew ">
+
+    <div class="form-group">
+
+        <div class="col-sm-9">
+            <div class="radio-list" id="selectType">
+                <label class="radio-inline">
+                    <select id="SelectYear" name="SelectYear" class="input-sm col-xs-2 sel-notice" style="width: 85px;">
+                        @for (int i = currentYear - 5; i <= currentYear + 5; i++)
+                        {
+                            if (currentYear == i)
+                            {
+                                <option value="@i" selected="selected">@(i)年</option>
+                            }
+                            else
+                            {
+                                <option value="@i">@(i)年</option>
+                            }
+                        }
+                    </select>
+                    @*<select id="DongLou" name="DongLou" class="input-sm col-xs-2 sel-notice" style="width: 100px; margin-left: 10px;"></select>*@
+                </label>
+                <label class="radio-inline">
+                    @*<input id="btnSelect" type="button" value="查询"  onclick="selectLeave()"/>*@
+                    <button id="btnSelect" type="button" class="btn btn-info dropdown-toggle" data-toggle="button" aria-haspopup="true" aria-expanded="false">
+                        查询
+                    </button>
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div id="container"></div>
+    </div>
+    <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel" style="font-weight: bold;"></h4>
+                </div>
+                <div class="modal-body">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@*<script src="~/Scripts/jquery-1.7.1.js"></script>*@
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $.getJSON('@Url.Action("GetRepairTypeList")', function (data) {
+            $.each(data, function (i, item) {
+                $("<option></option>").val(item["Value"]).text(item["Text"]).appendTo($("#DongLou"));
+                selectLeave(item["Value"]);
+            });
+        });
+
+        var chart;
+
+        $("#btnSelect").click(function () {
+            selectLeave();
+
+        });
+    });
+
+    function selectLeave() {
+        var dongLou = $("#DongLou").val();
+
+
+            $("#container").html("");
+            $.ajax({
+                url: "@Url.Action("GetRepairProjectTwo")",
+                data: {selectYear: $("#SelectYear").val() },
+                type: "Post",
+                dataType: "json",
+                success: function (msg) {
+
+                    var resultmsg = eval("(" + msg + ")");
+
+                    if (resultmsg != null) {
+
+                            chart = new Highcharts.Chart({
+                                chart: {
+                                    renderTo: 'container',
+                                    type: 'column'
+                                },
+                                title: {
+                                    text: '年度维修次数总计'
+                                },
+                                xAxis: {
+                                    categories: resultmsg.ProjectNames
+                                },
+                                credits: {
+                                    enabled: false
+                                },
+                                series: [{
+                                    name: '年度报修总数',
+                                    data: resultmsg.SumCount
+                                   // data: [0,5]
+                                }, {
+                                    name: '已维修总数',
+                                    data: resultmsg.HaveSumCount
+                                  // data: [7,4]
+                                }]
+                            });
+                          
+
+
+                        }
+
+
+                },
+                error: function () {
+                    //alert("没有相关数据！");
+                }
+            });
+
+        }
+
+        function showRepairProject(name) {
+            $('#myModal1').modal('show');
+            $("#myModalLabel").html(name + "维修明细");
+            var loadurl = "@Url.Action("RepairDetail")?SelectYear=" + $("#SelectYear").val() + "&RepairProject=" + name;
+            $(".modal-body").load(loadurl);
+        }
+
+</script>

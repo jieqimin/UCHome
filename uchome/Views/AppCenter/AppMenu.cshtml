@@ -1,0 +1,33 @@
+﻿@model IEnumerable<UCHome.Model.UCHome_App_Menu>
+<div id="id-app-menu" class="dappmenu">
+    <ul>
+        @{
+            int i = 0;
+            string firsturl = string.Empty;
+        }
+        @foreach (UCHome.Model.UCHome_App_Menu item in Model)
+        {
+            if ((ViewBag.SelMenuID != null && item.PKID == ViewBag.SelMenuID) || (ViewBag.SelMenuID == null && i == 0))
+            {
+                firsturl = item.Menuhref;          
+            <li class="on" ui-sref-active="active" ui-sref="uchome.menu@(i)({'src':'@item.Menuhref','datapath':'@item.DataPath','controllname':'@item.controllername'})" ui-sref-opt="{reload:true}">@item.MenuName</li>
+            }
+            else
+            {
+            <li ui-sref-active="active" ui-sref="uchome.menu@(i)({src:'@item.Menuhref',datapath:'@item.DataPath',controllname:'@item.controllername'})" ui-sref-opt="{reload:true}">@item.MenuName</li>
+            }
+            i++;
+        }
+        <li ui-sref-active="active" ui-sref="uchome.help" ui-sref-opt="{reload:true}">帮助页面</li>
+    </ul>
+</div>
+<div id="id-app-content" ui-view>
+   
+</div>
+<script>
+    $("#id-app-menu ul li").click(function () {
+        $("#id-app-menu ul li").removeClass("on");
+        $(this).addClass("on");
+    });
+    redirecturl("@firsturl");
+</script>

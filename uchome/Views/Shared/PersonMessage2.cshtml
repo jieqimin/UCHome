@@ -1,0 +1,6 @@
+﻿@model Guid
+<div id="message-body" style="background-color: #fff; min-height: 1080px;">
+</div>
+<script>
+    $("#message-body").load("@Url.Action("MessageBoard2", "PublicShare", new { id = Model })")
+</script>

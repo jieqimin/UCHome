@@ -1,0 +1,135 @@
+﻿@{
+    Layout = null;
+}
+@using UCHome.Controllers
+@using M = OA.Model;
+@using B = OA.BLL;
+<link rel="stylesheet" href="@Url.Content("~/Content/css/msg.css")">
+<link rel="stylesheet" href="@Url.Content("~/plugs/datatables/css/jquery.dataTables.css")">
+<link rel="stylesheet" href="@Url.Content("~/plugs/datatables/css/dataTables.bootstrap.css")">
+<script src="@Url.Content("~/plugs/datatables/js/jquery.datatables.js")"></script>
+<script src="@Url.Content("~/plugs/datatables/js/dataTables.bootstrap.js")"></script>
+
+@using (Ajax.BeginForm(
+    new AjaxOptions()
+    {
+        HttpMethod = "post",
+        Url = Url.Action("IndexAudit"),
+        UpdateTargetId = "#indexAudit",
+        LoadingElementId = "loding",
+        LoadingElementDuration = 2000
+    }))
+{
+    <div id="indexAudit" class="form-position pagew">
+        <table class="table table-striped table-bordered table-hover datatable" id="msgTable">
+            <thead>
+                <tr>
+                    <th>序号</th>
+                    <th>报修人</th>
+                    <th>报修类型</th>
+                    <th>报修项目</th>
+                    <th>报修时间</th>
+                    <th>维修状态</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+    int i = 0;
+                }
+                @foreach (M.View_Repair item in Model)
+                {
+                    var bxtype = item.BaoXiuProject;
+                    var remark = item.Remark;
+                    var otc = item.OtherCause;
+                    if (otc.Length > 8)
+                    {
+                        otc = otc.Substring(0, 6);
+                    }
+                    if (remark.Length > 8)
+                    {
+                        remark = remark.Substring(0, 6);
+                    }
+                    if (bxtype.Length > 8)
+                    {
+                        bxtype = bxtype.Substring(0, 6);
+                    }
+
+
+
+                    i++;
+                    <tr>
+                        <td>@i</td>
+                        <td>@item.XM</td>
+                        <td>@item.DongLou</td>
+                        <td title="@item.BaoXiuProject">@bxtype</td>
+                        <td>@item.BaoXiuTime.Value.ToShortDateString()</td>
+                        <td>@item.RepairStatus</td>
+                        <td>
+                            <a class="label label-info" onclick="openform('@item.REID')">查看</a>
+
+                            @{
+                    if (item.RepairPerson == ViewBag.loginid)
+                    {
+                        <a class="label label-warning" onclick="EditDealAudit('@item.REID')">处理</a>
+                    }
+                    else
+                    {
+                        <a class="label label-warning" onclick="EditAudit('@item.REID')">审核</a>
+                    }
+                            }
+
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel" style="font-weight: bold;">请假详情</h4>
+                </div>
+                <div class="modal-body">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<script>
+    function openform(id) {
+        $('#myModal').modal('show');
+
+        var loadurl = "@Url.Action("Details")?REID=" + id;
+        $(".modal-body").load(loadurl);
+    }
+
+    function EditAudit(id) {
+        // $('#myModal').modal('show');
+
+        var loadurl = "@Url.Action("EditAudit")?REID=" + id;
+        $("#id-app-content").load(loadurl);
+    }
+    function EditDealAudit(id) {
+        // $('#myModal').modal('show');
+
+        var loadurl = "@Url.Action("EditDealAudit")?REID=" + id;
+        $("#id-app-content").load(loadurl);
+    }
+
+    $(function () {
+        $("#msgTable").DataTable({
+            //"ajax":'severurl',//通过ajax请求数据源，其数据格式为{"data":[],[]}
+            "oLanguage": {
+                "sUrl": "@Url.Content("~/plugs/datatables/language/zh_cn.json")"
+            }
+        });
+    });
+
+</script>

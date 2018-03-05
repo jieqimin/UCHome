@@ -1,0 +1,102 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <title>个人空间—好友</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <script src="@Url.Content("~/Content/js/jquery.min.js")"></script>
+
+    <script src="@Url.Content("~/Content/plugs/layer/layer.min.js")"></script>
+    <script src="@Url.Content("~/Content/js/public.js")"></script>
+    <link rel="stylesheet" href="@Url.Content("~/Content/bootstrap/css/bootstrap.min.css")">
+    <link rel="stylesheet" href="@Url.Content("~/Content/bootstrap/css/bootstrap-theme.min.css")">
+    <script src="@Url.Content("~/Content/bootstrap/js/bootstrap.min.js")"></script>
+    <script src="@Url.Content("~/plugs/usercontrol/jquery-ui-1.10.0.custom.min.js")"></script>
+    <script src="@Url.Content("~/scripts/jquery.unobtrusive-ajax.js")"></script>
+    <script src="@Url.Content("~/scripts/jquery.validate.js")"></script>
+    <script src="@Url.Content("~/Scripts/jquery.form.js")"></script>
+    <script src="@Url.Content("~/Content/bootstrap/plugs/pagination/jquery.pagination.min.js")"></script>
+    <link href="@Url.Content("~/plugs/toastr/toastr.min.css")" rel="stylesheet/less" type="text/css" />
+    <script src="@Url.Content("~/plugs/toastr/toastr.min.js")"></script>
+    <script src="@Url.Content("~/scripts/mycustomtip.js")"></script>
+    <link href="@Url.Content("~/Content/css/public.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/css/app.css")" rel="stylesheet" />
+    <script src="@Url.Content("~/Content/js/highcharts.js")"></script>
+    <script src="@Url.Content("~/Scripts/app.js")"></script>
+    <script src="@Url.Content("~/Scripts/guid.js")"></script>
+    <link rel="stylesheet" href="@Url.Content("~/content/css/homework.css")">
+    <link rel="stylesheet" href="@Url.Content("~/plugs/usercontrol/jquery-ui-1.10.0.custom.css")">
+    <link rel="stylesheet" href="@Url.Content("~/plugs/datatables/css/jquery.dataTables.css")">
+    <link rel="stylesheet" href="@Url.Content("~/plugs/datatables/css/dataTables.bootstrap.css")">
+    <script src="@Url.Content("~/plugs/datatables/js/jquery.dataTables.js")"></script>
+    <script src="@Url.Content("~/plugs/datatables/js/dataTables.bootstrap.js")"></script>
+    <script src="@Url.Content("~/plugs/AngularJs/angular.min.js")"></script>
+    <script src="@Url.Content("~/plugs/AngularJs/datatables/angular-datatables.min.js")"></script>
+    <link rel="stylesheet" href="@Url.Content("~/plugs/AngularJs/datatables/angular-datatables.min.css")">
+    <script src="@Url.Content("~/plugs/AngularJs/angular-ui-router.js")"></script>
+    <script src="@Url.Content("~/plugs/AngularJs/ocLazyLoad.min.js")"></script>
+    <script src="@Url.Content("~/angular/app.config.js")"></script>
+    <script src="@Url.Content("~/angular/oclazyload.config.js")"></script>
+    <script src="@Url.Content("~/angular/route.config.js")"></script>
+    <style>
+        .modal-alive {
+            display: block;
+        }
+    </style>
+    @RenderSection("Head", false)
+
+</head>
+
+<body>
+    <div class="top" id="top">
+        <div class="top_content" id="portal">
+            @Html.Action("Portal", "Home")
+        </div>
+    </div>
+
+    <div class="content2 clearfix">
+        <div class="concent_body2">
+            <div class="body_left2 clearfix">
+                <div class="br_content1 clearfix" id="PersonInfo">
+                    <div style="margin-top: 80px;" class="loading">正在加载中，请稍候……</div>
+                </div>
+                <div class="message" id="messaged">
+                    <ul class="clearfix">
+                        <li>
+                            <i class="icon_msg"></i><span>消息</span>
+                            <span class="count">0</span>
+                        </li>
+                        <li>
+                            <i class="icon_email"></i><span>通知</span>
+                            <span class="count">0</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="br_content2">
+                    <div class="dtitle icon-latest">
+                        我的应用
+                    </div>
+                    <div id="shortcut" class="shortcut">
+                    </div>
+                    <div class="more clearfix">
+                        <span class="pull-left add"><i class="icon-add pull-left"></i><span><a href="@Url.Action("SystemAppRedirectPage", "AppCenter", new { id = "6b051716-3ec2-4a3d-9174-e19ecda3d9e0", menuid = "6b051716-3ec2-4a3d-9174-e19ecda3d9e1" })">添加</a></span></span>
+                        <span class="pull-right manger"><i class="icon-manger pull-left"></i><span><a href="@Url.Action("SystemAppRedirectPage", "AppCenter", new { id = "6b051716-3ec2-4a3d-9174-e19ecda3d9e0", menuid = "6b051716-3ec2-4a3d-9174-e19ecda3d9e2" })">管理</a></span></span>
+                    </div>
+                </div>
+            </div>
+            <div id="body_content" class="body_center2">
+                @RenderBody()
+                @*<iframe id="ifrcontent" src="http://localhost/uchome/teachercenter/index" frameborder="0" scrolling="no" width="100%" marginheight="100%"></iframe>*@
+            </div>
+            <div>
+            </div>
+        </div>
+    </div>
+    <div class="bottom"></div>
+    <script>
+        $("#shortcut").load("@Url.Action("MyAppMenu", "AppCenter")");
+        @*        $("#portal").load("@Url.Action("portal", "Home")");*@
+        $("#PersonInfo").load("@Url.Action("Person", "Home")");
+    </script>
+</body>
+</html>

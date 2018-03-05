@@ -1,0 +1,72 @@
+﻿@{
+    ViewBag.Title = "教育云空间数据统计";
+    Layout = "~/Views/Shared/_MoreLayout.cshtml";
+}
+@using UCHome.Model
+@model Guid
+@section Head
+{
+    <style >
+        body {
+            overflow: hidden;
+        }
+
+        .content {
+            font-family: 微软雅黑;
+            line-height: 28px;
+            font-size: 14px;
+            background-color: #fff;
+            overflow: hidden;
+	    min-height:600px;
+        }
+
+        .AllTotals {
+            height: 35px;
+            line-height: 35px;
+            text-indent: 2em;
+            background-color: #eee;
+            margin-top: 10px;
+        }
+
+
+
+        .AllArticles_list {
+            padding: 0;
+            margin: 0 10px;
+        }
+
+            .AllArticles_list table thead {
+                text-align: center;
+                vertical-align: middle;
+            }
+
+
+        .AllArticles {
+            margin-top: 10px;
+            border: solid 1px #ccc;
+        }
+    </style>
+    <script src="@Url.Content("~/plugs/highcharts/js/highcharts.js")"></script>
+    <script src="@Url.Content("~/Scripts/mycustomtip.js")"></script>
+    <link  rel="stylesheet"  href="@Url.Content("~/Content/CSS/public.css")"></link>
+
+}
+<div class="header clearfix">
+    @Html.Partial("HeadMenu",UCHomeBasePage.IsLogin)
+</div>
+<div class=" content clearfix">
+    <div class="AllTotals">
+        <b>学校空间激活数、文章发表数统计</b>
+    </div>
+    <div class="AllArticles">
+        <div class="AllArticles_list">
+            <div class="loading">正在加载数据，请稍候……</div>
+        </div>
+    </div>
+
+</div>
+<script >
+    $(function () {
+        $(".AllArticles_list").load("@Url.Action("AllArticleslistBySch", new { xxid = Model })");
+    });
+</script>

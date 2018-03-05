@@ -1,0 +1,149 @@
+﻿@{
+    Layout = null;
+}
+<link href="@Url.Content("~/Content/ClassCenter/css/gridNavigation.css")" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="@Url.Content("~/Content/ClassCenter/js/jquery.easing.1.3.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Content/ClassCenter/js/jquery.mousewheel.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Content/ClassCenter/js/jquery.gridnav.js")"></script>
+    <div class="content">
+        <div class="honor-left">
+            <ul class="honor-ul" id="honor-ul">
+                <li>
+                    <a onclick="loadhonor(2016)" class="honor-check">2016</a>
+                    <div class="write-angle"></div>
+                </li>
+                <li><a onclick="loadhonor(2015)">2015</a></li>
+                <li><a onclick="loadhonor(2014)">2014</a></li>
+                <li><a onclick="loadhonor(2013)">2013</a></li>
+                <li><a onclick="loadhonor(2012)">2012</a></li>
+                <li><a onclick="loadhonor(2011)">2011</a></li>
+                <li><a onclick="loadhonor(2010)">2010</a></li>
+            </ul>
+        </div>
+
+
+        <div id="tj_container" class="tj_container" style="float:right;">
+            <div class="tj_nav">
+                <span id="tj_prev" class="tj_prev">Previous</span>
+                <span id="tj_next" class="tj_next">Next</span>
+            </div>
+            <div class="tj_wrapper">
+                <ul class="tj_gallery" id="imglist">
+                    <div class="spinner">
+                        <div class="spinner-container container1">
+                            <div class="circle1"></div>
+                            <div class="circle2"></div>
+                            <div class="circle3"></div>
+                            <div class="circle4"></div>
+                        </div>
+                        <div class="spinner-container container2">
+                            <div class="circle1"></div>
+                            <div class="circle2"></div>
+                            <div class="circle3"></div>
+                            <div class="circle4"></div>
+                        </div>
+                        <div class="spinner-container container3">
+                            <div class="circle1"></div>
+                            <div class="circle2"></div>
+                            <div class="circle3"></div>
+                            <div class="circle4"></div>
+                        </div>
+                    </div>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+
+
+<link rel="stylesheet" href="@Url.Content("~/Content/bootstrap/css/bootstrap.min.class.css")">
+<link rel="stylesheet" href="@Url.Content("~/Content/bootstrap/css/bootstrap-theme.min.css")">
+<link rel="stylesheet" href="@Url.Content("~/Content/ClassCenter/css/honor.css")">
+
+<script>
+    $(document).ready(function () {
+
+        $(".honor-ul li a").click(function() {
+            $(".honor-ul li a").removeClass("honor-check");
+            $(".write-angle").remove();
+            $(this).addClass("honor-check");
+            $(this).append("<div class=\"write-angle\"></div>");
+        });
+
+        var year = '@ViewBag.Year';
+
+        loadhonor(parseInt(year));
+    });
+
+    function ShowImage() {
+        var xOffset = 10;
+        var yOffset = 300;
+        $("#imglist").find("img").hover(function (e) {
+            $("<img id='imgshow' src='" + this.src + "' />").appendTo("body");
+            $("#imgshow")
+                .css("top", (e.pageY + xOffset) + "px")
+             .css("left", (e.pageX - yOffset) + "px")
+       .fadeIn("fast");
+        }, function () {
+            $("#imgshow").remove();
+        });
+
+        $("#imglist").find("img").mousemove(function (e) {
+            $("#imgshow")
+                .css("top", (e.pageY + xOffset) + "px")
+                .css("left", (e.pageX - yOffset) + "px");
+        });
+    };
+
+    function loadhonor(num) {
+        var html = "<li><a onclick=\"loadhonor(" + (num + 2) + ")\">" + (num + 2) + "</a>" +
+            "</li><li><a onclick=\"loadhonor(" + (num + 1) + ")\">" + (num + 1) + "</a></li>" +
+            "<li><a onclick=\"loadhonor(" + num + ")\" class=\"honor-check\">" + num + "</a><div class=\"write-angle\"></div></li>" +
+            "<li><a onclick=\"loadhonor(" + (num - 1) + ")\">" + (num - 1) + "</a></li>" +
+            "<li><a onclick=\"loadhonor(" + (num - 2) + ")\">" + (num - 2) + "</a></li>";
+
+        $("#honor-ul").html(html);
+
+        selectHonorImages(num);
+    }
+
+    function selectHonorImages(year) {
+
+        $("#imglist").html("");
+
+        $.post("@Url.Action("GetHonor")", { bjid: $("#BJID").val(), year: year }, function (data) {
+            
+            if (data != null && data.length > 0) {
+                var html = "";
+
+                for (var i = 0; i < data.length; i++) {
+
+                    var images = data[i].HonorPhotoName;
+
+                    if (images != null && images.length > 4) {
+                        var imageList = images.split(";");
+
+                        for (var j = 0; j < imageList.length; j++) {
+                            html += "<li><a href=\"#\" title=\"" + data[i].HonorTitle + "\"><img src=\"/upload/awards/images/" + imageList[j] + "\" /></a></li>";
+                        }
+                    }  
+                }
+                $("#imglist").html(html);
+
+                $('#tj_container').gridnav({
+                    rows: 3,
+                    type: {
+                        mode: 'sequpdown', 		// use def | fade | seqfade | updown | sequpdown | showhide | disperse | rows
+                        speed: 500,				// for fade, seqfade, updown, sequpdown, showhide, disperse, rows
+                        easing: '',				// for fade, seqfade, updown, sequpdown, showhide, disperse, rows	
+                        factor: 50,				// for seqfade, sequpdown, rows
+                        reverse: false				// for sequpdown
+                    }
+                });
+
+                ShowImage();
+            }
+        });
+    }
+</script>
+

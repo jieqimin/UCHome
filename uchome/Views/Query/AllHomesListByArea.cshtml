@@ -1,0 +1,17 @@
+﻿@using UCHome.Model
+@model List<View_Statics_HomesGroupByArea>
+@*<script type="text/javascript">
+    loaddata($("#AllHomeslist"));
+</script>*@
+<div id="AllHomeslist">
+    <div class='s_title text-center'>区县空间激活数</div>
+    <ul>
+        @foreach (View_Statics_HomesGroupByArea item in Model)
+        {
+            <li><span class="pull-left col-md-5">@item.Areaname </span><span class="col-md-5">@item.homecount </span></li>
+        }
+    </ul>
+</div>
+@*<script type="text/javascript">
+    hideload($("#AllHomeslist"));
+</script>*@

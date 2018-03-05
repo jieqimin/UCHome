@@ -1,0 +1,430 @@
+﻿@using UCHome.Model
+@using UCHome.Models
+@{
+    ViewBag.Title = "市级空间";
+    Layout = "~/Views/Shared/_NewLayout.cshtml";
+}
+@section Head
+{
+<link href="@Url.Content("~/Content/css/public.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/NewFile/css/city.css")" rel="stylesheet" />
+    <script src="@Url.Content("~/Content/NewFile/js/city.js")"></script>
+    <script>
+        $(function () {
+            $("#NewArticle").load("@Url.Action("NewArticle", new { pageSize = 5 })");
+            $("#HotArticle").load("@Url.Action("HotArticle", new { pageSize = 5 })");
+            $("#teacherRooms").load("@Html.Raw(Url.Action("RoomsList", new { userType = "t", pageSize = 7 }))");
+            $("#studentRooms").load("@Html.Raw(Url.Action("RoomsList", new { userType = "s", pageSize = 7 }))");
+            @*$("#resourceList1").load("@Html.Raw(Url.Action("ResourceList", new { learnType = "教研活动", pageSize = 7 }))");
+            $("#resourceList2").load("@Html.Raw(Url.Action("ResourceList", new { learnType = "教师培训", pageSize = 7 }))");
+            $("#resourceList3").load("@Html.Raw(Url.Action("CourseList", new { learnType = "精品课程", pageSize = 4 }))");*@
+            $("#datastatic").load("@Html.Raw(Url.Action("DataStatics","Query"))");
+        });
+    </script>
+}
+<style>
+    /*教学设计*/
+    .school-info .info-header {
+        height: 31px;
+        width: 316px;
+    }
+  .interaction1 {
+        background: url("/UCHomeNew/Content/NewFile/image/city/教学设计.png") no-repeat;
+    }
+    .training {
+        background: url("/UCHomeNew/Content/NewFile/image/city/课堂实录.png") no-repeat;
+    }
+    .lesson {
+        background: url("/UCHomeNew/Content/NewFile/image/city/教学课件.png") no-repeat;
+    }
+
+    div, p, ul, li, dl, dd, h4, h5 {
+        margin: 0;
+        padding: 0;
+        list-style-type: none;
+    }
+
+    user agent stylesheet div {
+        display: block;
+    }
+
+  
+  
+
+</style>
+
+
+<script type="text/javascript">
+    $(function () {
+        var obj1 = $("#resourceList1");
+        var typeid1 = "5802854B-CD6D-4358-986E-53C3CAC9E84D";
+        GetTeachingDesign(obj1, typeid1);
+
+        var obj2 = $("#resourceList2");
+        var typeid2 = "68CE7CF1-F7C6-4D13-95B9-2DE3B39B94DD";
+        GetClass(obj2, typeid2);
+
+        var obj3 = $("#resourceList3");
+        var typeid3 = "DED65366-CCE1-4A42-AB1A-95F103FF97AD";
+        GetTeachingCourseware(obj3, typeid3);
+
+
+
+     
+    })
+    //教学设计
+    function GetTeachingDesign(obj1, typeid1) {
+        var html = "";
+        html += "<ul>";
+        obj1.html(html);
+        $.ajax({
+            type: 'get',
+            url: "@Url.Action("GetTeachingDesign")",
+            data: { type: typeid1 },
+            success: function (results) {
+                results = eval("(" + results + ")");
+                if (results != null) {
+                   // html += "<ul>";
+                    for (var i = 0; i < results.length; i++)
+                    {
+                        var date = new Date(parseInt(results[i].CreateTime.replace("/Date(", "").replace(")/", ""), 10));
+                        var createtime = date.getFullYear() + "/" + (date.getMonth() + 1) + "/" + date.getDate() ;
+                        
+                        html += "<li style=\"height:30px;\">";
+                        html += "<span class=\"news-dot\">.</span>"
+                        html += "<a target=\"_blank\" style='color: #8d8d8d;margin-left:6px;' href='" + results[i].LinkUrl + "'>" + results[i].ResourceName.substring(0, 15) + "..." + "</a>";
+                        html += " <span class=\"news-date\" style=\"float:right;color: #8d8d8d;\">" + createtime + "</span>";
+                        html += "</li>"
+                    
+                    }
+                    html += "</ul>"
+                    obj1.html(html);
+
+                }
+
+            }
+        })
+     
+    }
+    //课堂实录
+    function GetClass(obj2, typeid2)
+    {
+        var html = "";
+        html += "<ul>";
+        $.ajax({
+            type: 'get',
+            url: "@Url.Action("GetTeachingDesign")",
+            data: { type: typeid2 },
+            success: function (results) {
+            results = eval("(" + results + ")");
+            if (results != null) {
+             //   html += "<ul>";
+                for (var i = 0; i < results.length; i++)
+                {
+                    var date = new Date(parseInt(results[i].CreateTime.replace("/Date(", "").replace(")/", ""), 10));
+                    var createtime = date.getFullYear() + "/" + (date.getMonth() + 1) + "/" + date.getDate() ;
+                        
+                    html += "<li style=\"height:30px;\">";
+                    html += "<span class=\"news-dot\">.</span>"
+                    html += "<a target=\"_blank\" style='color: #8d8d8d;margin-left:6px;' href='" + results[i].LinkUrl + "'>" + results[i].ResourceName.substring(0, 15) + "..." + "</a>";
+                    html += " <span class=\"news-date\" style=\"float:right;color: #8d8d8d;\">" + createtime + "</span>";
+                    html += "</li>"
+                    
+                }
+                html += "</ul>"
+                obj2.html(html);
+
+            }
+
+        }
+    })
+  
+    }
+    //教学课件
+    function GetTeachingCourseware(obj3, typeid3) {
+        var html = "";
+        html += "<ul>";
+        $.ajax({
+            type: 'get',
+            url: "@Url.Action("GetTeachingDesign")",
+            data: { type: typeid3 },
+        success: function (results) {
+            results = eval("(" + results + ")");
+            if (results != null) {
+               // html += "<ul>";
+                for (var i = 0; i < results.length; i++)
+                {
+                    var date = new Date(parseInt(results[i].CreateTime.replace("/Date(", "").replace(")/", ""), 10));
+                    var createtime = date.getFullYear() + "/" + (date.getMonth() + 1) + "/" + date.getDate() ;
+                        
+                    html += "<li style=\"height:30px;\">";
+                    html += "<span class=\"news-dot\">.</span>"
+                    html += "<a target=\"_blank\" style='color: #8d8d8d;margin-left:6px;' href='" + results[i].LinkUrl + "'>" + results[i].ResourceName.substring(0, 15) + "..." + "</a>";
+                    html += " <span class=\"news-date\" style=\"float:right;color: #8d8d8d;\">" + createtime + "</span>";
+                    html += "</li>"
+                    
+                }
+                html += "</ul>"
+                obj3.html(html);
+
+            }
+
+        }
+    })
+
+    }
+
+
+   
+
+
+</script>
+
+<div class="header">
+    @Html.Partial("HeadMenu", UCHomeBasePage.IsLogin)
+</div>
+<div class="container">
+    <div class="content">
+        <!--title-->
+        <div class="title">
+            <img src="@Url.Content("~/Content/NewFile/image/public/logo.png")">
+            <span>&nbsp;&nbsp;泰安市“教育云”空间</span>
+        </div>
+        <!--silder-->
+        <div class="slider">
+            <div class="slider-container">
+                <div class="slider-wrapper">
+                    <div class="slide">
+                        <a target="_blank" href="http://www.taedu.gov.cn/cloud/">
+                            <img src="@Url.Content("~/Content/NewFile/image/school/banner1.jpg")" /></a>
+                    </div>
+                    <div class="slide">
+                        <a target="_blank" href="http://jx.taedu.gov.cn:83/Resource.Portal.Web">
+                            <img src="@Url.Content("~/Content/NewFile/image/school/banner2.jpg")" /></a>
+                    </div>
+                    <div class="slide">
+                        <a target="_blank" href="http://www.taedu.gov.cn/UCHomeNew/">
+                            <img src="@Url.Content("~/Content/NewFile/image/school/banner3.jpg")" />
+                        </a>
+                    </div>
+                    <div class="slide">
+                        <a target="_blank" href="http://jx.taedu.gov.cn:83/Resource.Portal.Web">
+                            <img src="@Url.Content("~/Content/NewFile/image/school/banner4.jpg")" />
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--第一模块-->
+        <div class="message">
+            <div class="news-template news">
+                <div class="news-header">
+                    <img src="@Url.Content("~/Content/NewFile/image/public/earth.png")">
+                    <span class="news-title">最热文章</span>
+                    <a target="_blank" href="@Url.Action("MoreArticle", "Query", new { xzqhm = "370901", schoolType = "1", newtitle = "泰安市“教育云”空间", dataType = (int)EnumConvert.DataType.文章 })" class="more"></a>
+                </div>
+                <div class="news-content" id="HotArticle">
+                    <div class="loading"></div>
+                    @*@{ Html.RenderAction("HotArticle", "CityCenter", new { pageSize = 5 }); }*@
+                </div>
+            </div>
+            <div class="news-template situation">
+                <div class="news-header">
+                    <img class="situation-img" src="@Url.Content("~/Content/NewFile/image/public/news.png")" />
+                    <span class="news-title situation-span">最新文章</span>
+                    <a target="_blank" href="@Url.Action("MoreArticle", "Query", new { xzqhm = "370901", schoolType = "1", newtitle = "泰安市“教育云”空间", dataType = (int)EnumConvert.DataType.文章 })" class="more"></a>
+                </div>
+                <div class="news-content" id="NewArticle">
+                    <div class="loading"></div>
+                    @*@{ Html.RenderAction("NewArticle", "CityCenter", new { pageSize = 5 }); }*@
+                </div>
+            </div>
+            <div class="comment">
+                <div class="news-header">
+                    <span class="comment-title">空间统计</span>
+                    <a target="_blank" href="@Url.Action("AllStatics", "Query")" class="more"></a>
+                </div>
+                <div id="datastatic" class="news-content">
+                    <div class="loading"></div>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+
+        <!--第二模块-->
+        <div class="list-space">
+            <div class="list-district">
+                <div class="district-header">
+                    <div class="district-title">区县列表</div>
+                    <div class="district-blank"></div>
+                </div>
+                <div class="district-content">
+                    <img src="@Url.Content("~/Content/NewFile/image/city/map.jpg")" usemap="#districtmap" alt="Planets" />
+                    <map name="districtmap">
+                        <area shape="circle" coords="50,170,40" href="@Url.Action("Index", "DistrictCenter", new { id = "370923" })" style="cursor: pointer" alt="东平县" />
+                        <area shape="circle" coords="107,134,50" href="@Url.Action("Index", "DistrictCenter", new { id = "370983" })" style="cursor: pointer" alt="肥城市" />
+                        <area shape="circle" coords="140,186,40" href="@Url.Action("Index", "DistrictCenter", new { id = "370921" })" style="cursor: pointer" alt="宁阳县" />
+                        <area shape="circle" coords="185,80,30" href="@Url.Action("Index", "DistrictCenter", new { id = "370902" })" style="cursor: pointer" alt="泰山区" />
+                        <area shape="circle" coords="176,144,20" href="@Url.Action("Index", "DistrictCenter", new { id = "370903" })" style="cursor: pointer" alt="岱岳区" />
+                        <area shape="circle" coords="252,157,60" href="@Url.Action("Index", "DistrictCenter", new { id = "370982" })" style="cursor: pointer" alt="新泰市" />
+                        <area shape="circle" coords="176,117,20" href="@Url.Action("Index", "DistrictCenter", new { id = "370901" })" style="cursor: pointer" alt="市辖区" />
+                    </map>
+                </div>
+            </div>
+            <div class="photo-space">
+                <div class="photo-space-header">
+                    <div class="photo-space-title">
+                        优秀教师空间
+                            <a target="_blank" href="@Url.Action("MoreTeacher", "Query", new { xzqhm = "370901", schoolType = "1", newtitle = "泰安市“教育云”空间", dataType = (int)EnumConvert.DataType.教师 })" class="more"></a>
+                    </div>
+                </div>
+                <div class="photo-space-content" id="teacherRooms">
+                    <div class="loading"></div>
+                    @*@{ Html.RenderAction("RoomsList", "CityCenter", new { userType = "t", pageSize = 7 }); }*@
+                </div>
+                <div class="photo-space-header photo-space-margin">
+                    <div class="photo-space-title">
+                        优秀学生空间
+                            <a target="_blank" href="@Url.Action("MoreStudent", "Query", new { xzqhm = "370901", schoolType = "1", newtitle = "泰安市“教育云”空间", dataType = (int)EnumConvert.DataType.学生 })" class="more"></a>
+                    </div>
+                </div>
+                <div class="photo-space-content" id="studentRooms">
+                    <div class="loading"></div>
+                    @*@{ Html.RenderAction("RoomsList", "CityCenter", new { userType = "s", pageSize = 7 }); }*@
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+
+        <!--第三模块-->
+        <div class="school-info">
+            <div class="info-template">
+                <div class="info-header interaction1" >
+                    <a target="_blank" href="http://jx.taedu.gov.cn:83/Resource.Portal.Web" class="more interaction-more"></a>
+                </div>
+
+                @*<div class="news-content" id="resourceList1">
+                </div>*@
+                <div class="info-content" id="resourceList1">
+
+
+                   
+
+                </div>
+            </div>
+            <div class="info-template">
+                <div class="info-header training">
+                    <a target="_blank" href="http://jx.taedu.gov.cn:83/Resource.Portal.Web" class="more training-more"></a>
+                </div>
+                <div class="info-content" id="resourceList2">
+
+
+
+
+                </div>
+            </div>
+            <div class="info-template info-last">
+                <div class="info-header lesson">
+                    <a target="_blank" href="http://jx.taedu.gov.cn:83/Resource.Portal.Web" class="more lesson-more"></a>
+                </div>
+                <div class="info-content" id="resourceList3">
+
+
+
+
+                </div>
+
+            </div>
+            <div class="clear"></div>
+        </div>
+
+        <!--第四模块-->
+        <div class="app-square">
+            <div class="square-template square-first">
+                <a class="item-app">应用<br />
+                    广场</a>
+                <div class="item-arrow">>>></div>
+            </div>
+            <div class="square-template">
+                <a target="_blank" href="http://xy.taedu.gov.cn:81/workcenter" class="item-icon">
+                    <img src="@Url.Content("~/Content/NewFile/image/city/interation.png")">
+                </a>
+                <div class="item-intro">
+                    <a target="_blank" href="http://xy.taedu.gov.cn:81/workcenter">数字校园</a>
+                </div>
+            </div>
+            <div class="square-template">
+                <a target="_blank" href="http://jx.taedu.gov.cn:83/teacherindex" class="item-icon">
+                    <img src="@Url.Content("~/Content/NewFile/image/city/manage.png")">
+                </a>
+                <div class="item-intro">
+                    <a target="_blank" href="http://jx.taedu.gov.cn:83/teacherindex">课程教学</a>
+                </div>
+            </div>
+            <div class="square-template">
+                <a target="_blank" href="http://www.taedu.gov.cn/WebSite.JCJY/" class="item-icon">
+                    <img src="@Url.Content("~/Content/NewFile/image/city/learn.png")">
+                </a>
+                <div class="item-intro">
+                    <a target="_blank" href="http://www.taedu.gov.cn/WebSite.JCJY/">基础教研</a>
+                </div>
+            </div>
+            <div class="square-template">
+                <a target="_blank" href="http://www.taedu.gov.cn/WebSite.SXK/" class="item-icon">
+                    <img src="@Url.Content("~/Content/NewFile/image/city/training.png")">
+                </a>
+                <div class="item-intro">
+                    <a target="_blank" href="http://www.taedu.gov.cn/WebSite.SXK/">教师培训</a>
+                </div>
+            </div>
+            <div class="square-template">
+                <a target="_blank" href="http://jx.taedu.gov.cn:83/Resource.Portal.Web" class="item-icon">
+                    <img src="@Url.Content("~/Content/NewFile/image/city/resource.png")">
+                </a>
+                <div class="item-intro">
+                    <a target="_blank" href="http://jx.taedu.gov.cn:83/Resource.Portal.Web">资源中心</a>
+                </div>
+            </div>
+            <div class="square-template">
+                <a target="_blank" href="http://zy.taedu.gov.cn:84/" class="item-icon">
+                    <img src="@Url.Content("~/Content/NewFile/image/city/profession.png")">
+                </a>
+                <div class="item-intro">
+                    <a target="_blank" href="http://zy.taedu.gov.cn:84/">职业教育</a>
+                </div>
+            </div>
+
+            <div class="square-template">
+                <a target="_blank" href="http://www.taedu.gov.cn/Authentication.Web/Test/SignIn.aspx?ApplicationID= 4c8b66e4-8fc5-4663-97c6-05f2358d0474&ReturnUrl=http://111.17.215.232:100/EducationCloud/LoginServlet" class="item-icon">
+                    <img src="@Url.Content("~/Content/NewFile/image/city/center.png")">
+                </a>
+                <div class="item-intro">
+                    <a target="_blank" href="http://www.taedu.gov.cn/Authentication.Web/Test/SignIn.aspx?ApplicationID= 4c8b66e4-8fc5-4663-97c6-05f2358d0474&ReturnUrl=http://111.17.215.232:100/EducationCloud/LoginServlet">支付平台</a>
+                </div>
+            </div>
+
+            <div class="square-template square-last">
+                <a href="#" class="item-icon">
+                    <img src="@Url.Content("~/Content/NewFile/image/city/preschool.png")">
+                </a>
+                <div class="item-intro">
+                    <a href="#">学前教育</a>
+                </div>
+            </div>
+            <div class="square-template">
+                <a target="_blank" href="http://www.taedu.gov.cn/Authentication.Web/Test/SignIn.aspx?logintype=single&ApplicationID=a649f0a0-6e5d-4432-9ece-8735335bc563" class="item-icon">
+                    <img src="@Url.Content("~/Content/NewFile/image/city/oa.png")">
+                </a>
+                <div class="item-intro">
+                    <a target="_blank" href="http://www.taedu.gov.cn/Authentication.Web/Test/SignIn.aspx?logintype=single&ApplicationID=a649f0a0-6e5d-4432-9ece-8735335bc563">OA办公</a>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+</div>
+<div class="footer">
+    <div class="footer_content">
+        版权信息：CopyRight©2010-2015
+    </div>
+</div>

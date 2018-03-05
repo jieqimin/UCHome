@@ -1,0 +1,58 @@
+﻿@model Guid
+<ul class="ul-shortcut">
+    <li id="myhome"><i class="li-icon2 li-icon-home"></i><span>个人主页</span></li>
+    <li id="mysay"><i class="li-icon2 li-icon-say"></i><span>心情说说</span></li>
+    <li id="mylog"><i class="li-icon2 li-icon-log"></i><span>个人文章</span></li>
+    <li id="myphoto"><i class="li-icon2 li-icon-photo"></i><span>个人相册</span></li>
+    @if (ViewData["UserType"].ToString() == "T")
+    {
+        <li id="mymark"><i class="li-icon2 li-icon-mark"></i><span>个人资源</span></li>
+        
+    }
+    else if (ViewData["UserType"].ToString() == "S")
+    {    
+        <li id="mystudy"><i class="li-icon2 li-icon-message"></i><span><a href="http://jx.taedu.gov.cn:83/CourseCenter/Student/Index?XSID=@Model" target="_blank">个人成长</a></span></li>
+        @*<li id="myscore"><i class="li-icon2 li-icon-message"></i><span>学业成长</span></li>*@
+        <li id="myperform"><i class="li-icon2 li-icon-message"></i><span>个人表现</span></li>        
+    }
+    <li id="mymessage"><i class="li-icon2 li-icon-message"></i><span>留言板</span></li>
+</ul>
+<script>
+    $(function () {
+        $("#myhome").click(function () {
+            loaddata($("#body_content"));
+            $("#body_content").load("@Url.Action("PersonHome2", "TeacherCenter", new { id = Model })");
+        });
+        $("#mylog").click(function () {
+            loaddata($("#body_content"));
+            $("#body_content").load("@Url.Action("PersonLog2", "PublicShare", new { id = Model })");
+        });
+        $("#myphoto").click(function () {
+            loaddata($("#body_content"));
+            $("#body_content").load("@Url.Action("PersonPhoto2", "PublicShare", new { id = Model })");
+        });
+        $("#mymark").click(function () {
+            loaddata($("#body_content"));
+            $("#body_content").load("@Url.Action("QueryResById", "MyResource", new { id = Model })");
+        });
+        $("#mymessage").click(function () {
+            loaddata($("#body_content"));
+            $("#body_content").load("@Url.Action("PersonMessage2", "PublicShare", new { id = Model })");
+        });
+        $("#mysay").click(function () {
+            loaddata($("#body_content"));
+            $("#body_content").load("@Url.Action("PersonSay2", "PublicShare", new { id = Model })");
+        });
+       @* $("#mystudy").click(function () {
+           ("http://jx.taedu.gov.cn:83/CourseCenter/Student/Index?XSID=@Model");
+        });*@
+        $("#myscore").click(function () {
+            loaddata($("#body_content"));
+            $("#body_content").load("@Url.Action("ScoreInfo", "ParentsCenter", new { id = Model })");
+        });
+        $("#myperform").click(function () {
+            loaddata($("#body_content"));
+            $("#body_content").load("@Url.Action("DYInfo", "ParentsCenter", new { id = Model })");
+        });
+    })
+</script>

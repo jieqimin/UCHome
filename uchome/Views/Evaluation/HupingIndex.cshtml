@@ -1,0 +1,99 @@
+﻿@{
+    Layout = null;
+}
+@using M = Evaluation.Model;
+@model M.Models.EvaluationStudent
+<link rel="stylesheet" href="@Url.Content("~/Content/css/msg.css")">
+<link rel="stylesheet" href="@Url.Content("~/Content/css/eval.css")">
+
+<div class="form-position pagew">
+    <button type="button" class="btn btn-info pull-right btn-exp" onclick="redirecturl('@Url.Action("PilinagIndex")');">批量互评</button>
+    <ul class="nav nav-tabs" id="myTabs" role="tablist">
+        <li class="active" role="presentation">
+            <a href="#home" role="tab" aria-controls="home" data-toggle="tab">未评同学</a>
+        </li>
+        <li role="presentation">
+            <a href="#profile" role="tab" aria-controls="profile" data-toggle="tab">已评同学</a>
+        </li>
+    </ul>
+    <div class="tab-content pull-left" id="myTabContent">
+        <div class="tab-pane fade pull-left active in" id="home" role="tabpanel">
+            @if (Model.notEvaluatedStuList.Count > 0)
+            { 
+                <ul>
+                    @foreach (M.Models.Stu item in Model.notEvaluatedStuList)
+                    {
+                        <li><a href="javascript:void(0);" onclick="openform('noteval','@item.XSID','@item.XM')">@item.XM</a></li>
+                    }
+                </ul>
+            }
+            else
+            {
+                @Html.Raw("学生互评全部完成！")
+            }
+        </div>
+        <div class="tab-pane fade pull-left" id="profile" role="tabpanel">
+            @if (Model.alreadyEvaluatedStuList.Count > 0)
+            {
+                <ul>
+                    @foreach (M.Models.Stu item in Model.alreadyEvaluatedStuList)
+                    {
+                        <li><a href="javascript:void(0);" onclick="openform('noteval','@item.XSID','@item.XM')">@item.XM</a></li>
+                    }
+                </ul>
+            }
+            else
+            {
+                @Html.Raw("目前还没有学生互评哦！")
+            }
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="Modal-xshp" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">
+                    <span style="font-weight: bold;">学生互评</span>
+                </h4>
+            </div>
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btnSaveScore" class="btn btn-info">保存</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $("#btnSaveScore").click(function () {
+            submitdata();
+        });
+    });
+
+    function openform(type, id, name) {
+        $("#myModalLabel").find("span").html("学生互评(" + name + ")");
+        if (type == "noteval") {
+            $("#btnSaveScore").show();
+
+            $('#Modal-xshp').modal('show');
+            $("#Modal-xshp .modal-body").html("正在加载数据，请稍后...");
+            var loadurl = "@Url.Action("HupingModalContent")?xsid=" + id;
+            $("#Modal-xshp .modal-body").load(loadurl);
+        }
+        else {
+            $("#btnSaveScore").hide();
+
+            $('#Modal-xshp').modal('show');
+            $("#Modal-xshp .modal-body").html("正在加载数据，请稍后...");
+            var loadurl = "@Url.Action("HupingModalContentDetail")?xsid=" + id;
+            $("#Modal-xshp .modal-body").load(loadurl);
+        }
+    }
+
+</script>

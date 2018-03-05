@@ -1,0 +1,149 @@
+﻿@using UCHome.Model
+<style type="text/css">
+    .table table-bordered {
+        margin-top: 10px;
+    }
+
+    table tr td {
+        text-align: center;
+    }
+
+    a {
+        text-decoration: none;
+    }
+
+    .Permissions {
+        color: green;
+    }
+
+    .delete {
+        color: red;
+        padding-left: 10px;
+    }
+
+    .md {
+        float: left;
+        display: inline-block;
+        width: 75px;
+        line-height: 25px;
+        text-align: center;
+    }
+</style>
+<link rel="stylesheet" href="@Url.Content("~/Content/css/eval.css")">
+<script src="@Url.Content("~/plugs/usercontrol/selectuser.js")"></script>
+@using (Ajax.BeginForm(
+    new AjaxOptions()
+    {
+        HttpMethod = "post",
+        Url = Url.Action("CharacterMan", "SysManage"),
+        LoadingElementId = "loding",
+        LoadingElementDuration = 2000
+    }))
+{
+    <div class="row">
+        <div class="col-lg-9" style="margin-top: 10px;">
+            <input id="hidRoleType" type="hidden" value="TP" />
+            <ul class="nav nav-tabs" id="myTabs" role="tablist" style="width: 720px;">
+                <li class="active" role="presentation">
+                    <a href="#teacher" role="tab" aria-controls="home" data-toggle="tab" name="teacher" id="TP">教师角色</a>
+                </li>
+                <li role="presentation">
+                    <a href="#student" role="tab" aria-controls="profile" data-toggle="tab" name="student" id="SP">学生角色</a>
+                </li>
+                <li role="presentation">
+                    <a href="#parents" role="tab" aria-controls="profile" data-toggle="tab" name="parents" id="PP">家长角色</a>
+                </li>
+                <li role="presentation">
+                    <a href="#manager" role="tab" aria-controls="profile" data-toggle="tab" name="manager" id="XP">管理员角色</a>
+                </li>
+            </ul>
+            <div class="tab-content pull-left" id="myTabContent">
+                <div class="tab-pane fade pull-left active in" id="teacher" role="tabpanel" style="overflow: hidden; width: 720px;">
+                </div>
+                <div class="tab-pane fade pull-left" id="student" role="tabpanel" style="width: 720px;">
+                </div>
+                <div class="tab-pane fade pull-left" id="parents" role="tabpanel" style="width: 720px;">
+                </div>
+                <div class="tab-pane fade pull-left" id="manager" role="tabpanel" style="width: 720px;">
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<script type="text/javascript">
+    //$("#hidRoleType").val("TP");
+
+    $("#teacher").load("@Url.Action("SetPermissions", "SysManage")?roletype=TP");
+    //getRoleList("TP");
+    $('#myTabs li a').click(function () {
+        var roletype = $(this).attr("id");
+        var name = $(this).attr("name");
+        $("#teacher").html("");
+        $("#student").html("");
+        $("#parents").html("");
+        $("#manager").html("");
+        $("#" + name).load("@Url.Action("SetPermissions", "SysManage")?roletype=" + roletype);
+        //getRoleList(roletype);
+    });
+
+
+    //获取所有角色
+    function getRoleList(roletype) {
+        $("#rolelisttable").html("");
+        $.ajax({
+            url: "@Url.Action("GetRoleList", "SysManage")",
+            data: { "roleType": roletype },
+            success: function (response) {
+                if (response != null && response.length > 0) {
+                    var html = "<tr><td>角色名称</td><td>人员名称</td></tr>";
+                    $.each(response, function (i, item) {
+                        html += "<tr><td class=\"newTask\">" + item["RoleName"] + "</td>" +
+                            "<td class=\"active\" role=\"presentation\">" +
+                            "<a href=\"#seeNameList\" class=\"seeNameList\" name=\"seeNameList\" " +
+                            "role=\"tab\" aria-controls=\"home\" data-toggle=\"tab\" onclick=\"getourRoList('" + item["RoleId"] + "','" + item["RoleName"] + "','" + roletype + "')\">查看名单</a></td>";
+                    });
+                    $("#rolelisttable").html(html);
+                }
+            }
+        });
+    }
+    //查看名单
+
+    function getourRoList(roleId, roleName, roletype) {
+        rid = roleId;
+        $("#selectUserID").val("");
+        $("#selectUserName").text("");
+        var userIds = "";
+        var userNames = "";
+        var temp = "";
+        $("#showSelectUserName").html("<img style=\"margin-left:45%;\" src=\"@Url.Content("~/Content/images/loading_blue.gif")\" /><br/>" +
+            "<span style=\"margin-left:34%;font-size: 12px;\">信息加载中，请稍候...</span>");
+        $("#LroleName").val("");
+        $("#LroleName").text(roleName + "名单");
+        $.ajax({
+            url: "@Url.Action("GetOurSchRListbyRId")",
+            data: { roleId: roleId, roleType: roletype },
+            success: function (response) {
+                if (response != null && response.length > 0) {
+                    $("#showSelectUserName").empty();
+                    var html = "";
+                    $.each(response, function (i, item) {
+                        userIds += temp + item.Value;
+                        userNames += temp + item.Text;
+                        temp = ",";
+                        html = "<span class='md'>" + item.Text + "</span>";
+                        $("#showSelectUserName").append(html);
+                    });
+                    $("#selectUserID").val(userIds);
+                    $("#selectUserName").text(userNames);
+                } else {
+                    $("#showSelectUserName").empty();
+                }
+            }
+        });
+    }
+
+</script>
+
+
+

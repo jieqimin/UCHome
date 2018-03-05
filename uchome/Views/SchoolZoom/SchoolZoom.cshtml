@@ -1,0 +1,148 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <link href="@Url.Content("~/Content/css/school.css")" rel="stylesheet" />
+    <script src="@Url.Content("~/Content/js/jquery-1.7.1.min.js")"></script>
+    <script src="@Url.Content("~/Content/plugs/layer/layer.min.js")"></script>
+    <script src="@Url.Content("~/Content/js/alert.js")"></script>
+    <script>
+        $(function () {
+            $(".bc_content2 .dmenu li").click(function () {
+                tabtoggle("tab1", "content1", $(this).attr("id"));
+            });
+            $(".bc_content4 .dmenu li").click(function () {
+                tabtoggle("tab2", "content2", $(this).attr("id"));
+            });
+            $('#content1_tab11').html("<div style='text-align:center;'>正在加载，请稍候...<div>");
+            $("#content1_tab11").load("@Url.Action("SchoolNews")", function () {
+
+            });
+            $("#content1_tab12").load("@Url.Action("SchoolNews")", function () {
+
+            });
+            $("#schclass").load("@Url.Action("SchoolClass")");
+        })
+    </script>
+</head>
+<body>
+    <div class="top">
+        <div class="top_content">
+            <span class="title">学校空间</span>
+            <span></span>
+            <a href="" class="loginout">退出</a>
+        </div>
+    </div>
+    <div class="content">
+        <div class="concent_body">
+            <div class="body_left">
+                <div class="message">
+                    <ul>
+                        <li onclick="openwindow('http://xy.taedu.gov.cn:81/Messages.Web/Msg/receivelist.aspx',1000,500,'我的邮件')">邮件<span class="count">2</span></li>
+                        <li onclick="openwindow('http://xy.taedu.gov.cn:81/Messages.Web/Affiche/receivelist.aspx',1000,500,'我的消息')">消息<span class="count">1</span></li>
+                    </ul>
+                </div>
+
+                <hr style="border-bottom: solid 1px #8FC2DF; border-top: solid 1px #739BB4; height: 0; position: absolute; width: 149px; left: 0;" />
+
+                <div class="shortcut">
+                    <ul>
+                        <li><a target="_blank" href="http://sns.taedu.gov.cn:81/index.php?app=space&mod=Personal&act=blogList&fuid=956&Settitle=blog">● 文章发布</a></li>
+                        <li><a target="_blank" href="http://jx.taedu.gov.cn:83/discuss/Page/QstInstanceList.aspx">● 讨论互动</a></li>
+                        <li><a target="_blank" href="http://jx.taedu.gov.cn:83/indexweb">● 资源视频</a></li>
+                        <li><a target="_blank" href="http://www.taedu.gov.cn/WebSite.SXK/">● 在线培训</a></li>
+                        <li><a target="_blank" href="http://www.taedu.gov.cn/WebSite.JCJY/">● 在线教研</a></li>
+                        <li><a target="_blank" href="http://xy.taedu.gov.cn:81/AskForLeave.Web/ALApply/Create">● 请假申请</a></li>
+                        <li><a target="_blank" href="http://xy.taedu.gov.cn:81/WorkCenter/Home/Index/c8eec959-608b-4a5e-b5cf-7858f3d26951">● 加班申请</a></li>
+                        <li><a target="_blank" href="http://jx.taedu.gov.cn:83/WebClientFrame/apps/CourseEditor/Index.html">● 教案备课</a></li>
+                        <li><a target="_blank" href="http://xy.taedu.gov.cn:81/WorkCenter/Home/Index/c8eec959-608b-4a5e-b5cf-7858f3d26951">● 薪资查询</a></li>
+                    </ul>
+                </div>
+                <hr style="border-bottom: solid 1px #8FC2DF; border-top: solid 1px #739BB4; height: 0; position: absolute; width: 149px; left: 0;" />
+            </div>
+            <div class="body_center">
+
+                <div class="bc_content2">
+                    <div class="dmenu">
+                        <ul>
+                            <li id="tab11" class="tab1 selected">学校新闻</li>
+                            <li id="tab12" class="tab1">最新动态</li>
+                            <li id="tab12" class="tab1">通知公告</li>
+                        </ul>
+                    </div>
+                    <div class="dinfo">
+                        <ul id="content1_tab11" class="content1_tab1 ">
+                        </ul>
+                        <ul id="content1_tab12" class="content1_tab1 hide">
+                        </ul>
+                        <ul id="content1_tab13" class="content1_tab1 hide">
+                        </ul>
+                    </div>
+                </div>
+                <div class="bc_content3">
+                    <div class="dtitle">学校资源</div>
+                    <div class="dinfo" id="kb">
+                    </div>
+                </div>
+
+            </div>
+            <div class="body_right">
+                <div class="br_content1">
+                    <div class="dtitle2">学校班级</div>
+                    <div class="dpicture2">
+                        <ul id="schclass">
+                        </ul>
+                    </div>
+                    <div class="more" onclick="openwindow('studentlist.html',1000,500,'我的学生')">查看更多</div>
+                </div>
+                <div class="br_content2">
+                    <div class="dtitle">优秀教师</div>
+                    <div class="dpicture">
+                        <ul>
+
+
+                            <li onclick="openwindow('chat.html',1000,500,'我的学生')">
+                                <dl>
+                                    <dd class="photo">
+                                        <img src="@Url.Content("~/content/images/male.png")" border="0" /></dd>
+                                    <dd class="info">程一鸣</dd>
+                                    <dd class="msgcount">2</dd>
+                                </dl>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="more" onclick="openwindow('studentlist.html',1000,500,'我的学生')">查看更多</div>
+                </div>
+                <div class="br_content3">
+                    <div class="dtitle">优秀学生</div>
+                    <div class="dpicture">
+                        <ul>
+
+
+                            <li onclick="openwindow('chattoparent.html',1000,500,'学生家长')">
+                                <ul>
+                                    <dd class="photo">
+                                        <img src="@Url.Content("~/content/images/man.png")" border="0" /></dd>
+                                    <dd class="info">
+                                        <p>程冠龙</p>
+                                        <p>程一鸣家长</p>
+                                    </dd>
+
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="more" onclick="openwindow('chattoparent.html',1000,500,'学生家长')">查看更多</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="bottom"></div>
+</body>
+</html>
+

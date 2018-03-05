@@ -1,0 +1,118 @@
+﻿@model SchInfo.Model.siCourse
+@{}
+@using (Ajax.BeginForm("CreateSICourse", null,
+                            new AjaxOptions() {
+                                HttpMethod = "post",
+                                Url = @Url.Action("CreateSICourse"),
+                                UpdateTargetId = "#sicourse",
+                                LoadingElementId = "loding",
+                                LoadingElementDuration = 2000
+                            }, new { id = "form-sicourse" })) {
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal form-position pagew" id="sicourse">
+        @Html.HiddenFor(model=>model.CourseID)
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.CourseID_DMCode, "* 关联学科", htmlAttributes: new { @class = "control-label col-md-2 required" })
+            <div class="col-md-5">
+                @Html.DropDownListFor(model => model.CourseID_DMCode,null,new { @class = "form-control  col-md-12"})
+                @Html.ValidationMessageFor(model => model.CourseID_DMCode, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.CourseName, "* 课程名称", htmlAttributes: new { @class = "control-label col-md-2 required" })
+            <div class="col-md-5">
+                @Html.EditorFor(model => model.CourseName, new { htmlAttributes = new { @class = "form-control", placeholder = "输入长度不要超过20字" } })
+                @Html.ValidationMessageFor(model => model.CourseName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.CourseType_DictCode, "* 课程类型", htmlAttributes: new { @class = "control-label col-md-2 required" })
+            <div class="col-md-5">
+                @Html.DropDownListFor(model => model.CourseType_DictCode, null, new { @class = "form-control col-md-12" })
+                @Html.ValidationMessageFor(model => model.CourseType_DictCode, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.CourseNature_DMCode, "* 课程等级", htmlAttributes: new { @class = "control-label col-md-2 required" })
+            <div class="col-md-5">
+                @Html.DropDownListFor(model => model.CourseNature_DMCode, null, new { @class = "form-control col-md-12" })
+                @Html.ValidationMessageFor(model => model.CourseNature_DMCode, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.CourseTechMethod_DMCode, "授课方式", htmlAttributes: new { @class = "control-label col-md-2 required" })
+            <div class="col-md-5">
+                @Html.DropDownListFor(model => model.CourseTechMethod_DMCode, null, new { @class = "form-control col-md-12" })
+                @Html.ValidationMessageFor(model => model.CourseTechMethod_DMCode, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.CourseRequirement, "课程要求", htmlAttributes: new { @class = "control-label col-md-2 required" })
+            <div class="col-md-5">
+                @Html.TextAreaFor(model => model.CourseRequirement, 4, 80, new { htmlAttributes = new { @class = "form-control col-md-10" } })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.CourseAbstract, "课程简介", htmlAttributes: new { @class = "control-label col-md-2 required" })
+            <div class="col-md-5">
+                @Html.TextAreaFor(model => model.CourseAbstract, 4, 80, new { htmlAttributes = new { @class = "form-control col-md-10" } })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-4 col-md-8">
+                <input type="submit" value="保存" id="btn-sicourseAdd" class="btn btn-info col-md-2" />&nbsp;&nbsp;
+                <button type="button" class="btn btn-default" onclick="RedircetUrl('@Url.Action("SICourseIndex","SchoolInfo")')">返回</button>
+            </div>
+        </div>
+    </div>
+}
+@*数据提交*@
+<script>
+    $(function () {
+      var sicoursevalid=  $("#form-sicourse").validate({
+            rules: {
+                CourseName: "required"
+            },
+            ignore: "hidden",
+            messages: {
+                CourseName: "课程名称不能为空"
+            },
+            errorClass: "validate-error", //设置错误样式
+            errorElement: "label", //设置显示错误提示的控件,默认为<label>
+            errorLabelContainer: "#validmsg", //指定错误信息放置容器
+            wrapper: "li",
+            //errorPlacement: function (error,element) { //指定错误信息放置位置
+            //    error.appendTo($("#validmsg"));
+            //},
+            //debug: true,//进行调试模式（表单不提交）
+            submitHandler: function () {
+                $("#btn-sicourseAdd").val("正在保存，请稍候…");
+                $("#btn-sicourseAdd").attr("disabled", "disabled");
+                $("#form-sicourse").ajaxSubmit({
+                    success: function (data) {
+                        if (data.Data.StatusCode == 200) {
+                            completeselect("保存成功", function () {
+                                sicoursevalid.resetForm(); //重置表单
+                            }, function () {
+                                RedircetUrl("@Url.Action("siCourseIndex")");
+                            }, null)
+                            //tipsuccessmsg("保存成功");
+                            //validator.resetForm(); //重置表单
+                        } else {
+                            tipfailmsg("保存失败，原因可能为：" + data.Data.ErrorMessage);
+                            //$("#PKID").val(data.data.PKID);
+                            //validator.resetForm(); //重置表单
+                        }
+                        $("#btn-sicourseAdd").val("保存");
+                        $("#btn-sicourseAdd").removeAttr("disabled");
+                    }
+                });
+            }
+            //onsubmit: false,//是否提交时验证，默认为True,用于设置某一个不需要验证的控件
+            //onfocusin: false,//是否获取焦点时验证，默认为True
+            //onkeyup: false,//是否在敲击键盘时验证，默认为True
+            //onclick: false//是否在鼠标点击时验证，默认为True
+        });
+    });
+</script>

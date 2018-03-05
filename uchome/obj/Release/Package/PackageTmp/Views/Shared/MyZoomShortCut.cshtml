@@ -1,0 +1,53 @@
+﻿<ul class="ul-shortcut">
+    <li id="myhome"><i class="li-icon li-icon-home"></i><span>我的主页</span></li>
+    <li id="mysay"><i class="li-icon li-icon-say"></i><span>我的说说</span></li>
+    <li id="mylog"><i class="li-icon li-icon-log"></i><span>文章日志</span></li>
+    <li id="myphoto"><i class="li-icon li-icon-photo"></i><span>我的相册</span></li>
+    @*    <li id="mymark"><i class="li-icon li-icon-mark"></i><span>我的痕迹</span></li>*@
+    <li id="mydicussgroup"><i class="li-icon li-icon-mark"></i><span>即时讨论</span></li>
+    <li id="mymessage"><i class="li-icon li-icon-message"></i><span>留言板</span></li>
+<li id="mycircle"><i class="li-icon li-icon-home"></i><span>智享圈</span></li>
+@*<li id="myTimeLine"><a target="_blank" href="@Url.Action("Index","TimeLine")"><i class="li-icon li-icon-home"></i><span>时光轴</span></a></li>*@
+</ul>
+<script>
+    $(function () {
+        $("#myhome").click(function () {
+            loaddata($("#body_content"));
+            if ("@ViewData["UserType"]" == "T")
+                $("#body_content").load("@Url.Action("PersonHome", "TeacherCenter", new { id = Model })");
+            if ("@ViewData["UserType"]" == "S")
+                $("#body_content").load("@Url.Action("PersonHome", "TeacherCenter", new { id = Model })");
+            if ("@ViewData["UserType"]" == "P")
+                $("#body_content").load("@Url.Action("Index", "ParentsCenter", new { id = Model })");
+        });
+        $("#mylog").click(function () {
+            loaddata($("#body_content"));
+            $("#body_content").load("@Url.Action("PersonLog", "PublicShare", new { id = Model })");
+        });
+        $("#myphoto").click(function () {
+            loaddata($("#body_content"));
+            $("#body_content").load("@Url.Action("PersonPhoto", "PublicShare", new { id = Model })");
+        });
+        $("#mymark").click(function () {
+            loaddata($("#body_content"));
+            $("#body_content").load("@Url.Action("PersonMark", "PublicShare", new { id = Model })");
+        });
+        $("#mymessage").click(function () {
+            loaddata($("#body_content"));
+            $("#body_content").load("@Url.Action("PersonMessage", "PublicShare", new { id = Model })");
+        });
+        $("#mysay").click(function () {
+            loaddata($("#body_content"));
+            $("#body_content").load("@Url.Action("PersonSay", "PublicShare", new { id = Model })");
+        });
+        $("#mydicussgroup").click(function () {
+            loaddata($("#body_content"));
+            $("#body_content").load("@Url.Action("PersonDicuss", "PublicShare", new { id = Model })");
+        });
+
+$("#mycircle").click(function () {
+            loaddata($("#body_content"));
+            $("#body_content").load("@Url.Action("FriendsCircle", "TeacherCenter", new { id = Model })");
+        });
+    })
+</script>

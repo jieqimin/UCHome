@@ -1,0 +1,142 @@
+﻿@using UCHome.Model
+@model UCHome_User
+<style>
+    .red {
+        color: red;
+    }
+
+    #ul_appicon {
+    }
+
+        #ul_appicon > li {
+            position: relative;
+        }
+
+            #ul_appicon > li input[type=checkbox] {
+                position: absolute;
+                right: 0;
+                bottom: 0;
+                border: solid 1px #ccc !important;
+            }
+
+    #app_menu_add_modal {
+        overflow-x: hidden;
+    }
+</style>
+<script src="@Url.Content("~/scripts/jquery.validate.js")"></script>
+<script src="@Url.Content("~/Scripts/jquery.form.js")"></script>
+<form id="form-useradd" method="post" action="@Url.Action("AddUser")">
+    @Html.HiddenFor(model => model.PKID)
+    @Html.HiddenFor(model => model.State)
+    <div id="app_add" class="form-horizontal form-position pagew ">
+        <div class="form-group">
+            <label for="UserType" class="col-sm-3 control-label">用户类型：</label>
+            <div class="col-sm-6">
+                <select class="form-control" name="UserType" id="UserType">
+                    <option value="t">教师</option>
+                    <option value="s">学生</option>
+                    <option value="p">家长</option>
+                    <option value="m">管理员</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="XM" class="col-sm-3 control-label">用户姓名：</label>
+            <div class="col-sm-6">
+                <input type="text" class="form-control" id="XM" name="XM" placeholder="请输入应用名称" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="UserName" class="col-sm-3 control-label">登录帐号：</label>
+            <div class="col-sm-6">
+                <input type="text" class="form-control" id="UserName" name="UserName" placeholder="请输入应用名称" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="UserPwd" class="col-sm-3 control-label">登录密码：</label>
+            <div class="col-sm-6">
+                <input type="password" class="form-control" id="UserPwd" name="UserPwd" placeholder="请输入应用路径" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="UserEmail" class="col-sm-3 control-label">电子邮箱：</label>
+            <div class="col-sm-6">
+                <input type="text" class="form-control" id="UserEmail" name="UserEmail" placeholder="请输入应用路径" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="UserMobile" class="col-sm-3 control-label">联系方式：</label>
+            <div class="col-sm-6">
+                <input type="text" class="form-control" id="UserMobile" name="UserMobile" placeholder="请输入应用路径" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="SFZH" class="col-sm-3 control-label">身份证号：</label>
+            <div class="col-sm-6">
+                <input type="text" class="form-control" id="SFZH" name="SFZH" placeholder="请输入应用路径" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="XJH" class="col-sm-3 control-label">学籍号：</label>
+            <div class="col-sm-6">
+                <input type="text" class="form-control" id="XJH" name="XJH" placeholder="请输入应用路径" />
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="center-block" style="width: 300px;">
+                <input type="submit" id="btnadduser" class="btn btn-success" value=" 保 存 ">
+            </div>
+        </div>
+        <div class="form-group">
+            <ul class="col-sm-8" id="app_add_errormsg"></ul>
+        </div>
+    </div>
+</form>
+<script type="text/javascript">
+    $(function () {
+     var validator= $("#form-useradd").validate({
+            rules: {
+                XM: "required",
+                UserPwd: "required",
+                UserName:"required"
+            },
+            ignore:"hidden",
+            messages: {
+                XM: "姓名不能为空",
+                UserPwd: "登录密码不能为空",
+                UserName: "登录帐号不能为空"
+            },
+            errorClass: "validate-error", //设置错误样式
+            errorElement: "label", //设置显示错误提示的控件,默认为<label>
+            errorLabelContainer: "#validmsg", //指定错误信息放置容器
+            wrapper: "li",
+            //errorPlacement: function (error,element) { //指定错误信息放置位置
+            //    error.appendTo($("#validmsg"));
+            //},
+            //debug: true,//进行调试模式（表单不提交）
+            submitHandler: function () {
+                $(".btnadduser").text("正在保存，请稍候…");
+                $(".btnadduser").attr("disabled", "disabled");
+                $("#form-useradd").ajaxSubmit({
+                    success: function (data) {
+                        console.log(data);
+                        if (data.StatusCode==200) {
+                            tipsuccessmsg("用户添加成功");
+                            validator.resetForm(); //重置表单
+                        } else {
+                            tipfailmsg("保存失败，原因可能为：" + data.msg);
+                            $("#PKID").val(data.data.PKID);
+                            validator.resetForm(); //重置表单
+                        }
+                        $(".btnadduser").text("保存");
+                        $(".btnadduser").removeAttr("disabled");
+                    }
+                });
+            }
+            //onsubmit: false,//是否提交时验证，默认为True,用于设置某一个不需要验证的控件
+            //onfocusin: false,//是否获取焦点时验证，默认为True
+            //onkeyup: false,//是否在敲击键盘时验证，默认为True
+            //onclick: false//是否在鼠标点击时验证，默认为True
+        });
+    });
+</script>

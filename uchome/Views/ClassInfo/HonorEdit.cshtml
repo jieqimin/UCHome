@@ -1,0 +1,261 @@
+﻿@{
+    Layout = null;
+}
+
+@using System.Web.Mvc
+@using M = ClassCenterModel;
+@model M.ClassHonor
+<link rel="stylesheet" href="@Url.Content("~/Content/css/msg.css")">
+<script src="@Url.Content("~/plugs/usercontrol/selectuser.js")"></script>
+<link rel="stylesheet" href="@Url.Content("~/plugs/webuploader/css/webuploader.css")">
+<link rel="stylesheet" href="@Url.Content("~/plugs/webuploader/css/demo.css")">
+<link rel="stylesheet" href="@Url.Content("~/plugs/datetimepicker/css/bootstrap-datetimepicker.css")">
+<link rel="stylesheet" href="@Url.Content("~/content/css/homework.css")">
+
+<link href="@Url.Content("~/content/css/summernote.css")" rel="stylesheet">
+<script src="@Url.Content("~/content/js/summernote.js")"></script>
+<style type="text/css">
+    .sel-notice {
+        width: 120px !important;
+        margin-right: 10px;
+    }
+</style>
+@using (Ajax.BeginForm("EditHonorSend", null,
+    new AjaxOptions()
+    {
+        HttpMethod = "post",
+        Url = Url.Action("EditHonorSend"),
+        UpdateTargetId = "#editHonorSend",
+        LoadingElementId = "loding",
+        LoadingElementDuration = 2000
+    }, new { id = "form_editHonorSend" }))
+{
+    @Html.HiddenFor(model => model.ID)
+
+
+    <div id="editHonorSend" class="form-horizontal form-position pagew ">
+
+
+
+        <div class="form-group">
+            <label for="XN" class="col-sm-2 control-label">
+                <i class="required" style="color: red;">*</i>
+                获奖日期：
+            </label>
+            <div class="col-sm-5">
+                <div class="date form_datetime input-group" data-date-format="yyyy-mm-dd" data-link-field="dtp_input1">
+                    <input class="form-control" id="XN" name="XN" type="text" value="@Model.XN" placeholder="请选择日期">
+                    <div class="input-group-addon">
+                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                    </div>
+                    <div class="input-group-addon">
+                        <span class="glyphicon glyphicon-th" aria-hidden="true"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <label for="HonorTitle" class="col-sm-2 control-label">
+                <i class="required" style="color: red;">*</i>
+                获奖简介：
+            </label>
+            <div class="col-sm-9">
+                <input type="text" class="col-xs-3" id="HonorTitle" name="HonorTitle" value="@Model.HonorTitle" placeholder=" 请输入获奖简介" style="width:200px;" />
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            <label for="HonorPhotoName" class="col-sm-2 control-label">
+                图片上传：
+            </label>
+            <div class="col-sm-5">
+            </div>
+        </div>
+
+        <div class="imagedemo" id="uploadImages">
+        </div>
+
+        <div class="form-group" id="uploadedImages" style="margin-top: 20px;">
+        </div>
+        <div id="imageHtml" style="display: none;">
+        </div>
+        <input id="hidImages" name="hidImages" type="hidden" />
+
+        <div class="form-group">
+            <div class="btn-group center-block" style="width: 200px;">
+                <button id="btnSend" type="button" class="btn btn-info dropdown-toggle" data-toggle="button" aria-haspopup="true" aria-expanded="false">
+                    保存
+                </button>
+                <button style="margin-left: 10px" id="btnClose" type="button" class="btn btn-info dropdown-toggle" data-toggle="button" aria-haspopup="true" aria-expanded="false">
+                    关闭
+                </button>
+            </div>
+        </div>
+
+        <div class="form-group" id="addLast">
+            <ul id="validmsg"></ul>
+        </div>
+    </div>
+}
+
+<link rel="stylesheet" href="@Url.Content("~/Content/css/zyUpload.css")" type="text/css">
+<!-- 引用核心层插件 -->
+<script type="text/javascript" src="@Url.Content("~/Content/js/zyFile.js")"></script>
+<!-- 引用控制层插件 -->
+<script type="text/javascript" src="@Url.Content("~/Content/js/zyUpload.js")"></script>
+<!-- 引用初始化JS -->
+<script type="text/javascript" src="@Url.Content("~/Content/js/uploadImages.js")"></script>
+
+<link href="@Url.Content("~/Content/css/nanogallery.css")" rel="stylesheet" type="text/css">
+<!-- nanoGALLERY js -->
+<script type="text/javascript" src="@Url.Content("~/Content/js/jquery.nanogallery.js")"></script>
+
+<script>
+    ///阻止事件冒泡的通用函数
+    function stopBubble(e) {
+        // 如果传入了事件对象，那么就是非ie浏览器
+        if (e && e.stopPropagation) {
+            //因此它支持W3C的stopPropagation()方法
+            e.stopPropagation();
+        } else {
+            //否则我们使用ie的方法来取消事件冒泡
+            window.event.cancelBubble = true;
+        }
+    }
+
+    ///删除上传的照片
+    function chearImage(obj, imageName, ext, e) {
+
+        if (confirm("确认删除该照片吗？")) {
+            $(obj).parent().parent().parent().remove();
+            $("#imageHtml").find("a[id=" + imageName + "]").remove();
+            $("#hidImages").val($("#hidImages").val().replace(imageName + ext + ";", ""));
+        }
+
+        stopBubble(e);
+    }
+
+    $(document).ready(function () {
+
+        $('#termplan').summernote({
+            height: 200,
+            width:50,
+            focus: true
+        });
+        var images = '@ViewBag.Images';
+
+        if (images != null && images.length > 0) {
+
+            var imageNames = images.split(";");
+            var len = imageNames.length;
+
+            if (len > 0) {
+                var html = "";
+                for (var i = 0; i < len; i++) {
+                    if (imageNames[i] != null && imageNames[i].length > 0) {
+                        var ind = imageNames[i].lastIndexOf('.');
+                        var name = imageNames[i].substring(0, ind);
+
+                        html += "<a id=\"" + name + "\" href=\"" + imageNames[i] + "\" data-ngthumb=\"" + imageNames[i] + "\" data-ngdesc=\"" + imageNames[i] + "\"></a>";
+                    }
+                }
+
+                $("#imageHtml").html(html);
+                $("#uploadedImages").html(html);
+                $("#hidImages").val(images + ";");
+
+                $("#uploadedImages").nanoGallery({
+                    thumbnailWidth: 160, thumbnailHeight: 160,
+                    itemsBaseURL: '/upload/awards/images',
+                    displayCaption: true,
+                    //thumbnailHoverEffect:[{'name':'imageRotateCornerBL','duration':300},{'name':'borderLighter'}],
+                    thumbnailHoverEffect: [{ 'name': 'overScale', 'duration': 300 }, { 'name': 'borderLighter' }],
+                    colorScheme: 'light'
+                });
+            }
+        }
+
+
+
+        $("#btnClose").click(function () {
+            var loadurl = "@Url.Action("ActiveIndex")";
+            redirecturl(loadurl);
+        });
+
+        $("#btnSend").click(function () {
+            $("#validmsg li").remove();
+            $("#form_editHonorSend").submit();
+            $("#validmsg").show();
+        });
+
+        var validator = $("form").validate({
+            rules: {
+                HonorTitle: "required",
+                XN: "required"
+
+            },
+            messages: {
+                ActiveTitle: "请输入简介",
+                XN: "请选择获奖时间"
+            },
+            errorClass: "red", //设置错误样式
+            errorElement: "label", //设置显示错误提示的控件,默认为<label>
+            errorLabelContainer: "#validmsg", //指定错误信息放置容器
+            wrapper: "li",
+
+            submitHandler: function (form) {
+                $(form).ajaxSubmit({
+                    success: function (data) {
+                        if (data.Data.statuscode == 200) {
+                            var obj = "<div id='operresultmsg' class='alert alert-success center-block' role='alert'>保存成功！</div>";
+                            $("#addLast").append(obj);
+
+                            $("#validmsg").show();
+                            setTimeout(function () {
+                                $("#operresultmsg").remove();
+                            }, 2000);
+                        }
+                        else if (data.Data.statuscode == 400)
+                        {
+                            var obj = "<div id='operresultmsg' class='alert alert-danger center-block' role='alert'>保存失败，请指定班主任或者学生添加！<p style='display:none'>" + data.Data.msg + "</p></div>";
+                            $("#addLast").append(obj);
+
+                            setTimeout(function () {
+                                $("#operresultmsg").remove();
+                            }, 2000);
+                        }
+
+                        else {
+                            var obj = "<div id='operresultmsg' class='alert alert-danger center-block' role='alert'>保存失败，请重试！<p style='display:none'>" + data.Data.msg + "</p></div>";
+                            $("#addLast").append(obj);
+
+                            setTimeout(function () {
+                                $("#operresultmsg").remove();
+                            }, 2000);
+                        }
+                    }
+                });
+            }
+            //onsubmit: false,//是否提交时验证，默认为True,用于设置某一个不需要验证的控件
+            //onfocusin: false,//是否获取焦点时验证，默认为True
+            //onkeyup: false,//是否在敲击键盘时验证，默认为True
+            //onclick: false//是否在鼠标点击时验证，默认为True
+        });
+    });
+
+</script>
+<script src="@Url.Content("~/plugs/datetimepicker/js/bootstrap-datetimepicker.min.js")"></script>
+<script src="@Url.Content("~/plugs/datetimepicker/js/bootstrap-datetimepicker.zh-CN.js")"></script>
+<script>
+    $('.form_datetime').datetimepicker({
+        minView: "month", //选择日期后，不会再跳转去选择时分秒
+        language: 'zh-CN',
+        format: 'yyyy-mm-dd',
+        autoclose: true
+    });
+</script>
+

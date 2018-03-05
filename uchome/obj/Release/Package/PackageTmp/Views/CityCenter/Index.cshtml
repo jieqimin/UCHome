@@ -1,0 +1,575 @@
+﻿@using UCHome.Model
+@using UCHome.Models
+@{
+    ViewBag.Title = "市级空间";
+    Layout = "~/Views/Shared/_NewLayout.cshtml";
+}
+@section Head
+{
+    <title>泰安教育云平台</title>
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/CityCenter/css/public.css")">
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/CityCenter/css/index.css")">
+    <script src="@Url.Content("~/Content/CityCenter/js/jquery-1.10.2.js")"></script>
+    <script src="@Url.Content("~/Content/CityCenter/js/index.js")"></script>
+    <style type="text/css">
+        .TabList ul li h4 {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .CaseList ul li h4 {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+    </style>
+
+}
+<body>
+    <header class="Header">
+        <div class="Content">
+            <ul class="HeaderNav">
+                <li><a href="javascript:void(0)" class="active">首 页</a></li>
+                <li><a href="http://jp.taedu.gov.cn:84/UCHomeNew">个人空间</a></li>
+                <li><a href="http://jx.taedu.gov.cn:83/Resource.Portal.Web/">资源中心</a></li>
+                <li><a href="http://www.taedu.gov.cn/Authentication.Web/Test/SignIn.aspx?ApplicationID=5cc47442-6677-40b9-8747-b5fc566660c9&ReturnUrl=http%3a%2f%2fxy.taedu.gov.cn%3a81%2fworkcenter%2f">数字校园</a></li>
+                <li><a href="http://www.taedu.gov.cn/Authentication.Web/Test/SignIn.aspx?ApplicationID=f3aae122-0ca7-44c9-a485-ef30b161ee62&ReturnUrl=http%3a%2f%2fjxts.taedu.gov.cn%3a96%2ftaixue%2f">课堂教学</a></li>
+            </ul>
+            <dl class="HeaderBtn">
+                @*<dt class="Enter">登录</dt>
+                <dt class="Login">注册</dt>*@
+                <dt class="Help">帮助</dt>
+            </dl>
+        </div>
+        <div class="Banner"></div>
+    </header>
+    <section class="ExcellentSchool">
+        <div class="Content">
+            <div class="SchoolTitle">优秀学校展示<a href="@Url.Action("MoreSchool", "Query", new { dataType = 4 })">more</a></div>
+        </div>
+        <div class="SchoolPic">
+            <div id="schoolList" class="schpic">
+                <ul>
+                    <li>
+                        <a target="_blank" href="@Url.Action("Index", "SchoolCenter", new { ID = "ae350bdf-1ca2-412b-a5e6-3c971f9e50a3" })">
+                            <img src="@Url.Content("~/Content/CityCenter/images/fcyz.jpg")" width="180" height="135" />
+                        </a>
+                        <h4>肥城市第一高级中学</h4>
+                    </li>
+                    <li>
+                        <a target="_blank" href="@Url.Action("Index", "SchoolCenter", new { ID = "6B915392-B695-4026-9526-2F6DBCD7D7DE" })">
+                            <img src="@Url.Content("~/Content/CityCenter/images/tacczx.jpg")"  width="180" height="135"/>
+                        </a>
+                        <h4>泰安长城中学</h4>
+                    </li>
+                    <li>
+                        <a target="_blank" href="@Url.Action("Index", "SchoolCenter", new { ID = "5D8072FD-6B5D-4801-9A88-E67562F496D5" })">
+                            <img src="@Url.Content("~/Content/CityCenter/images/dysyzx.jpg")"  width="180" height="135"/>
+                        </a>
+                        <h4>岱岳实验中学</h4>
+                    </li>
+                    <li>
+                        <a target="_blank" href="@Url.Action("Index", "SchoolCenter", new { ID = "64F0BF0D-7D4C-4EF1-B6B6-96D1576FA7A6" })">
+                            <img src="@Url.Content("~/Content/CityCenter/images/yxszx.jpg")"  width="180" height="135"/>
+                        </a>
+                        <h4>山东省泰安英雄山中学</h4>
+                    </li>
+                    <li>
+                        <a target="_blank" href="@Url.Action("Index", "SchoolCenter", new { ID = "73188367-d876-4220-96e1-29636e9b809c" })">
+                            <img src="@Url.Content("~/Content/CityCenter/images/tsxyfszx.jpg")"  width="180" height="135"/>
+                        </a>
+                        <h4>泰山学院附属中学</h4>
+                    </li>
+                    <li>
+                        <a target="_blank" href="@Url.Action("Index", "SchoolCenter", new { ID = "c818a093-1781-42fe-957a-9639070a883f" })">
+                            <img src="@Url.Content("~/Content/CityCenter/images/dpgjzx.png")"  width="180" height="135"/>
+                        </a>
+                        <h4>东平高级中学</h4>
+                    </li>
+
+                    <li>
+                        <a target="_blank" href="@Url.Action("Index", "SchoolCenter", new { ID = "66a7e5b6-1bd6-42f6-8d93-9821401aa717" })">
+                            <img src="@Url.Content("~/Content/CityCenter/images/taez.jpg")"  width="180" height="135"/>
+                        </a>
+                        <h4>泰安二中</h4>
+                    </li>
+                    <li>
+                        <a target="_blank" href="@Url.Action("Index", "SchoolCenter", new { ID = "2b29579c-696e-4450-a061-dc53994c7b9d" })">
+                            <img src="@Url.Content("~/Content/CityCenter/images/nyyz.jpg")"  width="180" height="135"/>
+                        </a>
+                        <h4>宁阳第一中学</h4>
+                    </li>
+                    <li>
+                        <a target="_blank" href="@Url.Action("Index", "SchoolCenter", new { ID = "ce9c9546-7a22-4916-8950-3eaaa8c1a81e" })">
+                            <img src="@Url.Content("~/Content/CityCenter/images/tasyxx.jpg")"  width="180" height="135"/>
+                        </a>
+                        <h4>泰安实验学校</h4>
+                    </li>
+
+                    <li>
+                        <a target="_blank" href="@Url.Action("Index", "SchoolCenter", new { ID = "5f285310-3a62-4ec6-9c10-afd9b47d9097" })">
+                            <img src="@Url.Content("~/Content/CityCenter/images/talz.jpg")"  width="180" height="135"/>
+                        </a>
+                        <h4>泰安第六中学</h4>
+                    </li>
+                    <li>
+                        <a target="_blank" href="@Url.Action("Index", "SchoolCenter", new { ID = "de872600-a761-4d4c-a77d-c8c43a8af5fa" })">
+                            <img src="@Url.Content("~/Content/CityCenter/images/nyez.jpg")"  width="180" height="135"/>
+                        </a>
+                        <h4>宁阳县第二实验中学</h4>
+                    </li>               
+                </ul>
+            </div>
+
+        </div>
+    </section>
+    <section class="ExcellentArticle">
+        <div class="Content">
+            <div class="ArticlelTitle">
+                <h3>优秀文章展示</h3>
+            </div>
+            <ul class="ArticlelStatistics clearfix" id="datastatic"></ul>
+            <div class="ArticlelList">
+                <ul class="TitleList">
+                    <li class="NewestArticlel fl"><span>最新</span>文章<a href="@Url.Action("MoreArticle", "Query", new { xzqhm = "370901", schoolType = "1", newtitle = "泰安市“教育云”空间", dataType = (int)EnumConvert.DataType.文章 })"></a></li>
+                    <li class="HottestArticlel fr"><span>最热</span>文章<a href="@Url.Action("MoreArticle", "Query", new { xzqhm = "370901", schoolType = "1", newtitle = "泰安市“教育云”空间", dataType = (int)EnumConvert.DataType.文章 })"></a></li>
+                </ul>
+                <dl class="ArticleDetail">
+                    <dd>
+                        <ul class="NewestList" id="NewArticle"></ul>
+                    </dd>
+                    <dd>
+                        <ul class="HottestList" id="HotArticle"></ul>
+                    </dd>
+                </dl>
+            </div>
+        </div>
+    </section>
+    <section class="ExcellentResource">
+        <div class="Content">
+            <div class="ResourceTitle">
+                <h3>优秀资源展示</h3>
+                <h4><a href="http://jx.taedu.gov.cn:83/Resource.Portal.Web/SubjectResource?schoolStage=0995408E-D28E-41B5-8BB6-351262CCBA05"></a></h4>
+            </div>
+            <div class="ResourceTab">
+                <ul class="TabMenu">
+                    <li class="active"><a href="#tab1" onclick="GetSchSubjectList('语文|03FCB8E0-478C-4FF3-99F4-A17CA6C0B6AE,数学|C9D9295B-41F3-4334-89EA-8956F06B3222,英语|C709FB4C-D39E-462E-86CF-8128059C383E,音乐|60AE8CDE-D644-451F-B262-A39DB070F292,体育|91E53D0B-0C94-4E7F-BEDA-7980C25EDE93,美术|7156A9CC-B5F9-4320-9EEB-AB1500CEE452,品德与生活|556A4D96-7B9D-4A53-B446-7BD75D899FB,品德与社会|8513A198-C039-4C92-B169-AB6FB175391F,科学|C125AE7E-C260-4B8E-973D-0B906AA01EA6,信息|B836A771-212E-4E50-82CC-CC9F0B848EFB', 'SubjectList')">小学资源</a></li>
+                    <li><a href="#tab2" onclick="GetSchSubjectList('语文|CF5206BF-1A71-4CAF-80D6-0CFA88A0C54A,数学|41E246C7-7196-471C-A753-DDE1D8E1218F,英语|58981245-D06B-49D5-9F57-C93BDB9A8680,思想品德|ADE6D57B-5B7E-4686-B98F-662DDB2C0BF1,历史|763ADD41-EA4B-45FE-B7A3-CE974718E8AC,地理|E13889F6-2D43-4C79-AADF-7FAE8488261D,物理|D8C0BD56-23A0-42A8-948D-799221ADDBEA,化学|62C9060B-2BE0-4465-8FF7-CD2CE23D3F0C,生物|58F21B3C-8DB0-442B-9C5D-ABD0D64FFF70,音乐|E4D00401-AFC0-4317-84C3-F3615AA9F673', 'SubjectList')">初中资源</a></li>
+                    <li><a href="#tab3" onclick="GetSchSubjectList('语文|2F8DE7B1-70F0-428B-83DB-B9B6AF26FAFA,数学|E0E219B7-2815-4C47-9696-CACE37856626,英语|E4B94AA3-3D89-4A68-B5A4-A28FA50FB939,政治|36D13886-3654-440A-8538-523E62741AD1,历史|A53ABEB7-8A11-4346-B0ED-3C04E0CE2464,地理|AC45F57D-2D8E-4664-B014-341CFC8940EC,物理|4EA02F89-D3D0-4071-8D53-ABEA34F40299,化学|F3C1058C-E675-4EF0-BD89-01F631206A61,生物|1E2C7925-83C9-4213-B9B0-9B9F18AE1666,信息|A75FE714-A621-427E-883F-88F63A2E0F72', 'SubjectList')">高中资源</a></li>
+                    <li></li>
+                </ul>
+                <div class="TabList">
+                </div>
+            </div>
+            <div class="Subject">
+                <table id="SubjectList"></table>
+            </div>
+        </div>
+    </section>
+    <section class="ExcellentSpace">
+        <div class="Content">
+            <div class="SpaceTitle">
+                <h3>优秀空间展示</h3>
+            </div>
+            
+            <div class="SpaceMain">
+                <div class="Space">
+                    <h3 class="Title">优秀教师空间<a href="@Url.Action("MoreTeacher", "Query", new { xzqhm = "370901", schoolType = "1", newtitle = "泰安市“教育云”空间", dataType = (int)EnumConvert.DataType.教师 })"></a></h3>
+                    <div class="List" id="teacherRooms">
+                    </div>
+                </div>
+                <div class="Space">
+                    <h3 class="Title">优秀学生空间<a href="@Url.Action("MoreStudent", "Query", new { xzqhm = "370901", schoolType = "1", newtitle = "泰安市“教育云”空间", dataType = (int)EnumConvert.DataType.学生 })"></a></h3>
+                    <div class="List" id="studentRooms">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="ExcellentCase">
+        <div class="Content">
+            <div class="CaseTitle">
+                <h3>优秀教案展示</h3>
+                <h4><a href="http://jx.taedu.gov.cn:83/Resource.Portal.Web"></a></h4>
+            </div>
+            <div class="CaseTab">
+                <ul class="CaseMenu">
+                    <li class="active"><a href="#tab4" onclick="GetSchSubjectList('语文|03FCB8E0-478C-4FF3-99F4-A17CA6C0B6AE,数学|C9D9295B-41F3-4334-89EA-8956F06B3222,英语|C709FB4C-D39E-462E-86CF-8128059C383E,音乐|60AE8CDE-D644-451F-B262-A39DB070F292,体育|91E53D0B-0C94-4E7F-BEDA-7980C25EDE93,美术|7156A9CC-B5F9-4320-9EEB-AB1500CEE452,品德与生活|556A4D96-7B9D-4A53-B446-7BD75D899FB,品德与社会|8513A198-C039-4C92-B169-AB6FB175391F,科学|C125AE7E-C260-4B8E-973D-0B906AA01EA6,信息|B836A771-212E-4E50-82CC-CC9F0B848EFB', 'LessonPlanSubj')">小学教案</a></li>
+                    <li><a href="#tab5" onclick="GetSchSubjectList('语文|CF5206BF-1A71-4CAF-80D6-0CFA88A0C54A,数学|41E246C7-7196-471C-A753-DDE1D8E1218F,英语|58981245-D06B-49D5-9F57-C93BDB9A8680,思想品德|ADE6D57B-5B7E-4686-B98F-662DDB2C0BF1,历史|763ADD41-EA4B-45FE-B7A3-CE974718E8AC,地理|E13889F6-2D43-4C79-AADF-7FAE8488261D,物理|D8C0BD56-23A0-42A8-948D-799221ADDBEA,化学|62C9060B-2BE0-4465-8FF7-CD2CE23D3F0C,生物|58F21B3C-8DB0-442B-9C5D-ABD0D64FFF70,音乐|E4D00401-AFC0-4317-84C3-F3615AA9F673', 'LessonPlanSubj')">初中教案</a></li>
+                    <li><a href="#tab6" onclick="GetSchSubjectList('语文|2F8DE7B1-70F0-428B-83DB-B9B6AF26FAFA,数学|E0E219B7-2815-4C47-9696-CACE37856626,英语|E4B94AA3-3D89-4A68-B5A4-A28FA50FB939,政治|36D13886-3654-440A-8538-523E62741AD1,历史|A53ABEB7-8A11-4346-B0ED-3C04E0CE2464,地理|AC45F57D-2D8E-4664-B014-341CFC8940EC,物理|4EA02F89-D3D0-4071-8D53-ABEA34F40299,化学|F3C1058C-E675-4EF0-BD89-01F631206A61,生物|1E2C7925-83C9-4213-B9B0-9B9F18AE1666,信息|A75FE714-A621-427E-883F-88F63A2E0F72', 'LessonPlanSubj')">高中教案</a></li>
+                    <li></li>
+                </ul>
+                <div class="CaseList">
+                </div>
+            </div>
+            <div class="Subject">
+                <table id="LessonPlanSubj">
+                </table>
+            </div>
+        </div>
+    </section>
+    <section class="ExcellentStatistics">
+        <div class="Content">
+            <div class="StatisticsTitle">
+                <h3>数据统计展示</h3>
+                <h4><a target="_blank" href="@Url.Action("AllStatics", "Query")"></a></h4>
+            </div>
+            <div class="StatisticsTab">
+
+                <ul class="StatisticsMenu">
+                    <li class="active"><a href="#tab11">空间</a></li>
+                    <li><a href="#tab12">文章</a></li>
+                    <li><a href="#tab13">资源</a></li>
+                    <li><a href="#tab14">电子书包</a></li>
+                    <li><a href="#tab15">活跃度</a></li>
+                    <li><a href="#tab16"></a></li>
+                </ul>
+                <div class="StatisticsList">
+                    <dl id="tab11" class="StatisticsMain" style="display: block;">
+                        <dt>
+                            <h3>地区</h3>
+                            <h3>空间激活数</h3>
+                        </dt>
+                        <dd>
+                            <table id="AllHomes_list">
+                                @*控件激活数量统计*@
+                            </table>
+                        </dd>
+                    </dl>
+                    <dl id="tab12" class="StatisticsMain" style="display: none;">
+                        <dt>
+                            <h3>地区</h3>
+                            <h3>文章发表</h3>
+                        </dt>
+                        <dd>
+                            <table id="AllArticles_list">
+                                @*文章发表数量统计*@
+                            </table>
+                        </dd>
+                    </dl>
+                    <dl id="tab13" class="StatisticsMain" style="display: none;">
+                        <dt>
+                            <h3>地区</h3>
+                            <h3>市审核数</h3>
+                        </dt>
+                        <dd>
+                            <table id="AllRecourses_list">
+                                @*市审核文章数量统计*@
+                            </table>
+                        </dd>
+                    </dl>
+                    <dl id="tab14" class="StatisticsMain" style="display: none;">
+                         <dt>
+                            <h3>地区</h3>
+                            <h3>教案数</h3>
+                        </dt>
+                        <dd>
+                            <table id="AllEbooks_list">
+                                @*市审核文章数量统计*@
+                            </table>
+                        </dd>
+                    </dl>
+                    <dl id="tab15" class="StatisticsMain" style="display: none;">
+                        
+                                                 <dt>
+                            <h3>地区</h3>
+                            <h3>人均数据</h3>
+                        </dt>
+                        <dd>
+                            <table id="AllDegrees_list">
+                                @*市审核文章数量统计*@
+                            </table>
+                        </dd>
+                    </dl>
+                    <dl id="tab16" class="StatisticsMain" style="display: none;">
+                        
+                    </dl>
+                </div>
+
+            </div>
+	    <ul class="SpaceArea">
+                <li><a href="@Url.Action("Index", "DistrictCenter", new { id = "370901" })">市直学校</a></li>
+                <li><a href="@Url.Action("Index", "DistrictCenter", new { id = "370902" })">泰山区</a></li>
+                <li><a href="@Url.Action("Index", "DistrictCenter", new { id = "370903" })">岱岳区</a></li>
+                <li><a href="@Url.Action("Index", "DistrictCenter", new { id = "370921" })">宁阳县</a></li>
+                <li><a href="@Url.Action("Index", "DistrictCenter", new { id = "370923" })">东平县</a></li>
+                <li><a href="@Url.Action("Index", "DistrictCenter", new { id = "370982" })">新泰市</a></li>
+                <li><a href="@Url.Action("Index", "DistrictCenter", new { id = "370983" })">肥城市</a></li>
+                <li><a href="@Url.Action("Index", "DistrictCenter", new { id = "370991" })">高新区</a></li>
+                <li><a href="@Url.Action("Index", "DistrictCenter", new { id = "370992" })">泰山景区</a></li>
+            </ul>
+        </div>
+
+    </section>
+
+    <footer class="Footer">
+        <div class="Content">
+            <p class="">
+                主办单位：泰安市教育局 地址：泰安市市政大楼A区7楼<br />
+                泰安市教育局版权所有 Copyright© www.taedu.gov.cn All Rights Reserved.
+            </p>
+        </div>
+    </footer>
+
+</body>
+<script>
+    $(function () {
+
+        $("#NewArticle").load("@Html.Raw(@Url.Action("NewArticleList", new { pageSize = 10 }))"); //最新文章
+        $("#HotArticle").load("@Url.Action("HotArticleList", new { pageSize = 10 })"); //最热文章
+        //获取科目列表（资源）
+        GetSchSubjectList('语文|03FCB8E0-478C-4FF3-99F4-A17CA6C0B6AE,数学|C9D9295B-41F3-4334-89EA-8956F06B3222,英语|C709FB4C-D39E-462E-86CF-8128059C383E,音乐|60AE8CDE-D644-451F-B262-A39DB070F292,体育|91E53D0B-0C94-4E7F-BEDA-7980C25EDE93,美术|7156A9CC-B5F9-4320-9EEB-AB1500CEE452,品德与生活|556A4D96-7B9D-4A53-B446-7BD75D899FB,品德与社会|8513A198-C039-4C92-B169-AB6FB175391F,科学|C125AE7E-C260-4B8E-973D-0B906AA01EA6,信息|B836A771-212E-4E50-82CC-CC9F0B848EFB', 'SubjectList');
+        $("#teacherRooms").load("@Html.Raw(Url.Action("GoodStuAndTeaList", new { userType = "t", pageSize = 4 }))"); //优秀教师
+        $("#studentRooms").load("@Html.Raw(Url.Action("GoodStuAndTeaList", new { userType = "s", pageSize = 4 }))"); //优秀学生
+        //获取教案列表（课件）
+        GetSchSubjectList('语文|03FCB8E0-478C-4FF3-99F4-A17CA6C0B6AE,数学|C9D9295B-41F3-4334-89EA-8956F06B3222,英语|C709FB4C-D39E-462E-86CF-8128059C383E,音乐|60AE8CDE-D644-451F-B262-A39DB070F292,体育|91E53D0B-0C94-4E7F-BEDA-7980C25EDE93,美术|7156A9CC-B5F9-4320-9EEB-AB1500CEE452,品德与生活|556A4D96-7B9D-4A53-B446-7BD75D899FB,品德与社会|8513A198-C039-4C92-B169-AB6FB175391F,科学|C125AE7E-C260-4B8E-973D-0B906AA01EA6,信息|B836A771-212E-4E50-82CC-CC9F0B848EFB', 'LessonPlanSubj');
+        $("#datastatic").load("@Html.Raw(Url.Action("DataStatics", "Query"))"); //优秀文章展示下面的统计数量
+        GetArticlesByArea();
+        GetSpaceAlivesByArea();
+        GetSumResource();//获取资源总数
+        GetEbooksByArea();//分区获取电子书包的数量
+        GetDegreesByArea();//活跃度
+    });
+
+    //获取科目列表（资源）
+    function GetSchSubjectList(subjects, id) {
+        $("#" + id).html("");
+        var subjectInfo = subjects.split(',');
+        var subHtml = "<tr>";
+        var k = 1;
+        for (var j = 0; j <= subjectInfo.length; j++) {
+            if (k < 3) {
+                if (subjectInfo[j] != undefined)
+                    var subjectNameAndId = subjectInfo[j].split('|');
+                var subName = subjectNameAndId[0];
+                var subId = subjectNameAndId[1];
+                if (id == "SubjectList") {
+                    subHtml += "<td onclick=\"GetScourseBySubId('" + subName + "','" + subId + "')\"><a href=\"#" + subName + "\" id=\"" + subId + "\" class=\"box\" style=\"color:white\" >" + subName + "</a></td>";
+
+                } else {
+                    subHtml += "<td onclick=\"GetLessonPlanBySubId('" + subName + "','" + subId + "')\"><a href=\"#" + subName + "\" id=\"" + subId + "\" class=\"box\" style=\"color:white\" >" + subName + "</a></td>";
+                }
+
+                k++;
+            } else {
+                subHtml += "</tr>";
+                $("#" + id).append(subHtml);
+                subHtml = "<tr>";
+                k = 1;
+                j--;
+            }
+        }
+        if (id == "SubjectList") {
+            var subjectInformation = subjectInfo[0].split('|');
+            GetScourseBySubId(subjectInformation[0], subjectInformation[1]);
+        } else {
+            var subjectInfor = subjectInfo[0].split('|');
+            GetLessonPlanBySubId(subjectInfor[0], subjectInfor[1]);
+        }
+    }
+
+
+    //获取资源
+    function GetScourseBySubId(subName, subId) {
+        $(".TabList").html("");
+        var conditionType = "Subject";
+        var condition = subId;
+        var format = "";
+        var type = "";
+        var page = "1";
+        var getSubUrl = "@Url.Action("GetResource", "CityCenter")?conditionType=" + conditionType + "&condition=" + condition + "&format=" + format
+                + "&type=" + type + "&page=" + page;
+        $.ajax({
+            url: getSubUrl,
+            type: "post",
+            success: function (result) {
+                var resultData = eval("(" + eval("(" + result + ")") + ")");
+                var scourseOneHtml = " <ul id=\"" + subName + "\" class=\"TabMain\" style=\"display: block;\">";
+                $.each(resultData.ResourceList, function (i, item) {
+                    if (i <= 4) {
+                        var resourceName = item.ResourceName;
+                        var link = item.LinkUrl; //链接地址
+                        var image = item.CoverUrl;
+                        if (image == "" || image == null) {
+                            scourseOneHtml += "<li><a href=\"#\"><img src=\"@Url.Content("~/Content/CityCenter/images/img.jpg")\" /></a><h4>" + resourceName + "</h4></li>";
+                        } else {
+                            scourseOneHtml += "<li><a href=\"#\"><img src=\"" + image + "\"  style=\"width: 118px; height: 168px;\"/></a><h4>" + resourceName + "</h4></li>";
+                        }
+                    }
+
+                });
+                scourseOneHtml += "</ul>";
+                $(".TabList").append(scourseOneHtml);
+            }
+
+        });
+        $(".Subject table tbody tr td").click(function () {
+            $(".TabMenu li").removeClass("active"); //Remove any "active" class
+            $(this).addClass("active"); //Add "active" class to selected tab
+            $(".TabMain").hide(); //Hide all tab content
+            var activeTab = $(this).find("a").attr("href"); //Find the rel attribute value to identify the active tab + content
+            $(activeTab).fadeIn(); //Fade in the active content
+            return false;
+        });
+    }
+
+    //获取课件
+    function GetLessonPlanBySubId(subName, subId) {
+        $(".CaseList").html("");
+        var pageSize = "5";
+        var pageIndex = "1";
+        $.ajax({
+            type: "GET",
+            url: "@Url.Action("GetSumLessonPlan", "CityCenter")",
+            data: { "subject": subId, "pageSize": pageSize, "pageIndex": pageIndex },
+            success: function (result) {
+                var resultData = eval("(" + result + ")");
+                var scourseOneHtml = " <ul id=\"" + subName + "\" class=\"TabMain\" style=\"display: block;\">";
+                $.each(resultData.Result.Results, function (i, item) {
+                    var lessconName = item.Name;
+                    var link = item.CoverUrl; //链接地址
+                    scourseOneHtml += "<li><a href=\"#\"><img src=\"@Url.Content("~/Content/CityCenter/images/img.jpg")\" /></a><h4>" + lessconName + "</h4></li>";
+                });
+                scourseOneHtml += "</ul>";
+                $(".CaseList").append(scourseOneHtml);
+            }
+        });
+    }
+
+    //市级资源总计GetEbooksByArea
+    function GetSumResource() {
+        var htmlOne = "<tr>";
+        var htmlTwo = "<tr>";
+        $.ajax({
+            type: "GET",
+            url: "@Url.Action("GetSumRescourseStatic", "CityCenter")",
+                success: function (results) {
+                    debugger;
+                    var resultData = [
+                        {
+                            code: "370901",
+                            value: "市直学校"
+                        },
+                        {
+                            code: "370902",
+                            value: "泰山区"
+                        },
+                        {
+                            code: "370903",
+                            value: "岱岳区"
+                        },
+                        {
+                            code: "370921",
+                            value: "宁阳县"
+                        },
+                        {
+                            code: "370923",
+                            value: "东平县"
+                        },
+                        {
+                            code: "370982",
+                            value: "新泰市"
+                        },
+                        {
+                            code: "370983",
+                            value: "肥城市"
+                        },
+                        {
+                            code: "370991",
+                            value: "高新区"
+                        },
+                        {
+                            code: "370992",
+                            value: "泰山景区"
+                        }
+                    ];
+                    $.each(results, function (i, item) {
+                        var areaname = "";
+                        for (var i = 0; i < resultData.length; i++) {
+                            if (item.areacode == resultData[i].code) {
+                                areaname = resultData[i].value;
+                            }
+                        }
+                        htmlOne += "<td>" + areaname + "</td>";
+                        htmlTwo += "<td>" + item.count + "</td>";
+                    });
+                    var htmlEnd = "</tr>";
+                    $("#AllRecourses_list").html(htmlOne + htmlEnd + htmlTwo + htmlEnd);
+
+                }
+            });
+    } 
+    function GetEbooksByArea() {
+        var htmlOne = "<tr>";
+        var htmlTwo = "<tr>";
+        $.ajax({
+            type: "GET",
+            url: "@Url.Action("GetSumEbookStatic", "CityCenter")",
+            success: function (results) {
+                console.log(results);
+                $.each(results, function (index, item) {                    
+                    htmlOne += "<td>" + item.SobjName + "</td>";
+                    htmlTwo += "<td>" + item.SResults + "</td>";
+                });
+                var htmlEnd = "</tr>";
+                $("#AllEbooks_list").html(htmlOne + htmlEnd + htmlTwo + htmlEnd);
+
+            }
+        });
+    }
+    function GetDegreesByArea() {
+        var htmlOne = "<tr>";
+        var htmlTwo = "<tr>";
+        $.ajax({
+            type: "GET",
+            url: "@Url.Action("GetUserdegree", "CityCenter")",
+            success: function (results) {
+                console.log(results);
+                $.each(results, function (index, item) {
+                    htmlOne += "<td>" + item.SobjName + "</td>";
+                    htmlTwo += "<td>" + item.Sresults + "</td>";
+                });
+                var htmlEnd = "</tr>";
+                $("#AllDegrees_list").html(htmlOne + htmlEnd + htmlTwo + htmlEnd);
+
+            }
+        });
+    }
+    function GetSpaceAlivesByArea() {
+        var htmlOne = "<tr>";
+        var htmlTwo = "<tr>";
+        $.ajax({
+            type: "GET",
+            url: "@Url.Action("AllHomesCount", "Query")",
+            success: function (results) {
+                console.log(results);
+                $.each(results, function (index, item) {
+                    htmlOne += "<td>" + item.SobjName + "</td>";
+                    htmlTwo += "<td>" + item.Sresults + "</td>";
+                });
+                var htmlEnd = "</tr>";
+                $("#AllHomes_list").html(htmlOne + htmlEnd + htmlTwo + htmlEnd);
+
+            }
+        });
+    }
+    function GetArticlesByArea() {
+        var htmlOne = "<tr>";
+        var htmlTwo = "<tr>";
+        $.ajax({
+            type: "GET",
+            url: "@Url.Action("AllArticlesCount", "Query")",
+            success: function (results) {
+                console.log(results);
+                $.each(results, function (index, item) {
+                    htmlOne += "<td>" + item.SobjName + "</td>";
+                    htmlTwo += "<td>" + item.Sresults + "</td>";
+                });
+                var htmlEnd = "</tr>";
+                $("#AllArticles_list").html(htmlOne + htmlEnd + htmlTwo + htmlEnd);
+
+            }
+        });
+    }
+</script>

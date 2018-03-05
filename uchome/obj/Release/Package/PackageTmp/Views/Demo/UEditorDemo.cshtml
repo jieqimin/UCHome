@@ -1,0 +1,52 @@
+﻿@{
+    Layout = null;
+}
+
+
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <title></title>
+    <script type="text/javascript" charset="utf-8" src="@Url.Content("~/plugs/ueditor/ueditor.config.js")"></script>
+    <script type="text/javascript" charset="utf-8" src="@Url.Content("~/plugs/ueditor/ueditor.all.js")"></script>
+</head>
+<body>
+    <h1>UEditor多实例</h1>
+
+    <!--style给定宽度可以影响编辑器的最终宽度-->
+    <script type="text/plain" id="myEditor1" style="margin-bottom: 10px;">
+    </script>
+    <script type="text/plain" id="myEditor2" style="margin-bottom: 10px;">
+    <p>这里我可以写一些输入提示</p>
+    </script>
+
+    <script type="text/javascript">
+        UE.getEditor('myEditor1', {
+            theme: "default", //皮肤
+            UEDITOR_HOME_URL: "@Url.Content("~/plugs/ueditor/")",
+            @*themePath: "@Url.Content("~/plugs/ueditor/themes/")",
+            langPath: "@Url.Content("~/plugs/ueditor/lang/")",*@
+            minFrameHeight: "50",
+            lang: 'zh-cn', //语言
+            toolbars: [['FullScreen', 'Source', 'Undo', 'Redo', 'Bold', 'simpleupload', 'insertimage', '|',
+            'justifyleft', 'justifycenter', 'justifyright', 'justifyjustify', '|', 'rowspacingtop', 'rowspacingbottom', 'lineheight', '|', 'forecolor', 'fontfamily', 'fontsize']],
+            serverUrl: "@Url.Content("~/plugs/ueditor/net/controller.ashx")"
+        });
+
+        UE.getEditor('myEditor2', {
+            @*            themePath: "@Url.Content("~/plugs/ueditor/themes/")",
+            langPath: "@Url.Content("~/plugs/ueditor/lang/")",*@
+            UEDITOR_HOME_URL: "@Url.Content("~/plugs/ueditor/")",
+            autoClearinitialContent: true, //focus时自动清空初始化时的内容
+            wordCount: false, //关闭字数统计
+            elementPathEnabled: false,
+            serverUrl: "@Url.Content("~/plugs/ueditor/net/controller.ashx")"
+        });
+    </script>
+
+</body>
+
+
+</html>
+

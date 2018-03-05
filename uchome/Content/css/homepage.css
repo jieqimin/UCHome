@@ -1,0 +1,224 @@
+﻿body {
+    background-color: #D0D0D0;
+    filter: alpha(opacity=90);
+    -moz-opacity: 0.9;
+    -khtml-opacity: 0.9;
+    opacity: 0.9;
+}
+
+.hr-sm {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.bg-white {
+    background-color: white;
+}
+
+.div-margin-10 {
+    margin: 10px;
+}
+
+.margin-left-15 {
+    margin-left: 15px;
+}
+
+.margin-right-15 {
+    margin-right: 15px;
+}
+
+.margin-top-15 {
+    margin-top: 15px;
+}
+
+.margin-top-30 {
+    margin-top: 30px;
+}
+
+.margin-top-40 {
+    margin-top: 40px;
+}
+
+.margin-bottom-15 {
+    margin-bottom: 15px;
+}
+
+.min-height-500 {
+    min-height: 800px;
+}
+/*左边样式*/
+.body-left {
+    padding: 15px 30px 15px 30px;
+}
+
+.grtx {
+    width: 180px;
+    margin: 20px auto !important;
+    text-align: center;
+    display: inherit;
+}
+
+.kjtd, .jbxx {
+    margin: 0 auto !important;
+    width: 180px !important;
+    font-size: 15px !important;
+}
+
+    .kjtd > li:hover {
+        background-color: #08B0CF !important;
+        color: #fff !important;
+    }
+
+        .kjtd > li:hover > a {
+            background-color: #08B0CF !important;
+            color: #fff !important;
+        }
+
+#TechBj {
+    top: 10px;
+    left: 130px;
+    background-color: #fff;
+}
+
+.list-group-noborder {
+    border: 0 !important;
+    -webkit-box-shadow: none !important;
+    -ms-box-shadow: none !important;
+    box-shadow: none !important;
+}
+
+    .list-group-noborder .list-group-item {
+        border: 0 !important;
+    }
+
+        .list-group-noborder .list-group-item > a {
+            margin-left: 20px !important;
+            text-decoration: none !important;
+            color: #333 !important;
+        }
+
+.jbxx, .jbxx .list-group-item a {
+    color: #077DB0;
+    font-size: 16px;
+}
+
+/*右边样式*/
+.body-right {
+    padding: 15px 30px 15px 30px;
+}
+/*任务积分*/
+.rwjf {
+    margin-top: 30px;
+    color: #FF9900;
+}
+.jfs {
+    width: 490px;
+}
+.stats-list {
+    -ms-border-radius: 4px;
+    border-radius: 4px;
+    -webkit-box-shadow: none;
+    -ms-box-shadow: none;
+    box-shadow: none;
+    border: 1px dotted #eeefff;
+    height: 100px;
+}
+
+    .stats-list img {
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+    .stats-list .stats-type {
+        font-size: 16px;
+    }
+
+        .stats-list .stats-type span {
+            font-size: 20px;
+            font-style: italic;
+            font-weight: bold;
+            color: #FE7520;
+        }
+
+    .stats-list div p {
+        margin-top: 10px;
+        line-height: 30px;       
+    }
+
+.task p a.more, .zxkt p a.more {
+    font-size: 12px;
+    line-height: 40px;
+    float: right;
+    cursor: pointer;
+}
+
+.task a:hover, .zxkt a:hover {
+    color: #EA7B34;
+}
+
+.task-title, .zxkt-title {
+    font-size: 20px;
+    line-height: 40px;
+}
+
+.task-hr, .zxkt-hr {
+    height: 2px;
+    margin: 0;
+    padding: 0;
+}
+
+.task-type {
+    color: #15A1FF;
+}
+
+.task-score {
+    color: #fe7520;
+}
+
+.zxktdetail {
+    width: 182px;
+    float: left;
+    text-align: center;
+    margin: 15px 5px;
+    padding: 15px 10px 10px 10px;
+    border: solid 1px #eee;
+}
+
+    .zxktdetail span.techtea {
+        font-size: 12px;
+        color: #666;
+    }
+
+.tjtb div.task {
+    padding-left: 0;
+}
+
+.hchart {
+    height: 275px;
+}
+
+.grx {
+    /*width: 700px;*/
+}
+/*家长空间*/
+.todaystatic {
+    border: solid 1px #eee;
+}
+
+.todaystatic > .title {
+    display: inline-block;
+    height: 40px;
+    line-height: 40px;
+    color: red;
+    font-size: 18px;
+    font-weight: bold;
+}
+.todaystatic marquee {
+    margin: 0;
+    padding: 0;
+}
+.todaystatic marquee > span {
+    height: 40px;
+    line-height: 40px;
+    display: block;
+}

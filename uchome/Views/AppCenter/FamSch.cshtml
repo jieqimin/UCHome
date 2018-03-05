@@ -1,0 +1,29 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutApp.cshtml";
+}
+@using UCHome.Model
+@model UCHome.Model.UCHome_Skin
+<div>
+    <button type="button" value="跨域获取数据" id="corsbtn" class="btn btn-info">跨域获取数据</button>
+    @Html.TextBoxFor(model=>Model.PKID)
+    @Html.TextBoxFor(model=>Model.SkinName)
+    @Html.TextBoxFor(model=>Model.SkinTheme)
+    @Html.TextBoxFor(model=>Model.SkinColor)
+    @Html.TextBoxFor(model=>Model.SkinBackground)
+    @Html.TextBoxFor(model=>Model.Memo)
+    @Html.TextBoxFor(model=>Model.Status)
+</div>
+<script>
+    $("#corsbtn").click(function () {
+        var jsonstr = { PKID: "@Model.PKID", SkinName: "@Model.SkinName", SkinTheme: "@Model.SkinTheme", Status: "@Model.Status", SkinColor: "@Model.SkinColor", SkinBackground: "@Model.SkinBackground", Memo: "@Model.Memo" };
+        alert();
+        $.ajax({
+            url: "@Url.Action("corsgetdata", "AppCenter")",
+            type: "POST",
+            data:jsonstr,
+            success: function (data) {
+                console.log(data);
+            }
+        });
+    })
+</script>

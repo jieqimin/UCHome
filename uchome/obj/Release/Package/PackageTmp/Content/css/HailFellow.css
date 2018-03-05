@@ -1,0 +1,234 @@
+﻿.main {
+        width: 730px;
+        margin: 0 auto;
+        overflow: hidden;
+    }
+
+    .left-box {
+        width: 230px;
+        height: 845px;
+        background: #fff;
+        float: left;
+    }
+
+    .right-box {
+        width: 730px;
+        height: 853px;
+        /*float: right;*/
+        box-sizing: border-box;
+        border: 1px solid #ddedf0;
+        background: #fff;
+    }
+
+    .nav {
+        width: 100.1%;
+        border-top: 1px solid #ddedf0;
+        overflow: hidden;
+    }
+
+    .nav li {
+        width: 33.3%;
+        float: left;
+        height: 79px;
+        color: #000000;
+        font-size: 20px;
+        font-family: "Micosoft Yahei";
+        border: solid #ddedf0;
+        border-width: 0 1px 1px 1px;
+        text-align: center;
+        line-height: 79px;
+        box-sizing: border-box;
+        cursor: pointer;
+    }
+
+    .li-check {
+        border-color: #fff !important;
+        color: #077db0 !important;
+        background: url("../images/1.png") center 64px no-repeat;
+    }
+
+    .contentfellow {
+        width: 690px;
+        margin: 13px auto 0;
+        height: auto;
+    }
+
+    .banner {
+        width: 100%;
+        height: 110px;
+    }
+
+    .banner img {
+        width: 100%;
+        height: 100%;
+    }
+
+    .title {
+        width: 100%;
+        margin-top: 20px;
+        height: 44px;
+        border-bottom: 2px solid #ddedf0;
+    }
+
+    .title li {
+        float: left;
+        color: #333333;
+        font-family: "Micosoft Yahei";
+        font-size: 16px;
+        cursor: pointer;
+        margin-right: 38px;
+        line-height: 42px;
+    }
+
+    .title-check {
+        font-weight: bold;
+        border-bottom: 2px solid #0099cc;
+    }
+
+    .course-ul {
+        width: auto;
+        height: 35px;
+        margin-top: 13px;
+        float: left;
+    }
+
+    .course-ul > li {
+        width: 138px;
+        height: 35px;
+        background: #35a6da;
+        float: left;
+        margin-right: 10px;
+        border-radius: 3px;
+        position: relative;
+        cursor: pointer;
+    }
+
+    .course-ul > li > span {
+        font-size: 14px;
+        font-family: "Microsoft YaHei";
+        color: #ffffff;
+        line-height: 35px;
+        padding-left: 15px;
+    }
+
+    .course-ul > li > img {
+        float: right;
+        margin-right: 12px;
+        margin-top: 14px;
+    }
+
+    .item-ul {
+        position: absolute;
+        top: 35px;
+        left: 0;
+        width: 138px;
+        height: 105px;
+        border: 1px solid #35a6da;
+        box-sizing: border-box;
+        border-radius: 3px;
+        background: #ffffff;
+        overflow-y: scroll;
+        display: none;
+        z-index: 999;
+    }
+
+    .item-ul li {
+        height: 35px;
+        border-top: 1px solid #35a6da;
+        font-size: 14px;
+        font-family: "Microsoft YaHei";
+        color: #2B2B22;
+        line-height: 35px;
+        padding-left: 15px;
+        cursor: pointer;
+        overflow: hidden;
+    }
+
+    .item-ul li:nth-child(1) {
+        border-top: 0;
+    }
+
+    .item-ul li:hover {
+        background: #7fcef3;
+        color: #ffffff;
+    }
+
+    .search {
+        float: left;
+        width: auto;
+        height: 35px;
+        
+        box-sizing: border-box;
+        margin-top: 13px;
+        border-radius: 3px;
+        background: #fff;
+    }
+
+    .search input {
+        width: 138px;
+        height: 100%;
+        border: none;
+        background: none;
+        text-align: center;
+        border: 1px solid #d4e6f0;
+    }
+
+    .result {
+        width: 100%;
+    }
+
+    .result li {
+        width: 221px;
+        height: 79px;
+        float: left;
+        margin-right: 10px;
+        border: 1px dashed #d7d7d7;
+        border-radius: 7px;
+        margin-top: 24px;
+        overflow: hidden;
+    }
+
+    .result li:hover {
+        background: #e7f5fb;
+    }
+
+    .result li:nth-child(3n) {
+        margin-right: 0;
+    }
+
+    .user-pic {
+        float: left;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        margin-left: 5px;
+        margin-top: 9px;
+    }
+
+    .user-pic img {
+        width: 100%;
+        height: 100%;
+    }
+
+    .user-right {
+        float: left;
+        margin-left: 1px;
+        padding-top: 10px;
+        margin-left: 10px;
+    }
+
+    .user-right p {
+        color: #333333;
+        font-family: "Micosoft Yahei";
+        font-size: 12px;
+        line-height: 30px;
+    }
+
+    .user-right p a {
+        padding: 5px 5px;
+        background: #6bdcf2;
+        color: #fff;
+        margin-left: 40px;
+        cursor:pointer;
+        text-decoration: none;
+    }

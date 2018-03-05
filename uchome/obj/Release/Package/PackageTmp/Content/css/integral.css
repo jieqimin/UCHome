@@ -1,0 +1,174 @@
+﻿body {
+
+}
+ .rate-start {
+        margin-top: 20px;
+        float: left;
+        margin-left: 20px;
+        font-weight: bold;
+        color: orange;
+    }
+
+    .progress {
+        float: left;
+        width: 75%;
+        margin-top: 20px;
+        border-radius: 8px;
+        display: inline;
+        margin-left: 10px;
+    }
+
+    .rete-end {
+        margin-top: 20px;
+        float: left;
+        color: orange;
+        font-weight: bold;
+    }
+
+    .rate-role {
+        margin-top: 20px;
+        float: right;
+        color: #00bfff;
+    }
+
+    .points-tips {
+        font-weight: bold;
+        margin-left: 15px;
+    }
+
+    .lead-num {
+        color: orange;
+    }
+
+    .Recent-Points {
+        /*margin-top: 20px;*/
+        float: left;
+        margin-left: 20px;
+        font-weight: bold;
+    }
+
+    .integral {
+        float: left;
+        overflow: hidden;
+    }
+    .integral div {
+        margin-left: 30px;
+        margin-top: 20px;
+    }
+    #resoursePoint {
+        width:150px; height:60px;
+        background-color: #228b22;
+        -moz-border-radius: 10px;      /* Gecko browsers */
+        -webkit-border-radius: 10px;   /* Webkit browsers */
+        border-radius: 10px;          /* W3C syntax */
+        float: left;
+        font-size: 18px;
+        line-height: 60px;
+        padding-left: 20px;
+        color: white;
+        font-weight: bold;
+    }
+    #applicationPoint {
+        width:150px; height:60px;
+        background-color: #d2691e;
+        -moz-border-radius: 10px;      /* Gecko browsers */
+        -webkit-border-radius: 10px;   /* Webkit browsers */
+        border-radius: 10px;
+        float: left;
+        font-size: 18px;
+        line-height: 60px;
+        padding-left: 20px;
+         color: white;
+        font-weight: bold;
+    }
+
+    #JournalArticle {
+        width:150px; height:60px;
+        background-color: #00bfff;
+        -moz-border-radius: 10px;      /* Gecko browsers */
+        -webkit-border-radius: 10px;   /* Webkit browsers */
+        border-radius: 10px;          /* W3C syntax */
+         float: left;
+         font-size: 18px;
+        line-height: 60px;
+        padding-left: 20px;
+         color: white;
+        font-weight: bold;
+    }
+    #ClaTea {
+        width:150px; height:60px;
+        background-color: #7b68ee;
+        -moz-border-radius: 10px;      /* Gecko browsers */
+        -webkit-border-radius: 10px;   /* Webkit browsers */
+        border-radius: 10px;
+        float: left;
+        font-size: 18px;
+        line-height: 60px;
+        padding-left: 20px;
+         color: white;
+        font-weight: bold;
+    }
+    .point {
+        font-size: 20px;
+        color: yellow;
+        font-style:italic
+    }
+    #content {
+        overflow: hidden;
+    }
+    .summary-graph {
+        float: right;
+        margin-right: 20px;
+        width: 300px;
+        height: 200px;
+    }
+
+    .rescourseWork {
+        color: #00bfff;
+    }
+
+      .todayTask {
+        margin-top: 20px;
+        float: left;
+        margin-left: 20px;
+        font-weight: bold;
+    }
+
+    .taskprogress {
+        float: left;
+        width: 80%;
+        margin-top: 20px;
+        border-radius: 8px;
+        display: inline;
+        margin-left: 10px;
+    }
+
+    #result {
+        margin-top: 20px;
+        float: right;
+        color: orange;
+    }
+
+    .newTask {
+        color: purple;
+    }
+
+    .num {
+        color: red;
+    }
+
+    .type {
+        color: green;
+    }
+    .remove {
+       color: red; 
+    }
+    #myTabs {
+        margin-top: 10px;
+    }
+    .tips {
+        padding-top: 20px;
+        text-align: center;
+        color: red;
+        font-size: 15px;
+    }

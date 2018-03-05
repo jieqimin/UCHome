@@ -1,0 +1,120 @@
+﻿@{
+    Layout = null;
+}
+@using M = Evaluation.Model;
+@model M.UCHome_Evaluation
+<link rel="stylesheet" href="@Url.Content("~/Content/css/msg.css")">
+<link rel="stylesheet" href="@Url.Content("~/Content/css/eval.css")">
+
+@using (Html.BeginForm("SaveSelfEvalContent", "Evaluation", FormMethod.Post, new { id = "form_SelfIndex" }))
+{
+    @Html.HiddenFor(model => model.EvalID)
+    <div id="evaluation" class="form-position pagew">
+        <fieldset>
+            <legend>第一步：按照【评价指标】进行自我评价</legend>
+            <div style="text-align: center;">
+                <button type="button" class="btn btn-info" onclick="showModal('selfeval','','')">开始自评</button>
+            </div>
+        </fieldset>
+        <fieldset>
+            <legend>第二步：填写自我评语及个人目标</legend>
+            <div class="form-group">
+                @Html.TextAreaFor(model => model.EvalContent, new { @class = "form-control col-sm-12", rows = "5" })
+            </div>
+            <button type="button" id="btnSubmit" class="btn btn-info pull-right btn-right">保存</button>
+            <div id="alert_msg_main"></div>
+        </fieldset>
+        <div class="bottom-title">查看所有自评</div>
+        <div class="bottom-content">
+            @Html.Action("SelfIndexGrade")
+        </div>
+    </div>
+    
+    <div class="modal fade" id="Modal-xszp" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">
+                        <span style="font-weight: bold;">学生自评</span>
+                    </h4>
+                </div>
+                <div class="modal-body">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="btnSaveScore" class="btn btn-info">保存</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+
+<script>
+    $(function () {
+        $("#btnSubmit").click(function () {
+            if (checknull()) {
+                $("#form_SelfIndex").ajaxSubmit({
+                    success: function (data) {
+                        var obj = "";
+                        if (data.Data.statuscode == 200) {
+                            obj = "<div id='alert_msg_content' class='alert alert-success center-block' role='alert'>保存成功！</div>";
+                        } else {
+                            obj = "<div id='alert_msg_content' class='alert alert-danger center-block' role='alert'>保存失败！</div>";
+                        }
+
+                        $("#alert_msg_main").append(obj);
+                        setTimeout(function () {
+                            $("#alert_msg_content").remove();
+                        }, 2000);
+                    }
+                });
+            }
+        });
+
+        $("#EvalContent").keyup(function () {
+            checknull();
+        });
+
+        $("#btnSaveScore").click(function () {
+            submitdata();
+        });
+
+    });
+
+    function showModal(type, gradecode, gradename) {
+        if (type == "selfeval") {
+            $("#btnSaveScore").show();
+
+            $('#Modal-xszp').modal('show');
+            $("#Modal-xszp .modal-body").html("正在加载数据，请稍后...");
+            var loadurl = "@Url.Action("SelfEvalModalContent")";
+            $("#Modal-xszp .modal-body").load(loadurl);
+        }
+        else {
+            $("#btnSaveScore").hide();
+            $("#myModalLabel").find("span").html(gradename + "学生自评");
+            $('#Modal-xszp').modal('show');
+            $("#Modal-xszp .modal-body").html("正在加载数据，请稍后...");
+            var loadurl = "@Url.Action("SelfEvalHistory")?gradeCode=" + gradecode;
+            $("#Modal-xszp .modal-body").load(loadurl);
+        }
+    }
+
+    function checknull() {
+        var content = $.trim($("#EvalContent").val());
+        if (content == "" || content == null || content.length > 300) {
+            var len = $("#alert_msg_content").length;
+            if (len == 0) {
+                var obj = "<div id='alert_msg_content' class='alert alert-success center-block' role='alert'>请填写自我评语及个人目标并且在300字以内</div>";
+                $("#alert_msg_main").append(obj);
+            }
+            return false;
+        } else {
+            $("#alert_msg_content").remove();
+            return true;
+        }
+    }
+
+</script>

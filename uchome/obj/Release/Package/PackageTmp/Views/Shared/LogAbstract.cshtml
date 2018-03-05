@@ -1,0 +1,215 @@
+﻿@model Guid
+<style>
+    .logabstract-content {
+        margin: 0 30px;
+        border-bottom: dashed 1px #add8e6;
+    }
+
+        .logabstract-content .logabstract-content-title {
+            height: 40px;
+            line-height: 40px;
+        }
+
+    .logabstract-content-title h4 {
+        height: 40px;
+        line-height: 40px;
+        color: #2595b7;
+        cursor: pointer;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+        width: 500px;
+    }
+
+    .logabstract-content .logabstract-content-body {
+        color: #999;
+        font-size: 14px;
+        line-height: 25px;
+    }
+
+    .logabstract-content .logabstract-content-other {
+        height: 40px;
+        line-height: 40px;
+        font-size: 12px;
+    }
+
+    .logabstract-content-other .logproperty {
+        float: left;
+        color: #556b2f;
+    }
+
+    .logproperty a {
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    .logabstract-content-other .logfunctioin {
+        margin-left: 10px;
+        float: left;
+        cursor: pointer;
+        color: #2e8b57;
+    }
+
+        .logabstract-content-other .logfunctioin span {
+            padding: 0 3px;
+        }
+
+    .log-pager {
+        text-align: center;
+        width: 100%;
+    }
+
+    #page_data {
+        height: 75px;
+    }
+
+    .mylog_content .page_bg {
+        margin: 0;
+        padding: 0 5px;
+        text-align: center;
+        position: absolute;
+        bottom: 0;
+        right: 10px;
+    }
+
+    .mylog_content .pagination_custom {
+        margin: 5px 0;
+    }
+</style>
+<script  src="@Url.Content("~/scripts/Base64-80.js")"></script>
+<div id="logabstracts"></div>
+<div id="page_data" class="clearfix">
+    <div class="log-pager" id="plugs-pager">
+    </div>
+</div>
+@* ReSharper disable once UsingOfReservedWord *@
+<script>
+    var currpage = 1;
+    var tps = 1;
+    var rsc_bs_pag = { go_to_page_title: "转到", rows_per_page_title: "第几页", current_page_label: "页", current_page_abbr_label: "", total_pages_label: "/", total_pages_abbr_label: "/", total_rows_label: "/", rows_info_records: "记录", go_top_text: "&laquo;", go_prev_text: "&larr;", go_next_text: "&rarr;", go_last_text: "&raquo;" };
+    getlogscount("@Model", "@ViewBag.UCType");
+    GetLogAbstracts("@Model", 5, "@ViewBag.UCType", currpage);
+    function GetLogAbstracts(id, pagesize, uctype, pageindex) {
+        $("#logabstracts").html("");
+        $.ajax({
+            url: "@Url.Content("~/ashx/GetLogByID.ashx")",
+            data: { id: id, pagesize: pagesize, uctype: uctype, curpage: pageindex },
+            success: function (data) {
+                var infos = eval("(" + data + ")"); //            
+                if (infos.length > 0) {
+                    $.each(infos, function (idx, item) {
+                        var pid = item.pkid;
+                        var title = utf8to16(decode64(item.title));
+                        var time = item.time;
+                        //var user = item.user;
+                        var hits = item.hits;
+                        var abstract = utf8to16(decode64(item.abstract));
+                        var isshare = item.isshare;
+                        //var isaudit = item.isaudit;
+                        var isshow = item.isshow;
+                        var str = "<div class=\"logabstract-content\">";
+                        str += "  <div class=\"logabstract-content-title\">";
+                        str += "   <h4  onclick=\"viewlog('@Url.Action("LogView", "PublicShare")?pid=" + pid + "&uctype=" + uctype + "')\">" + title + "</h4>";
+                        str += "</div>";
+                        str += " <div class=\"logabstract-content-body\">";
+                        str += "    <p>" + abstract + "</p>";
+                        str += " </div>";
+                        str += " <div class=\"logabstract-content-other\">";
+                        str += "    <div class=\"logproperty\">" + time + "【<a onclick=\"viewlog('@Url.Action("LogView", "PublicShare")?pid=" + pid + "&uctype=" + uctype + "')\">查看全文</a>】  阅读(" + hits + ") " + isshare + " " + isshow + "  </div>";
+                        str += "    <div class=\"logfunctioin\"><span pid=" + pid + " class='logedit'>编辑</span> <span data-toggle='modal' data-target='#delconfirm' class='logdelete' pid=" + pid + ">删除</span>   <span data-toggle='modal' data-target='#sharesetting' class='logrole' pid=" + pid + ">设置权限</span></div>";
+                        str += " </div>";
+                        var obj = str;
+                        $("#logabstracts").append($(obj));
+
+                    });
+                    $(".logdelete").each(function () {
+                        $(this).click(function () {
+                            delconfirm("确定删除这条日志内容吗？", dellog, $(this).attr("pid"));
+                        });
+                    });
+                    $(".logrole").each(function () {
+                        $(this).click(function () {
+                            setsharevalue("确定删除这条日志内容吗？", setrole, $(this).attr("pid"));
+                        });
+                    });
+                    $(".logedit").each(function () {
+                        $(this).click(function () {
+                            $("#body_content").load("@Url.Action("LogEdit", "PublicShare")?id=@Model&pid=" + $(this).attr("pid"));
+                        });
+                    });
+                } else {
+                    var obj = "<li class=\"noinfo\"><p class=\"person\"><span class=\"newscontent\">还没有任何动态信息！</span></p></li>";
+                    $("#logabstracts").append($(obj));
+                }
+                $("#plugs-pager").bs_pagination({
+                    currentPage: currpage,
+                    visiblePageLinks: 10,
+                    totalPages: tps,//根据实际数量/visiblePageLinks
+                    showGoToPage: false,
+                    showRowsPerPage: false,
+                    showRowsInfo: false,
+                    onChangePage: function (type, page) {
+                        currpage = page.currentPage;
+                        GetLogAbstracts("@Model", 5, "@ViewBag.UCType", currpage);
+                    }
+                });
+            }
+        });
+    }
+    function getlogscount(id, uctype) {
+        $.ajax({
+            url: "@Url.Content("~/ashx/GetLogCount.ashx")",
+            data: { id: id, uctype: uctype },
+            success: function (data) {
+                var infos = eval("(" + data + ")"); //            
+                tps = infos[0].recordcount;
+                var tc = tps / 5;
+                var tci = parseInt(tc);
+                if (tc > tci)
+                    tps = tci + 1;
+                else
+                    tps = tci;
+            }
+        });
+    }
+    function viewlog(url) {
+        $("#body_content").load(url);
+    }
+    function dellog(id) {
+        $.ajax({
+            url: "@Url.Content("~/ashx/DelPersonNew.ashx")",
+            data: { pid: id, uctype: "recyclelog" },
+            success: function (data) {
+                if (data == "200") {
+                    tipsuccessmsg("删除成功");
+                    setTimeout(hidesuccessmsg, 1000);
+                    GetLogAbstracts("@Model", 5, "@ViewBag.UCType", 1);
+                } else {
+                    tipfailmsg("删除失败");
+                    setTimeout(hidefailmsg, 1000);
+                }
+            }
+        });
+    }
+    function setrole(id, selvalue) {
+        $.ajax({
+            url: "@Url.Content("~/ashx/DelPersonNew.ashx")",
+            data: { pid: id, isshare: selvalue },
+            success: function (data) {
+                if (data == "200") {
+                    tipsuccessmsg("设置成功");
+                    setTimeout(hidesuccessmsg, 1000);
+                    GetLogAbstracts("@Model", 5, "@ViewBag.UCType", currpage);
+                } else {
+                    tipfailmsg("设置失败");
+                    setTimeout(hidefailmsg, 1000);
+                }
+            }
+        });
+    }
+    //分页
+    //$(function () {
+
+    //});
+
+</script>

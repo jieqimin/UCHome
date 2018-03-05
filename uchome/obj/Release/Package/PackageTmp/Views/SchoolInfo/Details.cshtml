@@ -1,0 +1,235 @@
+﻿@model SchInfo.Model.SchoolInfo
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_LayoutAppMenu.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>SchoolInfo</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.SchCode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SchCode)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SchName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SchName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SchEnName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SchEnName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SchAbbreviationCn)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SchAbbreviationCn)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SchAbbreviationEn)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SchAbbreviationEn)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SchType_DictCode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SchType_DictCode)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SchNature_DictCode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SchNature_DictCode)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SchDistrict_GBT2260)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SchDistrict_GBT2260)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SchParentDepartment)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SchParentDepartment)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SchEmail)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SchEmail)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SchTelephone)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SchTelephone)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SchFax)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SchFax)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SchAddress)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SchAddress)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SchPostCode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SchPostCode)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SchlegalPerson)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SchlegalPerson)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SchIntroduction)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SchIntroduction)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Schbadge)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Schbadge)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SchLogo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SchLogo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SchBuildingDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SchBuildingDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SchAnniversary)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SchAnniversary)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SchSite)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SchSite)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsState)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsState)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LastIP)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LastIP)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LastTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LastTime)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Creator)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Creator)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CreateTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreateTime)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LogID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LogID)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.SchID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

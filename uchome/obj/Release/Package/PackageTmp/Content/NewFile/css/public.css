@@ -1,0 +1,291 @@
+/*----头部----*/
+.header {
+    margin: 0px auto;
+    width: 100%;
+    /*background:url(../image/city/header_bg.jpg);*/
+}
+
+    .header .header-content {
+        width: 980px;
+        height: 35px;
+        margin: 0px auto;
+    }
+
+    .header .header-block {
+        float: left;
+    }
+
+    .header .header-font {
+        color: white;
+        font-size: 14px;
+        font-family: "微软雅黑";
+    }
+
+.header-home {
+    width: 251px;
+    margin-top: 9px;
+    height: 18px;
+}
+
+    .header-home > a {
+        display: block;
+        width: 59px;
+        text-decoration: none;
+        float: left;
+        height: 18px;
+        line-height: 18px;
+    }
+
+        .header-home > a > img {
+            width: 20px;
+            height: 17px;
+            display: block;
+            float: left;
+        }
+
+    .header-home a > span {
+        display: block;
+        margin-left: 5px;
+        float: left;
+    }
+
+.header-input {
+    width: 405px;
+    height: 22px;
+    border: 1px solid #26ab8c;
+    border-radius: 3px;
+    margin-top: 5px;
+    background: white;
+}
+
+    .header-input input {
+        width: 360px;
+        height: 18px;
+        border: none;
+        margin-top: 2px;
+        margin-left: 4px;
+        float: left;
+    }
+
+    .header-input .input-line {
+        height: 18px;
+        width: 1px;
+        overflow: hidden;
+        margin-top: 2px;
+        background: #d4d4d4;
+        float: left;
+    }
+
+    .header-input .header-search {
+        height: 18px;
+        width: 37px;
+        background: url(../image/public/search.png) no-repeat;
+        background-position: center center;
+        margin-top: 2px;
+        float: left;
+        cursor: pointer;
+    }
+
+.header-login {
+    width: 322px;
+    margin-top: 9px;
+    list-style: none;
+}
+
+    .header-login li {
+        float: right;
+    }
+
+    .header-login .login {
+        display: block;
+        width: 98px;
+        height: 18px;
+        line-height: 18px;
+    }
+
+        .header-login .login > img {
+            width: 15px;
+            height: 17px;
+            display: block;
+            float: left;
+        }
+
+        .header-login .login > span {
+            display: block;
+            float: left;
+            margin-left: 5px;
+        }
+
+    .header-login .set {
+        display: block;
+        width: 54px;
+        height: 18px;
+        line-height: 18px;
+    }
+
+    .header-login .blanking {
+        width: 28px;
+    }
+
+    .header-login .blanking-line {
+        height: 18px;
+        width: 1px;
+        overflow: hidden;
+        background: white;
+        margin: 0px auto;
+    }
+
+    .header-login .set > img {
+        width: 18px;
+        height: 18px;
+        display: block;
+        float: left;
+    }
+
+    .header-login .set > span {
+        display: block;
+        float: left;
+        margin-left: 5px;
+    }
+
+.logo-fontsize {
+    font-family: '微软雅黑';
+    font-size: 35px;
+}
+/*搜索框*/
+.list-search {
+    width: 200px;
+    height: 25px;
+    border: 1px solid #d7d7d7;
+    margin: 11px 0px 11px 0px;
+}
+
+    .list-search .list-div {
+        width: 160px;
+        height: 25px;
+        float: left;
+    }
+
+    .list-search .list-input {
+        width: 160px;
+        height: 24px;
+        border: none;
+        border-bottom: 1px solid #d7d7d7;
+    }
+
+.input-search {
+    width: 35px;
+    height: 25px;
+    background: url(../image/public/search.png) no-repeat;
+    background-position: center center;
+    float: left;
+    border-left: 1px solid #d7d7d7;
+}
+/*----布局底部----*/
+.footer {
+    margin: 0px auto;
+    background-color: #7889ec;
+    margin-top: 31px;
+}
+
+    .footer .footer_content {
+        width: 980px;
+        height: 37px;
+        margin: 0px auto;
+        text-align: center;
+        line-height: 37px;
+        color: #e0e3fa;
+        font-family: "微软雅黑";
+        font-size: 12px;
+    }
+/*----公共style----*/
+.clear {
+    clear: both;
+}
+
+.alpha30 {
+    /* Fallback for web browsers that doesn't support RGBa */
+    background: rgb(0, 0, 0); /* RGBa with 0.6 opacity */
+    background: rgba(0, 0, 0, 0.2); /* For IE 5.5 - 7*/
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000); /* For IE 8*/
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000)";
+}
+
+.xz {
+    font-size: 14px;
+    text-decoration: none;
+    background-color: #47c6a9;
+    padding: 2px 8px 2px 8px;
+    color: white;
+    cursor: pointer;
+    height: 30px;
+    line-height: 30px;
+    font-family: 微软雅黑;
+    text-align: center;
+}
+
+.noxz {
+    font-size: 14px;
+    text-decoration: none;
+    color: #0997d6;
+    cursor: pointer;
+    height: 30px;
+    line-height: 30px;
+    font-family: 微软雅黑;
+    text-align: center;
+}
+
+.part1 {
+    width: 100%;
+    background: #f5f8fc;
+    border: 1px solid #c8dcf2;
+    margin-top: 25px;
+    padding: 5px 25px 0px 25px;
+}
+
+    .part1 li {
+        text-align: left;
+        padding-top: 5px;
+    }
+
+        .part1 li span {
+            margin-right: 25px;
+        }
+
+.span {
+    color: #47c6a9;
+    text-align: center;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.part2 {
+    width: 100%;
+    height: 550px;
+    background: #f5f8fc;
+    border: 1px solid #c8dcf2;
+    margin-top: 25px;
+    padding: 15px 15px 15px 25px;
+}
+
+    .part2 li {
+        text-align: left;
+        height: 35px;
+        line-height: 35px;
+    }
+
+.part3 {
+    width: 100%;
+    height: 550px;
+    background: #f5f8fc;
+    border: 1px solid #c8dcf2;
+    margin-top: 25px;
+}
+
+.part4 {
+    width: 100%;
+    height: 700px;
+    background: #f5f8fc;
+    border: 1px solid #c8dcf2;
+    margin-top: 25px;
+}

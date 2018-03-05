@@ -1,0 +1,333 @@
+﻿@{
+    Layout = null;
+}
+@using System.Web.Mvc
+@using M = MessageCenter.Model;
+@model M.Msg_Notice
+<link rel="stylesheet" href="@Url.Content("~/Content/css/msg.css")">
+<script src="@Url.Content("~/plugs/usercontrol/selectuser.js")"></script>
+<link rel="stylesheet" href="@Url.Content("~/plugs/webuploader/css/webuploader.css")">
+<link rel="stylesheet" href="@Url.Content("~/plugs/webuploader/css/demo.css")">
+<link rel="stylesheet" href="@Url.Content("~/plugs/datetimepicker/css/bootstrap-datetimepicker.css")">
+<link rel="stylesheet" href="@Url.Content("~/content/css/homework.css")">
+
+<style type="text/css">
+    .sel-notice {
+        width: 120px !important;
+        margin-right: 10px;
+    }
+</style>
+
+@using (Ajax.BeginForm(
+    new AjaxOptions()
+    {
+        HttpMethod = "post",
+        Url = Url.Action("EditNotice"),
+        UpdateTargetId = "#editNotice",
+        LoadingElementId = "loding",
+        LoadingElementDuration = 2000
+    }))
+{
+    @Html.HiddenFor(model => model.ID)
+    @Html.HiddenFor(model => model.FileUrl)
+    @Html.HiddenFor(model => model.FileID)
+    <div id="editNotice" class="form-horizontal form-position pagew ">
+        @if (Model.MsgTypeName!="学校通知") {
+        <div class="form-group">
+            <label for="MsgTypeCode" class="col-sm-2 control-label">通知类型：</label>
+            <div class="col-sm-9">
+                @*<select id="MsgTypeCode" name="MsgTypeCode" class="form-control input-sm col-xs-2 sel-notice"></select>*@
+                @Html.DropDownList("MsgTypeCode")
+
+                <button type="button" class="btn btn-info dropdown-toggle selUsers" data-toggle="button"
+                        aria-haspopup="true" aria-expanded="false">
+                    选择人员
+                </button>
+                <div id="showSelectUserName">
+                    @ViewBag.names
+                </div>
+                <input id="selectUserID" name="selectUserID" type="hidden" value="@ViewBag.ids " />
+                <input id="selectUserName" name="selectUserName" type="hidden" value="@ViewBag.names" />
+            </div>
+        </div>
+        }
+        <div class="form-group">
+            <label for="MsgTitle" class="col-sm-2 control-label">通知标题：</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" id="MsgTitle" value="@Model.MsgTitle" name="MsgTitle" placeholder="请输入通知标题并且在50字以内" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="MsgContent" class="col-sm-2 control-label">通知内容：</label>
+            <div class="col-sm-9">
+                @Html.TextArea("MsgContent", Model.MsgContent, new { @class = "form-control", rows = "5", placeholder = "请输入通知内容并且在300字以内" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="hwname" class="col-sm-2 control-label">附件：</label>
+            <div class="col-sm-9">
+                <div id="uploader1" class="wu-example">
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="btn-group center-block" style="width: 200px;">
+                <button id="btnSend" type="button" class="btn btn-info dropdown-toggle" data-toggle="button" aria-haspopup="true" aria-expanded="false">
+                    立即发送
+                </button>
+
+                <button style="margin-left:10px" id="btnClose" type="button" class="btn btn-info dropdown-toggle" data-toggle="button" aria-haspopup="true" aria-expanded="false">
+                    关闭
+                </button>
+            </div>
+        </div>
+        <div class="form-group">
+            <ul id="validmsg"></ul>
+        </div>
+    </div>
+}
+<script src="@Url.Content("~/plugs/webuploader/js/webuploader.js")"></script>
+<script src="@Url.Content("~/plugs/webuploader/js/upfile.js")"></script>
+<script>
+    $(document).ready(function () {
+        var  UserID=  $("#selectUserID").val()
+      
+        if(UserID!=null){
+            $("#MegTypeCode").addClass("form-control input-sm col-xs-2 sel-notice");
+            var seluser1 = new SelUser({
+                obj: $(".selUsers"),
+                selRole: "tea",//tea,stu,fam
+                selType: "muti",//多选：muti,单选:single
+                selArea: "department",//friend:我的好友,student:我的学生,stuparent:学生家长,colleague:我的同事,myclassmate:我的同学,teacher:我的老师,classmateparent:同学家长,department:学校部门
+                selValue: $("#selectUserID"),
+                selText: $("#showSelectUserName"),
+                callBackfn: function (ids, names) {
+                    //将先中的结果进行处理
+                    $("#selectUserID").val(ids);
+                    $("#selectUserName").val(names);
+                    $("#showSelectUserName").text(names);
+                }
+            });
+        }
+
+        if(UserID!=null){
+            var type = '@ViewBag.type';
+            $.getJSON('@Url.Action("GetNoticeTypeList")', function (data) {
+                $.each(data, function (i, item) {
+                    if (type == item["Value"]) {
+                        $("<option></option>").val(item["Value"]).text(item["Text"]).attr("selected",true).appendTo($("#MsgTypeCode"));
+                    }
+                    else {
+
+                        $("<option></option>").val(item["Value"]).text(item["Text"]).appendTo($("#MsgTypeCode"));
+                    }
+                });
+            });
+        }
+
+        if(UserID!=null){
+            $("#MsgTypeCode").change(function () {
+                $("#selectUserID").val("");
+                $("#selectUserName").val("");
+                $("#showSelectUserName").text("");
+                $(".selUsers").show();
+            });
+        }
+
+        if(UserID!=null){
+            $("#btnSend").click(function () {
+                var code = $("#MsgTypeCode").val();
+                var userids = $("#selectUserID").val();
+                if ((userids == "" || userids == null) && code != "1") {
+                    var tag = $("#validmsg > li > label[for='selectUserID']").attr("for");
+                    if (tag != "selectUserID") {
+                        if(userids!=null){
+                            var obj = "<li><label for=\"selectUserID\" generated=\"true\" class=\"red\" style=\"display: inline-block;\">请选择人员</label></li>";
+                            $("#validmsg").append(obj);}
+                    }
+                } else {
+                    $("#validmsg li").remove();
+                    $("form").submit();
+                }
+                $("#validmsg").show();
+            });
+        }else{
+            $("#btnSend").click(function () {
+                $("form").submit();
+                $("#validmsg").show();
+            });
+        }
+        $("#btnSend").click(function () {
+            var code = $("#MsgTypeCode").val();
+            var userids = $("#selectUserID").val();
+            if ((userids == "" || userids == null) && code != "1") {
+                var tag = $("#validmsg > li > label[for='selectUserID']").attr("for");
+                if (tag != "selectUserID") {
+                    if(userids!=null){
+                    var obj = "<li><label for=\"selectUserID\" generated=\"true\" class=\"red\" style=\"display: inline-block;\">请选择人员</label></li>";
+                    $("#validmsg").append(obj);}
+                }
+            } else {
+                $("#validmsg li").remove();
+                $("form").submit();
+            }
+            $("#validmsg").show();
+        });
+       
+
+        $("#btnClose").click(function () {
+
+            var loadurl = "@Url.Action("NoticeQuery")";
+            redirecturl(loadurl);
+            //$("#id-app-content").load(loadurl);
+        });
+       
+        if(UserID!=null)
+        {
+            var validator = $("form").validate({
+                rules: {
+             
+                    selectUserID:"required",
+                    MsgTitle: "required",
+                    MsgContent: "required"
+                },
+                messages: {
+
+                    selectUserID:"请选择人员",
+                    MsgTitle: "请输入通知标题并且在50字以内",
+                    MsgContent: "请输入通知内容并且在300字以内"
+                },
+                errorClass: "red",//设置错误样式
+                errorElement: "label",//设置显示错误提示的控件,默认为<label>
+                errorLabelContainer: "#validmsg",//指定错误信息放置容器
+                wrapper: "li",
+                //errorPlacement: function (error,element) { //指定错误信息放置位置
+                //    error.appendTo($("#validmsg"));
+                //},
+                //debug: true//进行调试模式（表单不提交）
+                submitHandler: function (form) {
+                    $(form).ajaxSubmit({
+                        success: function (data) {
+                            if (data.Data.statuscode == 200) {
+                                var obj = "<div id='operresultmsg' class='alert alert-success center-block' role='alert'>发送成功！</div>";
+                                $("form").append(obj);
+
+                                validator.resetForm();//重置表单
+                                $("#selectUserID").val("");
+                                $("#selectUserName").val("");
+                                $("#showSelectUserName").text("");
+                                $("#validmsg").show();
+                                $(".selUsers").hide();
+                                $(".selOneUser").hide();
+
+                                var guid = '@Guid.NewGuid().ToString()';
+                                $("#ID").val(guid);//动态生成newid
+
+                                setTimeout(function () {
+                                    $("#operresultmsg").remove();
+                                }, 2000);
+                            } else {
+                                var obj = "<div id='operresultmsg' class='alert alert-danger center-block' role='alert'>发送失败，请重试！<p style='display:none'>" + data.Data.msg + "</p></div>";
+                                $("form").append(obj);
+
+                                setTimeout(function () {
+                                    $("#operresultmsg").remove();
+                                }, 2000);
+                            }
+                        }
+                    })
+                }
+                //onsubmit: false,//是否提交时验证，默认为True,用于设置某一个不需要验证的控件
+                //onfocusin: false,//是否获取焦点时验证，默认为True
+                //onkeyup: false,//是否在敲击键盘时验证，默认为True
+                //onclick: false//是否在鼠标点击时验证，默认为True
+            })
+        }else{
+            var validator = $("form").validate({
+                rules: {
+             
+                    
+                    MsgTitle: "required",
+                    MsgContent: "required"
+                },
+                messages: {
+
+                  
+                    MsgTitle: "请输入通知标题并且在50字以内",
+                    MsgContent: "请输入通知内容并且在300字以内"
+                },
+                errorClass: "red",//设置错误样式
+                errorElement: "label",//设置显示错误提示的控件,默认为<label>
+                errorLabelContainer: "#validmsg",//指定错误信息放置容器
+                wrapper: "li",
+                //errorPlacement: function (error,element) { //指定错误信息放置位置
+                //    error.appendTo($("#validmsg"));
+                //},
+                //debug: true//进行调试模式（表单不提交）
+                submitHandler: function (form) {
+                    $(form).ajaxSubmit({
+                        success: function (data) {
+                            if (data.Data.statuscode == 200) {
+                                var obj = "<div id='operresultmsg' class='alert alert-success center-block' role='alert'>发送成功！</div>";
+                                $("form").append(obj);
+
+                                validator.resetForm();//重置表单
+                                $("#selectUserID").val("");
+                                $("#selectUserName").val("");
+                                $("#showSelectUserName").text("");
+                                $("#validmsg").show();
+                                $(".selUsers").hide();
+                                $(".selOneUser").hide();
+
+                                var guid = '@Guid.NewGuid().ToString()';
+                                $("#ID").val(guid);//动态生成newid
+
+                                setTimeout(function () {
+                                    $("#operresultmsg").remove();
+                                }, 2000);
+                            } else {
+                                var obj = "<div id='operresultmsg' class='alert alert-danger center-block' role='alert'>发送失败，请重试！<p style='display:none'>" + data.Data.msg + "</p></div>";
+                                $("form").append(obj);
+
+                                setTimeout(function () {
+                                    $("#operresultmsg").remove();
+                                }, 2000);
+                            }
+                        }
+                    })
+                }
+                //onsubmit: false,//是否提交时验证，默认为True,用于设置某一个不需要验证的控件
+                //onfocusin: false,//是否获取焦点时验证，默认为True
+                //onkeyup: false,//是否在敲击键盘时验证，默认为True
+                //onclick: false//是否在鼠标点击时验证，默认为True
+            })
+        }
+       
+    })
+</script>
+<script>
+    var BASE_URL = '@Url.Content("~/plugs/webuploader/")';
+    //文件处理服务
+    var Server_URL = "@Url.Action("AddFile", "PublicShare")";
+    var filedata = @Html.Raw(ViewBag.files);
+    var upfile1 = new Upfiles({
+        id: "uploader1",
+        baseurl: BASE_URL,
+        serverurl: Server_URL,
+        files: filedata,
+        callbackfn: function (ret) {//返回值格式为：[{fileid:"",filename:"",filepath:""},{fileid:"",filename:"",filepath:""}]
+
+            if (ret != null) {
+                var filepaths = new Array();
+                var filenames = new Array();
+                var files = eval("(" + ret + ")");
+                $.each(files, function (index, item) {
+                    filenames.push(item.filename);
+                    filepaths.push(item.filepath);
+                })
+                $("#FileUrl").val(filepaths);
+                $("#FileID").val(filenames);
+            }
+        }
+    })
+</script>

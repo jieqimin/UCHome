@@ -1,0 +1,25 @@
+﻿@using UCHome.Model
+@model List<proc_uchome_getstaticbysch_Result>
+@*<script >
+    loaddata($("#AllHomeslist"));
+</script>*@
+<div id="AllArticleslist">
+    <div>附加说明：数据统计每小时更新一次，最新统计时间：@ViewBag.Cachetimebysch</div>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <td rowspan="2">教师姓名 </td>
+                <td colspan="3">文章发表数 </td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (proc_uchome_getstaticbysch_Result item in Model)
+            {
+                <tr>
+                    <td>@Html.ActionLink(item.XM, "Query", "TeacherCenter", new { id = item.jsid }, new { title = "点击进入个人空间" }) </td>
+                    <td>@item.articlecounts </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

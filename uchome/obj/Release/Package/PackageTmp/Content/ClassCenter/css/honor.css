@@ -1,0 +1,95 @@
+﻿@charset "utf-8";
+/* CSS Document */
+
+.honor-left{
+	float:left;
+	width:151px;
+	height:636px;
+	background:#1db2ca;
+	position:relative;
+	
+	}
+.honor-ul{
+	width:100%;
+	height:603px;
+	margin:33px auto 0;
+	background:url(../images/culture/xu.png) center repeat-y;
+    overflow:hidden;
+	}
+.honor-ul li{
+	width:77px;
+	height:77px;
+	border-radius:50%;
+	background:#1da1b6;
+	position:relative;
+    margin:0 auto 45px;
+	}
+.honor-ul li a{
+	display:block;
+	width:77px;
+	height:77px;
+	border-radius:50%;
+	text-align:center;
+	line-height:77px;
+	border:3px solid #1da1b6;
+	font-size: 20px;
+	font-family: "Microsoft YaHei";
+	color:#fff;
+	text-decoration:none;
+	}
+
+.honor-check{
+	border:3px solid #7bccd9 !important;
+	background:#f8ca10 !important;
+	color:#1da1b6 !important;
+	}
+.year-down{
+	width:150px;
+	height:36px;
+	}
+.write-angle{
+	position:absolute;
+	right:-38px;
+	top:31px;
+	width:8px;
+	height:15px;
+	background:url(../images/culture/write-angle.png) no-repeat;
+	z-index:999;
+	}
+.honor-right{
+	float:right;
+	width:849px;
+	height:636px;
+	border:solid #ebebeb;
+	border-width:1px 1px 1px 0;
+	background:#fff;
+	box-sizing:border-box;
+	}
+.honor-right ul{
+	width:810px;
+	margin:auto;
+	}
+.honor-right li{
+	float:left;
+	width:267px;
+	height:187px;
+	margin-right:4px;
+	margin-top:10px;
+	}
+/*.honor-right li:nth-child(3n){
+	margin-right:0;
+	}*/
+.honor-right li img{
+	width:267px;
+	height:187px;
+	}
+
+#imgshow{
+         position:absolute;
+         border:1px solid #ccc;
+         background:#333;
+         padding:0px;
+         color:#fff;
+         display:none;
+     }
+#imglist img{width:190px;height:190px;}

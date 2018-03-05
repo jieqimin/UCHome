@@ -1,0 +1,87 @@
+﻿@{
+    Layout = null;
+}
+@using System.Web.Mvc
+@using HomeWork.Model
+@model Homework_HwPublish
+<link rel="stylesheet" href="@Url.Content("~/plugs/webuploader/css/webuploader.css")">
+<link rel="stylesheet" href="@Url.Content("~/plugs/webuploader/css/demo.css")">
+<link rel="stylesheet" href="@Url.Content("~/content/css/homework.css")">
+<style>
+    .red {
+        color: red;
+    }
+</style>
+@using (Ajax.BeginForm(
+    new AjaxOptions()
+    {
+        HttpMethod = "post",
+        Url = @Url.Action("HW_Deploy"),
+        UpdateTargetId = "#homework_publish",
+        LoadingElementId = "loding",
+        LoadingElementDuration = 2000
+    }))
+{
+    <div id="homework_publish" class="form-horizontal form-position pagew ">
+
+        <div class="form-group">
+            <label for="hwname" class="col-sm-3 control-label">作业附件：</label>
+            <div class="col-sm-9">
+                <div id="uploader1" class="wu-example">
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="hwname" class="col-sm-3 control-label">作业附件2：</label>
+            <div class="col-sm-9">
+                <div id="uploader2" class="wu-example">
+                </div>
+            </div>
+        </div>
+        <input id="Attachment" class="col-md-10" name="Attachment" type="text" value="" placeholder="附件一" />
+        <input id="Attachment2"class="col-md-10"  name="Attachment2" type="text" value="" placeholder="附件二" />
+    </div>
+}
+<script src="@Url.Content("~/plugs/webuploader/js/webuploader.js")"></script>
+<script src="@Url.Content("~/plugs/webuploader/js/upfile.js")"></script>
+<script>
+    
+    var BASE_URL = '@Url.Content("~/plugs/webuploader/")';
+    //文件处理服务
+    var Server_URL = "@Url.Action("AddFile", "PublicShare")";
+    var upfile1 = new Upfiles({
+        id: "uploader1",
+        baseurl: BASE_URL,
+        serverurl: Server_URL,
+        files: [{ fileid: "fileid1", filename: "filename1", filepath: "filepath1" }, { fileid: "fileid2", filename: "filename2", filepath: "filepath2" }],
+        callbackfn: function (ret) {//返回值格式为：[{fileid:"",filename:"",filepath:""},{fileid:"",filename:"",filepath:""}]
+
+            if (ret != null) {
+                var results = new Array();
+                var files =eval("("+ret+")");
+                $.each(files, function (index, item) {
+                    results.push(item.filename);
+                })
+                $("#Attachment").val(results);
+            }
+        }
+    })
+    var upfile2 = new Upfiles({
+        id: "uploader2",
+        baseurl: BASE_URL,
+        serverurl: Server_URL,
+        files: [{ fileid: "fileid3", filename: "filename3",filepath:"filepath3" }, { fileid: "fileid4", filename: "filename4",filepath:"filepath4" }],
+        callbackfn: function (ret) {
+            if (ret != null) {
+                var results = new Array();
+                var files = eval("(" + ret + ")");
+                $.each(files, function (index, item) {
+                    results.push(item.filename);
+                })
+                $("#Attachment2").val(results);
+            }
+        }
+    })
+</script>
+
+

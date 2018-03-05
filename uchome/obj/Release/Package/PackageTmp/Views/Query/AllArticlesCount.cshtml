@@ -1,0 +1,13 @@
+﻿@using UCHome.Model
+    <tr>
+        @foreach (View_Statics_ArticleGroupByArea item in Model)
+        {
+            <td>@item.Areaname</td>
+        }
+    </tr>
+    <tr>
+        @foreach (View_Statics_ArticleGroupByArea item in Model)
+        {
+            <td>@item.ArticleCount</td>
+        }
+    </tr>

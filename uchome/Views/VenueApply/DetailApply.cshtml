@@ -1,0 +1,56 @@
+﻿@using System.Web.Mvc
+@using M = VenueSetup.Model;
+@model M.ApplyMeeting
+<link rel="stylesheet" href="@Url.Content("~/plugs/webuploader/css/webuploader.css")">
+<link rel="stylesheet" href="@Url.Content("~/plugs/webuploader/css/demo.css")">
+<link rel="stylesheet" href="@Url.Content("~/plugs/datetimepicker/css/bootstrap-datetimepicker.css")">
+<style type="text/css">
+    #meetName {
+        width: 400px;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        -o-text-overflow: ellipsis;
+        overflow: hidden;
+    }
+</style>
+<div id="auditapply" class="form-horizontal form-position pagew " style="margin-bottom: 0px; margin-top: 0px;">
+    <div class="form-group">
+        <label for="MeetingName" class="col-sm-2 control-label">会议名称：</label>
+        <div class="col-sm-9 pd h" id="meetName">
+            <p class="form-control-static">@Model.MeetingName</p>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="MeetingRoom" class="col-sm-2 control-label">场馆地址：</label>
+        <div class="col-sm-9 pd h">
+            <p class="form-control-static">@Model.MeetingRoom</p>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="StartTime" class="col-sm-2 control-label">开始时间：</label>
+        <div class="col-sm-9 pd h">
+            <p class="form-control-static">@Model.StartTime</p>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="EndTime" class="col-sm-2 control-label">结束时间：</label>
+        <div class="col-sm-9 pd h">
+            <p class="form-control-static">@Model.EndTime</p>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="EndTime" class="col-sm-2 control-label">状态：</label>
+        <div class="col-sm-9 pd h">
+            <p class="form-control-static">@Model.Status</p>
+        </div>
+    </div>
+    @if (Model.Status == "审核未通过")
+    {
+        <div class="form-group">
+            <label for="EndTime" class="col-sm-2 control-label">不通过原因：</label>
+            <div class="col-sm-9 pd h">
+                <p class="form-control-static">@Model.Maincontent</p>
+            </div>
+        </div>
+    }
+</div>

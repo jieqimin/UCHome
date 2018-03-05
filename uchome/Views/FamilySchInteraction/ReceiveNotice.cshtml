@@ -1,0 +1,100 @@
+﻿@using M = UCHome.Model;
+@model List<M.ReceiveNotice>
+<link rel="stylesheet" href="@Url.Content("~/Content/css/msg.css")">
+<link rel="stylesheet" href="@Url.Content("~/plugs/datatables/css/jquery.dataTables.css")">
+<link rel="stylesheet" href="@Url.Content("~/plugs/datatables/css/dataTables.bootstrap.css")">
+<script src="@Url.Content("~/plugs/datatables/js/jquery.datatables.js")"></script>
+<script src="@Url.Content("~/plugs/datatables/js/dataTables.bootstrap.js")"></script>
+
+@using (Ajax.BeginForm(
+    new AjaxOptions()
+    {
+        HttpMethod = "post",
+        Url = Url.Action("NoticeQuery"),
+        UpdateTargetId = "#noticeQuery",
+        LoadingElementId = "loding",
+        LoadingElementDuration = 2000
+    }))
+{
+    <div id="noticeQuery" class="form-position pagew">
+        <table class="table table-striped table-bordered table-hover datatable" id="msgTable">
+            <thead>
+                <tr>
+                    <th>阅读状态</th>
+                    <th>序号</th>
+                    <th>类型</th>
+                    <th>主题</th>
+                    <th>时间</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+    int i = 0;
+                }
+                @foreach (M.ReceiveNotice item in Model)
+                {
+                    i++;
+                    <tr>
+                        <td>@Html.Raw(item.isread != null?(item.isread.Value ? "<span class='label label-success'>已读</span>" : "<span class='label label-danger'>未读</red>"):"")</td>
+                        <td>@i</td>
+                        <td>@item.notice.NoticeTypeName</td>
+                        <td>@item.notice.NoticeTitle</td>
+                        <td>@item.notice.NoticeDate.Value.ToString("yyyy-MM-dd HH:mm")</td>
+                        <td>
+                            <a class="label label-info" onclick="openform('@item.notice.NoticeID',@i,'@item.isread')" >查看</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>     
+        
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel" style="font-weight: bold;">通知详情</h4>
+                </div>
+                <div class="modal-body">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div> 
+}
+<script>
+    $(function () {
+        $("#msgTable").dataTable({
+            //"ajax":'severurl',//通过ajax请求数据源，其数据格式为{"data":[],[]}
+            "oLanguage": {
+                "sUrl": "@Url.Content("~/plugs/datatables/language/zh_cn.json")"
+            }
+        });
+    });
+    function openform(id, index) {
+        //标记已读
+        var curRow = $("#msgTable tr")[index];
+        var curCell = $(curRow).children();
+        var isread = $(curCell).children("span")[0].innerText;
+        console.log(isread);
+        if (isread=="未读")
+            $.ajax({
+                url: "@Url.Action("updatereadstatus")",
+            data: { noticeID: id },
+            success: function (data) {
+                if (data > 0) {
+                  
+                    $(curCell)[0].innerHTML = "<span class='label label-success'>已读</span>";
+                }
+            }
+        });
+    $('#myModal').modal('show');
+    var loadurl = "@Url.Action("NoticeDetailByFam")?noticeID=" + id;
+        $(".modal-body").load(loadurl);
+    }
+
+</script>

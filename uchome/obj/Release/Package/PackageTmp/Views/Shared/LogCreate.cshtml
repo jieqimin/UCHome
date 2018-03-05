@@ -1,0 +1,241 @@
+﻿@model Guid
+<script  src="@Url.Content("~/Scripts/jquery.form.js")"></script>
+<script  src="@Url.Content("~/scripts/jquery.validate.min.js")"></script>
+<script  src="@Url.Content("~/scripts/validate.msg.cn.js")"></script>
+
+<style>
+    .newloginfo {
+        background-color: #fff;
+        height: 1080px;
+        position: relative;
+        overflow: hidden;
+    }
+      
+    .newloginfo .historyback {
+        height: 40px;
+        background-color: #ebf7fd;
+        overflow: hidden;
+    }
+    .historyback .logtip {
+        float: left;
+        font-size: 14px;
+        font-weight: bold;
+        line-height: 40px;
+        padding-left: 10px;
+    
+    }
+    .historyback .returnloglist {
+        background-image: url(@Url.Content("~/Content/images/SwapRight.png"));
+        background-repeat: no-repeat;
+        background-position: left center;
+        text-indent: 25px;
+        float: right;
+        display: inline-block;
+        line-height: 40px;
+        font-size: 12px;
+        color: #2595b7;
+        cursor: pointer;
+        padding-right: 10px;
+    }
+
+    .newloginfo .logtitle {
+        margin: 10px 20px;
+        height: 50px;
+        text-align: center;
+        color: #999;
+        border: solid 1px #eee;
+        overflow: hidden;
+    }
+    .logtitle .newlogtitle {
+        border: 0;
+        height: 50px;
+        line-height: 50px;
+        text-align: center;
+        width: 100%;
+    }
+    .newloginfo .logtitle h4 {
+        line-height:50px;
+    }
+
+    .newloginfo .logother {
+        margin: 10px 20px;
+        padding: 0 10px;
+        line-height: 35px;       
+        color: #2595b7;
+        text-align: left;
+        font-size: 14px;
+        overflow: hidden;
+        width: 560px;
+        
+    }
+    .newloginfo .logother span {
+        color: #2595b7;
+        display: inline-block;
+        float: left;
+    }
+    .logother select {
+        float: left;
+        vertical-align: middle;
+        line-height: 30px;
+    }
+    .newloginfo .logcontent {
+        margin: 10px 20px;
+    }
+    .newloginfo .operarea {
+        margin-left: 20px;
+    }
+    .newloginfo .operarea button {
+        float: left;margin-left: 20px;
+    }
+    label.error {
+        position: absolute;
+        right: 25px;
+        color: red;
+        font-size: 14px;
+        font-weight: normal;
+        line-height: 48px;
+    }
+</style>
+<form method="POST" id="newlogform">
+    @Html.Hidden("AddUser", Model)
+    @Html.Hidden("Abstract")
+    <div class="newloginfo">
+        <div class="historyback">
+            <span class="logtip">写日志</span>
+            <span id="returnbtn" class="returnloglist">返回列表页面</span>
+        </div>
+        <div class="logtitle">
+            <h4>
+                <input name="Title" id="newlogtitle" class="required newlogtitle" type="text" maxlength="50" placeholder="请在此处填写标题（标题字数少于50字）" title="标题内容不能为空" /></h4>
+        </div>
+        <div class="logother">
+            <span>分类：</span>
+            <div class="col-xs-4">
+                <select name="UCType" id="UCtype" class="form-control input-sm col-xs-2">
+                    <option value="article" selected="selected">个人文章</option>
+                    <option value="log">私人日记</option>
+                </select>
+            </div>
+
+            <div id="xxx">
+                <span>权限：</span>
+                <div class="col-xs-4">
+                    <select name="IsShare" class="form-control input-sm col-xs-2">
+                        <option value="9" selected="selected">完全公开</option>
+                        <option value="0">个人私有</option>
+                        <option value="1">好友公开</option>
+                        <option value="2">同学公开</option>
+                        <option value="3">教师公开</option>
+                        <option value="4">本校公开</option>
+                        <option value="5">本区公开</option>
+                        <option value="6">本市公开</option>
+                    </select>
+                </div>
+            </div>
+
+        </div>
+        <div class="logcontent">
+            <textarea id="Content" name="Content" placeholder="请确保内容不低于50个字"></textarea>
+        </div>
+
+        <div class="operarea">
+            <div class="checkbox pull-left">
+                <label>
+                    @Html.CheckBox("IsShow")存为草稿</label>
+            </div>
+            <button type="submit" id="btnsavenewlog" class="btn btn-info btn-sm">保 存 </button>
+        </div>
+    </div>
+</form>
+<script>
+    window.UEDITOR_HOME_URL = "@Url.Content("~/plugs/ueditor/")";
+</script>
+<script  src="@Url.Content("~/plugs/ueditor/ueditor.config.js")"></script>
+<script  src="@Url.Content("~/plugs/ueditor/ueditor.all.min.js")"></script>
+
+<script>
+    //$(function () {
+    //返回
+    $("#UCtype").change(function () {
+        $("#xxx").show();
+        var values = $("#UCtype").val();
+        if (values == "log")
+        { $("#xxx").hide(); }
+        else
+        {
+            $("#xxx").show();
+        }
+        
+    });
+    $("#returnbtn").click(function () {
+        $("#body_content").load("@Url.Action("PersonLog", "PublicShare", new { id = Model })");
+    });
+    $("#newlogtitle").focus(function () {
+        if ($(this).val() == this.defaultValue)
+            $("#newlogtitle").val("");
+    }).blur(function () {
+        if ($("#newlogtitle").val() == "")
+            $("#newlogtitle").val(this.defaultValue);
+    });
+    //编辑器加载
+
+    var editor = new baidu.editor.ui.Editor();
+    editor.render("Content");
+    $("#newlogform").validate({
+        submitHandler: function (form) {
+            var cc = editor.getContent();
+            var cctxt = editor.getContentTxt();
+            //去除空格、回车、换行
+            cctxt = cctxt.replace(/\+/g, "").replace(/[]/g, "").replace(/[\r\n]/g, "").replace(/-/g, "");
+            if (cctxt.length < 20) {
+                toastr.clear();
+                toastr.options = {
+                    "positionClass": "toast-bottom-center"
+                };
+                toastr.warning("请确保你的纯文本内容字数不少于20个字！");
+                return false;
+            }
+            $("#Content").val(cc);
+            $("#Abstract").val(cctxt.substr(0, 150));
+            $("#btnsavenewlog").html("正在保存……").attr("disabled", "disabled");
+            $(form).ajaxSubmit({
+                url: "@Url.Action("AddLog", "PublicShare")",
+                success: function (data) {
+                    if (data.Data.statuscode == 0) {
+                        tipsuccessmsg(data.Data.message);
+                        hidesuccessmsg(1000);
+                        setTimeout(function () {
+                            $("#returnbtn").click();
+                        }, 2000);
+                    } else {
+                        tipsuccessmsg(data.Data.message);
+                        hidefailmsg(2000);
+                    }
+                }
+            });
+        }
+    });
+    @* $("#btnsavenewlog").click(function () {
+        var cc = editor.getContent();
+        var cctxt = editor.getContentTxt();
+        //去除空格、回车、换行
+        cctxt = cctxt.replace(/\+/g, "").replace(/[]/g, "").replace(/[\r\n]/g, "").replace(/-/g, "");
+        $("#Content").val(cc);
+        $("#Abstract").val(cctxt.substr(0, 150));
+        $("#newlogform").ajaxForm({
+            url: "@Url.Action("AddLog", "PublicShare")",
+            success: function (data) {
+                if (data.Data.statuscode == 0) {
+                    tipsuccessmsg(data.Data.message);
+                    hidesuccessmsg(1000);
+                    setTimeout(function () {
+                        $("#returnbtn").click();
+                    }, 2000);
+                } else {
+                    tipsuccessmsg(data.Data.message);
+                    hidefailmsg(2000);
+                }
+            }
+        }).submit();
+    });*@
+</script>

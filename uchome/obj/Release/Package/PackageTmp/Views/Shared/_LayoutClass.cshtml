@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <title>@ViewBag.Title</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/ClassCenter/css/loading.css")">
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/ClassCenter/css/index.css")">
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/ClassCenter/css/public.css")">
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/ClassCenter/css/reset.css")">
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/ClassCenter/css/lump.css")">
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/ClassCenter/css/dynamic.css")">
+
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/ClassCenter/css/mien.css")">
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/ClassCenter/css/activity.css")">
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/ClassCenter/css/activity-details.css")">
+    @*<script type="text/javascript" src="@Url.Content("~/Content/ClassCenter/js/jquery-1.11.3.min.js")"></script>*@
+    <script type="text/javascript" src="@Url.Content("~/Content/ClassCenter/js/jquery.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Content/ClassCenter/js/public.js")"></script>
+    <link href="@Url.Content("~/Content/css/nanogallery.css")" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="@Url.Content("~/Content/js/jquery.nanogallery.js")"></script>
+    <style>
+        .modal-alive {
+            display: block;
+        }
+    </style>
+    @RenderSection("Head", false)
+</head>
+<body>
+    <div class="top1-bar"></div>
+    <div class="top2-bar" id="top">
+        <div class="top2">
+            <span class="heading">泰安市教育云空间</span>
+            <ul class="navv">
+                <li class="nav-check"><a href="@Url.Action("HomePage","Home")">个人主页</a></li>
+                <li><a href="@Url.Action("Index", "AppCenter")">应用中心</a></li>
+                <li><a href="@Url.Action("Index", "MyResource")">资源中心</a></li>
+                <li><a href="@Url.Action("HailFellow", "FollowUserCenter")">我的好友</a></li>
+            </ul>
+            <div class="btn-box">
+                <a href="#top">返回顶部</a><a href="@Url.Action("Logout", "AppCenter", new { returnurl = Request.Url })">退出账号</a>
+            </div>
+        </div>
+    </div>
+    <div class="top3-box">
+        <div class="top3">
+            <div class="school-lesson">
+                <span class="school">@ViewBag.XXMC</span>
+                <span class="lesson">@ViewBag.BJMC</span>
+            </div>
+        </div>
+    </div>
+    @RenderBody()
+</body>
+</html>

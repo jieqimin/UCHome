@@ -1,0 +1,187 @@
+﻿@using UCHome.Model
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <title>@ViewBag.Title</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <script src="@Url.Content("~/Content/js/jquery.min.js")"></script>
+    <link rel="stylesheet" href="@Url.Content("~/Content/bootstrap/css/bootstrap.min.css")">
+    <link rel="stylesheet" href="@Url.Content("~/Content/bootstrap/css/bootstrap-theme.min.css")">
+    <script src="@Url.Content("~/Content/bootstrap/js/bootstrap.min.js")"></script>
+    <script src="@Url.Content("~/plugs/usercontrol/jquery-ui-1.10.0.custom.min.js")"></script>
+    <link rel="stylesheet" href="@Url.Content("~/plugs/usercontrol/jquery-ui-1.10.0.custom.css")">
+    <script src="@Url.Content("~/scripts/jquery.unobtrusive-ajax.js")"></script>
+    <link href="@Url.Content("~/Content/css/public.css")" rel="stylesheet" />
+    <script src="@Url.Content("~/plugs/AngularJs/angular.min.js")"></script>
+    <script src="@Url.Content("~/plugs/AngularJs/angular-ui-router.js")"></script>
+    <script src="@Url.Content("~/angular/uchome/sysmanage/iconman.js")"></script>
+    <link href="@Url.Content("~/Content/css/sysmanage.css")" rel="stylesheet/less" type="text/css" />
+    <script src="@Url.Content("~/scripts/less.min.js")"></script>
+
+</head>
+<body ng-app="sysmanage" ng-controller="sysmanage">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12" id="top" ng-include="'@Url.Action("Header")'">
+            </div>
+        </div>
+        <div class="row clearfix" style="margin-top: 50px;"></div>
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        系统管理
+                    </div>
+                    <div id="shortcut" class="panel-body" ng-include="'@Url.Action("sysmenu")'">
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-9">
+                <div id="body_content" class="panel panel-default">
+                    <div class="sysman-body panel-body">
+                        <div class="row">
+                            <div class="col-sm-6 col-md-4 col-lg-3 ">
+                                <div class="thumbnail">
+                                    <a href="/p/unslider/" title="Unslider" target="_blank" onclick="_hmt.push(['_trackEvent', 'tile', 'click', 'unslider'])">
+                                        <img class="lazy" src="@Url.Content("~/content/images/app1.png")" width="300" height="150" data-src="http://static.bootcss.com/www/assets/img/unslider.png" alt="Unslider"></a>
+                                    <div class="caption">
+                                        <h3>
+                                            <a href="/p/unslider/" title="Unslider" target="_blank" onclick="_hmt.push(['_trackEvent', 'tile', 'click', 'unslider'])">应用中心<br>
+                                                <small>系统应用管理</small></a>
+                                        </h3>
+                                        <p>
+                                            添加、删除、修改系统应用，设置应用所属用户等……
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6 col-md-4 col-lg-3 ">
+                                <div class="thumbnail">
+                                    <a href="/p/unslider/" title="Unslider" target="_blank" onclick="_hmt.push(['_trackEvent', 'tile', 'click', 'unslider'])">
+                                        <img class="lazy" src="@Url.Content("~/content/images/app2.png")" width="300" height="150" data-src="http://static.bootcss.com/www/assets/img/unslider.png" alt="Unslider"></a>
+                                    <div class="caption">
+                                        <h3>
+                                            <a href="/p/unslider/" title="Unslider" target="_blank" onclick="_hmt.push(['_trackEvent', 'tile', 'click', 'unslider'])">角色管理<br>
+                                                <small>系统用户角色管理</small></a>
+                                        </h3>
+                                        <p>
+                                            管理系统用户角色，主要包括教师、学生、家长角色，配置角色应用……
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6 col-md-4 col-lg-3 ">
+                                <div class="thumbnail">
+                                    <a href="/p/unslider/" title="Unslider" target="_blank" onclick="_hmt.push(['_trackEvent', 'tile', 'click', 'unslider'])">
+                                        <img class="lazy" src="@Url.Content("~/content/images/app3.png")" width="300" height="150" data-src="http://static.bootcss.com/www/assets/img/unslider.png" alt="Unslider"></a>
+                                    <div class="caption">
+                                        <h3>
+                                            <a href="/p/unslider/" title="Unslider" target="_blank" onclick="_hmt.push(['_trackEvent', 'tile', 'click', 'unslider'])">权限管理<br>
+                                                <small>系统权限管理</small></a>
+                                        </h3>
+                                        <p>
+                                            设置系统应用权限……
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6 col-md-4 col-lg-3 ">
+                                <div class="thumbnail">
+                                    <a href="/p/unslider/" title="Unslider" target="_blank" onclick="_hmt.push(['_trackEvent', 'tile', 'click', 'unslider'])">
+                                        <img class="lazy" src="@Url.Content("~/content/images/app4.png")" width="300" height="150" data-src="http://static.bootcss.com/www/assets/img/unslider.png" alt="Unslider"></a>
+                                    <div class="caption">
+                                        <h3>
+                                            <a href="/p/unslider/" title="Unslider" target="_blank" onclick="_hmt.push(['_trackEvent', 'tile', 'click', 'unslider'])">参数设置<br>
+                                                <small>系统参数设置</small></a>
+                                        </h3>
+                                        <p>
+                                            设置系统参数
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6 col-md-4 col-lg-3 ">
+                                <div class="thumbnail">
+                                    <a href="/p/unslider/" title="Unslider" target="_blank" onclick="_hmt.push(['_trackEvent', 'tile', 'click', 'unslider'])">
+                                        <img class="lazy" src="@Url.Content("~/content/images/app5.png")" width="300" height="150" data-src="http://static.bootcss.com/www/assets/img/unslider.png" alt="Unslider"></a>
+                                    <div class="caption">
+                                        <h3>
+                                            <a href="/p/unslider/" title="Unslider" target="_blank" onclick="_hmt.push(['_trackEvent', 'tile', 'click', 'unslider'])">接口管理<br>
+                                                <small>系统应用管理</small></a>
+                                        </h3>
+                                        <p>
+                                            添加、删除、修改系统应用，设置应用所属用户等……
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6 col-md-4 col-lg-3 ">
+                                <div class="thumbnail">
+                                    <a href="/p/unslider/" title="Unslider" target="_blank" onclick="_hmt.push(['_trackEvent', 'tile', 'click', 'unslider'])">
+                                        <img class="lazy" src="@Url.Content("~/content/images/app6.png")" width="300" height="150" data-src="http://static.bootcss.com/www/assets/img/unslider.png" alt="Unslider"></a>
+                                    <div class="caption">
+                                        <h3>
+                                            <a href="/p/unslider/" title="Unslider" target="_blank" onclick="_hmt.push(['_trackEvent', 'tile', 'click', 'unslider'])">模板管理<br>
+                                                <small>系统应用管理</small></a>
+                                        </h3>
+                                        <p>
+                                            添加、删除、修改系统应用，设置应用所属用户等……
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6 col-md-4 col-lg-3 ">
+                                <div class="thumbnail">
+                                    <a href="/p/unslider/" title="Unslider" target="_blank" onclick="_hmt.push(['_trackEvent', 'tile', 'click', 'unslider'])">
+                                        <img class="lazy" src="@Url.Content("~/content/images/app7.png")" width="300" height="150" data-src="http://static.bootcss.com/www/assets/img/unslider.png" alt="Unslider"></a>
+                                    <div class="caption">
+                                        <h3>
+                                            <a href="/p/unslider/" title="Unslider" target="_blank" onclick="_hmt.push(['_trackEvent', 'tile', 'click', 'unslider'])">图标管理<br>
+                                                <small>系统应用管理</small></a>
+                                        </h3>
+                                        <p>
+                                            添加、删除、修改系统应用，设置应用所属用户等……
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6 col-md-4 col-lg-3 ">
+                                <div class="thumbnail">
+                                    <a href="/p/unslider/" title="Unslider" target="_blank" onclick="_hmt.push(['_trackEvent', 'tile', 'click', 'unslider'])">
+                                        <img class="lazy" src="@Url.Content("~/content/images/app8.png")" width="300" height="150" data-src="http://static.bootcss.com/www/assets/img/unslider.png" alt="Unslider"></a>
+                                    <div class="caption">
+                                        <h3>
+                                            <a href="/p/unslider/" title="Unslider" target="_blank" onclick="_hmt.push(['_trackEvent', 'tile', 'click', 'unslider'])">数据统计<br>
+                                                <small>系统应用管理</small></a>
+                                        </h3>
+                                        <p>
+                                            添加、删除、修改系统应用，设置应用所属用户等……
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    <div class="bottom"></div>
+    <script>
+    </script>
+</body>
+</html>

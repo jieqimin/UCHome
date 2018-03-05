@@ -1,0 +1,128 @@
+﻿.ui-dialog-content {
+    padding: 0px !important;
+}
+
+.ui-dialog-buttonpane {
+    margin-top: 0px !important;
+}
+
+ul {
+    padding: 0px;
+    margin-bottom: 0px;
+}
+
+    ul li {
+        list-style: none;
+        cursor: pointer;
+
+    }
+#selectBox a.list-group-item, #selectBox li.list-group-item {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+    #selectBox a.list-group-item:hover, #selectBox li.list-group-item:hover {
+        color: #fff !important;
+        background-color: #47B7D9;
+    }
+#user_item{
+    border-left:solid 1px #ddd;
+    border-right:solid 1px #ddd;
+}
+.query {
+    height: 26px;
+    text-indent:15px;
+}
+input.user-search {
+border:0;
+border-top-left-radius:0;
+border-top-right-radius:0;
+border-bottom-left-radius:0;
+border-bottom-right-radius:0;
+-webkit-box-shadow:none;
+box-shadow:none;
+}
+.gw {
+    width: 185px;
+}
+
+.uw {
+    width: 125px;
+}
+
+.listbox {
+    height: 260px;
+    border-left: 1px solid #CCCCCC;
+    overflow: auto;
+    float: left;
+    padding: 0px;
+}
+
+    .listbox>li:first-child {
+        padding-top: 5px;
+    }
+
+    .listbox>li {
+        position:relative;
+        line-height: 28px;
+        overflow: hidden;
+        text-indent:10px;        
+    }
+
+    .listbox>li>ul {
+        background-color:#fff;
+        color:#333;
+    }
+.selall {
+    display: none;
+}
+
+
+.actgroup {
+    background-color: #50A2DE;
+}
+
+.listbox1 {
+    width: 316px;
+    height: 296px;
+    overflow: auto;
+    float: left;
+    padding: 0px;
+}
+
+    .listbox1 li {
+        width: 100px;
+        float: left;
+        line-height: 30px;
+        height: 30px;
+        padding: 0 5px;
+        margin-left: 2px;
+        margin-bottom: 2px;
+    }
+
+        .listbox1 li span {
+            display: block;
+        }
+
+        .listbox1 li:hover {
+            background-color: #DEDEDE;
+        }
+
+.spname {
+    width: 70px;
+    float: left;
+}
+
+.spbtn {
+    float: left;
+    height: 30px;
+    line-height: 30px;
+}
+
+.spclose {
+    width: 16px;
+    height: 30px;
+    line-height: 30px;
+    font-size: 21px;
+}

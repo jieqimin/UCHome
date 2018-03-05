@@ -1,0 +1,195 @@
+﻿@model UCHome.Models.User
+@{
+    Layout = null;
+}
+<style>
+    #kscj li {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    #tab1content li span {
+        padding: 10px;
+        display: inline-block;
+        float: left;
+    }
+
+    .showstyle {
+        width: 120px;
+        margin: 5px auto;
+        height: 25px;
+        line-height: 25px;
+    }
+
+        .showstyle li {
+            float: left;
+            font-size: 12px;
+            color: #008080;
+            text-align: center;
+            border: solid 1px #ddd;
+            cursor: pointer;
+        }
+
+            .showstyle li.selected {
+                background-color: #dddddd;
+            }
+
+    #tabtable {
+        width: 60px;
+        line-height: 25px;
+    }
+
+    #tabcharts {
+        width: 60px;
+        line-height: 25px;
+    }
+
+    #kscj span {
+        float: left;
+    }
+
+    .rankstyle {
+        FONT-SIZE: 20px;
+        TEXT-DECORATION: none;
+        FONT-FAMILY: 微软雅黑;
+        FONT-WEIGHT: normal;
+        COLOR: #33aee6;
+        FONT-STYLE: italic;
+    }
+
+    .rankstyle1 {
+        FONT-SIZE: 32px;
+        TEXT-DECORATION: none;
+        FONT-FAMILY: 微软雅黑;
+        FONT-WEIGHT: normal;
+        COLOR: #ff6600;
+        FONT-STYLE: italic;
+    }
+
+    .rankstyle2 {
+        FONT-SIZE: 14px;
+        TEXT-DECORATION: none;
+        FONT-FAMILY: 微软雅黑;
+        FONT-WEIGHT: normal;
+        COLOR: #ff6600;
+        FONT-STYLE: normal;
+        margin-top: 8px;
+    }
+
+    .rankstyle3 {
+        FONT-SIZE: 13px;
+        TEXT-DECORATION: none;
+        FONT-FAMILY: 微软雅黑;
+        FONT-WEIGHT: normal;
+        COLOR: #66cc33;
+        FONT-STYLE: normal;
+    }
+</style>
+<div id="kscj" class="table table-bordered" style="width: 96%; margin-left: 2%; margin-top: 3%; height: 100px; line-height: 100px; background-color: #f9f9f9">
+
+    <span>&nbsp;&nbsp;&nbsp;<a><input style="CURSOR: pointer; margin-top: 32px;" src="@Url.Content("~/Content/images/transparent.gif")" type="image"></a></span>
+    <span class="rankstyle3">&nbsp;&nbsp;&nbsp;&nbsp;评分说明</span>
+</div>
+<div style="margin-left: 2%;">
+    <span style="FONT-SIZE: 14px; TEXT-DECORATION: none; FONT-FAMILY: 微软雅黑; FONT-WEIGHT: bold; COLOR: #333333; FONT-STYLE: normal">分数分布详情</span>
+</div>
+<div style="margin-left: 2%;">
+    <div id="container" style="height: 350px"></div>
+</div>
+<input id="hidUserId" type="hidden" value="@Model.UserId" />
+<input id="hidUserName" type="hidden" value="@Model.UserName" />
+<input id="hidSchoolId" type="hidden" value="@Model.SchoolId" />
+<input id="hidHttp" type="hidden" value="@ViewBag.Http" />
+<script>
+    $(function () {
+        $.ajaxSettings.async = false;
+        $.ajax({
+            url: $("#hidHttp").val() + "/TaskDriverApi/api/GetPeopleScore/GetPeopleRank?UserId=" + $("#hidUserId").val() + "&UserName=" + $("#hidUserName").val() + "&SchoolId=" + $("#hidSchoolId").val(),
+            type: "GET",
+            success: function (data) {
+                var html = "";
+                if (data != null && data.length > 0) {
+                    var sumList = data[0].SumRankList;
+                    if (sumList != null && sumList.length > 0) {
+                        html += "<span style=\"margin-left: 20px;\">我的总分：</span><span class=\"rankstyle1\">" + sumList[0].Score + "</span><span class=\"rankstyle2\"> &nbsp;分</span>" +
+                            "<span>&nbsp;&nbsp;&nbsp;&nbsp;全市排名：</span><span class=\"rankstyle\">" + sumList[0].CityRank + "</span>" +
+                            "<span>&nbsp;&nbsp;&nbsp;&nbsp;本区排名：</span><span class=\"rankstyle\">" + sumList[0].AreaRank + "</span>" +
+                            "<span>&nbsp;&nbsp;&nbsp;&nbsp;本校排名：</span><span class=\"rankstyle\">" + sumList[0].SchoolRank + "</span>";
+
+                        html += "<span>&nbsp;&nbsp;&nbsp;<a href=\"#\"><input style=\"CURSOR: pointer; margin-top: 32px;\" onclick=\"BackUrl()\" src=\"@Url.Content("~/Content/images/transparent.gif")\" type=\"image\"></a></span>" +
+                            "<span class=\"rankstyle3\">&nbsp;&nbsp;&nbsp;&nbsp;评分说明</span>";
+                    } else {
+                        html = "<span>&nbsp;&nbsp;&nbsp;<a href=\"#\"><input style=\"CURSOR: pointer; margin-top: 32px;\" onclick=\"BackUrl()\" src=\"@Url.Content("~/Content/images/transparent.gif")\" type=\"image\"></a></span>" +
+                            "<span class=\"rankstyle3\">&nbsp;&nbsp;&nbsp;&nbsp;评分说明</span>";
+                    }
+                    var otherList = data[0].TaskRankList;
+                    if (otherList != null && otherList.length > 0) {
+                        var chart;
+
+                        chart = new Highcharts.Chart({
+                            chart: {
+                                renderTo: 'container',
+                                type: 'column'
+                            },
+                            title: {
+                                text: '各模块分数市区校排名情况'
+                            },
+                            subtitle: {
+                                text: ''
+                            },
+                            xAxis: {
+                                categories: data[0].TaskX,
+                                labels: {
+
+                                    style: {
+                                        fontSize: '12px',
+                                        fontFamily: 'Verdana, sans-serif'
+                                    }
+                                }
+                            },
+                            yAxis: {
+                                title: {
+                                    text: '排名'
+                                }
+                            },
+                            tooltip: {
+                                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                                    '<td style="padding:0"><b>{point.y}</b></td></tr>',
+                                footerFormat: '</table>',
+                                shared: true,
+                                useHTML: true
+                            },
+                            series: function () {
+                                var serie = [];
+                                var count = otherList.length;
+                                for (var i = 0; i < count; i++) {
+                                    var item = {
+                                        name: otherList[i].name,
+                                        type: 'column',
+                                        data: otherList[i].data
+                                    }
+                                    serie.push(item);
+                                };
+                                return serie;
+                            }()
+                        });
+                    }
+                    
+                } else {
+                    html = "<span>&nbsp;&nbsp;&nbsp;<a href=\"#\"><input style=\"CURSOR: pointer; margin-top: 32px;\" onclick=\"BackUrl()\" src=\"@Url.Content("~/Content/images/transparent.gif")\" type=\"image\"></a></span>" +
+                            "<span class=\"rankstyle3\">&nbsp;&nbsp;&nbsp;&nbsp;评分说明</span>";
+                }
+                $("#kscj").html(html);
+            }
+        });
+
+
+
+    });
+
+
+    function BackUrl() {
+        document.location.href = " @Url.Action("SystemAppRedirectPage", "AppCenter", new { id = "6b051716-3ec2-4a3d-9174-e19ecda3d9e4", menuid = "d99aa80f-166a-4d63-a014-7e27d4b24f1c" })";
+    }
+</script>

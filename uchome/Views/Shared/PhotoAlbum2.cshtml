@@ -1,0 +1,147 @@
+﻿@model Guid
+<script  src="@Url.Content("~/scripts/mycustomtip.js")"></script>
+<script  src="@Url.Content("~/scripts/publicshare.js")"></script>
+<style>
+    .Albumabstract-content {
+        margin: 0 10px;
+    }
+
+    .Album-thumbnail .thumbnail {
+        position: relative;
+    }
+
+        .Album-thumbnail .thumbnail .caption img {
+            cursor: pointer;
+        }
+
+        .Album-thumbnail .thumbnail .caption p {
+            text-align: center;
+        }
+
+        .Album-thumbnail .thumbnail ul li {
+            cursor: pointer;
+        }
+
+    .Albumabstract-content .Album-thumbnail .img-responsive {
+        width: 153px;
+        height: 115px;
+        cursor: pointer;
+    }
+
+    .Albumabstract-content .Albumabstract-content-title {
+        height: 40px;
+        line-height: 40px;
+    }
+
+    .Albumabstract-content-title h4 {
+        height: 40px;
+        line-height: 40px;
+        color: #2595b7;
+    }
+
+    .Albumabstract-content .Albumabstract-content-body {
+        color: #999;
+        font-size: 14px;
+        line-height: 25px;
+    }
+
+    .Albumabstract-content .Albumabstract-content-other {
+        height: 40px;
+        line-height: 40px;
+        color: #2e8b57;
+        font-size: 12px;
+    }
+
+    .Albumabstract-content-other .Albumproperty {
+        float: left;
+    }
+
+    .Albumproperty a {
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    .Albumabstract-content-other .Albumfunctioin {
+        margin-left: 10px;
+        float: left;
+    }
+
+    .Album-pager {
+        text-align: center;
+        width: 100%;
+    }
+
+    .myAlbum_content .well {
+        margin: 0;
+        padding: 0 5px;
+        text-align: center;
+    }
+
+    .myAlbum_content .pagination_custom {
+        margin: 5px 0;
+    }
+
+    .Album-thumbnail .dropdown-menu {
+        zoom: 1;
+    }
+</style>
+<div id="Albumabstracts">
+    <div id="Albumabstracts-content" class="Albumabstract-content row">
+    </div>
+
+</div>
+<div class="Album-pager" id="plugs-pager">
+</div>
+<script  src="@Url.Content("~/scripts/Base64-80.js")"></script>
+<script>
+    GetPersonAlbum();
+    function GetPersonAlbum() {
+        $.ajax({
+            url: "@Url.Content("~/ashx/GetAlbumList.ashx")",
+            data: { id: "@Model", isshare: "y" },
+            success: function (data) {
+                var infos = eval("(" + data + ")"); //            
+                if (infos.length > 0) {
+                    $("#Albumabstracts-content").html("");
+                    $("#album").children().remove();
+                    $.each(infos, function (idx, item) {
+                        var pid = item.pkid;
+                        var title = item.title;
+                        //var time = item.time;
+                        //var user = item.user;
+                        //var hits = item.hits;
+                        //var isshare = item.isshare;
+                        //var abstract = utf8to16(decode64(item.abstract));
+                        //var themes = item.themes;
+                        //var albumtype = item.albumtype;
+                        var coverimg = item.coverimg;
+                        coverimg = convertimg(coverimg, "thumbnail");
+                        var str = "<div class='Album-thumbnail col-xs-3 col-md-3 clearfix'>";
+                        str += "<div class='thumbnail'>";
+                        if (coverimg.length > 0)
+                            str += "<img pid='" + pid + "' src='" + coverimg + "' class='img-responsive' alt='Responsive image'' />";
+                        else
+                            str += "<img pid='" + pid + "' src='@Url.Content("~/Content/images/bg.png")' class='img-responsive' alt='Responsive image'' />";
+                        str += "<div class='caption clearfix'>";
+                        str += "<p class='text-primary'>" + title + "</p>";
+                        str += "</div>";
+                        str += "</div>";
+                        str += "</div>";
+                        var obj = str;
+                        var optobj = "<option value='" + pid + "'>" + title + "</option>";
+                        $("#Albumabstracts-content").append($(obj));
+                        $("#album").append($(optobj));
+                    });
+                    $(".img-responsive").each(function () {
+                        $(this).click(function () {
+                            $("#myphoto_content").load("@Url.Action("PhotoShowByAlbum2", "PublicShare")?id=@Model&albumid=" + $(this).attr("pid"));
+                        });
+                    });
+                } else {
+                    var obj = "<li class=\"noinfo\"><p class=\"person\"><span class=\"newscontent\">还没有任何动态信息！</span></p></li>";
+                    $("#Albumabstracts-content").append($(obj));
+                }
+            }
+        });
+    }
+</script>

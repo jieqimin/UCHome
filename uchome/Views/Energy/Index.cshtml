@@ -1,0 +1,47 @@
+﻿@{
+    ViewBag.Title = "主页";
+}
+<style>
+    .bordertable table {
+        border-collapse: collapse;
+        border: 1px solid #000;
+    }
+
+    .bordertable th, .bordertable td {
+        border-collapse: collapse;
+        border: 1px solid #000;
+        line-height: 35px;
+    }
+
+    table {
+        width: 100%;
+        max-width: 100%;
+        background-color: #fff;
+        border-spacing: 0;
+    }
+
+    .more {
+        text-align: right;
+        width: 100%;
+        background-color: #fff;
+        cursor: pointer;
+        text-decoration: none;
+        padding-right: 10px;
+    }
+</style>
+<div style="min-height: 680px; background-color: #fff;">
+    @model App.Controllers.StatisticsViewModel
+@{
+    ViewBag.Title = "";
+}
+    @section Head
+{
+        <script src="@Url.Content("~/plugs/highcharts/js/highcharts.js")"></script>
+    }
+    <div class="more"><a href="http://111.17.215.232:8096/Home/Read/@ViewBag.xxid" target="_blank">查看更多</a></div>
+    @Html.Raw(@Model.Highcharts)
+
+    <div class="bordertable" style="margin-top: 30px;">
+        @Html.Raw(Model.Table)
+    </div>
+</div>

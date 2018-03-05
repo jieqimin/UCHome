@@ -1,0 +1,422 @@
+﻿@model UCHome.Model.UCHome_Leave
+<script  src="@Url.Content("~/Scripts/jquery.form.js")"></script>
+<script  src="@Url.Content("~/scripts/jquery.validate.min.js")"></script>
+<script  src="@Url.Content("~/scripts/validate.msg.cn.js")"></script>
+<script  src="@Url.Content("~/scripts/Base64-80.js")"></script>
+<style>
+    .newmessageinfo {
+        background-color: #fff;
+        height: 1080px;
+        position: relative;
+        overflow: hidden;
+    }
+      
+    .newmessageinfo .historyback {
+        height: 40px;
+        background-color: #ebf7fd;
+        overflow: hidden;
+    }
+    .historyback .messagetip {
+        float: left;
+        font-size: 14px;
+        font-weight: bold;
+        line-height: 40px;
+        padding-left: 10px;
+    
+    }
+    .historyback .returnmessagelist {
+        background-image: url(@Url.Content("~/Content/images/SwapRight.png"));
+        background-repeat: no-repeat;
+        background-position: left center;
+        text-indent: 25px;
+        float: right;
+        display: inline-block;
+        line-height: 40px;
+        font-size: 12px;
+        color: #2595b7;
+        cursor: pointer;
+        padding-right: 10px;
+    }
+
+    .newmessageinfo .messagetitle {
+        margin: 10px 20px;
+        min-height: 30px;        
+        color: #999;
+        overflow: hidden;
+    }
+    #messagearea {
+        height: 30px;
+    border-bottom: solid 1px #cce7f1;
+    }
+    #master {
+        line-height: 25px;
+    }
+    #sfmsg {
+        margin-top: 15px;
+    }
+    .messagetitle .newmessagetitle {
+        border: 0;
+        height: 150px;
+        line-height: 50px;
+        text-align: center;
+        width: 100%;
+    }
+    .newmessageinfo .messagetitle .masterinfo {
+        border-bottom: solid 1px #cce7f1;
+        height: 30px;
+    }
+    .masterinfo .dlabel,.newmessageinfo .dlabel{font-size: 16px;font-weight: bold; color: #333;}
+    .masterinfo .daction {
+        color: #2595b7;
+        margin-left: 10px;
+        line-height: 25px;
+    }
+    .newmessageinfo .messageother {
+        margin: 20px 20px;
+        padding: 0 10px;
+        line-height: 35px;       
+        color: #2595b7;
+        text-align: left;
+        font-size: 14px;
+        overflow: hidden;
+        width: 560px;
+        
+    }
+    .newmessageinfo .messageother span {
+        
+        display: inline-block;
+        float: left;color: #2595b7;
+    }
+    .messageother select {
+        float: left;
+        vertical-align: middle;
+        line-height: 30px;
+    }
+    .newmessageinfo .messagearea {
+        margin: 10px 20px;
+    }
+    .newmessageinfo .operarea {
+        display: none;
+        margin-top: 10px;
+    }
+    .newmessageinfo .operarea button {
+        float: left; margin-right: 10px;
+    }
+    .newmessageinfo .messagelist {
+      
+        margin: 10px 20px;
+    }
+    .messagelist {
+        font-size: 12px;       
+    }
+    .messagelist .messageinfo {
+        border-bottom: solid 1px #cce7f1;
+    }
+    .messageinfo .headimg {
+        width: 60px;
+        text-align: center;
+    }
+    .messageinfo .messageuser {
+        margin: 10px;
+    }
+    .messageuser .msgname {
+        margin-left: 5px;
+        line-height: 20px;
+        color: #2595b7;
+        font-size: 14px;
+        font-weight: bold;
+    }
+    .messageuser .msgvalue {
+        margin-top: 10px;
+        margin-left: 10px;
+        line-height: 25px;
+        min-height: 80px;
+     color: #666;
+    }
+    .messageuser .msgoperaarea {
+         color: #2595b7;
+        cursor: pointer;
+    }
+    .msgoperaarea span {
+        margin: 10px;
+    }
+    label.error {
+        position: absolute;
+        right: 25px;
+        color: red;
+        font-size: 14px;
+        font-weight: normal;
+        line-height: 48px;
+    }
+    .msgcontent {
+        cursor: pointer;
+    }
+    .msgcontent p {
+        margin: 0;padding: 0;
+    }
+       .log-pager {
+        text-align: center;
+        width: 100%;
+    }
+    #page_data {
+        height: 75px;
+    }
+
+    #newmessageform .page_bg {
+        margin: 0;
+        padding: 0 5px;
+        text-align: center;
+        position: absolute;
+        bottom: 0;
+        right: 10px;
+    }
+
+    #newmessageform .pagination_custom {
+        margin: 5px 0;
+    }
+</style>
+<form method="POST" id="newmessageform">
+    @Html.Hidden("AddUser", (Guid)ViewBag.UserID)
+    @Html.Hidden("Contents")
+    <div class="newmessageinfo">
+        <div class="historyback">
+            <span class="messagetip">留言板</span>
+        </div>
+        <div class="messagetitle">
+            <div class="clearfix masterinfo">
+                <span class="pull-left dlabel">主人寄语</span>
+                <div id="addmaster" class="msgcontent pull-left daction" target="#master">
+                    编辑您的寄语
+                </div>
+            </div>
+            <div id="master" class="clearfix">
+                @Html.Raw(Model.Contents)
+            </div>
+            <textarea id="msgvalue" class="clearfix" style="display: none;">
+                @Model.Contents
+            </textarea>
+            <div id="sfmsg"></div>
+            <div class="operarea">
+                <button type="submit" id="btnsavenewmessage" class="btn btn-info btn-sm">发 表</button>
+                <button type="button" id="btncancelnewmessage" class="btn btn-info btn-sm">取 消</button>
+            </div>
+        </div>
+
+        <div class="messagearea">
+            <div id="messagearea" class="dlabel">留言区</div>
+
+        </div>
+        <div id="messagelist" class="messagelist">
+        </div>
+        <div class="log-pager" id="plugs-pager">
+        </div>
+    </div>
+</form>
+<script>
+    window.UEDITOR_HOME_URL = "@Url.Content("~/plugs/ueditor/")";
+</script>
+<script  src="@Url.Content("~/plugs/ueditor/ueditor.config.js")"></script>
+<script  src="@Url.Content("~/plugs/ueditor/ueditor.all.min.js")"></script>
+
+<script>
+    $("#newmessagetitle").focus(function () {
+        if ($(this).val() == this.defaultValue)
+            $("#newmessagetitle").val("");
+    }).blur(function () {
+        if ($("#newmessagetitle").val() == "")
+            $("#newmessagetitle").val(this.defaultValue);
+    });
+    //编辑器加载
+
+    var editor;
+    $("#addmaster").click(function () {
+        editor = UE.getEditor("msgvalue", {
+            toolbars: [
+                ['fontfamily', 'fontsize', 'bold', 'italic', 'underline', 'forecolor', 'backcolor', 'justifyleft', //居左对齐
+                    'justifyright', //居右对齐
+                    'justifycenter', //居中对齐
+                    'justifyjustify', 'emotion', 'undo', 'redo']
+            ],
+            initialFrameHeight: 100,
+            initialFrameWidth: 550
+        });
+        $("#master").hide();
+        $("#msgvalue").show();
+        //var $target = $($(this).attr("target"));
+        //var content = $target.html();
+        //var currentParnet = editor.container.parentNode.parentNode;
+        //var currentContent = editor.getContent();
+        //$target.html('');
+        //$target.append(editor.container.parentNode);
+        //editor.reset();
+        //setTimeout(function () {
+        //    editor.setContent(content);
+        //}, 200);
+        //$(currentParnet).html(currentContent);
+        $(".operarea").show();
+    });
+    $("#btncancelnewmessage").click(function () {
+        var v = editor.getContent();
+        $("#master").html(v);
+        editor.destroy();
+        $("#master").show();
+        $("#msgvalue").hide();
+        $(".operarea").hide();
+    });
+    $("#newmessageform").validate({
+        submitHandler: function (form) {
+            var cc = editor.getContent();
+            //去除空格、回车、换行
+            cc = cc.replace(/\+/g, "").replace(/[]/g, "");
+            $("#Contents").val(cc);
+            $(form).ajaxSubmit({
+                url: "@Url.Action("AddMessage", "PublicShare")",
+                success: function (data) {
+                    if (data.Data.statuscode == 0) {
+                        tipsuccessmsg(data.Data.message);
+                       
+                        $("#master").html(cc);
+                        editor.destroy();
+                        $("#master").show();
+                        $("#msgvalue").hide();
+                        $(".operarea").hide();
+                    } else {
+                        tipsuccessmsg(data.Data.message);
+                       
+                    }
+                }
+            });
+        }
+    });
+</script>
+<script>
+    var currpage = 1;
+    var tps = 1;
+    var rsc_bs_pag = { go_to_page_title: "转到", rows_per_page_title: "第几页", current_page_label: "页", current_page_abbr_label: "", total_pages_label: "/", total_pages_abbr_label: "/", total_rows_label: "/", rows_info_records: "记录", go_top_text: "&laquo;", go_prev_text: "&larr;", go_next_text: "&rarr;", go_last_text: "&raquo;" };
+    getmessagecount("@Model.AcceptUserID");
+    GetMessageAbstracts("@Model.AcceptUserID", 5, "@ViewBag.UCType", currpage);
+    function GetMessageAbstracts(id, pagesize, uctype, pageindex) {
+        $("#messagelist").html("");
+        $.ajax({
+            url: "@Url.Content("~/ashx/GetMessageById.ashx")",
+            data: { id: id, pagesize: pagesize, uctype: uctype, curpage: pageindex },
+            success: function (data) {
+                var infos = eval("(" + data + ")"); //            
+                if (infos.length > 0) {
+                    $.each(infos, function (idx, item) {
+                        //var pid = item.pkid;
+                        var contents = utf8to16(decode64(item.contents));
+                        var time = item.time;
+                        var messageuser = item.messageuser;
+                        var msgname = item.msgname;
+                        var flowers = item.flowers;
+                        //var orders = item.orders;
+                        //var msgtype = item.msgtype;
+                        //var parentid = item.parentid;
+                        //var isshow = item.isshow;
+                        var headimg = item.headimg;
+                        var str = "<div class=\"logabstract-content\">";
+                        str += "<div class=\"messageinfo clearfix\">";
+                        str += "    <div class=\"messageuser clearfix\">";
+                        str += "        <p class=\"pull-left headimg clearfix\">";
+                        str += "            <img width=\"50\" height=\"50\" class=\"img-rounded\" src=\"" + headimg + "\" border=\"0\" />";
+                        str += "        </p>";
+                        str += "        <div class=\"pull-left message clearfix\">";
+                        str += "            <p class=\"msgname\"><a href='@Url.Action("Query", "TeacherCenter")?id=" + messageuser + "'>" + msgname + "</a></p>";
+                        str += "            <div class=\"msgvalue\">" + contents + "</div>";
+                        str += "            <p class=\"msgoperaarea\"><span>" + time + "</span><span>赞起来(" + flowers + ")</span></p>";
+                        str += "        </div>";
+                        str += "    </div>";
+                        str += "</div>";
+                        var obj = str;
+                        $("#messagelist").append($(obj));
+
+                    });
+                    $(".logdelete").each(function () {
+                        $(this).click(function () {
+                            delconfirm("确定删除这条日志内容吗？", dellog, $(this).attr("pid"));
+                        });
+                    });
+                    $(".logrole").each(function () {
+                        $(this).click(function () {
+                            setsharevalue("确定删除这条日志内容吗？", setrole, $(this).attr("pid"));
+                        });
+                    });
+                    $(".logedit").each(function () {
+                        $(this).click(function () {
+                            $("#body_content").load("@Url.Action("LogEdit", "PublicShare")?id=@Model&pid=" + $(this).attr("pid"));
+                        });
+                    });
+                } else {
+                    var obj = "<li class=\"noinfo\"><p class=\"person\"><span class=\"newscontent\">还没有留言！</span></p></li>";
+                    $("#messagelist").append($(obj));
+                }
+                $("#plugs-pager").bs_pagination({
+                    currentPage: currpage,
+                    visiblePageLinks: 10,
+                    totalPages: tps,//根据实际数量/visiblePageLinks
+                    showGoToPage: false,
+                    showRowsPerPage: false,
+                    showRowsInfo: false,
+                    onChangePage: function (type, page) {
+                        currpage = page.currentPage;
+                        GetMessageAbstracts("@Model.AcceptUserID", 5, "@ViewBag.UCType", currpage);
+                    }
+                });
+            }
+        });
+    }
+    function getmessagecount(id) {
+        $.ajax({
+            url: "@Url.Content("~/ashx/GetMessageCount.ashx")",
+            data: { id: id },
+            success: function (data) {
+                var infos = eval("(" + data + ")"); //            
+                tps = infos[0].recordcount;
+                var tc = tps / 5;
+                var tci = parseInt(tc);
+                if (tc > tci)
+                    tps = tci + 1;
+                else
+                    tps = tci;
+            }
+        });
+    }
+    function dellog(id) {
+        $.ajax({
+            url: "@Url.Content("~/ashx/DelPersonNew.ashx")",
+            data: { pid: id, uctype: "recyclelog" },
+            success: function (data) {
+                if (data == "200") {
+                    tipsuccessmsg("删除成功");
+                    setTimeout(hidesuccessmsg, 1000);
+                    GetMessageAbstracts("@Model.AcceptUserID", 5, "@ViewBag.UCType", 1);
+                } else {
+                    tipfailmsg("删除失败");
+                    setTimeout(hidefailmsg, 1000);
+                }
+            }
+        });
+    }
+    function setrole(id, selvalue) {
+        $.ajax({
+            url: "@Url.Content("~/ashx/DelPersonNew.ashx")",
+            data: { pid: id, isshare: selvalue },
+            success: function (data) {
+                if (data == "200") {
+                    tipsuccessmsg("设置成功");
+                    setTimeout(hidesuccessmsg, 1000);
+                    GetMessageAbstracts("@Model.AcceptUserID", 5, "@ViewBag.UCType", currpage);
+                } else {
+                    tipfailmsg("设置失败");
+                    setTimeout(hidefailmsg, 1000);
+                }
+            }
+        });
+    }
+    //分页
+    //$(function () {
+
+    //});
+
+</script>

@@ -1,0 +1,57 @@
+﻿@using UCHome.Model
+@model bool    
+<div class="header-content">
+        <div class="header-block header-home">
+            <a href="@Url.Action("Index", "CityCenter")">
+                <img src="@Url.Content("~/Content/NewFile/image/public/home.png")" />
+                <span class="header-font">首页</span>
+            </a>
+        </div>
+        <div class="header-block header-input" style="display: none;">
+            <input type="text" name="search" />
+            <div class="input-line"></div>
+            <div class="header-search"></div>
+        </div>
+        <ul class="header-block header-login">
+
+            @if ((bool)Model)
+            {
+            <li>
+                <a class="set" href="@Url.Action("Logout", "AppCenter", new { returnurl = Request.Url })">
+                    <img src="@Url.Content("~/Content/NewFile/image/public/set.png")" />
+                    <span class="header-font">退出</span>
+                </a>
+            </li>
+                <li class="blanking">
+                    <div class="blanking-line"></div>
+                </li>
+                <li>
+                    <a target="_blank" href="@(UCHomeBasePage.GetConfig("UCHome.AppUrl"))/UCHomeNew/Home/Index" class="login">
+                        <img src="@Url.Content("~/Content/NewFile/image/public/login.png")" />
+                        <span class="header-font">我的空间</span>
+                    </a>
+                </li>
+
+            }
+            else
+            {
+                <li>
+                    <a target="_blank" href="@(UCHomeBasePage.GetConfig("UCHome.AppUrl"))/UCHomeNew/Home/Index" class="login">
+                        <img src="@Url.Content("~/Content/NewFile/image/public/login.png")" />
+                        <span class="header-font">登录</span>
+                    </a>
+                </li>
+            }
+
+            <li class="clear"></li>
+        </ul>
+        <div class="clear"></div>
+    </div>
+<script>
+    $(function () {
+        //搜索
+        $(".header-search").click(function() {
+
+        });
+    })
+</script>

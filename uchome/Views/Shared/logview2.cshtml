@@ -1,0 +1,448 @@
+﻿@using UCHome.Model
+@using UCHome.Models
+@model UCHome_PersonNew
+<link href="@Url.Content("~/Content/css/reset.css")" rel="stylesheet"/>
+<link href="@Url.Content("~/Content/css/style.css")" rel="stylesheet"/>
+<link href="@Url.Content("~/Content/css/nanogallery.css")" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="@Url.Content("~/Content/js/jquery.nanogallery.js")"></script>
+<style>
+    .singleloginfo {
+        background-color: #fff;      
+        padding: 0 30px;
+        position: relative;
+        min-height: 1080px;
+    }
+      
+        .singleloginfo .historyback {
+            height: 40px;
+        }
+
+    .historyback .returnloglist {
+        background-image: url(@Url.Content("~/Content/images/SwapRight.png"));
+        background-repeat: no-repeat;
+        background-position: left center;
+        text-indent: 25px;
+        float: right;
+        display: inline-block;
+        line-height: 40px;
+        font-size: 12px;
+        color: #2595b7;
+        cursor: pointer;
+    }
+
+    .singleloginfo .logtitle {
+        min-height: 50px;
+        text-align: left;
+        border-bottom: dashed 1px #add8e6;
+        color: #2595b7;
+    }
+
+        .singleloginfo .logtitle h4 {
+            line-height:50px;
+        }
+
+    .singleloginfo .logother {
+        height: 50px;
+        line-height: 50px;
+        border-bottom: dotted 1px #eee;
+        color: #aaa;
+        text-align: left;
+        font-size: 12px;
+    }
+
+        .singleloginfo .logother span {
+            color: #ccc;
+        }
+
+    .singleloginfo .logcontent {
+        line-height: 30px;
+        color: #666;        
+    }
+        .logcontent table {
+        display: table;
+        border-collapse: collapse;
+        margin-bottom: 10px;
+    }
+    .logcontent table td,.logcontent table th {
+        border: solid 1px #ddd;
+        padding: 5px 10px;
+    }
+    .logcontent img {
+        width: 500px;
+    }
+        .article_last_next {
+        right: 0;
+        font-size: 12px;
+        line-height: 25px;
+        clear: both;
+        position: relative;
+        text-align: right;
+        cursor: pointer;
+    }
+    .color_tl {
+        color: #2595b7;
+    }
+</style>
+<div class="singleloginfo">
+    <div class="historyback">
+        <span class="returnloglist">返回日志列表</span>
+    </div>
+    <div class="logtitle">
+        <h4>@Model.Title</h4>
+    </div>
+    @{
+        UCHome_PersonNew lastarticle = ViewBag.LastArticle as UCHome_PersonNew;
+        UCHome_PersonNew nextarticle = ViewBag.NextArticle as UCHome_PersonNew;
+        string simpletitle_last = lastarticle != null ? lastarticle.Title : "已经是第一篇";
+        string pid_last = lastarticle != null ? lastarticle.PKID.ToString() : "";
+        string simpletitle_next = nextarticle != null ? nextarticle.Title : "已经是最后一篇";
+        string pid_next = nextarticle != null ? nextarticle.PKID.ToString() : "";
+    }
+    <div class="article_last_next clearfix">
+        <span class="articel_last_next_link" uctype="@Model.UCType" userid="@Model.AddUser" pid="@pid_last"><span class="color_tl">上一篇：</span><span title="@simpletitle_last">@(UCHome_BaseOper.CutStr(simpletitle_last, 8)) </span></span>
+        <span class="articel_last_next_link"  uctype="@Model.UCType" userid="@Model.AddUser" pid="@pid_next"><span class="color_tl">下一篇：</span><span title="@simpletitle_next">@(UCHome_BaseOper.CutStr(simpletitle_next, 8)) </span></span>
+    </div>
+    <div class="logother">
+        发布时间：@Model.DeployTime.ToShortDateString() <span>│</span> 阅读：<span id="hit">@Model.Hits</span>
+    </div>
+    <div class="logcontent">
+        @Html.Raw(Model.Content)
+    </div>
+    <div class="article_last_next clearfix">
+        <span class="articel_last_next_link" uctype="@Model.UCType" userid="@Model.AddUser" pid="@pid_last"><span class="color_tl">上一篇：</span><span title="@simpletitle_last">@(UCHome_BaseOper.CutStr(simpletitle_last, 8)) </span></span>
+        <span class="articel_last_next_link"  uctype="@Model.UCType" userid="@Model.AddUser" pid="@pid_next"><span class="color_tl">下一篇：</span><span title="@simpletitle_next">@(UCHome_BaseOper.CutStr(simpletitle_next, 8)) </span></span>
+    </div>
+    @{
+        ServiceModel.SNSFeedEntryDto res = ViewBag.Article as ServiceModel.SNSFeedEntryDto;  
+    }
+    @if (res != null)
+    {
+        var t = res.Date != null ? res.Date.Month + "月" + res.Date.Day + "日 " + res.Date.ToShortTimeString() : "";
+        var commentCount = 0;
+        var loginid = ((Guid)ViewBag.LoginId).ToString().ToLower();
+        if (res.Comments != null)
+        {
+            commentCount = res.Comments.Count;
+        }
+        <div class="review">
+            <p>
+                <a>@t</a>
+                <a onclick=" showPingLun('0'); ">
+                    <img src="@Url.Content("~/Content/images/zf-talk2.png")"/>评论
+                    <span>（</span>
+                    <span id="pl0">@commentCount</span>
+                    <span>）</span>
+                </a>
+                <label>|</label>
+                <a onclick=" like('@res.Id', '0') ">
+                    <img src="@Url.Content("~/Content/images/zf-like2.png")"/>
+
+                    @if (res.Like > 0)
+                    {
+                        var likeList = res.Likes.Select(s => s.Key).ToList();
+
+                        if (likeList.Contains(loginid))
+                        {
+                        <span id="likeval0">取消赞</span>
+                        }
+                        else
+                        {
+                        <span id="likeval0">赞</span>
+                        }
+                    }
+                    else
+                    {
+                        <span id="likeval0">赞</span>
+                    }
+                    <span>（</span>
+                    <span id="likecount0">@res.Like</span>
+                    <span>）</span>
+                </a>
+            </p>
+            @if (res.Like > 0)
+            {
+                <div class="praise-box" id="like0">
+                    @if (res.Like > 0)
+                    {
+                        <div class="praise" id="praise0" style="cursor: pointer;" onclick=" like('@res.Id', '0') ">
+                            <img src="@Url.Content("~/Content/images/zf-like2.png")"/>
+                        </div>
+                        foreach (var like in res.Likes)
+                        {
+                            var likeuserid = 0 + "div" + like.Key;
+                            var imageurl = Url.Content("~/upload/headimages/" + like.Key + ".jpg");
+
+                        <div class="praise-img" id="@likeuserid" title="@like.Value">
+                            <a href="#">
+                                <img width="30px" height="30px" onerror=" javascript:this.src = '@Url.Content("~/Content/images/man.png")' " src="@imageurl"/></a>
+                        </div>
+                        }
+                    }
+                </div>
+            }
+            else
+            {
+                <div class="praise-box" id="like0" style="height: 0px;"></div>
+            }
+            <div id="outdiv0">
+                @{
+            if (res.Comments != null)
+            {
+                var commentList = res.Comments;
+
+                var parentCommentList = commentList.Where(w => w.PId == null);
+
+                if (parentCommentList != null && parentCommentList.Any())
+                {
+                    foreach (var parentComment in parentCommentList.OrderBy(o => o.Date))
+                    {
+                        var textParentID = "textparent" + parentComment.CId;
+                        var divparentId = "div" + parentComment.CId;
+
+                        var date = parentComment.Date;
+                        var time = date.Month + "月" + date.Day + "日";
+
+                        var cid = new Guid(parentComment.CId);
+
+                        var childCommentList = commentList.Where(w => w.PId == cid);
+
+                    <div class="com-box" id="@parentComment.CId">
+                        <div class="com-item">
+                            <div class="com-item-img">
+                                <img width="30px" height="30px" onerror=" javascript:this.src = '@Url.Content("~/Content/images/man.png")' " src="@Url.Content("~/upload/headimages/" + parentComment.UID + ".jpg")" />
+                            </div>
+                            <div class="com-item-p">
+                                <p>
+                                    <a href="##">@parentComment.UName</a>：@parentComment.Content &nbsp;
+                                                @if (childCommentList == null || !childCommentList.Any())
+                                                {
+                                                    if (loginid == parentComment.UID.ToLower())
+                                                    {
+                                                    <a onclick=" DeleteParent('@res.Id', '@parentComment.CId'); ">删除</a>
+                                                    }
+                                                }
+                                </p>
+                                <span class="time">@time @date.Hour:@date.Minute</span>
+                                <a onclick=" showParentPingLun('0', '@parentComment.CId', '@parentComment.UName'); ">
+                                    <img class="hui" src="@Url.Content("~/Content/images/zf-talk3.png")"/>
+                                </a>
+                            </div>
+                        </div>
+
+                        @if (childCommentList.Any())
+                        {
+                            foreach (var comment in childCommentList.OrderBy(o => o.Date))
+                            {
+                                var date1 = comment.Date;
+                                var time1 = date1.Month + "月" + date1.Day + "日";
+
+                            <div class="com-item com-item2">
+                                <div class="com-item-img">
+                                    <img width="30px" height="30px" onerror=" javascript:this.src = '@Url.Content("~/Content/images/man.png")' " src="@Url.Content("~/upload/headimages/" + comment.UID + ".jpg")"/>
+                                </div>
+                                <div class="com-item-p">
+                                    <p>
+                                        <a href="##">@comment.UName</a>：@comment.Content
+                                        @if (loginid == comment.UID)
+                                        {
+                                            <a onclick=" DeleteChild('@res.Id', '@comment.CId'); " id="@comment.CId">删除</a>
+                                        }
+                                    </p>
+                                    <span class="time">@time1 @date1.Hour:@date1.Minute</span>
+                                    <a onclick=" showParentPingLun('0', '@parentComment.CId', '@comment.UName'); ">
+                                        <img class="hui" src="@Url.Content("~/Content/images/zf-talk3.png")" />
+                                    </a>
+                                </div>
+                            </div>
+                            }
+                        }
+                    </div>
+                    <div class="import2" id="@divparentId">
+                        <textarea id="@textParentID"></textarea>
+                        <input class="send" onclick=" parentpinglun('0', '@res.Id    ', '@parentComment.CId    ') "
+                                           type="button" value="发送"/>
+                    </div>
+                    }
+                }
+            }
+                }
+            </div>
+
+            <div class="review-font" id="0">
+                <a onclick=" showPingLun('0'); ">我也说一句</a>
+            </div>
+            <div class="import" id="send0">
+                <textarea id="text0"></textarea>
+                <input class="send" type="button" value="发送" onclick=" pinglun('0', '@res.Id    '); " />
+            </div>
+        </div>
+    }
+</div>
+<script>
+    $(".returnloglist").click(function () {
+        $("#teacherhome").load("@Url.Action("PersonLog2", "PublicShare", new { id = Model.AddUser })");
+    });
+    //计数
+
+    $.ajax({
+        url: "@Url.Content("~/ashx/UpdateLogHits.ashx")",
+        data: { id: "@Model.PKID" },
+        success: function (data) {
+            if (data)
+                $("#hit").html(parseInt($("#hit").html()) + 1);
+        }
+    });
+    $(".articel_last_next_link").click(function () {
+        var uctype = $(this).attr("uctype");
+        var userid = $(this).attr("userid");
+        var pid = $(this).attr("pid");
+        if (pid != "") {
+            var url = "@Url.Action("LogView2", "PublicShare")?pid=" + pid + "&userid=" + userid + "&uctype=" + uctype;
+            $("#body_content").load(url);
+        }
+    });
+    function DeleteParent(fid, id) {
+        if (confirm("确认删除该评论吗？")) {
+            $.post("@Url.Action("DeleteComments", "TeacherCenter")", { fid: fid, cid: id }, function (data) {
+                if (data === true) {
+                    $("#" + id).remove();
+                }
+            });
+        }
+    }
+
+    function DeleteChild(fid, id) {
+        if (confirm("确认删除该评论吗？")) {
+            $.post("@Url.Action("DeleteComments", "TeacherCenter")", { fid: fid, cid: id }, function (data) {
+                if (data === true) {
+                    $("#" + id).parent().parent().parent().remove();
+                }
+            });
+        }
+    }
+    function showPingLun(count) {
+        $("#" + count).hide();
+        $("#send" + count).show();
+        $("#text" + count).focus();
+    }
+
+    function showParentPingLun(count, id, name) {
+        $("#" + count).show();
+        $("#send" + count).hide();
+
+        $("#div" + id).show();
+        $("#textparent" + id).val("回复 " + name + "：");
+        $("#textparent" + id).focus();
+    }
+
+    function hidPingLun(count) {
+        $("#text" + count).val("");
+        $("#" + count).show();
+        $("#send" + count).hide();
+    }
+
+    function hidParentPingLun(count, id) {
+        $("#text" + count).val("");
+        $("#" + count).show();
+        $("#send" + count).hide();
+
+        $("#textparent" + id).val("");
+        $("#div" + id).hide();
+    }
+
+    function like(fid, count) {
+        var likestyle = "praist" + count;
+
+        $.post("@Url.Action("PostLike", "TeacherCenter")", { fid: fid }, function (data) {
+            var likeval = $("#likeval" + count).html();
+            var likecount = parseInt($("#likecount" + count).html());
+            var likeuserid = count + "div" + data.UID;
+
+            if (likeval === "赞") {
+
+                if ($("#someID")) {
+                    $("#someID").text("hi");
+                }
+                var lens = $("#like" + count).children('div').length;
+
+                if (lens === 0) {
+                    $("#like" + count).height("33");
+                    $("#like" + count).append("<div class=\"praise\" id=\"" + likestyle + "\" style=\"cursor: pointer;\" onclick=\"like('" + fid + "', '" + count + "')\"><img src=\"@Url.Content("~/Content/images/zf-like2.png")\"/></div>");
+                }
+
+                $("#likeval" + count).html("取消赞");
+                $("#likecount" + count).html(likecount + 1);
+
+                var likeuser = "<div class=\"praise-img\" id=\"" + likeuserid + "\" title=\"" + data.UName + "\">" +
+                    "<a href=\"#\"><img width=\"30px\" height=\"30px\" onerror=\"javascript:this.src='@Url.Content("~/Content/images/man.png")'\" src=\"@Url.Content("~/upload/headimages/")" + data.UID + ".jpg\"/></a></div>";
+
+                $("#like" + count).append(likeuser);
+
+            } else {
+                $("#likeval" + count).html("赞");
+                $("#likecount" + count).html(likecount - 1);
+
+                $("#" + likeuserid).remove();
+
+                var len = $("#like" + count).children('div').length;
+
+                if (len === 1) {
+                    $("#like" + count).height("0");
+                    $("#like" + count).html("");
+                }
+            }
+        });
+    }
+
+    function pinglun(count, fid) {
+        var content = $("#text" + count).val();
+
+        if (content != null && content !== "") {
+
+            $.post("@Url.Action("PostParentComment", "TeacherCenter")", { fid: fid, content: content }, function (data) {
+                var textParentID = "textparent" + data.CId;
+                var divparentId = "div" + data.CId;
+                var pl = "<div class=\"com-box\" id=\"" + data.CId + "\"><div class=\"com-item\">" +
+                    "<div class=\"com-item-img\"><img width=\"30px\" height=\"30px\" onerror=\"javascript:this.src='@Url.Content("~/Content/images/man.png")'\" src=\"@Url.Content("~/upload/headimages/")" + data.UID +".jpg\"/>" +
+                    "</div><div class=\"com-item-p\"><p><a href=\"##\">" + data.UName + "</a>：" + content +
+                    " &nbsp;<a onclick=\"DeleteParent('" + fid + "','" + data.CId + "');\">删除</a></p>" +
+                    "<span class=\"time\">" + data.FId + "</span><a onclick=\"showParentPingLun('" + count +
+                    "','" + data.CId + "','" + data.UName + "');\"><img class=\"hui\" " +
+                    " src=\"@Url.Content("~/Content/images/zf-talk3.png")\"/></a></div></div></div>" +
+                    "<div class=\"import2\" id=\"" + divparentId + "\" ><textarea id=" + textParentID + "></textarea>" +
+                    "<input class=\"send\" type=\"button\" onclick=\"parentpinglun('" + count + "','" +
+                    fid + "','" + data.CId + "')\" value=\"发送\"/></div>";
+                $("#outdiv" + count).append(pl);
+                hidPingLun(count);
+
+                var olcount = parseInt($("#plcount" + count).html());
+                $("#plcount" + count).html(olcount + 1);
+            });
+        } else {
+            //alert("")
+        }
+    }
+
+    function parentpinglun(count, fid, pid) {
+        var content = $("#textparent" + pid).val();
+
+        if (content != null && content !== "") {
+
+            $.post("@Url.Action("PostComment", "TeacherCenter")", { fid: fid, content: content, parentId: pid }, function (data) {
+                var pl = "<div class=\"com-item  com-item2\">" +
+                    "<div class=\"com-item-img\"><img width=\"30px\" height=\"30px\" onerror=\"javascript:this.src='@Url.Content("~/Content/images/man.png")'\" src=\"@Url.Content("~/upload/headimages/")" + data.UID +".jpg\"/>" +
+                    "</div><div class=\"com-item-p\"><p><a href=\"##\">" + data.UName + "</a>：" + content +
+                    " &nbsp;<a onclick=\"DeleteChild('" + fid + "','" + data.CId + "');\" id=\"" + data.CId + "\">删除</a></p>" +
+                    "<span class=\"time\">" + data.FId + "</span><a onclick=\"showParentPingLun('" + count +
+                    "','" + pid + "','" + data.UName + "');\"><img class=\"hui\" " +
+                    " src=\"@Url.Content("~/Content/images/zf-talk3.png")\"/></a></div></div>";
+                $("#" + pid).append(pl);
+                hidParentPingLun(count, pid);
+                var olcount = parseInt($("#plcount" + count).html());
+                $("#plcount" + count).html(olcount + 1);
+            });
+        } else {
+            //alert("")
+        }
+    }
+</script>

@@ -1,0 +1,98 @@
+﻿@{
+    Layout = null;
+}
+@using System.Web.Mvc
+@using M = UCHome.Model;
+@model M.TempNotice
+<style type="text/css">
+    .pd {
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+
+    .h {
+        height: 34px;
+        line-height: 34px;
+    }
+
+    .lic {
+        float: left;
+        margin-right: 10px;
+        height: 33px;
+        line-height: 33px;
+    }
+
+    .w {
+        width: 450px;
+    }
+</style>
+
+<div id="noticeSend" class="form-horizontal form-position pagew " style="margin-bottom: 0px; margin-top: 0px;">
+    <div class="form-group">
+        <label for="NoticeContent" class="col-sm-2 control-label">通知类型：</label>
+        <div class="col-sm-9 pd h">
+            @Model.notice.NoticeTypeName
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="NoticeTitle" class="col-sm-2 control-label">通知标题：</label>
+        <div class="col-sm-9 pd h">
+            @Model.notice.NoticeTitle
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="NoticeContent" class="col-sm-2 control-label">通知内容：</label>
+        <div class="col-sm-9 pd">
+            @Model.notice.NoticeContent
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="NoticeContent" class="col-sm-2 control-label">通知时间：</label>
+        <div class="col-sm-9 pd h">
+            @Model.notice.NoticeDate.Value.ToString("yyyy-MM-dd HH:mm")
+        </div>
+    </div>
+    @if (Model.notice.NoticeTypeCode != "1")
+    {
+        <div class="form-group">
+            <label for="NoticeContent" class="col-sm-2 control-label">通知对象：</label>
+            <div class="col-sm-8 pd">
+                <ul>
+                    @foreach (M.UCHome_Notice_Receive item in Model.receiveList)
+                    {
+                        <li class="lic" title="点击可以删除" onclick="del(this,'@item.ReceiveUserID','@item.NoticeID')">
+                            <a class="btn btn-danger btn-sm active" role="button">@item.ReceiveUserName</a>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    }
+    <div class="form-group" id="msg">
+    </div>
+</div>
+
+<script>
+    function del(obj, receiveUserId, noticeId) {
+        if (confirm("确定要删除吗？")) {
+            $.post("@Url.Action("DeleteNoticeReceiver")", { receiveUserId: receiveUserId, noticeId: noticeId }, function (data) {
+                if (data == "1") {
+                    var str = "<div id='operresultmsg' class='alert alert-success center-block w' role='alert'>删除成功！</div>";
+                    $("#msg").append(str);
+
+                    setTimeout(function () {
+                        $("#operresultmsg").remove();
+                        $(obj).remove();
+                    }, 2000);
+                } else {
+                    var str = "<div id='operresultmsg' class='alert alert-danger center-block w' role='alert'>删除失败，请重试！</div>";
+                    $("#msg").append(str);
+
+                    setTimeout(function () {
+                        $("#operresultmsg").remove();
+                    }, 2000);
+                }
+            });
+        }
+    }
+</script>

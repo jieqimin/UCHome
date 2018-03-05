@@ -1,0 +1,206 @@
+﻿@using UCHome.Model
+@model List<UCHome_App_System>
+<style>
+    .app_alllists_ul li a {
+        text-decoration: none;
+        color: #333;
+    }
+
+    .addmyapp {
+        color: #fff;
+        font-size: 11px;
+        background-color: #80AEC8;
+        text-decoration: none !important;
+        display: block;
+        margin: 0 auto;
+        width: 40px;
+        cursor: pointer;
+    }
+
+    .item-app {
+        display: block;
+        margin: 0 auto;
+        width: 40px;
+    }
+</style>
+<div id="app_alllists" class="app_alllists">
+    <ul id="app-types" class="app-types">
+        <li typeid="" class="selected">全部分类</li>
+        <li typeid="772c1340-2314-4566-be53-7076fce99103">教学教务</li>
+        <li typeid="37e90a20-71f2-4b16-a130-33dd640cc07e">行政办公</li>
+        <li typeid="bde8e277-d283-4130-a242-c85f8b0c2933">培训学习</li>
+        <li typeid="905e7252-e449-4ba5-8694-bbef759b36f5">管理考核</li>
+        <li typeid="17bc535f-55f8-4ce6-9169-cf255c31473b">互动交流</li>
+    </ul>
+    <ul id="app_ul_alllists" class="app_alllists_ul">
+    </ul>
+</div>
+<div id="allapplist" tabindex="-1" role="dialog" title="全部应用">
+
+    <ul id="app-infos"></ul>
+    <div id="page_data">
+        <div class="log-pager" id="plugs-pager2">
+        </div>
+    </div>
+</div>
+<script>
+    $("#moreapp").on("click", function () {
+        getallapp(5, currpage);
+        $("#allapplist").dialog();
+    });
+    getappbytype("");
+    var currpage = 1;
+    var totalcount = 1;
+    var rsc_bs_pag = { go_to_page_title: "转到", rows_per_page_title: "第几页", current_page_label: "页", current_page_abbr_label: "", total_pages_label: "/", total_pages_abbr_label: "/", total_rows_label: "/", rows_info_records: "记录", go_top_text: "&laquo;", go_prev_text: "&larr;", go_next_text: "&rarr;", go_last_text: "&raquo;" };
+
+    function getallapp(pagesize, pageindex, typeid) {
+        $("#app-infos").html("");
+        $.ajax({
+            url: "@Url.Content("~/ashx/GetApplication.ashx")",
+            data: { pagesize: pagesize, curpage: pageindex, funcrole: "SP", id: "@(ViewBag.userid)", typeid: typeid },
+            success: function (data) {
+                var infos = eval("(" + data + ")"); //
+                if (infos.length > 0) {
+                    totalcount = infos[0].returncount;
+                    $.each(infos[0].appinfos, function (idx, item) {
+                        var iconsrc = "@Url.Content("~/Content/icon")" + "/fr" + item.appicon + "12.png";
+                        var ismy = item.ismy;
+                        var appurl = "@Url.Action("SystemAppRedirectPage")?id=" + item.pkid;
+                        var str = "<li class=\"app-info\"><a href=\"" + appurl + "\" target=\"" + item.apptarget + "\"><span class=\"app-info-icon\">";
+                        str += "<img class=\"img-rounded\" src=\"" + iconsrc + "\" />";
+                        str += "</span>";
+                        str += "<span class=\"app-info-name\">" + item.appname + "</span>";
+                        str += "<span class=\"app-info-memo\">" + item.appmemo + "</span></a>";
+                        if (ismy.toLocaleLowerCase() === "true")
+                            str += "<span class=\"app-info-oper\"><span class=\"item-app\" appid=\"" + item.pkid + "\">已添加</span><i>" + item.downloads + "人添加</i></span></li>";
+                        else
+                            str += "<span class=\"app-info-oper\"><span class=\"addmyapp item-app label label-info\" appid=\"" + item.pkid + "\">添加</span><i>" + item.downloads + "人添加</i></span></li>";
+                        var obj = str;
+                        $("#app-infos").append($(obj));
+                    });
+                    $.each($(".addmyapp"), function (index, item) {
+                        $(this).click(function () {
+                            var add_appid = $(this).attr("appid");
+                            $.ajax({
+                                url: "@Url.Action("Addmyappfromsys", "AppCenter")",
+                                data: { appid: add_appid },
+                                success: function (data) {
+                                    if (data.Data.statuscode == "200") {
+                                        alertmsg("success", "添加成功！");
+                                        $(item).html("已添加");
+                                        $(item).removeClass("addmyapp");
+                                    }
+                                    else {
+                                        alertmsg("warning", "抱歉，添加失败，请重试！");
+                                    }
+                                }
+                            });
+                        });
+                    });
+                } else {
+                    var obj = "<li class=\"noinfo\"><p class=\"person\"><span class=\"newscontent\">没有发现任何应用！</span></p></li>";
+                    $("app-infos").append($(obj));
+
+                }
+                var tc = totalcount / 5;
+                var tci = parseInt(tc);
+                var tps;
+                if (tc > tci)
+                    tps = tci + 1;
+                else
+                    tps = tci;
+                $("#plugs-pager2").bs_pagination({
+                    currentPage: currpage,
+                    visiblePageLinks: 10,
+                    totalPages: tps,//根据实际数量/visiblePageLinks
+                    showGoToPage: false,
+                    showRowsPerPage: false,
+                    showRowsInfo: false,
+                    onChangePage: function (type, page) {
+                        currpage = page.currentPage;
+                        getallapp(5, currpage, typeid);
+                    }
+                });
+            }
+        });
+    }
+
+    $("#app-types li").each(function () {
+        $(this).click(function () {
+            $("#app-types li").removeClass("selected");
+            $(this).addClass("selected");
+            //获取分类应用
+            var typeid = $(this).attr("typeid");
+            $("#app_ul_alllists").html("");
+            getappbytype(typeid);
+        });
+    });
+    function getappbytype(typeid) {
+        $.ajax({
+            url: "@Url.Content("~/ashx/GetApplication.ashx")",
+            data: { pagesize: 30, curpage: 1, funcrole: "SP", id: "@(ViewBag.userid)", typeid: typeid },
+            success: function (data) {
+                var infos = eval("(" + data + ")"); //
+                if (infos.length > 0) {
+                    totalcount = infos[0].returncount;
+                    $.each(infos[0].appinfos, function (idx, item) {
+                        var iconsrc = "@Url.Content("~/Content/icon")" + "/fr" + item.appicon + "12.png";
+                        var ismy = item.ismy;
+                        var appurl = "@Url.Action("SystemAppRedirectPage")?id=" + item.pkid;
+                        var str = "<li><a href=\"" + appurl + "\" target=\"" + item.apptarget + "\">";
+                        str += " <span class=\"li_appbg\">";
+                        str += "<img class=\"img-rounded\" src=\"" + iconsrc + "\" />";
+                        str += "</span>";
+                        str += "<span class=\"li_appname\">" + item.appname + "</span></a>";
+                        if (ismy.toLocaleLowerCase() === "true")
+                            str += "<span appid=\"" + item.pkid + "\" class=\"app-info-oper2\">已添加</span></li>";
+                        else
+                            str += "<span appid=\"" + item.pkid + "\" class=\"addmyapp label label-info\">添加</span></li>";
+                        var obj = str;
+                        $("#app_ul_alllists").append($(obj));
+                    });
+                    $.each($(".addmyapp"), function (index, item) {
+                        $(this).click(function () {
+                            var add_appid = $(this).attr("appid");
+                            $.ajax({
+                                url: "@Url.Action("Addmyappfromsys", "AppCenter")",
+                                data: { appid: add_appid },
+                                success: function (data) {
+                                    if (data.Data.statuscode == "200") {
+                                        alertmsg("success", "添加成功！");
+                                        $(item).html("已添加");
+                                        $(item).removeClass("addmyapp");
+                                    }
+                                    else {
+                                        alertmsg("warning", "抱歉，添加失败，请重试！");
+                                    }
+                                }
+                            });
+                        });
+                    });
+                    var moreapp = "<li id=\"moreapp\"><span class=\"li_appbg\">";
+                    moreapp += "<img class=\"img-rounded img-border\" src=\"@Url.Content("~/Content/icon/add.png")\" />";
+                    moreapp += "</span><span class=\"li_appname\">更多应用</span></li>";
+                    $("#app_ul_alllists").append($(moreapp));
+                    $("#moreapp").click(function () {
+                        currpage = 1;
+                        getallapp(5, currpage, typeid);
+                        $("#allapplist").dialog({
+                            modal: true,
+                            width: 650,
+                            buttons: {
+                                "关闭": function () {
+                                    $("#allapplist").dialog("close");
+                                    document.location.href = "@Url.Action("Index", "AppCenter")";
+                                }
+                            }
+                        });
+                    });
+                } else {
+                    var obj = "<li class=\"noinfo\"><p class=\"person\"><span class=\"newscontent\">没有发现任何应用！</span></p></li>";
+                    $("#app_ul_alllists").append($(obj));
+                }
+            }
+        });
+    }
+</script>

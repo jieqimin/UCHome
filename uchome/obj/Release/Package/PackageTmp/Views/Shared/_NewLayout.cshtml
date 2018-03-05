@@ -1,0 +1,20 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link href="@Url.Content("~/Content/NewFile/css/reset.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/NewFile/css/public.css")" rel="stylesheet" />
+    <script src="@Url.Content("~/Content/js/jquery-1.7.1.min.js")"></script>
+    <script src="@Url.Content("~/Content/bootstrap/plugs/pagination/jquery.pagination.min.js")"></script>
+    <script src="@Url.Content("~/Content/NewFile/js/slider.js")" ></script>
+    <script src="@Url.Content("~/Scripts/jquery.tmpl.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/bootstrap.min.js")"></script>
+    @RenderSection("Head", false)
+</head>
+
+<body>
+    @RenderBody()
+</body>
+</html>

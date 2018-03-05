@@ -1,0 +1,89 @@
+﻿@using UCHome.Model
+@model List<UCHome_Statics_Data>
+@*<script >
+    loaddata($("#AllHomeslist"));
+</script>*@
+<div id="AllHomeslist">
+    <div class='s_title text-center'>区县空间激活数</div>
+    <ul>        
+        @foreach (UCHome_Statics_Data item in Model)
+        {
+            <li>
+                <span class="pull-left col-md-5">
+                    <a href="@Url.Action("AllStaticsByArea", new { areacode = item.SobjectID })">@item.SobjName</a> 
+                </span>
+                <span class="col-md-5">@item.Sresults </span>
+            </li>
+        }
+    </ul>
+</div>
+@*<script >
+    hideload($("#AllHomeslist"));
+</script>*@
+@{
+    string jsondata = string.Empty;
+    string split = string.Empty;
+    foreach (var item in Model)
+    {
+        jsondata += string.Format("{0}{{name:'{1}',y:{2},code:'{3}'}}", split, item.SobjName, item.Sresults,item.SobjectID);
+        split = ",";
+    }
+    jsondata = string.Format("[{0}]", jsondata);
+}
+<script >
+    loaddata($("#AllHomesPie"));
+    var jdata = eval("(" + "@Html.Raw(jsondata)" + ")");
+    var piedata = new Array();
+    $.each(jdata, function (i, d) {
+        piedata.push(d.name, d.y);
+    });
+    $(function () {
+        $('#AllHomesPie').highcharts({
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+                type: 'pie'
+            },
+            title: {
+                text: '各区县空间激活占有比例图',
+                style: {
+                    fontFamily: "微软雅黑",
+                    fontSize: "16px"
+                }
+            },
+	    tooltip: {
+                formatter: function() {
+                    var point = this.point,
+                        s = point.name + ':<b>' + point.percentage.toFixed(1)+ '%</b><br/>点击查看详情';
+                    return s;
+                },
+                //pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>',
+                percentageDecimals: 1
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+ 		    point: {
+                      events: {
+                          click: function (e) {     
+                              location.href = "@Url.Action("AllStaticsByArea")?areacode=" + e.point.code;
+                          }
+                      }  
+                    },
+                    dataLabels: {
+                        enabled: true
+                    }
+                }
+            },
+            series: [{
+                name: "比例",
+                colorByPoint: true,
+                data: jdata
+            }]
+        });
+    });
+
+</script>
+

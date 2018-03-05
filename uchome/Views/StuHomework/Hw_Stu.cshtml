@@ -1,0 +1,105 @@
+﻿@{
+    Layout = null;
+    ViewBag.Title = "Index";
+}
+<link rel="stylesheet" href="@Url.Content("~/content/css/homework.css")">
+<link rel="stylesheet" href="@Url.Content("~/plugs/datatables/css/jquery.dataTables.css")">
+<link rel="stylesheet" href="@Url.Content("~/plugs/datatables/css/dataTables.bootstrap.css")">
+<script src="@Url.Content("~/plugs/datatables/js/jquery.datatables.js")"></script>
+<script src="@Url.Content("~/plugs/datatables/js/dataTables.bootstrap.js")"></script>
+@using (Ajax.BeginForm(
+    new AjaxOptions()
+    {
+        HttpMethod = "post",
+        Url = @Url.Action("Index"),
+        UpdateTargetId = "#homework_publish",
+        LoadingElementId = "loding",
+        LoadingElementDuration = 2000
+    }))
+{
+    <div id="homework_publish" class="form-position pagew">
+        <table class="table table-striped table-bordered table-hover datatable" id="hwtable">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>姓名</th>
+                    <th>作业内容</th>
+                    <th>提交时间</th>
+                    <th>附件</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+    int i = 0;
+                }
+                @foreach (HomeWork.Model.Vw_Homework_StuHomeworks_Search item in Model)
+                {
+                        
+                    <tr>
+                        <td>@i</td>
+                        <td>@item.XM</td>
+                        <td>@item.HwContent</td>
+                        <td>@item.SubmitDate</td>
+                        @if (!string.IsNullOrWhiteSpace(item.HwAttachment))
+                        {
+                            <td><a href="@Url.Content(item.HwAttachment)">下载</a></td>
+                        }
+                        else
+                        {
+                            <td>无</td>
+                        }
+                        <td>
+                            @{
+                    var ajaxOptions = new AjaxOptions()
+                    {
+                        HttpMethod = "post",
+                        //Url = @Url.Action(""),
+                        UpdateTargetId = "renderBody",
+                        InsertionMode = InsertionMode.Replace,
+                        LoadingElementId = "loding",
+                        LoadingElementDuration = 2000
+                    };
+                                @*@Ajax.ActionLink("学生作业", "Hw_Stu", new { id = item.HomeworkID }, ajaxOptions, new { @class = "label label-success" })*@
+                               @* @Ajax.ActionLink("查询", "", new { id = item.HomeworkID }, ajaxOptions, new { @class = "label label-info" })*@
+                                 <a ahref="#" class="label label-info" onclick="openform('@item.HwID')">查看</a>
+                            }
+                        </td>
+                    </tr>
+                    i++;
+                }
+            </tbody>
+        </table>
+    </div> 
+      //点击查看弹出的查看页面
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel" style="font-weight: bold;">作业详情</h4>
+                </div>
+                <div class="modal-body">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    //弹出的查看页面结束        
+}
+<script>
+    function openform(id) {
+        $('#myModal').modal('show');
+        var loadurl = "@Url.Action("TeaSeeStuDetail")?ID=" + id;
+        $(".modal-body").load(loadurl);
+    }
+    $(function () {
+        $("#hwtable").DataTable({
+            //"ajax":'severurl',//通过ajax请求数据源，其数据格式为{"data":[],[]}
+            "oLanguage": {
+                "sUrl": "@Url.Content("~/plugs/datatables/language/zh_cn.json")"
+            }
+        });
+    })
+</script>

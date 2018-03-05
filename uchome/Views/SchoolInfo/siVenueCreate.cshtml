@@ -1,0 +1,124 @@
+﻿@model SchInfo.Model.siVenue
+@{}
+@using (Ajax.BeginForm("CreateSIVenue", null,
+                                                                new AjaxOptions() {
+                                                                    HttpMethod = "post",
+                                                                    Url = @Url.Action("CreateSIVenue"),
+                                                                    UpdateTargetId = "#sivenue",
+                                                                    LoadingElementId = "loding",
+                                                                    LoadingElementDuration = 2000
+                                                                }, new { id = "form-sivenue" })) {
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal form-position pagew" id="sivenue">
+        @Html.HiddenFor(model => model.VenueID)
+        <div class="form-group">
+            @Html.LabelFor(model => model.VenueID_GroundID, "* 选择场地", htmlAttributes: new { @class = "control-label col-md-2 required" })
+            <div class="col-md-5">
+                @Html.DropDownListFor(model => model.VenueID_GroundID, null, new { @class = "form-control col-md-12" })
+                @Html.ValidationMessageFor(model => model.VenueID_GroundID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.VenueType_DictCode, "* 场馆分类", htmlAttributes: new { @class = "control-label col-md-2 required" })
+            <div class="col-md-5">
+                @Html.DropDownListFor(model => model.VenueType_DictCode, null, new { @class = "form-control col-md-12" })
+                @Html.ValidationMessageFor(model => model.VenueType_DictCode, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.VenueCode, "* 场馆代码", htmlAttributes: new { @class = "control-label col-md-2 required" })
+            <div class="col-md-5">
+                @Html.EditorFor(model => model.VenueCode, new { htmlAttributes = new { @class = "form-control", placeholder = "输入长度不要超过10字" } })
+                @Html.ValidationMessageFor(model => model.VenueCode, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.VenueName, "* 场馆名称", htmlAttributes: new { @class = "control-label col-md-2 required" })
+            <div class="col-md-5">
+                @Html.EditorFor(model => model.VenueName, new { htmlAttributes = new { @class = "form-control", placeholder = "输入长度不要超过20字" } })
+                @Html.ValidationMessageFor(model => model.VenueName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.VenueAddress, "场馆地址", htmlAttributes: new { @class = "control-label col-md-2 required" })
+            <div class="col-md-5">
+                @Html.EditorFor(model => model.VenueAddress, new { htmlAttributes = new { @class = "form-control", placeholder = "输入长度不要超过100字" } })
+                @Html.ValidationMessageFor(model => model.VenueAddress, "", new { @class = "text-danger" })
+            </div>
+            
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.VenueMaxPersons, "最大容纳人数", htmlAttributes: new { @class = "control-label col-md-2 required" })
+            <div class="col-md-5">
+                @Html.EditorFor(model => model.VenueMaxPersons, new { htmlAttributes = new { @class = "form-control", placeholder = "请输入整数" } })
+                @Html.ValidationMessageFor(model => model.VenueMaxPersons, "", new { @class = "text-danger" })
+            </div>
+
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.VenueMinPersons, "最小容纳人数", htmlAttributes: new { @class = "control-label col-md-2 required" })
+            <div class="col-md-5">
+                @Html.EditorFor(model => model.VenueMinPersons, new { htmlAttributes = new { @class = "form-control", placeholder = "请输入整数" } })
+                @Html.ValidationMessageFor(model => model.VenueMinPersons, "", new { @class = "text-danger" })
+            </div>
+
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-4 col-md-8">
+                <input type="submit" value="保存" id="btn-sivenueAdd" class="btn btn-info col-md-2" />&nbsp;&nbsp;
+                <button type="button" class="btn btn-default" onclick="RedircetUrl('@Url.Action("SIVenueIndex","SchoolInfo")')">返回</button>
+            </div>
+        </div>
+    </div>
+}
+@*数据提交*@
+<script>
+    $(function () {
+      var sivenuevalid=  $("#form-sivenue").validate({
+          rules: {
+                VenueCode:"required",
+                VenueName: "required"
+            },
+            ignore: "hidden",
+            messages: {
+                VenueCode: "场馆代码不能为空",
+                VenueName: "场馆名称不能为空"
+            },
+            errorClass: "validate-error", //设置错误样式
+            errorElement: "label", //设置显示错误提示的控件,默认为<label>
+            errorLabelContainer: "#validmsg", //指定错误信息放置容器
+            wrapper: "li",
+            //errorPlacement: function (error,element) { //指定错误信息放置位置
+            //    error.appendTo($("#validmsg"));
+            //},
+            //debug: true,//进行调试模式（表单不提交）
+            submitHandler: function () {
+                $("#btn-sivenueAdd").val("正在保存，请稍候…");
+                $("#btn-sivenueAdd").attr("disabled", "disabled");
+                $("#form-sivenue").ajaxSubmit({
+                    success: function (data) {
+                        if (data.Data.StatusCode == 200) {
+                            completeselect("保存成功", function () {
+                                sivenuevalid.resetForm(); //重置表单
+                            }, function () {
+                                RedircetUrl("@Url.Action("siVenueIndex")");
+                            }, null)
+                            //tipsuccessmsg("保存成功");
+                            //validator.resetForm(); //重置表单
+                        } else {
+                            tipfailmsg("保存失败，原因可能为：" + data.Data.ErrorMessage);
+                            //$("#PKID").val(data.data.PKID);
+                            //validator.resetForm(); //重置表单
+                        }
+                        $("#btn-sivenueAdd").val("保存");
+                        $("#btn-sivenueAdd").removeAttr("disabled");
+                    }
+                });
+            }
+            //onsubmit: false,//是否提交时验证，默认为True,用于设置某一个不需要验证的控件
+            //onfocusin: false,//是否获取焦点时验证，默认为True
+            //onkeyup: false,//是否在敲击键盘时验证，默认为True
+            //onclick: false//是否在鼠标点击时验证，默认为True
+        });
+    });
+</script>

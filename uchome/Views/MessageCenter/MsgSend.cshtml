@@ -1,0 +1,138 @@
+﻿@{
+    Layout = null;
+}
+@using System.Web.Mvc
+@using M = UCHome.Model;
+@model M.UCHome_Msg
+<link rel="stylesheet" href="@Url.Content("~/Content/css/msg.css")">
+<script src="@Url.Content("~/plugs/usercontrol/selectuser.js")"></script>
+
+@using (Ajax.BeginForm(
+    new AjaxOptions()
+    {
+        HttpMethod = "post",
+        Url = Url.Action("MsgSend"),
+        UpdateTargetId = "#msgSend",
+        LoadingElementId = "loding",
+        LoadingElementDuration = 2000
+    }))
+{
+    @Html.HiddenFor(model => model.MsgID)
+    <div id="msgSend" class="form-horizontal form-position pagew ">
+        <div class="form-group">
+            <label for="selectUserName" class="col-sm-2 control-label">选择人员：</label>
+            <div class="col-sm-9">
+                <button type="button" class="btn btn-info dropdown-toggle selUsers" data-toggle="button"
+                    aria-haspopup="true" aria-expanded="false">
+                    选择人员
+                </button>
+                <div id="showSelectUserName">
+                </div>
+                <input id="selectUserID" name="selectUserID" type="hidden" value="" />
+                <input id="selectUserName" name="selectUserName" type="hidden" value="" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="MsgContent" class="col-sm-2 control-label">通知内容：</label>
+            <div class="col-sm-9">
+                <textarea class="form-control" id="MsgContent" name="MsgContent" rows="5" placeholder="请输入通知内容内容并且在300字以内" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="btn-group center-block" style="width: 200px;">
+                <button id="btnSend" type="button" class="btn btn-info dropdown-toggle" data-toggle="button" aria-haspopup="true" aria-expanded="false">
+                    立即发送 
+                </button>
+            </div>
+        </div>
+        <div class="form-group">
+            <ul id="validmsg"></ul>
+        </div>
+    </div>
+}
+
+<script>
+    $(document).ready(function () {
+        var seluser1 = new SelUser({
+            obj: $(".selUsers"),
+            selRole: "tea",//tea,stu,fam
+            selType: "muti",//多选：muti,单选:single
+            selArea: "stuparent",//friend:我的好友,student:我的学生,stuparent:学生家长,colleague:我的同事,myclassmate:我的同学,teacher:我的老师,classmateparent:同学家长
+            selValue: $("#selectUserID"),
+            selText: $("#showSelectUserName"),
+            callBackfn: function (ids, names) {
+                //将先中的结果进行处理
+                $("#selectUserID").val(ids);
+                $("#selectUserName").val(names);
+                $("#showSelectUserName").text(names);
+            }
+        });
+
+        $("#btnSend").click(function () {
+            var userids = $("#selectUserID").val();
+            if (userids == "" || userids == null) {
+                var tag = $("#validmsg > li > label[for='selectUserID']").attr("for");
+                if (tag != "selectUserID") {
+                    var obj = "<li><label for=\"selectUserID\" generated=\"true\" class=\"red\" style=\"display: inline-block;\">请选择人员</label></li>";
+                    $("#validmsg").append(obj);
+                }
+            } else {
+                $("#validmsg li").remove();
+                $("form").submit();
+            }
+            $("#validmsg").show();
+        });
+
+        var validator = $("form").validate({
+            rules: {
+                MsgContent: "required"
+            },
+            messages: {
+                MsgContent: "请输入留言内容并且在300字以内"
+            },
+            errorClass: "red",//设置错误样式
+            errorElement: "label",//设置显示错误提示的控件,默认为<label>
+            errorLabelContainer: "#validmsg",//指定错误信息放置容器
+            wrapper: "li",
+            //errorPlacement: function (error,element) { //指定错误信息放置位置
+            //    error.appendTo($("#validmsg"));
+            //},
+            //debug: true//进行调试模式（表单不提交）
+            submitHandler: function (form) {
+                $(form).ajaxSubmit({
+                    success: function (data) {
+                        if (data.Data.statuscode == 200) {
+                            var obj = "<div id='operresultmsg' class='alert alert-success center-block' role='alert'>发送成功！</div>";
+                            $("form").append(obj);
+
+                            validator.resetForm();//重置表单 
+                            $("#selectUserID").val("");
+                            $("#selectUserName").val("");
+                            $("#showSelectUserName").text("");
+                            $("#validmsg").show();
+
+                            var guid = '@Guid.NewGuid().ToString()';
+                            $("#MsgID").val(guid);//动态生成newid
+
+                            setTimeout(function () {
+                                $("#operresultmsg").remove();
+                            }, 2000);
+                        } else {
+                            var obj = "<div id='operresultmsg' class='alert alert-danger center-block' role='alert'>发送失败，请重试！<p style='display:none'>" + data.Data.msg + "</p></div>";
+                            $("form").append(obj);
+
+                            setTimeout(function () {
+                                $("#operresultmsg").remove();
+                            }, 2000);
+                        }
+                    }
+                });
+            }
+            //onsubmit: false,//是否提交时验证，默认为True,用于设置某一个不需要验证的控件
+            //onfocusin: false,//是否获取焦点时验证，默认为True
+            //onkeyup: false,//是否在敲击键盘时验证，默认为True
+            //onclick: false//是否在鼠标点击时验证，默认为True
+        });
+    });
+</script>

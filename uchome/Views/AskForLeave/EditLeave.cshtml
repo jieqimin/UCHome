@@ -1,0 +1,276 @@
+﻿@{
+    Layout = null;
+}
+
+@using System.Web.Mvc
+@using M = OA.Model;
+@model M.AL_Apply
+<link rel="stylesheet" href="@Url.Content("~/Content/css/msg.css")">
+<script src="@Url.Content("~/plugs/usercontrol/selectuser.js")"></script>
+<link rel="stylesheet" href="@Url.Content("~/plugs/webuploader/css/webuploader.css")">
+<link rel="stylesheet" href="@Url.Content("~/plugs/webuploader/css/demo.css")">
+<link rel="stylesheet" href="@Url.Content("~/plugs/datetimepicker/css/bootstrap-datetimepicker.css")">
+<link rel="stylesheet" href="@Url.Content("~/content/css/homework.css")">
+<style type="text/css">
+    .sel-notice {
+        width: 120px !important;
+        margin-right: 10px;
+    }
+</style>
+@using (Ajax.BeginForm("EditPLeave", null,
+    new AjaxOptions()
+    {
+        HttpMethod = "post",
+        Url = Url.Action("EditPLeave"),
+        UpdateTargetId = "#editPLeave",
+        LoadingElementId = "loding",
+        LoadingElementDuration = 2000
+    }, new { id = "form_editpLeave" }))
+{
+    @Html.HiddenFor(model => model.ID)
+    <div id="editPLeave" class="form-horizontal form-position pagew ">
+        <div class="form-group">
+            <label for="hwname" class="col-sm-2 control-label">开始日期：</label>
+            <div class="col-sm-5">
+                <div class="date form_datetime input-group" data-date-format="yyyy-mm-dd" data-link-field="dtp_input1">
+                    <input class="form-control" id="StartDate" name="StartDate" type="text" value="@Model.StartDate" placeholder="请选择日期">
+                    <div class="input-group-addon">
+                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                    </div>
+                    <div class="input-group-addon">
+                        <span class="glyphicon glyphicon-th" aria-hidden="true"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="hwname" class="col-sm-2 control-label">结束日期：</label>
+            <div class="col-sm-5">
+                <div class="date form_datetime input-group" data-date-format="yyyy-mm-dd" data-link-field="dtp_input1">
+                    <input class="form-control" id="EndDate" name="EndDate" type="text" value="@Model.EndDate" placeholder="请选择日期">
+                    <div class="input-group-addon">
+                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                    </div>
+                    <div class="input-group-addon">
+                        <span class="glyphicon glyphicon-th" aria-hidden="true"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+
+            <label for="Day" class="col-sm-2 control-label">请假时长：</label>
+            <div class="col-sm-9">
+                <input type="text" class="col-xs-3" id="Day" name="Day" value="@Model.Memo" placeholder="请假时长" onchange="if (/\D+$/.test(this.value)) { alert('只能输入数字'); this.value = '0'; }" />
+                <label for="Day" class="col-xs-5 control-label">以天为单位以最小单位0.5</label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="Type" class="col-sm-2 control-label">请假类型：</label>
+            <div class="col-sm-9">
+                <select id="Type" name="Type" class="form-control input-sm col-xs-2 sel-notice"></select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="Reason" class="col-sm-2 control-label">请假说明：</label>
+            <div class="col-sm-9">
+                @Html.TextArea("Reason", Model.Reason, new { @class = "form-control", rows = "5", placeholder = "请输入请假说明并且在100字以内" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="Approver1" class="col-sm-2 control-label">主管审核人：</label>
+            <div class="col-sm-9">
+                <select id="Approver1" name="Approver1" class="form-control input-sm col-xs-2 sel-notice"></select>
+            </div>
+        </div>
+
+        @*<div class="form-group" style="display:none" id="Approve2">
+            <label for="Approver2" class="col-sm-2 control-label">校级审核人：</label>
+            <div class="col-sm-9">
+                <select id="Approver2" name="Approver2" class="form-control input-sm col-xs-2 sel-notice"></select>
+            </div>
+        </div>*@
+
+        <div class="form-group">
+            <div class="btn-group center-block" style="width: 200px;">
+                <button id="btnSend" type="button" class="btn btn-info dropdown-toggle" data-toggle="button" aria-haspopup="true" aria-expanded="false">
+                    保存
+                </button>
+                <button style="margin-left:10px" id="btnClose" type="button" class="btn btn-info dropdown-toggle" data-toggle="button" aria-haspopup="true" aria-expanded="false">
+                    关闭
+                </button>
+            </div>
+        </div>
+        <div class="form-group">
+            <ul id="validmsg"></ul>
+        </div>
+    </div>
+}
+<script src="@Url.Content("~/plugs/webuploader/js/webuploader.js")"></script>
+<script src="@Url.Content("~/plugs/webuploader/js/upfile.js")"></script>
+<script>
+    $(document).ready(function() {
+        var days = $("#Day").val();
+        InitBegin(days);
+        var approver1 = '@ViewBag.approver1';
+
+        $.getJSON('@Url.Action("GetApprove1PeopleList")', function(data) {
+            $.each(data, function(i, item) {
+                if (approver1 == item["Value"]) {
+                    $("<option></option>").val(item["Value"]).text(item["Text"]).attr("selected", true).appendTo($("#Approver1"));
+                } else {
+
+                    $("<option></option>").val(item["Value"]).text(item["Text"]).appendTo($("#Approver1"));
+                }
+            });
+        });
+
+        var type = '@ViewBag.type';
+        $.getJSON('@Url.Action("GetLeaveTypeList")', function(data) {
+            $.each(data, function(i, item) {
+                if (type == item["Value"]) {
+                    $("<option></option>").val(item["Value"]).text(item["Text"]).attr("selected", true).appendTo($("#Type"));
+                } else {
+
+                    $("<option></option>").val(item["Value"]).text(item["Text"]).appendTo($("#Type"));
+                }
+            });
+        });
+
+        $("#btnClose").click(function() {
+            var loadurl = "@Url.Action("Index")";
+            redirecturl(loadurl);
+        });
+        $("#btnSend").click(function() {
+            var code = $("#Type").val();
+            $("#validmsg li").remove();
+            var enddate = $("#EndDate").val();
+            var startdate = $("#StartDate").val();
+            if (startdate > enddate) {
+                alert("开始日期不能大于结束日期");
+                return false;
+            }
+            $("#form_editpLeave").submit();
+            $("#validmsg").show();
+        });
+
+        var validator = $("#form_editpLeave").validate({
+            rules: {
+                StartDate: "required",
+                EndDate: "required",
+                Day: "required",
+                Type: "required",
+                Approver1: "required"
+            },
+            messages: {
+                StartDate: "请选择开始日期",
+                EndDate: "请选择结束日期",
+                Day: "请输入请假时长",
+                Type: "请选择请假类型",
+                Approver1: "请选择审核人"
+            },
+            errorClass: "red",//设置错误样式
+            errorElement: "label",//设置显示错误提示的控件,默认为<label>
+            errorLabelContainer: "#validmsg",//指定错误信息放置容器
+            wrapper: "li",
+            //errorPlacement: function (error,element) { //指定错误信息放置位置
+            //    error.appendTo($("#validmsg"));
+            //},
+            //debug: true//进行调试模式（表单不提交）
+            submitHandler: function() {
+                $("#form_editpLeave").ajaxSubmit({
+                    success: function(data) {
+                        if (data.Data.statuscode == 200) {
+                            tipsuccessmsg("保存成功！");
+                            validator.resetForm(); //重置表单
+                            $("#validmsg").show();
+                            var guid = '@Guid.NewGuid().ToString()';
+                            //$("#ID").val(guid);//动态生成newid
+
+                        } else {
+                            tipfailmsg("保存失败，请重试！");
+                        }
+                    }
+                });
+            }
+            //onsubmit: false,//是否提交时验证，默认为True,用于设置某一个不需要验证的控件
+            //onfocusin: false,//是否获取焦点时验证，默认为True
+            //onkeyup: false,//是否在敲击键盘时验证，默认为True
+            //onclick: false//是否在鼠标点击时验证，默认为True
+        });
+    });
+
+    function Init(xx) {
+        if (parseFloat(xx) > 3) {
+
+            $.getJSON('@Url.Action("GetApprove2PeopleList")', function (data) {
+                $.each(data, function (i, item) {
+                    $("<option></option>").val(item["Value"]).text(item["Text"]).appendTo($("#Approver2"));
+                });
+            });
+            $("#Approve2").show();
+        }
+        else { $("#Approve2").hide(); }
+
+    }
+    var approver2 = '@ViewBag.approver2';
+    function InitBegin(dd) {
+        if (parseFloat(dd) > 3) {
+
+            $.getJSON('@Url.Action("GetApprove2PeopleList")', function (data) {
+                $.each(data, function (i, item) {
+                    if (approver2 == item["Value"]) {
+                        $("<option></option>").val(item["Value"]).text(item["Text"]).attr("selected", true).appendTo($("#Approver2"));
+                    }
+                    else {
+
+                        $("<option></option>").val(item["Value"]).text(item["Text"]).appendTo($("#Approver2"));
+                    }
+                });
+            });
+            $("#Approve2").show();
+        }
+        else { $("#Approve2").hide(); }
+
+    }
+</script>
+<script src="@Url.Content("~/plugs/datetimepicker/js/bootstrap-datetimepicker.min.js")"></script>
+<script src="@Url.Content("~/plugs/datetimepicker/js/bootstrap-datetimepicker.zh-CN.js")"></script>
+<script>
+    $('.form_datetime').datetimepicker({
+        language: 'zh-CN',
+        format: 'yyyy-mm-dd hh:ii'
+    });
+    //$("#Day").click(function () {
+    //    SetDay();
+    //});
+
+    //function SetDay() {
+
+    //    var reg = new RegExp("-", "g");
+    //    var enddate = $("#EndDate").val();
+    //    var startdate = $("#StartDate").val();
+    //    if (enddate == "" || startdate == "") {
+
+    //        alert("请选择日期");
+    //        $("#Day").val();
+    //    }
+    //    else if (startdate > enddate) {
+    //        alert("开始日期不能大于结束日期");
+    //        $("#Day").val();
+    //    }
+    //    else {
+    //        enddate = enddate.replace(reg, "");
+    //        startdate = startdate.replace(reg, "");
+    //        var day = parseInt(enddate) - parseInt(startdate) + 1;
+    //        $("#Day").val(day);
+    //        Init(day);
+    //    }
+    //}
+</script>
+

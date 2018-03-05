@@ -1,0 +1,100 @@
+﻿@using UCHome.Model
+@model List<View_Statics_DayArticleGroupByAreaAndUserType>
+@{
+    string jdata = string.Empty;
+    string split = string.Empty;
+    foreach (var item in Model)
+    {
+        jdata += string.Format("{0}{{areacode:'{1}',areaname:'{2}',usertype:'{3}',count:{4}}}",
+            split, item.AreaCode, item.Areaname, item.usertype, item.ArticleCount);
+        split = ",";
+    }
+    jdata = string.Format("[{0}]", jdata);
+}
+<div id="DayArticlesColumns">
+    <div class='c_title text-center'>今日各区县老师、学生文章发表数据图</div>
+</div>
+@if (Model == null || !Model.Any())
+{
+    <script >
+        $("#DayArticlesColumns").append(nodatatip("暂未找到数据！"));
+    </script>
+    return;
+}
+<script >
+    loaddata($("#DayArticlesColumns"));
+    $(function () {
+        var options = {
+            chart: {
+                renderTo: 'DayArticlesColumns',
+                type: 'column'
+            },
+            title: {
+                text: '今日各区县老师、学生文章发表数据图',
+                style: {
+                    fontFamily: "微软雅黑",
+                    fontSize: "16px"
+                }
+            },
+            xAxis: {
+                categories: []
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: '激活空间数 (人)'
+                }
+            },
+            tooltip: {
+                headerFormat: '<span style="font-size:10px">{point.key}</span>',
+                pointFormat: '' +
+                    '',
+                footerFormat: '<table><tbody><tr><td style="color:{series.color};padding:0">{series.name}: </td><td style="padding:0"><b>{point.y:.0f}个</b></td></tr></tbody></table>',
+                shared: true,
+                useHTML: true
+            },
+            plotOptions: {
+                column: {
+                    pointPadding: 0.2,
+                    borderWidth: 0
+                }
+            },
+            series: []
+        };
+        var jsondata = eval("(" + "@Html.Raw(jdata)" + ")");
+        var areacodes = new Array();
+        var usertypes = new Array();
+        $.each(jsondata, function (index, item) {
+            if ($.inArray(item.areacode, areacodes) < 0) {
+                areacodes.push(item.areacode);
+                options.xAxis.categories.push(item.areaname);
+            }
+            if ($.inArray(item.usertype, usertypes) < 0) {
+                usertypes.push(item.usertype);
+            }
+        });
+        //数据填充
+        $.each(areacodes, function (index, item) {
+            $.each(usertypes, function (index2, item2) {
+                if (index == 0) {
+
+                    options.series[index2] = new Object();
+                    options.series[index2].name = item2 == "t" ? "教师" : (item2 == "s" ? "学生" : "家长");
+                    options.series[index2].data = new Array();
+                }
+                var isexist = false;
+                $.each(jsondata, function (index3, item3) {
+                    if (item3.areacode == item && item3.usertype == item2) {
+                        options.series[index2].data.push(parseInt(item3.count));
+                        isexist = true;
+                        return false;
+                    }
+                });
+                if (!isexist) {
+                    options.series[index2].data.push(0);
+                }
+            });
+        });
+        var chart1 = new Highcharts.Chart(options);
+    });
+</script>

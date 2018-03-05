@@ -1,0 +1,106 @@
+﻿<link rel="stylesheet" href="@Url.Content("~/Content/bootstrap/css/bootstrap.min.css")">
+<link rel="stylesheet" href="@Url.Content("~/Content/bootstrap/css/bootstrap-theme.min.css")">
+<script src="@Url.Content("~/Content/js/jquery.min.js")"></script>
+<script src="@Url.Content("~/Content/bootstrap/js/bootstrap.min.js")"></script>
+<script src="@Url.Content("~/plugs/usercontrol/jquery-ui-1.10.0.custom.min.js")"></script>
+<link rel="stylesheet" href="@Url.Content("~/plugs/webuploader/css/webuploader.css")">
+<link rel="stylesheet" href="@Url.Content("~/plugs/webuploader/css/demo.css")">
+<link rel="stylesheet" href="@Url.Content("~/plugs/usercontrol/jquery-ui-1.10.0.custom.css")">
+<link href="@Url.Content("~/plugs/toastr/toastr.min.css")" rel="stylesheet" />
+<script src="@Url.Content("~/plugs/toastr/toastr.min.js")"></script>
+<script src="@Url.Content("~/scripts/mycustomtip.js")"></script>
+<style>
+    .webuploader-pick {        
+        width:148px;
+    }
+</style>
+<form id="form-stuinfocreate" method="post" action="@Url.Action("CreateStu")">
+    @Html.Hidden("importfilepath")
+    @Html.Hidden("curstep")
+    <div class="form-position pagew">
+        <div class="row">
+            <div class="form-horizontal form-position">
+                <div class="center-block" style="width:700px;font-size:14px;">
+                    <div style="height:150px;width:150px; border:solid 1px #eee; float:left; padding-top:35px;background-color:#337AB7" class="img-rounded text-center">
+                        <p style="font-size:32px;color:#fff;margin-bottom:16px;">❶</p>
+                        <span class="glyphicon glyphicon-download" style="color:#fff"></span> <span style="color:#fff">模板下载</span>
+                    </div>
+                    <div style="height:150px;width:150px;border:solid 1px #eee; float:left;margin-left:20px;padding-top:35px;background-color:#00B7EE" class="img-rounded text-center">
+                        <p style="font-size:32px;color:#fff;">❷</p>
+                        <div id="importstu" class="wu-example">
+                        </div>
+                    </div>
+                    <div onclick="checkdata();" style="height:150px;width:150px;border:solid 1px #eee; float:left;margin-left:20px;padding-top:35px;background-color:#EDA032" class="img-rounded text-center">
+                        <p style="font-size:32px;color:#fff;margin-bottom:16px;">❸</p>
+                        <span class="glyphicon glyphicon-ok" style="color:#fff"></span> <span style="color:#fff">数据验证</span>
+                    </div>
+                    <div style="height:150px;width:150px;border:solid 1px #eee; float:left;margin-left:20px;padding-top:35px;background-color:#4EA74E" class="img-rounded text-center">
+                        <p style="font-size:32px;color:#fff;margin-bottom:16px;">❹</p>
+                        <span class="glyphicon glyphicon-floppy-disk" style="color:#fff"></span> <span style="color:#fff">数据保存</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="dialog-stuimportinfo" style="display:none;" title="学生信息导入数据验证">
+        学生导入信息
+    </div>
+</form>
+
+<script src="@Url.Content("~/plugs/webuploader/js/webuploader.js")"></script>
+<script src="@Url.Content("~/plugs/webuploader/js/upfile.js")"></script>
+<script>
+
+    var BASE_URL = '@Url.Content("~/plugs/webuploader/")';
+    //文件处理服务
+    var Server_URL = "@Url.Action("ImportFile", "StuInfo")";
+    var upfile1 = new Upfiles({
+        id: "importstu",
+        baseurl: BASE_URL,
+        serverurl: Server_URL,
+        tip: "",
+        innertext: "<span class='glyphicon glyphicon-upload'></span> 文件导入",
+        extensions: "xls,xlsx",
+        fileNumLimit:1,
+        callbackfn: function (ret) {//返回值格式为：[{fileid:"",filename:"",filepath:""},{fileid:"",filename:"",filepath:""}]
+            if (ret != null) {
+                var results = new Array();
+                var files =eval("("+ret+")");
+                $.each(files, function (index, item) {
+                    $("#importfilepath").val(item.filepath);
+                })
+                $("#importstufilequery").hide();
+                alert("上传成功");
+            }
+        }
+    })
+</script>
+<script>
+    function checkdata() {
+        var fp= $("#importfilepath").val();
+        //读取文件
+        $.ajax({
+            url: "@Url.Action("CheckData")",
+            type:"POST",
+            data: { "filepath": fp },
+            success: function () {
+
+            }
+        })
+        $("#dialog-stuimportinfo").dialog({
+            resizable: true,
+            height: 500,
+            width:700,
+            modal: true,
+            buttons: {
+                "开始验证": function () {
+                    $(this).dialog("close");
+                },
+                "取消": function () {
+                    $(this).dialog("close");
+                }
+            }
+        });
+        return false;
+    }
+</script>

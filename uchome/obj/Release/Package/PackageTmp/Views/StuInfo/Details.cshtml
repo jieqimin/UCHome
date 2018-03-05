@@ -1,0 +1,419 @@
+﻿@model StuInfo.Model.StuInfo
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_LayoutAppMenu.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>StuInfo</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.StuID_SchID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StuID_SchID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StuID_BJID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StuID_BJID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StuNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StuNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StuCode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StuCode)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StuName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StuName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StuEnName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StuEnName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StuSpelling)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StuSpelling)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StuNameUsed)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StuNameUsed)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StuIdentityType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StuIdentityType)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StuIdentity)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StuIdentity)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StuGender)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StuGender)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StuBloodType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StuBloodType)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StuBirthDay)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StuBirthDay)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StuBirthProvince)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StuBirthProvince)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StuBirthCity)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StuBirthCity)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StuBirthDistrict)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StuBirthDistrict)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StuBirthAddress)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StuBirthAddress)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StuNation)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StuNation)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StuMarital)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StuMarital)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StuGAT)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StuGAT)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StuHealth)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StuHealth)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StuPolitics)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StuPolitics)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StuRegistProvince)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StuRegistProvince)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StuRegistCity)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StuRegistCity)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StuRegistDistrict)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StuRegistDistrict)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StuRegistAddress)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StuRegistAddress)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StuRegistType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StuRegistType)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StuHomeProvince)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StuHomeProvince)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StuHomeCity)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StuHomeCity)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StuHomeDistrict)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StuHomeDistrict)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StuHomeAddress)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StuHomeAddress)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsHobo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsHobo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsOnlyChild)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsOnlyChild)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StuNationality)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StuNationality)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StuStrengths)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StuStrengths)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StuTelPhone)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StuTelPhone)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StuHomePage)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StuHomePage)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StuQQ)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StuQQ)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StuEmail)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StuEmail)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StuHead)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StuHead)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StuStatus)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StuStatus)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StuPostcode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StuPostcode)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ICardNo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ICardNo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StuEntrance)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StuEntrance)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StuType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StuType)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsState)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsState)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LastIP)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LastIP)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LastTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LastTime)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Creator)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Creator)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CreateTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreateTime)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.StuID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

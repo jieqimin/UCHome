@@ -1,0 +1,80 @@
+﻿@{
+    ViewBag.Title = "LeaveStatistics";
+}
+<link rel="stylesheet" href="@Url.Content("~/plugs/datatables/css/jquery.dataTables.css")">
+<link rel="stylesheet" href="@Url.Content("~/plugs/datatables/css/dataTables.bootstrap.css")">
+<script src="@Url.Content("~/plugs/datatables/js/jquery.datatables.js")"></script>
+<script src="@Url.Content("~/plugs/datatables/js/dataTables.bootstrap.js")"></script>
+<style type="text/css">
+    .form-control {
+        width: 100px !important;
+        display: inline;
+    }
+</style>
+@using (Ajax.BeginForm(
+    new AjaxOptions()
+    {
+        HttpMethod = "post",
+        Url = Url.Action("LeaveStatistics"),
+        UpdateTargetId = "#leavestatistics",
+        LoadingElementId = "loding",
+        LoadingElementDuration = 2000
+    }))
+{
+    <div id="leavestatistics" class="form-position pagew">
+        <div>
+            <span>年份：<select id="years" class="form-control"></select></span>
+            <span>
+                月份：<select id="month" class="form-control">
+                    <option value="">全部</option>
+                </select>
+            </span>
+            <span>
+                请假类型：<select id="leaveType" class="form-control">
+                    <option value="">全部</option>
+                </select>
+            </span>
+            <button id="btnSearch" type="button" class="btn btn-info dropdown-toggle" data-toggle="button" aria-haspopup="true" aria-expanded="false">
+                统计
+            </button>
+        </div>
+        <div id="leavetable">
+        </div>
+    </div>
+}
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("#leaTable").DataTable({
+            "oLanguage": {
+                "sUrl": "@Url.Content("~/plugs/datatables/language/zh_cn.json")"
+            }
+        });
+        $.getJSON('@Url.Action("Getyears")', function (data) {
+            $.each(data, function (i, item) {
+                if (item["Selected"]) {
+                    $("<option selected=\"selected\"></option>").val(item["Value"]).text(item["Text"]).appendTo($("#years"));
+                } else {
+                    $("<option></option>").val(item["Value"]).text(item["Text"]).appendTo($("#years"));
+                }
+            });
+        });
+
+        $.getJSON('@Url.Action("Getmonth")', function (data) {
+            $.each(data, function (i, item) {
+                $("<option></option>").val(item["Value"]).text(item["Text"]).appendTo($("#month"));
+            });
+        });
+        $.getJSON('@Url.Action("GetLeaveTypeList","AskForLeave")', function (data) {
+            $.each(data, function(i, item) {
+                $("<option></option>").val(item["Value"]).text(item["Text"]).appendTo($("#leaveType"));
+            });
+        });
+    });
+    $("#btnSearch").click(function() {
+        var html = "";
+        var year = $("#years").val();
+        var month = $("#month").val();
+        var leaveType = $("#leaveType").val();
+        $("#leavetable").load("@Url.Action("GetLeaveList")?year=" + year + "&month=" + month + "&leaveType=" + leaveType);
+    });
+</script>

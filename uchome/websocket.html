@@ -1,0 +1,62 @@
+﻿<!DOCTYPE HTML>
+<html>
+   <head>
+   <meta charset="utf-8">
+   <title>菜鸟教程(runoob.com)</title>
+	
+      
+		
+   </head>
+   <body>
+   
+      <div id="sse">
+         发送用户：<input id="user" type="text" />
+         目的用户：<input id="user2" type="text" />
+         <a href="javascript:WebSocketTest()">连接WebSocket</a>
+	 <a href="javascript:SendTest()">通信测试</a>
+ 	<div id="msgobj">
+消息提示：
+        </div>
+      </div>
+      <script type="text/javascript">
+	 var ws;
+	 var msgobj=document.getElementById('msgobj');
+         function WebSocketTest()
+         {
+            if ("WebSocket" in window)
+            {
+               // 打开一个 web socket
+               ws = new WebSocket("ws://localhost/Zoom/ashx/WebSocketHandler.ashx?user="+document.getElementById('user').value);
+	       msgobj.innerHTML="正在连接";
+
+                ws.onopen = function () {
+                    msgobj.innerHTML+='<p>已经连接</p>';
+                }
+                ws.onmessage = function (evt) {
+                    msgobj.innerHTML+='<p>' + evt.data + '</p>';
+                }
+                ws.onerror = function (evt) {
+                    msgobj.innerHTML+='<p>' + JSON.stringify(evt) + '</p>';
+                }
+                ws.onclose = function () {
+                    msgobj.innerHTML+='<p>已经关闭</p>';
+                }
+            }
+            else
+            {
+               alert("您的浏览器不支持 WebSocket!");
+            }
+         }
+ 	 function SendTest()
+         {
+		var ruser=document.getElementById("user2").value;
+		if (ws.readyState == WebSocket.OPEN) {
+                    ws.send(ruser+"|"+Math.random());
+                }
+                else {
+                    alert("连接已关闭");
+                }
+	  }
+      </script>
+   </body>
+</html>

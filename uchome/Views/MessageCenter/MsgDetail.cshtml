@@ -1,0 +1,76 @@
+﻿@{
+    Layout = null;
+}
+@using M = UCHome.Model;
+@model List<M.View_UCHome_Msg_Receive>
+<link rel="stylesheet" href="@Url.Content("~/plugs/timeline/css/bootstrap-glyphicons.css")">
+<link rel="stylesheet" href="@Url.Content("~/plugs/timeline/css/styles.css")">
+
+<div class="container" style="width: 560px; padding-left: 0px; padding-right: 0px;">
+    <ul class="timeline">
+        @{int i = 0;}
+        @foreach (M.View_UCHome_Msg_Receive item in Model)
+        {
+            i++;
+            if (i % 2 == 1)
+            {
+            <li>
+                <div class="tl-circ"></div>
+                <div class="timeline-panel">
+                    <div class="tl-heading">
+                        <h4><i class="glyphicon glyphicon-time"></i>@item.MsgDate.Value.ToString("yyyy-MM-dd HH:mm")</h4>
+                    </div>
+                    <div class="tl-body">
+                        <p>@item.MsgContent <a style="cursor:pointer;" onclick="deleteMsg('@item.PKID',this)">[删除]</a></p>
+                    </div>
+                </div>
+            </li>
+            }
+            else
+            {
+            <li class="timeline-inverted">
+                <div class="tl-circ"></div>
+                <div class="timeline-panel">
+                    <div class="tl-heading">
+                        <h4><i class="glyphicon glyphicon-time"></i>@item.MsgDate.Value.ToString("yyyy-MM-dd HH:mm")</h4>
+                    </div>
+                    <div class="tl-body">
+                        <p>@item.MsgContent <a style="cursor:pointer;" onclick="deleteMsg('@item.PKID',this)">[删除]</a></p>
+                    </div>
+                </div>
+            </li>
+            }
+        }
+    </ul>
+    <div class="form-group" id="msg">
+    </div>
+</div>
+
+<script>
+    function deleteMsg(pkId, obj) {
+        if (confirm("确定要删除吗？")) {
+            $.post("@Url.Action("DeleteMsgReceiver")", { pkId: pkId }, function (data) {
+                if (data == "1") {
+                    var str = "<div id='operresultmsg' class='alert alert-success center-block w' role='alert'>删除成功！</div>";
+                    $("#msg").append(str);
+
+                    setTimeout(function () {
+                        $("#operresultmsg").remove();
+                        $(obj).parent().parent().parent().parent().remove();
+
+                        var ahref = "@Url.Action("MsgQuery")";
+                        $("#id-app-content").load(ahref);
+                        $(".modal-backdrop").remove();
+                    }, 2000);
+                } else {
+                    var str = "<div id='operresultmsg' class='alert alert-danger center-block w' role='alert'>删除失败，请重试！</div>";
+                    $("#msg").append(str);
+
+                    setTimeout(function () {
+                        $("#operresultmsg").remove();
+                    }, 2000);
+                }
+            });
+        }
+    }
+</script>

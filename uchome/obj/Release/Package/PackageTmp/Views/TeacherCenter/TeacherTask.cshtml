@@ -1,0 +1,89 @@
+﻿@model Guid
+@{
+    Layout = null;
+}
+<script src="@Url.Content("~/Content/js/jquery-1.7.1.js")" type="text/javascript"></script>
+<style>
+    .orange {
+        color: #fef4e9;
+        border: solid 1px #da7c0c;
+        background: #f78d1d;
+        background: -webkit-gradient(linear, left top, left bottom, from(#50B72F), to(#f47a20));
+        background: -moz-linear-gradient(top, #faa51a, #f47a20);
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#faa51a', endColorstr='#f47a20');
+    }
+
+    .orange1 {
+        color: #fef4e9;
+        border: solid 1px #da7c0c;
+        background: #f78d1d;
+        background: -webkit-gradient(linear, left top, left bottom, from(#F50101), to(#f47a20));
+        background: -moz-linear-gradient(top, #faa51a, #f47a20);
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#faa51a', endColorstr='#f47a20');
+    }
+
+    .button {
+        display: inline-block;
+        outline: none;
+        cursor: pointer;
+        text-align: center;
+        text-decoration: none;
+        font: 8px/60% "Microsoft yahei", Arial, Helvetica, sans-serif;
+        padding: .5em 2em .55em;
+        text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.3);
+        -webkit-border-radius: .5em;
+        -moz-border-radius: .5em;
+        border-radius: .5em;
+        -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, .2);
+        -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, .2);
+        box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.2);
+    }
+
+    .content {
+        FONT-SIZE: 15px;TEXT-DECORATION: none;FONT-FAMILY: 微软雅黑;FONT-WEIGHT: normal;COLOR: #50B72F;FONT-STYLE: normal;
+    }
+    .content1 {
+        FONT-SIZE: 15px;TEXT-DECORATION: none;FONT-FAMILY: 微软雅黑;FONT-WEIGHT: normal;COLOR: #ff6600;FONT-STYLE: normal;
+    }
+</style>
+<div style="margin-top: 10px; TEXT-ALIGN: right; margin-right: 15px;">
+    <a onclick="BackUrl();" style="FONT-FAMILY: 微软雅黑;fONT-SIZE: 14px;text-decoration: none; color: black;CURSOR: pointer; ">更多任务...</a>
+</div>
+<div id="teachertask" style="margin-top: 10px;">
+</div>
+<input id="hidUserId" type="hidden" value="@Model" />
+    <script>
+        $(function () {
+            GetTaskInfo();
+        });
+
+        function GetTaskInfo() {
+            $.ajax({
+                url: "http://192.168.99.137/TaskDriverApi/api/GetPeopleScore/GetTaskInfoTop8?UserId=" + $("#hidUserId").val(),
+                type: "GET",
+                success: function (data) {
+                    var html = "";
+                    if (data != null && data.length > 0) {
+                        var len = data.length;
+                        for (var i = 0; i < len; i++) {
+                            if (data[i].ComType == "已完成") {
+                                html += "<div style=\"margin-left:15px;margin-top:5px;\"><p style=\"TEXT-ALIGN: left\"><span class=\"content\">" +
+                                "【" + data[i].TaskOneType + "】&nbsp;【" + data[i].Score + "分】&nbsp;" + data[i].QT + "&nbsp;&nbsp&nbsp&nbsp<a class=\"button orange small\">已完成</a>";
+                            } else {
+                                html += "<div style=\"margin-left:15px;margin-top:5px;\"><p style=\"TEXT-ALIGN: left\"><span class=\"content1\">" +
+                                "【" + data[i].TaskOneType + "】&nbsp;【" + data[i].Score + "分】&nbsp;" + data[i].QT + "&nbsp;&nbsp&nbsp&nbsp<a class=\"button orange1 small\" href=\"" + data[i].URL + "\" target=\"_blank\">去完成</a>";
+                            }
+                            html += "</span></p></div>";
+                        }
+                    }
+                    $("#teachertask").html(html);
+                }
+            });
+        }
+
+        function BackUrl() {
+            parent.window.location.href =  "@Url.Action("MyAppRedirectPage", "AppCenter", new { id = "6b051716-3ec2-4a3d-9174-e19ecda3d9e4" })";
+        }
+
+</script>
+

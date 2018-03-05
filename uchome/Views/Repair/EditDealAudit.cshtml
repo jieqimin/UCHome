@@ -1,0 +1,224 @@
+﻿@{
+    Layout = null;
+}
+
+@using System.Web.Mvc
+@using M = OA.Model;
+@model M.View_Repair
+<link rel="stylesheet" href="@Url.Content("~/Content/css/msg.css")">
+<script src="@Url.Content("~/plugs/usercontrol/selectuser.js")"></script>
+<link rel="stylesheet" href="@Url.Content("~/plugs/webuploader/css/webuploader.css")">
+<link rel="stylesheet" href="@Url.Content("~/plugs/webuploader/css/demo.css")">
+<link rel="stylesheet" href="@Url.Content("~/plugs/datetimepicker/css/bootstrap-datetimepicker.css")">
+<link rel="stylesheet" href="@Url.Content("~/content/css/homework.css")">
+<style type="text/css">
+    .sel-notice {
+        width: 120px !important;
+        margin-right: 10px;
+    }
+</style>
+@Html.Hidden("id")
+<div id="auditLeave" class="form-horizontal form-position pagew " style="margin-bottom: 0px; margin-top: 0px;">
+    <div class="form-group">
+        <label for="DongLou" class="col-sm-2 control-label">报修类型：</label>
+        <div class="col-sm-9 pd h">
+            @Model.DongLou
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="BaoXiuProject" class="col-sm-2 control-label">报修项目：</label>
+        <div class="col-sm-9 pd h">
+            @Model.BaoXiuProject
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="BaoXiuTime" class="col-sm-2 control-label">报修时间：</label>
+        <div class="col-sm-9 pd">
+            @Model.BaoXiuTime
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="Remark" class="col-sm-2 control-label">报修内容：</label>
+        <div class="col-sm-9 pd h">
+            @Model.Remark
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="OtherCause" class="col-sm-2 control-label">报修地址：</label>
+        <div class="col-sm-9 pd h">
+            @Model.OtherCause
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="RepairStatus" class="col-sm-2 control-label">报修状态：</label>
+        <div class="col-sm-9 pd h">
+            @Model.RepairStatus
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="RepairStatus" class="col-sm-2 control-label">审核人：</label>
+        <div class="col-sm-9 pd h">
+            @ViewBag.People
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="hwname" class="col-sm-2 control-label">维修日期：</label>
+        <div class="col-sm-5">
+            <div class="date form_datetime input-group" data-date-format="yyyy-mm-dd" data-link-field="dtp_input1">
+                <input class="form-control" id="RepairTime" name="RepairTime" type="text" value="" placeholder="请选择时间">
+                <div class="input-group-addon">
+                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                </div>
+                <div class="input-group-addon">
+                    <span class="glyphicon glyphicon-th" aria-hidden="true"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="RepairFanKui" class="col-sm-2 control-label">维修备注：</label>
+        <div class="col-sm-9">
+            <textarea class="form-control" id="RepairFanKui" name="RepairFanKui" rows="5" placeholder="请输入维修备注内容并且在100字以内" />
+        </div>
+    </div>
+     <div class="form-group">
+            <label for="URL" class="col-sm-2 control-label">
+                图片：
+            </label>
+            <div class="col-sm-5">
+
+            </div>
+        </div>
+
+        <div class="imagedemo" id="uploadImages">
+
+        </div>
+
+        <div class="form-group" id="uploadedImages" style="margin-top: 20px;">
+        </div>
+        <div id="imageHtml" style="display: none;">
+
+        </div>
+        <input id="hidImages" name="hidImages" type="hidden" />
+    <div class="form-group">
+        <div class="btn-group center-block" style="width: 200px;">
+            <button id="btnSend" type="button" class="btn btn-info dropdown-toggle" data-toggle="button" aria-haspopup="true" aria-expanded="false">
+                保存
+            </button>
+            <button style="margin-left:10px" id="btnClose" type="button" class="btn btn-info dropdown-toggle" data-toggle="button" aria-haspopup="true" aria-expanded="false">
+                关闭
+            </button>
+        </div>
+    </div>
+
+
+
+
+</div>
+
+<link rel="stylesheet" href="@Url.Content("~/Content/css/zyUpload.css")" type="text/css">
+<!-- 引用核心层插件 -->
+<script type="text/javascript" src="@Url.Content("~/Content/js/zyFile.js")"></script>
+<!-- 引用控制层插件 -->
+<script type="text/javascript" src="@Url.Content("~/Content/js/zyUpload.js")"></script>
+<!-- 引用初始化JS -->
+<script type="text/javascript" src="@Url.Content("~/Content/js/uploadImages.js")"></script>
+
+<link href="@Url.Content("~/Content/css/nanogallery.css")" rel="stylesheet" type="text/css">
+<!-- nanoGALLERY js -->
+<script type="text/javascript" src="@Url.Content("~/Content/js/jquery.nanogallery.js")"></script>
+<script src="@Url.Content("~/plugs/webuploader/js/webuploader.js")"></script>
+<script src="@Url.Content("~/plugs/webuploader/js/upfile.js")"></script>
+<script>
+    $(document).ready(function () {
+        var images = '@ViewBag.Images';
+
+        if (images != null && images.length > 0) {
+
+            var imageNames = images.split(";");
+            var len = imageNames.length;
+
+            if (len > 0) {
+                var html = "";
+                for (var i = 0; i < len; i++) {
+                    if (imageNames[i] != null && imageNames[i].length > 0) {
+                        var ind = imageNames[i].lastIndexOf('.');
+                        var name = imageNames[i].substring(0, ind);
+
+                        html += "<a id=\"" + name + "\" href=\"" + imageNames[i] + "\" data-ngthumb=\"" + imageNames[i] + "\" data-ngdesc=\"" + imageNames[i] + "\"></a>";
+                    }
+                }
+
+                $("#imageHtml").html(html);
+                $("#uploadedImages").html(html);
+                $("#hidImages").val(images + ";");
+
+                $("#uploadedImages").nanoGallery({
+                    thumbnailWidth: 160, thumbnailHeight: 160,
+                    itemsBaseURL: '/upload/awards/images',
+                    displayCaption: true,
+                    //thumbnailHoverEffect:[{'name':'imageRotateCornerBL','duration':300},{'name':'borderLighter'}],
+                    thumbnailHoverEffect: [{ 'name': 'overScale', 'duration': 300 }, { 'name': 'borderLighter' }],
+                    colorScheme: 'light'
+                });
+
+            }
+        }
+
+    });
+    $("#btnClose").click(function () {
+        var loadurl = "@Url.Action("IndexAudit")";
+        redirecturl(loadurl);
+    });
+
+    $("#btnSend").click(function () {
+        var repairtime = $("#RepairTime").val();
+        var content = $("#RepairFanKui").val();
+        var id = $("#id").val();
+        var people = $("#RepairPeoson").val();
+        var url = $("#hidImages").val();
+
+
+        if (repairtime == "" || content == "") {
+            alert("请选择维修时间和选择维修内容");
+            return false;
+        }
+        else {
+            $.post('@Url.Action("EditAuditDealSend")', { Id: id, repairtime: repairtime, content: content,url:url}, function (data) {
+                if (data.Data.statuscode == 1) {
+                    alert("提交维修成功");
+                    $(".modal-backdrop").remove();
+                    var loadurl = "@Url.Action("IndexAduit")";
+                    redirecturl(loadurl);
+
+                }
+                else {
+                    alert("审核失败");
+                }
+
+            });
+        }
+
+
+    });
+
+
+</script>
+<script src="@Url.Content("~/plugs/datetimepicker/js/bootstrap-datetimepicker.min.js")"></script>
+<script src="@Url.Content("~/plugs/datetimepicker/js/bootstrap-datetimepicker.zh-CN.js")"></script>
+<script>
+    $('.form_datetime').datetimepicker({
+        language: 'zh-CN',
+        weekStart: 1,
+        todayBtn: 1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 2,
+        minView: 2,
+        forceParse: 0
+    });
+</script>
+
